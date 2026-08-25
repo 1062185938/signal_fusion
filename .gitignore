@@ -1,0 +1,24 @@
+# 1. Python 编译与运行缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 2. 虚拟环境
+.venv/
+venv/
+env/
+
+# 3. 编辑器及系统配置文件
+.vscode/
+.idea/
+.DS_Store
+
+# 4. 日志与临时文件
+logs/
+.pytest_cache/
+
+# 5. 数据集
+data/iq_open/*
+data/raw/*
+!data/iq_open/.gitkeep
+!data/raw/.gitkeep

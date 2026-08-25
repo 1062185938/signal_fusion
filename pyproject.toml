@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signal-fusion"
+version = "0.1.0"
+description = "Core data contracts and infrastructure for wireless signal analysis."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.23",
+    "scipy>=1.9",
+]
+
+[project.optional-dependencies]
+inference = [
+    "onnxruntime>=1.16",
+]
+model = [
+    "onnx>=1.14",
+    "onnxruntime>=1.16",
+    "torch>=2.0",
+]
+training = [
+    "matplotlib>=3.7",
+    "onnx>=1.14",
+    "onnxruntime>=1.16",
+    "torch>=2.0",
+]
+inspection = [
+    "matplotlib>=3.7",
+]
+
+[project.scripts]
+signal-prepare = "signal_fusion.preparation.cli:main"
+signal-inspect = "signal_fusion.preparation.inspection:main"
+signal-extract-features = "signal_fusion.feature_extraction.cli:main"
+signal-infer = "signal_fusion.model_inference.cli:main"
+signal-train = "signal_fusion.training.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"signal_fusion.feature_extraction.assets" = [
+    "*.json",
+    "*.md",
+    "include/*.h",
+    "native/linux/*.so",
+    "native/windows/*.dll",
+]

@@ -1,0 +1,169 @@
+{
+  "catalog_version": "phase0",
+  "recorded_at": "2026-08-21",
+  "project": "signal_fusion",
+  "identity_policy": "Use stable, human-readable source_id values; content hashes are intentionally not required.",
+  "sources": [
+    {
+      "source_id": "wifi5_raw_mat_0005",
+      "role": "raw_input_replay",
+      "path": "data/raw/wifi/WIFI_5_batch;Freq=5230 MHz;Span=80 MHz;Rate=100.0 MHz;0005.mat",
+      "format": "mat",
+      "selection": {
+        "x_key": "iq",
+        "sample_rate_hz": 100000000.0,
+        "seq_len": 4096,
+        "first_n_samples": 5,
+        "raw_iq_points_used": 20480
+      },
+      "expected": {
+        "raw_iq_shape": [
+          1000000,
+          1
+        ],
+        "raw_iq_dtype": "complex64",
+        "standardized_iq_shape": [
+          5,
+          2,
+          4096
+        ]
+      },
+      "automated_baseline": true
+    },
+    {
+      "source_id": "wifi5_features_4096_smoke",
+      "role": "feature_output_golden",
+      "path": "data/processed/extraction/wifi_5_features_4096_smoke.npz",
+      "format": "npz",
+      "selection": {
+        "first_n_samples": 5
+      },
+      "expected": {
+        "features_shape": [
+          5,
+          62
+        ],
+        "features_dtype": "float32",
+        "feature_count": 62,
+        "sample_rate_hz": 100000000.0,
+        "seq_len": 4096
+      },
+      "automated_baseline": true
+    },
+    {
+      "source_id": "lora_raw_sigmf",
+      "role": "raw_input_catalog",
+      "paths": {
+        "data": "data/raw/lora/sigmf_lora.sigmf-data",
+        "metadata": "data/raw/lora/sigmf_lora.sigmf-meta"
+      },
+      "format": "sigmf",
+      "expected": {
+        "datatype": "cf32_le",
+        "sample_rate_hz": 1000000.0,
+        "sample_count": 19965036
+      },
+      "automated_baseline": false,
+      "note": "Cataloged as a real raw source. Phase 0 does not freeze the existing energy-based slicing result as the future unified slicing contract."
+    },
+    {
+      "source_id": "lora_slices_128_example",
+      "role": "prepared_dataset_and_model_input",
+      "path": "data/processed/slices/sigmf_lora_dataset_128.npz",
+      "summary_path": "data/processed/slices/sigmf_lora_dataset_128_dataset_summary.json",
+      "format": "npz",
+      "selection": {
+        "sample_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": {
+        "X_shape": [
+          4804,
+          2,
+          128
+        ],
+        "X_dtype": "float32",
+        "y_shape": [
+          4804
+        ],
+        "y_dtype": "int64",
+        "sample_rate_hz": 1000000.0,
+        "seq_len": 128,
+        "hop_len": 64,
+        "label": 0,
+        "class_name": "LoRa"
+      },
+      "automated_baseline": true,
+      "note": "The selected first eight records are inference fixtures. The total window count and the old slicing parameters are descriptive, not requirements for a redesigned slicer."
+    },
+    {
+      "source_id": "lora_deep_iq_cnn_single_class",
+      "role": "legacy_single_class_model_regression",
+      "paths": {
+        "onnx": "radioml-iq-modulation/training/sigmf_lora/deep_iq_cnn.onnx",
+        "pytorch": "radioml-iq-modulation/training/sigmf_lora/best_model.pth",
+        "label_map": "radioml-iq-modulation/training/sigmf_lora/label_map.json",
+        "reference_output": "tests/fixtures/lora_single_class_onnx_reference.npz"
+      },
+      "format": "onnx_and_pytorch",
+      "expected": {
+        "model_name": "deepconvnet_1d",
+        "input_name": "input",
+        "input_shape": [
+          "batch_size",
+          2,
+          128
+        ],
+        "input_dtype": "float32",
+        "outputs": {
+          "output": [
+            "batch_size",
+            1
+          ],
+          "feature": [
+            "batch_size",
+            300
+          ]
+        },
+        "label_map": {
+          "0": "LORA"
+        }
+      },
+      "automated_baseline": true,
+      "note": "This one-class model is suitable only for behavioral regression; its softmax confidence is always 100% and must not be treated as modulation-recognition performance evidence."
+    },
+    {
+      "source_id": "ble_raw_dat_r09_1p7ghz",
+      "role": "future_raw_input_fixture",
+      "paths": {
+        "data": "data/raw/BLE/BLE_1.7GHz_r09_rx_iq.dat",
+        "capture_log": "data/raw/BLE/rx_r09_1.7GHz.log"
+      },
+      "format": "dat",
+      "selection": {
+        "iq_format": "complex64",
+        "offset_complex_samples": 0,
+        "complex_sample_count": 4096,
+        "sample_rate_hz": 4000000.0
+      },
+      "automated_baseline": false,
+      "note": "Reserved for the future unified slicing interface. Phase 0 does not assume that the LoRa energy detector is appropriate for BLE."
+    },
+    {
+      "source_id": "radioml2016_10a_public",
+      "role": "public_model_evaluation_dataset",
+      "path": "data/iq_open/RML2016.10a_dict.pkl",
+      "format": "pkl",
+      "automated_baseline": false,
+      "note": "Catalog only in Phase 0 because the file is large. It may later be used for small-model evaluation, not for the default smoke suite."
+    }
+  ]
+}
