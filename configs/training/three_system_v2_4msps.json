@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "dataset_id": "lora_zigbee_ble_v2_4msps",
+  "label_map": {
+    "0": "LoRa",
+    "1": "Zigbee",
+    "2": "BLE"
+  },
+  "assembly": {
+    "windows_per_region": 7,
+    "regions_per_class": "minimum",
+    "region_selection": "uniform",
+    "window_selection": "uniform",
+    "remove_dc": true,
+    "rms_normalize": true,
+    "rms_epsilon": 1e-12,
+    "require_disjoint_sources": true
+  },
+  "splits": {
+    "train": [
+      {
+        "path": "../../data/processed/slices/lora_r01_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1000mhz_r01_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r02_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1200mhz_r02_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r03_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1500mhz_r03_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r04_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1600mhz_r04_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r05_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1800mhz_r05_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r06_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_2000mhz_r06_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1000mhz_r01_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1000mhz_r01"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1200mhz_r02_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1200mhz_r02"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1500mhz_r03_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1500mhz_r03"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1600mhz_r04_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1600mhz_r04"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1800mhz_r05_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1800mhz_r05"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_2000mhz_r06_128.npz",
+        "label": 1,
+        "source_id": "zigbee_2000mhz_r06"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1000mhz_r01_128.npz",
+        "label": 2,
+        "source_id": "ble_1000mhz_r01"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1500mhz_r02_128.npz",
+        "label": 2,
+        "source_id": "ble_1500mhz_r02"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1700mhz_r04_128.npz",
+        "label": 2,
+        "source_id": "ble_1700mhz_r04"
+      },
+      {
+        "path": "../../data/processed/slices/ble_2000mhz_r05_128.npz",
+        "label": 2,
+        "source_id": "ble_2000mhz_r05"
+      }
+    ],
+    "validation": [
+      {
+        "path": "../../data/processed/slices/lora_r07_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1000mhz_r07_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r09_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1500mhz_r09_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r11_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1800mhz_r11_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1000mhz_r07_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1000mhz_r07"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1500mhz_r09_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1500mhz_r09"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1800mhz_r11_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1800mhz_r11"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1000mhz_r06_128.npz",
+        "label": 2,
+        "source_id": "ble_1000mhz_r06"
+      },
+      {
+        "path": "../../data/processed/slices/ble_2000mhz_r10_128.npz",
+        "label": 2,
+        "source_id": "ble_2000mhz_r10"
+      }
+    ],
+    "test": [
+      {
+        "path": "../../data/processed/slices/lora_r08_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1200mhz_r08_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r10_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_1600mhz_r10_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/lora_r12_4msps_128.npz",
+        "label": 0,
+        "source_id": "lora_2000mhz_r12_4msps"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1200mhz_r08_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1200mhz_r08"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_1600mhz_r10_128.npz",
+        "label": 1,
+        "source_id": "zigbee_1600mhz_r10"
+      },
+      {
+        "path": "../../data/processed/slices/zigbee_2000mhz_r12_128.npz",
+        "label": 1,
+        "source_id": "zigbee_2000mhz_r12"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1500mhz_r07_128.npz",
+        "label": 2,
+        "source_id": "ble_1500mhz_r07"
+      },
+      {
+        "path": "../../data/processed/slices/ble_1700mhz_r09_128.npz",
+        "label": 2,
+        "source_id": "ble_1700mhz_r09"
+      }
+    ]
+  }
+}

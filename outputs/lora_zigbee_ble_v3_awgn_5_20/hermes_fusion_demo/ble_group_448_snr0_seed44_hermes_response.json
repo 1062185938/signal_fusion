@@ -1,0 +1,24 @@
+{
+  "final_label": "Zigbee",
+  "confidence_level": "low",
+  "summary": "模型区域 Top1 为 Zigbee（平均概率 0.5628），BLE 紧随其后（0.3972），LoRa 仅 0.0400；但窗口一致性仅 4/7（0.571），且 Top1 概率低于 0.6。手工特征方面，频域 PSD 标准差与时频域一组谱峰度、谱峰因子、FSST 脊线特征一致落在 Zigbee 参考区间；然而时域特征受 0 dB AWGN 噪声大面积污染而失效，不满足三个证据域同时强支持的条件，因此判为 Zigbee，置信度低。",
+  "model_evidence": [
+    "区域 Top1 为 Zigbee，平均概率 0.5628，BLE 为 0.3972，LoRa 为 0.0400。",
+    "7 个窗口中 4 个支持 Zigbee、3 个支持 BLE，窗口一致性 0.571，低于 2/3。",
+    "BLE 在两个窗口中分别得到 0.993 和 0.986 的高置信度，说明窗口间存在明显冲突。"
+  ],
+  "feature_evidence": [
+    "频域 freq_psd_standard_deviation 中位数约 4.0e-7，仅落在 Zigbee 参考区间内。",
+    "时频域的谱峰度、谱峰因子和 FSST 脊线相关特征作为一个相关证据组支持 Zigbee。"
+  ],
+  "conflicting_evidence": [
+    "大量时域特征在 0 dB AWGN 下落在所有类别参考范围之外，属于分布外证据。",
+    "time_envelope_cv 仅落入 LoRa 参考区间，与 Zigbee 结论存在孤立冲突。",
+    "三个 BLE 窗口与四个 Zigbee 窗口形成明显的窗口级冲突。"
+  ],
+  "limitations": [
+    "0 dB 增量 AWGN 严重削弱学习模型和手工特征的可靠性。",
+    "Top1 概率低于 0.6，窗口一致性低于 2/3。",
+    "时域证据整体分布外，只有频域和时频域支持 Zigbee。"
+  ]
+}

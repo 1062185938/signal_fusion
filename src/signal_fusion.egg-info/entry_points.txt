@@ -1,0 +1,6 @@
+[console_scripts]
+signal-extract-features = signal_fusion.feature_extraction.cli:main
+signal-infer = signal_fusion.model_inference.cli:main
+signal-inspect = signal_fusion.preparation.inspection:main
+signal-prepare = signal_fusion.preparation.cli:main
+signal-train = signal_fusion.training.cli:main

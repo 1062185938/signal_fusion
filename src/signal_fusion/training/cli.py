@@ -7,17 +7,28 @@ import argparse
 import numpy as np
 
 from signal_fusion.io import load_signal_dataset
+from signal_fusion.training.fixed_splits import load_fixed_split_bundle
 from signal_fusion.training.splitting import build_training_loaders
 from signal_fusion.training.trainer import run_training
 
 
 def build_arg_parser():
     parser = argparse.ArgumentParser(description="IQ CNN Training and ONNX Export")
-    parser.add_argument(
+    input_group = parser.add_mutually_exclusive_group()
+    input_group.add_argument(
         "--data_path",
         type=str,
         default="./data/processed/radioml2016_train.mat",
-        help="Path to the .mat dataset",
+        help="Path to one dataset that the trainer will split",
+    )
+    input_group.add_argument(
+        "--dataset_dir",
+        type=str,
+        default=None,
+        help=(
+            "Directory containing fixed train.npz, validation.npz, and test.npz; "
+            "no additional split is performed"
+        ),
     )
     parser.add_argument(
         "--data_format",
@@ -54,6 +65,24 @@ def build_arg_parser():
     )
     parser.add_argument("--temp", type=float, default=0.2)
     parser.add_argument("--epsilon", type=float, default=0.1)
+    parser.add_argument(
+        "--awgn_probability",
+        type=float,
+        default=0.0,
+        help="Per-window probability of dynamic AWGN during training only",
+    )
+    parser.add_argument(
+        "--awgn_snr_min",
+        type=float,
+        default=5.0,
+        help="Minimum uniformly sampled training AWGN SNR in dB",
+    )
+    parser.add_argument(
+        "--awgn_snr_max",
+        type=float,
+        default=20.0,
+        help="Maximum uniformly sampled training AWGN SNR in dB",
+    )
     return parser
 
 
@@ -62,17 +91,44 @@ args = None
 
 
 def load_data(
-    filepath,
+    filepath=None,
     data_format="mat",
     seq_len=None,
     label_path=None,
     x_key=None,
     y_key=None,
+    dataset_dir=None,
 ):
     global args
     if args is None:
         args = parser.parse_args([])
 
+    effective_dataset_dir = (
+        dataset_dir
+        if dataset_dir is not None
+        else getattr(args, "dataset_dir", None)
+    )
+    if effective_dataset_dir is not None:
+        if getattr(args, "max_samples", None) is not None:
+            raise ValueError("max_samples is not supported with dataset_dir")
+        print(f"Loading fixed splits from {effective_dataset_dir}...")
+        bundle = load_fixed_split_bundle(
+            effective_dataset_dir,
+            class_num=args.class_num,
+            batch_size=args.batch_size,
+            num_workers=args.num_workers,
+        )
+        print(f"Dataset ID: {bundle.dataset_id}")
+        print(f"Label map: {bundle.label_map}")
+        print(f"Fixed split samples: {bundle.split_sizes}")
+        print(
+            f"Loaded input seq_len: {bundle.seq_len}, "
+            f"channels: {bundle.input_channels}"
+        )
+        return bundle.loader_tuple()
+
+    if filepath is None:
+        raise ValueError("filepath is required when dataset_dir is not provided")
     print(f"Loading data from {filepath}...")
     loaded = load_signal_dataset(
         path=filepath,
@@ -116,6 +172,7 @@ def _run_training():
 
 def train_and_export_model(
     data_path="./data/processed/radioml2016_train.mat",
+    dataset_dir=None,
     data_format="mat",
     label_path=None,
     x_key=None,
@@ -139,10 +196,14 @@ def train_and_export_model(
     device="auto",
     no_plot=True,
     no_amp=False,
+    awgn_probability=0.0,
+    awgn_snr_min=5.0,
+    awgn_snr_max=20.0,
 ):
     global args
     args = argparse.Namespace(
         data_path=data_path,
+        dataset_dir=dataset_dir,
         data_format=data_format,
         label_path=label_path,
         x_key=x_key,
@@ -166,6 +227,9 @@ def train_and_export_model(
         device=device,
         no_plot=no_plot,
         no_amp=no_amp,
+        awgn_probability=awgn_probability,
+        awgn_snr_min=awgn_snr_min,
+        awgn_snr_max=awgn_snr_max,
     )
     return _run_training()
 

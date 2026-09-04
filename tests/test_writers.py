@@ -12,6 +12,7 @@ from signal_fusion.io import (
     write_prepared_dataset,
 )
 from signal_fusion.preparation.detectors import (
+    BlePacketDetectorV1,
     EnergyDetectorV1,
     FullSignalDetector,
     available_detectors,
@@ -64,7 +65,10 @@ class PreparedDatasetWriterTests(unittest.TestCase):
 
 class DetectorRegistryTests(unittest.TestCase):
     def test_registry_builds_format_independent_strategies(self):
-        self.assertEqual(available_detectors(), ("full_signal", "energy_v1"))
+        self.assertEqual(
+            available_detectors(),
+            ("full_signal", "energy_v1", "ble_packet_v1"),
+        )
         self.assertIsInstance(
             build_detector("full_signal", {"start_sample": 2, "end_sample": 10}),
             FullSignalDetector,
@@ -72,6 +76,10 @@ class DetectorRegistryTests(unittest.TestCase):
         self.assertIsInstance(
             build_detector("energy_v1", {"window_ms": 0.5}),
             EnergyDetectorV1,
+        )
+        self.assertIsInstance(
+            build_detector("ble_packet_v1", {"channel": 37}),
+            BlePacketDetectorV1,
         )
 
     def test_registry_rejects_unknown_detector(self):

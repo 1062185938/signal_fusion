@@ -2,8 +2,16 @@
 
 from typing import TYPE_CHECKING
 
-from .contracts import PreparationConfig, RawSignal, SignalRegion
+from .contracts import (
+    RESAMPLING_PROFILE_V1,
+    PreparationConfig,
+    RawSignal,
+    ResamplingConfig,
+    SignalRegion,
+)
 from .detectors import (
+    BlePacketDetectorV1,
+    BlePacketDetectorV1Config,
     DETECTOR_REGISTRY,
     EnergyDetectorV1,
     EnergyDetectorV1Config,
@@ -25,6 +33,13 @@ from .readers import (
     open_raw_signal,
     resolve_raw_format,
 )
+from .resampling import (
+    ResampledRegion,
+    ResamplingPlan,
+    build_resampling_plan,
+    resample_iq,
+    resample_region,
+)
 from .segmentation import segment_regions
 from .windowing import WindowSpan, window_spans
 
@@ -41,6 +56,8 @@ def __getattr__(name: str):
 
 __all__ = [
     "ComplexDatReader",
+    "BlePacketDetectorV1",
+    "BlePacketDetectorV1Config",
     "DETECTOR_REGISTRY",
     "EnergyDetectorV1",
     "EnergyDetectorV1Config",
@@ -50,6 +67,10 @@ __all__ = [
     "PreparationConfig",
     "RawSignal",
     "RawSignalReader",
+    "RESAMPLING_PROFILE_V1",
+    "ResampledRegion",
+    "ResamplingConfig",
+    "ResamplingPlan",
     "SigMFReader",
     "SignalDetector",
     "SignalRegion",
@@ -58,6 +79,7 @@ __all__ = [
     "build_energy_v1_dataset",
     "build_detector",
     "build_prepared_dataset",
+    "build_resampling_plan",
     "inspect_prepared_slices",
     "inspect_sigmf_slices",
     "smart_extract_bursts",
@@ -67,6 +89,8 @@ __all__ = [
     "prepare_energy_v1",
     "prepare_signal",
     "resolve_raw_format",
+    "resample_iq",
+    "resample_region",
     "segment_regions",
     "window_spans",
 ]

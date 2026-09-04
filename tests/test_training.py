@@ -41,6 +41,13 @@ class TrainingWrapperStructureTests(unittest.TestCase):
             'signal-train = "signal_fusion.training.cli:main"', contents
         )
 
+    def test_training_cli_exposes_fixed_split_directory(self):
+        contents = (
+            PROJECT_ROOT / "src/signal_fusion/training/cli.py"
+        ).read_text(encoding="utf-8")
+        self.assertIn('"--dataset_dir"', contents)
+        self.assertIn("load_fixed_split_bundle", contents)
+
 
 @unittest.skipUnless(
     TRAINING_DEPS_AVAILABLE,

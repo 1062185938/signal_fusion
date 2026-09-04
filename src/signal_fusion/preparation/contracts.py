@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
 import math
+from numbers import Integral
 from typing import Any
 
 import numpy as np
@@ -13,10 +14,85 @@ import numpy as np
 SampleReader = Callable[[int, int], np.ndarray]
 
 
+RESAMPLING_PROFILE_V1 = "polyphase_kaiser5_v1"
+RESAMPLING_MAX_FACTOR = 4_096
+
+
 def _non_empty_text(value: str, field_name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field_name} must be a non-empty string")
     return value
+
+
+def _positive_integer(value: int, field_name: str) -> int:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral):
+        raise TypeError(f"{field_name} must be an integer")
+    integer = int(value)
+    if integer <= 0:
+        raise ValueError(f"{field_name} must be positive")
+    return integer
+
+
+@dataclass(frozen=True, slots=True)
+class ResamplingConfig:
+    """Versioned target-rate contract for optional IQ resampling.
+
+    The profile fixes the signal-processing choices used by a dataset version.
+    Numerical limits are explicit so an invalid rate approximation or an
+    unexpectedly large input or output buffer (including region guard context)
+    fails instead of silently changing behavior.
+    """
+
+    target_sample_rate: float = 4_000_000.0
+    profile: str = RESAMPLING_PROFILE_V1
+    max_denominator: int = 1_000
+    rate_tolerance_ppm: float = 0.1
+    max_resampling_factor: int = RESAMPLING_MAX_FACTOR
+    max_input_samples: int = 10_000_000
+    max_output_samples: int = 10_000_000
+
+    def __post_init__(self) -> None:
+        target_sample_rate = float(self.target_sample_rate)
+        if not math.isfinite(target_sample_rate) or target_sample_rate <= 0:
+            raise ValueError("target_sample_rate must be finite and positive")
+        object.__setattr__(self, "target_sample_rate", target_sample_rate)
+
+        profile = _non_empty_text(self.profile, "profile")
+        if profile != RESAMPLING_PROFILE_V1:
+            raise ValueError(
+                f"unsupported resampling profile {profile!r}; "
+                f"expected {RESAMPLING_PROFILE_V1!r}"
+            )
+        object.__setattr__(self, "profile", profile)
+
+        max_denominator = _positive_integer(
+            self.max_denominator, "max_denominator"
+        )
+        max_resampling_factor = _positive_integer(
+            self.max_resampling_factor, "max_resampling_factor"
+        )
+        max_input_samples = _positive_integer(
+            self.max_input_samples, "max_input_samples"
+        )
+        max_output_samples = _positive_integer(
+            self.max_output_samples, "max_output_samples"
+        )
+        if max_resampling_factor > RESAMPLING_MAX_FACTOR:
+            raise ValueError(
+                "max_resampling_factor exceeds the safety limit for "
+                f"{RESAMPLING_PROFILE_V1!r}: {RESAMPLING_MAX_FACTOR}"
+            )
+        object.__setattr__(self, "max_denominator", max_denominator)
+        object.__setattr__(
+            self, "max_resampling_factor", max_resampling_factor
+        )
+        object.__setattr__(self, "max_input_samples", max_input_samples)
+        object.__setattr__(self, "max_output_samples", max_output_samples)
+
+        rate_tolerance_ppm = float(self.rate_tolerance_ppm)
+        if not math.isfinite(rate_tolerance_ppm) or rate_tolerance_ppm < 0:
+            raise ValueError("rate_tolerance_ppm must be finite and non-negative")
+        object.__setattr__(self, "rate_tolerance_ppm", rate_tolerance_ppm)
 
 
 @dataclass(slots=True)
@@ -109,7 +185,12 @@ class SignalRegion:
 
 @dataclass(slots=True)
 class PreparationConfig:
-    """Format-independent segmentation, windowing, and normalization settings."""
+    """Format-independent segmentation, windowing, and normalization settings.
+
+    With optional pipeline resampling, region filtering/padding fields remain
+    in native source samples while ``seq_len`` and ``hop_len`` apply to the
+    effective output-rate grid.
+    """
 
     seq_len: int
     hop_len: int | None = None
@@ -153,4 +234,3 @@ class PreparationConfig:
             self.label = int(self.label)
         if self.class_name is not None:
             self.class_name = _non_empty_text(self.class_name, "class_name")
-

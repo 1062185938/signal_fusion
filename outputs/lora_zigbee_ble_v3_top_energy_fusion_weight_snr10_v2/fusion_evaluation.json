@@ -1,0 +1,1038 @@
+{
+  "schema_version": 1,
+  "evaluation_type": "validation_selected_weighted_probability_fusion",
+  "dataset_dir": "data/processed/training/lora_zigbee_ble_v3_top_energy_4msps",
+  "feature_dataset_dir": "data/processed/features/lora_zigbee_ble_v3_top_energy_4msps_region_features",
+  "labels": [
+    "LoRa",
+    "Zigbee",
+    "BLE"
+  ],
+  "configuration": {
+    "stress_snr_db": 10.0,
+    "seed": 44,
+    "batch_size": 64,
+    "weight_step": 0.1
+  },
+  "validation_candidates": [
+    {
+      "iq_model_weight": 0.0,
+      "feature_classifier_weight": 1.0,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00010042444479342247,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.1,
+      "feature_classifier_weight": 0.9,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0001410101341937878,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.2,
+      "feature_classifier_weight": 0.8,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00018160394352033566,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.3,
+      "feature_classifier_weight": 0.7,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00022220588257385634,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.4,
+      "feature_classifier_weight": 0.6,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0002628159611802532,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.5,
+      "feature_classifier_weight": 0.5,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00030343418919158216,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.6,
+      "feature_classifier_weight": 0.4,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00034406057648534393,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.7,
+      "feature_classifier_weight": 0.30000000000000004,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0003846951329649689,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.8,
+      "feature_classifier_weight": 0.19999999999999996,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0004253378685598027,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 0.9,
+      "feature_classifier_weight": 0.09999999999999998,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0004659887932251972,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    {
+      "iq_model_weight": 1.0,
+      "feature_classifier_weight": 0.0,
+      "metrics": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0005066479169426664,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    }
+  ],
+  "selected_manifest": {
+    "schema_version": 1,
+    "method": "weighted_probability_average",
+    "labels": [
+      "LoRa",
+      "Zigbee",
+      "BLE"
+    ],
+    "weights": {
+      "iq_model": 0.5,
+      "feature_classifier": 0.5
+    },
+    "selection": {
+      "split": "validation",
+      "conditions": [
+        "clean",
+        "controlled_10_db"
+      ],
+      "weight_step": 0.1,
+      "primary_metric": "macro_accuracy_percent",
+      "tie_breakers": [
+        "accuracy_percent",
+        "disagreement_accuracy_percent",
+        "closest_to_equal_weights"
+      ]
+    }
+  },
+  "validation": {
+    "overall": {
+      "iq_model": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0005066479169426664,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "feature_classifier": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00010042444479342247,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "fusion": {
+        "sample_count": 228,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.00030343418919158216,
+        "confusion_matrix": [
+          [
+            76,
+            0,
+            0
+          ],
+          [
+            0,
+            76,
+            0
+          ],
+          [
+            0,
+            0,
+            76
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 0,
+        "iq_accuracy_percent": null,
+        "feature_accuracy_percent": null,
+        "fused_accuracy_percent": null
+      }
+    },
+    "conditions": {
+      "clean": {
+        "iq_model": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.0004984653640403315,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "feature_classifier": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.00012460615363678762,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "fusion": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.00031146389041982625,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "disagreement": {
+          "sample_count": 0,
+          "iq_accuracy_percent": null,
+          "feature_accuracy_percent": null,
+          "fused_accuracy_percent": null
+        }
+      },
+      "stress": {
+        "iq_model": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.0005148304698450009,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "feature_classifier": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 7.62427359500573e-05,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "fusion": {
+          "sample_count": 114,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.00029540448796333806,
+          "confusion_matrix": [
+            [
+              38,
+              0,
+              0
+            ],
+            [
+              0,
+              38,
+              0
+            ],
+            [
+              0,
+              0,
+              38
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "disagreement": {
+          "sample_count": 0,
+          "iq_accuracy_percent": null,
+          "feature_accuracy_percent": null,
+          "fused_accuracy_percent": null
+        }
+      }
+    }
+  },
+  "test": {
+    "overall": {
+      "iq_model": {
+        "sample_count": 336,
+        "accuracy_percent": 99.70238095238095,
+        "macro_accuracy_percent": 99.70238095238096,
+        "negative_log_likelihood": 0.007696769115702497,
+        "confusion_matrix": [
+          [
+            111,
+            1,
+            0
+          ],
+          [
+            0,
+            112,
+            0
+          ],
+          [
+            0,
+            0,
+            112
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 99.10714285714286,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "feature_classifier": {
+        "sample_count": 336,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 9.629523622323926e-05,
+        "confusion_matrix": [
+          [
+            112,
+            0,
+            0
+          ],
+          [
+            0,
+            112,
+            0
+          ],
+          [
+            0,
+            0,
+            112
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "fusion": {
+        "sample_count": 336,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "negative_log_likelihood": 0.0025713767828448603,
+        "confusion_matrix": [
+          [
+            112,
+            0,
+            0
+          ],
+          [
+            0,
+            112,
+            0
+          ],
+          [
+            0,
+            0,
+            112
+          ]
+        ],
+        "per_class_accuracy_percent": {
+          "LoRa": 100.0,
+          "Zigbee": 100.0,
+          "BLE": 100.0
+        }
+      },
+      "disagreement": {
+        "sample_count": 1,
+        "iq_accuracy_percent": 0.0,
+        "feature_accuracy_percent": 100.0,
+        "fused_accuracy_percent": 100.0
+      }
+    },
+    "conditions": {
+      "clean": {
+        "iq_model": {
+          "sample_count": 168,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.0034373804985882556,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "feature_classifier": {
+          "sample_count": 168,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 7.801720864650583e-05,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "fusion": {
+          "sample_count": 168,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.0015680194171141702,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "disagreement": {
+          "sample_count": 0,
+          "iq_accuracy_percent": null,
+          "feature_accuracy_percent": null,
+          "fused_accuracy_percent": null
+        }
+      },
+      "stress": {
+        "iq_model": {
+          "sample_count": 168,
+          "accuracy_percent": 99.40476190476191,
+          "macro_accuracy_percent": 99.40476190476191,
+          "negative_log_likelihood": 0.011956157732816738,
+          "confusion_matrix": [
+            [
+              55,
+              1,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 98.21428571428571,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "feature_classifier": {
+          "sample_count": 168,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.00011457326379997267,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "fusion": {
+          "sample_count": 168,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "negative_log_likelihood": 0.00357473414857555,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "disagreement": {
+          "sample_count": 1,
+          "iq_accuracy_percent": 0.0,
+          "feature_accuracy_percent": 100.0,
+          "fused_accuracy_percent": 100.0
+        }
+      }
+    }
+  },
+  "feature_usage": {
+    "validation": {
+      "reused_count": 114,
+      "extracted_count": 114
+    },
+    "test": {
+      "reused_count": 168,
+      "extracted_count": 168
+    }
+  },
+  "outputs": {
+    "manifest": "outputs/lora_zigbee_ble_v3_top_energy_fusion_weight_snr10_v2/fusion_manifest.json",
+    "report": "outputs/lora_zigbee_ble_v3_top_energy_fusion_weight_snr10_v2/fusion_evaluation.json"
+  }
+}

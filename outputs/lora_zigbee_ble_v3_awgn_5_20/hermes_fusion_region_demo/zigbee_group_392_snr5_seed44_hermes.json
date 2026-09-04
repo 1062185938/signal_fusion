@@ -1,0 +1,613 @@
+{
+  "schema_version": 2,
+  "bundle_type": "hermes_signal_fusion_input",
+  "analysis_id": "group_392_awgn_5db_seed_44",
+  "signal_context": {
+    "duration_ms": 1.6,
+    "sample_rate": 4000000.0,
+    "region_sample_count": 6400,
+    "selected_window_count": 7,
+    "window_length": 128
+  },
+  "noise": {
+    "applied": true,
+    "type": "circular_complex_awgn",
+    "scope": "complete_region_before_windowing",
+    "requested_snr_db": 5.0,
+    "seed": 44,
+    "achieved_snr_db": 5.0,
+    "interpretation": "complete_input_region_power_to_newly_added_noise_power"
+  },
+  "model_evidence": {
+    "producer": "lora_zigbee_ble_v3_awgn_5_20",
+    "provider": "CPU",
+    "region_top3": [
+      {
+        "label": "Zigbee",
+        "probability": 0.9992076754570007
+      },
+      {
+        "label": "LoRa",
+        "probability": 0.00045309544657357037
+      },
+      {
+        "label": "BLE",
+        "probability": 0.00033924219314940274
+      }
+    ],
+    "region_aggregation": "mean_probability_across_selected_windows",
+    "window_agreement": {
+      "consensus_label": "Zigbee",
+      "agreeing_windows": 7,
+      "window_count": 7,
+      "ratio": 1.0
+    },
+    "window_predictions": [
+      {
+        "label": "Zigbee",
+        "confidence": 0.9998500347137451
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9999184608459473
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9965062737464905
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9996464252471924
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9998672008514404
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9987167119979858
+      },
+      {
+        "label": "Zigbee",
+        "confidence": 0.9999483823776245
+      }
+    ]
+  },
+  "feature_evidence": {
+    "producer": "matlab_iq_features_62_v1",
+    "scope": "complete_continuous_region",
+    "feature_count": 62,
+    "extraction_count": 1,
+    "reference_root": "src/signal_fusion/feature_extraction/assets",
+    "input": {
+      "original_sample_count": 6400,
+      "used_sample_count": 6400,
+      "maximum_sample_count": 16384,
+      "truncated": false,
+      "truncation_policy": "keep_first_samples"
+    },
+    "groups": {
+      "time_domain": [
+        {
+          "index": 0,
+          "code_name": "time_rms_amplitude",
+          "display_name": "RMS",
+          "display_name_zh": "均方根",
+          "value": 0.9999998211860657,
+          "reference": "time_domain_iq_features.md#1-rms"
+        },
+        {
+          "index": 1,
+          "code_name": "time_standard_deviation",
+          "display_name": "Standard deviation",
+          "display_name_zh": "标准差",
+          "value": 1.000077724456787,
+          "reference": "time_domain_iq_features.md#2-standard-deviation"
+        },
+        {
+          "index": 2,
+          "code_name": "time_papr_db",
+          "display_name": "PAPR_dB",
+          "display_name_zh": "峰均功率比",
+          "value": 6.665955543518066,
+          "reference": "time_domain_iq_features.md#3-papr_db"
+        },
+        {
+          "index": 3,
+          "code_name": "time_amplitude_skewness",
+          "display_name": "Amplitude skewness",
+          "display_name_zh": "幅度偏度",
+          "value": 0.0646899938583374,
+          "reference": "time_domain_iq_features.md#4-amplitude-skewness"
+        },
+        {
+          "index": 4,
+          "code_name": "time_amplitude_kurtosis",
+          "display_name": "Amplitude kurtosis",
+          "display_name_zh": "幅度峰度",
+          "value": 2.7449989318847656,
+          "reference": "time_domain_iq_features.md#5-amplitude-kurtosis"
+        },
+        {
+          "index": 5,
+          "code_name": "time_envelope_cv",
+          "display_name": "Envelope CV",
+          "display_name_zh": "包络变异系数",
+          "value": 1.0720773935317993,
+          "reference": "time_domain_iq_features.md#6-envelope-cv"
+        },
+        {
+          "index": 6,
+          "code_name": "time_amplitude_entropy",
+          "display_name": "Normalized amplitude entropy",
+          "display_name_zh": "归一化幅度熵",
+          "value": 0.8427802920341492,
+          "reference": "time_domain_iq_features.md#7-normalized-amplitude-entropy"
+        },
+        {
+          "index": 7,
+          "code_name": "time_c20",
+          "display_name": "Normalized C20",
+          "display_name_zh": "归一化 C20",
+          "value": 0.0069160764105618,
+          "reference": "time_domain_iq_features.md#8-normalized-c20"
+        },
+        {
+          "index": 8,
+          "code_name": "time_c40",
+          "display_name": "Normalized C40",
+          "display_name_zh": "归一化 C40",
+          "value": 0.05755764618515968,
+          "reference": "time_domain_iq_features.md#9-normalized-c40"
+        },
+        {
+          "index": 9,
+          "code_name": "time_c41",
+          "display_name": "Normalized C41",
+          "display_name_zh": "归一化 C41",
+          "value": 0.0036543780006468296,
+          "reference": "time_domain_iq_features.md#10-normalized-c41"
+        },
+        {
+          "index": 10,
+          "code_name": "time_c42",
+          "display_name": "Normalized C42",
+          "display_name_zh": "归一化 C42",
+          "value": 0.5075220465660095,
+          "reference": "time_domain_iq_features.md#11-normalized-c42"
+        },
+        {
+          "index": 11,
+          "code_name": "time_differential_phase_std",
+          "display_name": "Differential phase standard deviation",
+          "display_name_zh": "差分相位标准差",
+          "value": 1.0659784078598022,
+          "reference": "time_domain_iq_features.md#12-differential-phase-standard-deviation"
+        }
+      ],
+      "frequency_domain": [
+        {
+          "index": 12,
+          "code_name": "freq_normalized_mean_frequency",
+          "display_name": "Normalized mean frequency",
+          "display_name_zh": "归一化平均频率",
+          "value": 0.014325990341603756,
+          "reference": "frequency_domain_iq_features.md#1-normalized-mean-frequency"
+        },
+        {
+          "index": 13,
+          "code_name": "freq_normalized_median_frequency",
+          "display_name": "Normalized median frequency",
+          "display_name_zh": "归一化中值频率",
+          "value": 0.02685546875,
+          "reference": "frequency_domain_iq_features.md#2-normalized-median-frequency"
+        },
+        {
+          "index": 14,
+          "code_name": "freq_normalized_spectral_spread",
+          "display_name": "Normalized spectral spread",
+          "display_name_zh": "归一化频谱扩展",
+          "value": 0.1750917136669159,
+          "reference": "frequency_domain_iq_features.md#3-normalized-spectral-spread"
+        },
+        {
+          "index": 15,
+          "code_name": "freq_normalized_occupied_bandwidth_99",
+          "display_name": "Normalized 99% occupied bandwidth",
+          "display_name_zh": "归一化 99% 占用带宽",
+          "value": 0.9577636122703552,
+          "reference": "frequency_domain_iq_features.md#4-normalized-99-occupied-bandwidth"
+        },
+        {
+          "index": 16,
+          "code_name": "freq_normalized_peak_frequency",
+          "display_name": "Normalized peak frequency",
+          "display_name_zh": "归一化峰值频率",
+          "value": 0.015380859375,
+          "reference": "frequency_domain_iq_features.md#5-normalized-peak-frequency"
+        },
+        {
+          "index": 17,
+          "code_name": "freq_log10_band_power",
+          "display_name": "Log10 band power",
+          "display_name_zh": "对数带内功率",
+          "value": 0.02780896984040737,
+          "reference": "frequency_domain_iq_features.md#6-log10-band-power"
+        },
+        {
+          "index": 18,
+          "code_name": "freq_global_spectral_entropy",
+          "display_name": "Global normalized spectral entropy",
+          "display_name_zh": "全局归一化频谱熵",
+          "value": 0.9370436668395996,
+          "reference": "frequency_domain_iq_features.md#7-global-normalized-spectral-entropy"
+        },
+        {
+          "index": 19,
+          "code_name": "freq_global_spectral_crest_factor",
+          "display_name": "Global spectral crest factor",
+          "display_name_zh": "全局频谱峰值因子",
+          "value": 9.201655387878418,
+          "reference": "frequency_domain_iq_features.md#8-global-spectral-crest-factor"
+        },
+        {
+          "index": 20,
+          "code_name": "freq_global_spectral_flatness",
+          "display_name": "Global spectral flatness",
+          "display_name_zh": "全局频谱平坦度",
+          "value": 0.5742927193641663,
+          "reference": "frequency_domain_iq_features.md#9-global-spectral-flatness"
+        },
+        {
+          "index": 21,
+          "code_name": "freq_normalized_spectral_skewness",
+          "display_name": "Normalized spectral skewness",
+          "display_name_zh": "归一化频谱偏度",
+          "value": -0.13156433403491974,
+          "reference": "frequency_domain_iq_features.md#10-normalized-spectral-skewness"
+        },
+        {
+          "index": 22,
+          "code_name": "freq_psd_standard_deviation",
+          "display_name": "PSD standard deviation",
+          "display_name_zh": "PSD 标准差",
+          "value": 3.1645302556171373e-07,
+          "reference": "frequency_domain_iq_features.md#11-psd-standard-deviation"
+        },
+        {
+          "index": 23,
+          "code_name": "freq_log_mean_bispectrum_magnitude",
+          "display_name": "Log mean bispectrum magnitude",
+          "display_name_zh": "对数平均双谱幅值",
+          "value": -4.316015720367432,
+          "reference": "frequency_domain_iq_features.md#12-log-mean-bispectrum-magnitude"
+        },
+        {
+          "index": 24,
+          "code_name": "freq_log_max_bispectrum_magnitude",
+          "display_name": "Log maximum bispectrum magnitude",
+          "display_name_zh": "对数最大双谱幅值",
+          "value": -2.8705997467041016,
+          "reference": "frequency_domain_iq_features.md#13-log-maximum-bispectrum-magnitude"
+        },
+        {
+          "index": 25,
+          "code_name": "freq_log_bispectral_energy",
+          "display_name": "Log bispectral energy",
+          "display_name_zh": "对数双谱能量",
+          "value": -3.750467300415039,
+          "reference": "frequency_domain_iq_features.md#14-log-bispectral-energy"
+        },
+        {
+          "index": 26,
+          "code_name": "freq_bispectral_crest_factor",
+          "display_name": "Bispectral crest factor",
+          "display_name_zh": "双谱峰值因子",
+          "value": 27.88791275024414,
+          "reference": "frequency_domain_iq_features.md#15-bispectral-crest-factor"
+        },
+        {
+          "index": 27,
+          "code_name": "freq_normalized_bispectral_entropy",
+          "display_name": "Normalized bispectral entropy",
+          "display_name_zh": "归一化双谱熵",
+          "value": 0.7987662553787231,
+          "reference": "frequency_domain_iq_features.md#16-normalized-bispectral-entropy"
+        },
+        {
+          "index": 28,
+          "code_name": "freq_normalized_bispectrum_peak_frequency_1",
+          "display_name": "Normalized bispectrum peak frequency 1",
+          "display_name_zh": "归一化双谱峰值频率 1",
+          "value": -0.09375,
+          "reference": "frequency_domain_iq_features.md#17-normalized-bispectrum-peak-frequency-1"
+        },
+        {
+          "index": 29,
+          "code_name": "freq_normalized_bispectrum_peak_frequency_2",
+          "display_name": "Normalized bispectrum peak frequency 2",
+          "display_name_zh": "归一化双谱峰值频率 2",
+          "value": 0.109375,
+          "reference": "frequency_domain_iq_features.md#18-normalized-bispectrum-peak-frequency-2"
+        },
+        {
+          "index": 30,
+          "code_name": "freq_mean_squared_bicoherence",
+          "display_name": "Mean squared bicoherence",
+          "display_name_zh": "平均平方双相干",
+          "value": 0.021372105926275253,
+          "reference": "frequency_domain_iq_features.md#19-mean-squared-bicoherence"
+        },
+        {
+          "index": 31,
+          "code_name": "freq_max_squared_bicoherence",
+          "display_name": "Maximum squared bicoherence",
+          "display_name_zh": "最大平方双相干",
+          "value": 0.4001924693584442,
+          "reference": "frequency_domain_iq_features.md#20-maximum-squared-bicoherence"
+        },
+        {
+          "index": 32,
+          "code_name": "freq_squared_bicoherence_std",
+          "display_name": "Standard deviation of squared bicoherence",
+          "display_name_zh": "平方双相干标准差",
+          "value": 0.02185165137052536,
+          "reference": "frequency_domain_iq_features.md#21-standard-deviation-of-squared-bicoherence"
+        },
+        {
+          "index": 33,
+          "code_name": "freq_normalized_bicoherence_entropy",
+          "display_name": "Normalized bicoherence entropy",
+          "display_name_zh": "归一化双相干熵",
+          "value": 0.9574434161186218,
+          "reference": "frequency_domain_iq_features.md#22-normalized-bicoherence-entropy"
+        },
+        {
+          "index": 34,
+          "code_name": "freq_bicoherence_weighted_biphase_concentration",
+          "display_name": "Bicoherence-weighted biphase concentration",
+          "display_name_zh": "双相干加权双相位集中度",
+          "value": 0.02047940157353878,
+          "reference": "frequency_domain_iq_features.md#23-bicoherence-weighted-biphase-concentration"
+        },
+        {
+          "index": 35,
+          "code_name": "freq_dominant_biphase_cosine",
+          "display_name": "Dominant biphase cosine",
+          "display_name_zh": "主导双相位余弦",
+          "value": 0.13328801095485687,
+          "reference": "frequency_domain_iq_features.md#24-dominant-biphase-cosine"
+        },
+        {
+          "index": 36,
+          "code_name": "freq_dominant_biphase_sine",
+          "display_name": "Dominant biphase sine",
+          "display_name_zh": "主导双相位正弦",
+          "value": 0.9910772442817688,
+          "reference": "frequency_domain_iq_features.md#25-dominant-biphase-sine"
+        }
+      ],
+      "time_frequency": [
+        {
+          "index": 37,
+          "code_name": "time_frequency_spectral_kurtosis_mean",
+          "display_name": "SpectralKurtosisMean",
+          "display_name_zh": "谱峰度均值",
+          "value": 3.4624764919281006,
+          "reference": "time_frequency_iq_features.md#1-spectralkurtosismean"
+        },
+        {
+          "index": 38,
+          "code_name": "time_frequency_spectral_kurtosis_std",
+          "display_name": "SpectralKurtosisStd",
+          "display_name_zh": "谱峰度标准差",
+          "value": 0.4346233904361725,
+          "reference": "time_frequency_iq_features.md#2-spectralkurtosisstd"
+        },
+        {
+          "index": 39,
+          "code_name": "time_frequency_spectral_skewness_mean",
+          "display_name": "SpectralSkewnessMean",
+          "display_name_zh": "谱偏度均值",
+          "value": -0.11601235717535019,
+          "reference": "time_frequency_iq_features.md#3-spectralskewnessmean"
+        },
+        {
+          "index": 40,
+          "code_name": "time_frequency_spectral_skewness_std",
+          "display_name": "SpectralSkewnessStd",
+          "display_name_zh": "谱偏度标准差",
+          "value": 0.1653575748205185,
+          "reference": "time_frequency_iq_features.md#4-spectralskewnessstd"
+        },
+        {
+          "index": 41,
+          "code_name": "time_frequency_spectral_crest_mean",
+          "display_name": "SpectralCrestFactorMean",
+          "display_name_zh": "谱峰因子均值",
+          "value": 11.382944107055664,
+          "reference": "time_frequency_iq_features.md#5-spectralcrestfactormean"
+        },
+        {
+          "index": 42,
+          "code_name": "time_frequency_spectral_crest_std",
+          "display_name": "SpectralCrestFactorStd",
+          "display_name_zh": "谱峰因子标准差",
+          "value": 2.64593505859375,
+          "reference": "time_frequency_iq_features.md#6-spectralcrestfactorstd"
+        },
+        {
+          "index": 43,
+          "code_name": "time_frequency_spectral_flatness_mean",
+          "display_name": "SpectralFlatnessMean",
+          "display_name_zh": "谱平坦度均值",
+          "value": 0.3533441722393036,
+          "reference": "time_frequency_iq_features.md#7-spectralflatnessmean"
+        },
+        {
+          "index": 44,
+          "code_name": "time_frequency_spectral_flatness_std",
+          "display_name": "SpectralFlatnessStd",
+          "display_name_zh": "谱平坦度标准差",
+          "value": 0.06708022207021713,
+          "reference": "time_frequency_iq_features.md#8-spectralflatnessstd"
+        },
+        {
+          "index": 45,
+          "code_name": "time_frequency_spectral_entropy_mean",
+          "display_name": "SpectralEntropyMean",
+          "display_name_zh": "谱熵均值",
+          "value": 0.8661373853683472,
+          "reference": "time_frequency_iq_features.md#9-spectralentropymean"
+        },
+        {
+          "index": 46,
+          "code_name": "time_frequency_spectral_entropy_std",
+          "display_name": "SpectralEntropyStd",
+          "display_name_zh": "谱熵标准差",
+          "value": 0.023525487631559372,
+          "reference": "time_frequency_iq_features.md#10-spectralentropystd"
+        },
+        {
+          "index": 47,
+          "code_name": "time_frequency_normalized_stft_ridge_frequency_std",
+          "display_name": "NormalizedSTFTRidgeFrequencyStd",
+          "display_name_zh": "归一化 STFT 脊线频率标准差",
+          "value": 0.0991041287779808,
+          "reference": "time_frequency_iq_features.md#11-normalizedstftridgefrequencystd"
+        },
+        {
+          "index": 48,
+          "code_name": "time_frequency_normalized_stft_ridge_slope",
+          "display_name": "NormalizedSTFTRidgeSlope",
+          "display_name_zh": "归一化 STFT 脊线斜率",
+          "value": 0.0,
+          "reference": "time_frequency_iq_features.md#12-normalizedstftridgeslope"
+        },
+        {
+          "index": 49,
+          "code_name": "time_frequency_normalized_spectral_centroid_std",
+          "display_name": "NormalizedSpectralCentroidStd",
+          "display_name_zh": "归一化谱质心标准差",
+          "value": 0.011308093555271626,
+          "reference": "time_frequency_iq_features.md#13-normalizedspectralcentroidstd"
+        },
+        {
+          "index": 50,
+          "code_name": "time_frequency_normalized_spectral_spread_mean",
+          "display_name": "NormalizedSpectralSpreadMean",
+          "display_name_zh": "归一化频谱扩展均值",
+          "value": 0.18156005442142487,
+          "reference": "time_frequency_iq_features.md#14-normalizedspectralspreadmean"
+        },
+        {
+          "index": 51,
+          "code_name": "time_frequency_normalized_spectral_spread_std",
+          "display_name": "NormalizedSpectralSpreadStd",
+          "display_name_zh": "归一化频谱扩展标准差",
+          "value": 0.02649223431944847,
+          "reference": "time_frequency_iq_features.md#15-normalizedspectralspreadstd"
+        },
+        {
+          "index": 52,
+          "code_name": "time_frequency_normalized_fsst_ridge_frequency_std",
+          "display_name": "NormalizedFSSTRidgeFrequencyStd",
+          "display_name_zh": "归一化 FSST 脊线频率标准差",
+          "value": 0.11924023181200027,
+          "reference": "time_frequency_iq_features.md#16-normalizedfsstridgefrequencystd"
+        },
+        {
+          "index": 53,
+          "code_name": "time_frequency_normalized_fsst_ridge_slope",
+          "display_name": "NormalizedFSSTRidgeSlope",
+          "display_name_zh": "归一化 FSST 脊线斜率",
+          "value": -0.02676698938012123,
+          "reference": "time_frequency_iq_features.md#17-normalizedfsstridgeslope"
+        },
+        {
+          "index": 54,
+          "code_name": "time_frequency_normalized_fsst_ridge_curvature_rms",
+          "display_name": "NormalizedFSSTRidgeCurvatureRMS",
+          "display_name_zh": "归一化 FSST 脊线曲率 RMS",
+          "value": 0.052714258432388306,
+          "reference": "time_frequency_iq_features.md#18-normalizedfsstridgecurvaturerms"
+        },
+        {
+          "index": 55,
+          "code_name": "time_frequency_fsst_ridge_energy_ratio",
+          "display_name": "FSSTRidgeEnergyRatio",
+          "display_name_zh": "FSST 脊线能量占比",
+          "value": 0.0938665121793747,
+          "reference": "time_frequency_iq_features.md#19-fsstridgeenergyratio"
+        },
+        {
+          "index": 56,
+          "code_name": "time_frequency_normalized_fsst_time_frequency_entropy",
+          "display_name": "NormalizedFSSTTimeFrequencyEntropy",
+          "display_name_zh": "归一化 FSST 时频熵",
+          "value": 0.8953552842140198,
+          "reference": "time_frequency_iq_features.md#20-normalizedfssttimefrequencyentropy"
+        },
+        {
+          "index": 57,
+          "code_name": "time_frequency_normalized_wsst_ridge_frequency_std",
+          "display_name": "NormalizedWSSTRidgeFrequencyStd",
+          "display_name_zh": "归一化 WSST 脊线频率标准差",
+          "value": 0.1076020747423172,
+          "reference": "time_frequency_iq_features.md#21-normalizedwsstridgefrequencystd"
+        },
+        {
+          "index": 58,
+          "code_name": "time_frequency_normalized_wsst_ridge_slope",
+          "display_name": "NormalizedWSSTRidgeSlope",
+          "display_name_zh": "归一化 WSST 脊线斜率",
+          "value": 0.023542044684290886,
+          "reference": "time_frequency_iq_features.md#22-normalizedwsstridgeslope"
+        },
+        {
+          "index": 59,
+          "code_name": "time_frequency_normalized_wsst_bandwidth_mean",
+          "display_name": "NormalizedWSSTBandwidthMean",
+          "display_name_zh": "归一化 WSST 带宽均值",
+          "value": 0.10668250918388367,
+          "reference": "time_frequency_iq_features.md#23-normalizedwsstbandwidthmean"
+        },
+        {
+          "index": 60,
+          "code_name": "time_frequency_normalized_wsst_bandwidth_std",
+          "display_name": "NormalizedWSSTBandwidthStd",
+          "display_name_zh": "归一化 WSST 带宽标准差",
+          "value": 0.02174566686153412,
+          "reference": "time_frequency_iq_features.md#24-normalizedwsstbandwidthstd"
+        },
+        {
+          "index": 61,
+          "code_name": "time_frequency_wsst_ridge_energy_ratio",
+          "display_name": "WSSTRidgeEnergyRatio",
+          "display_name_zh": "WSST 脊线能量占比",
+          "value": 0.23695628345012665,
+          "reference": "time_frequency_iq_features.md#25-wsstridgeenergyratio"
+        }
+      ]
+    }
+  },
+  "objective": "Fuse the global 62-dimensional continuous-region features with the local-window classifier evidence to determine the most plausible signal class",
+  "decision_rules": [
+    "Start from the region mean-probability Top3 and window agreement",
+    "Use the 62 values as one global description of the continuous region",
+    "When a feature is material to the explanation, resolve its reference against reference_root and read only the relevant Markdown section",
+    "Do not treat an individual handcrafted feature as a class signature",
+    "State material conflicts between global features and local model evidence",
+    "Use only high, medium, or low for the final confidence level",
+    "Do not use provenance or assume facts absent from this input"
+  ],
+  "required_output": {
+    "final_label": "exactly one label present in region_top3",
+    "confidence_level": "high, medium, or low",
+    "summary": "concise fusion conclusion",
+    "model_evidence": "list of model-based reasons",
+    "feature_evidence": "list of feature-based reasons",
+    "conflicting_evidence": "list; empty when no material conflict exists",
+    "limitations": "list of limitations"
+  }
+}

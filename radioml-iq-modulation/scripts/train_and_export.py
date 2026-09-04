@@ -42,12 +42,13 @@ def _pull_args():
 
 
 def load_data(
-    filepath,
+    filepath=None,
     data_format="mat",
     seq_len=None,
     label_path=None,
     x_key=None,
     y_key=None,
+    dataset_dir=None,
 ):
     _push_args()
     try:
@@ -58,6 +59,7 @@ def load_data(
             label_path=label_path,
             x_key=x_key,
             y_key=y_key,
+            dataset_dir=dataset_dir,
         )
     finally:
         _pull_args()
@@ -73,6 +75,7 @@ def _run_training():
 
 def train_and_export_model(
     data_path="./data/processed/radioml2016_train.mat",
+    dataset_dir=None,
     data_format="mat",
     label_path=None,
     x_key=None,
@@ -96,10 +99,14 @@ def train_and_export_model(
     device="auto",
     no_plot=True,
     no_amp=False,
+    awgn_probability=0.0,
+    awgn_snr_min=5.0,
+    awgn_snr_max=20.0,
 ):
     try:
         return _core_cli.train_and_export_model(
             data_path=data_path,
+            dataset_dir=dataset_dir,
             data_format=data_format,
             label_path=label_path,
             x_key=x_key,
@@ -123,6 +130,9 @@ def train_and_export_model(
             device=device,
             no_plot=no_plot,
             no_amp=no_amp,
+            awgn_probability=awgn_probability,
+            awgn_snr_min=awgn_snr_min,
+            awgn_snr_max=awgn_snr_max,
         )
     finally:
         _pull_args()

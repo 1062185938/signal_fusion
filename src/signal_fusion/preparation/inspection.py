@@ -38,9 +38,14 @@ class _CoordinateSchema:
     region_id: str
     region_start: str
     region_end: str
+    source_region_start: str
+    source_region_end: str
+    source_window_start: str
+    source_window_end: str
     raw_region_start: str
     raw_region_end: str
     display_name: str
+    is_dual_rate: bool = False
 
 
 def _pyplot():
@@ -98,6 +103,10 @@ def _coordinate_schema(data: dict[str, Any]) -> _CoordinateSchema:
             region_id="burst_id",
             region_start="burst_start_sample",
             region_end="burst_end_sample",
+            source_region_start="burst_start_sample",
+            source_region_end="burst_end_sample",
+            source_window_start="window_start_sample",
+            source_window_end="window_end_sample",
             raw_region_start=(
                 "raw_burst_start_sample"
                 if "raw_burst_start_sample" in data
@@ -114,13 +123,67 @@ def _coordinate_schema(data: dict[str, Any]) -> _CoordinateSchema:
         field in data
         for field in ("region_id", "region_start_sample", "region_end_sample")
     ):
+        dual_rate = _text(data.get("coordinate_schema")) == "dual_rate_v1"
+        dual_fields = (
+            "source_region_start_sample",
+            "source_region_end_sample",
+            "source_window_start_sample",
+            "source_window_end_sample",
+        )
+        if dual_rate:
+            if "source_sample_rate" not in data:
+                raise ValueError(
+                    "dual_rate_v1 NPZ is missing source_sample_rate"
+                )
+            missing = [field for field in dual_fields if field not in data]
+            if missing:
+                raise ValueError(
+                    "dual_rate_v1 NPZ is missing source coordinate fields: "
+                    f"{missing}"
+                )
+            num_samples = int(data["X"].shape[0])
+            for field in dual_fields:
+                if np.asarray(data[field]).shape != (num_samples,):
+                    raise ValueError(
+                        f"dual-rate coordinate {field!r} must have shape "
+                        f"[{num_samples}]"
+                    )
         return _CoordinateSchema(
             region_id="region_id",
             region_start="region_start_sample",
             region_end="region_end_sample",
-            raw_region_start="region_start_sample",
-            raw_region_end="region_end_sample",
+            source_region_start=(
+                "source_region_start_sample"
+                if dual_rate
+                else "region_start_sample"
+            ),
+            source_region_end=(
+                "source_region_end_sample"
+                if dual_rate
+                else "region_end_sample"
+            ),
+            source_window_start=(
+                "source_window_start_sample"
+                if dual_rate
+                else "window_start_sample"
+            ),
+            source_window_end=(
+                "source_window_end_sample"
+                if dual_rate
+                else "window_end_sample"
+            ),
+            raw_region_start=(
+                "source_region_start_sample"
+                if dual_rate
+                else "region_start_sample"
+            ),
+            raw_region_end=(
+                "source_region_end_sample"
+                if dual_rate
+                else "region_end_sample"
+            ),
             display_name="region",
+            is_dual_rate=dual_rate,
         )
     raise ValueError(
         "NPZ must contain burst_* coordinates or region_* coordinates"
@@ -177,20 +240,25 @@ def _open_original_signal(
 
     resolved_format = resolve_raw_format(resolved_raw_path, data_format)
     options: dict[str, Any] = {}
-    if resolved_format == "sigmf" and resolved_metadata_path is not None:
-        options["metadata_path"] = resolved_metadata_path
+    if resolved_format == "sigmf":
+        if resolved_metadata_path is not None:
+            options["metadata_path"] = resolved_metadata_path
     elif resolved_format == "mat":
         if x_key is not None:
             options["x_key"] = x_key
         if sample_rate is not None:
             options["sample_rate"] = sample_rate
+        elif "source_sample_rate" in data:
+            options["sample_rate"] = float(_scalar(data["source_sample_rate"]))
         if center_frequency is not None:
             options["center_frequency"] = center_frequency
     else:
         resolved_sample_rate = (
             float(sample_rate)
             if sample_rate is not None
-            else float(_scalar(data["sample_rate"]))
+            else float(
+                _scalar(data.get("source_sample_rate", data["sample_rate"]))
+            )
         )
         options.update(
             sample_rate=resolved_sample_rate,
@@ -266,6 +334,39 @@ def _coordinate_warnings(
         if window_start >= window_end:
             warnings.append(f"sample {index}: window_start >= window_end")
             warning_indices.add(index)
+        if schema.is_dual_rate:
+            source_region_start = int(data[schema.source_region_start][index])
+            source_region_end = int(data[schema.source_region_end][index])
+            source_window_start = int(data[schema.source_window_start][index])
+            source_window_end = int(data[schema.source_window_end][index])
+            if source_window_start < source_region_start:
+                warnings.append(
+                    f"sample {index}: source window starts before source region"
+                )
+                warning_indices.add(index)
+            if source_window_end > source_region_end:
+                warnings.append(
+                    f"sample {index}: source window ends after source region"
+                )
+                warning_indices.add(index)
+            if source_window_start >= source_window_end:
+                warnings.append(
+                    f"sample {index}: source window start >= source window end"
+                )
+                warning_indices.add(index)
+            for canonical, explicit in (
+                ("window_start_sample", "target_window_start_sample"),
+                ("window_end_sample", "target_window_end_sample"),
+                (schema.region_start, "target_region_start_sample"),
+                (schema.region_end, "target_region_end_sample"),
+            ):
+                if explicit in data and int(data[canonical][index]) != int(
+                    data[explicit][index]
+                ):
+                    warnings.append(
+                        f"sample {index}: {canonical} disagrees with {explicit}"
+                    )
+                    warning_indices.add(index)
 
     for previous, following in zip(ordered, ordered[1:]):
         gap = int(data["window_start_sample"][following]) - int(
@@ -289,15 +390,16 @@ def _plot_region_overview(
     indices: np.ndarray,
     selected_indices: list[int],
     output_dir: Path,
-    sample_rate: float,
     seq_len: int,
     hop_len: int,
     max_plot_points: int,
     has_warning: bool,
 ) -> str | None:
     first = int(indices[0])
-    start = int(data[schema.region_start][first])
-    end = int(data[schema.region_end][first])
+    target_start = int(data[schema.region_start][first])
+    target_end = int(data[schema.region_end][first])
+    start = int(data[schema.source_region_start][first])
+    end = int(data[schema.source_region_end][first])
     raw_start = int(data[schema.raw_region_start][first])
     raw_end = int(data[schema.raw_region_end][first])
     count = end - start
@@ -313,7 +415,7 @@ def _plot_region_overview(
     plot_iq = iq[::step]
     samples = start + np.arange(len(iq))[::step]
     warning = " | coordinate warning" if has_warning else ""
-    duration_ms = count / sample_rate * 1000.0
+    duration_ms = count / signal.sample_rate * 1000.0
 
     plt = _pyplot()
     fig, axes = plt.subplots(3, 1, figsize=(14, 9), sharex=True)
@@ -323,7 +425,7 @@ def _plot_region_overview(
     axes[1].set_ylabel("I")
     axes[2].plot(samples, plot_iq.imag, color="#d62728", linewidth=0.7)
     axes[2].set_ylabel("Q")
-    axes[2].set_xlabel("Global sample index")
+    axes[2].set_xlabel("Source sample index")
     for axis in axes:
         axis.axvline(start, color="0.25", linewidth=1.0)
         axis.axvline(end, color="0.25", linewidth=1.0)
@@ -332,8 +434,8 @@ def _plot_region_overview(
             axis.axvline(raw_end, color="#d62728", linestyle="--", linewidth=1.1)
         axis.grid(True, alpha=0.25)
     for index in selected_indices:
-        window_start = int(data["window_start_sample"][index])
-        window_end = int(data["window_end_sample"][index])
+        window_start = int(data[schema.source_window_start][index])
+        window_end = int(data[schema.source_window_end][index])
         window_id = int(data["window_id"][index])
         axes[0].axvspan(window_start, window_end, color="#ffbf00", alpha=0.25)
         axes[0].text(
@@ -344,8 +446,14 @@ def _plot_region_overview(
             va="top",
             fontsize=8,
         )
+    target_text = (
+        f" | target=[{target_start},{target_end})"
+        if schema.is_dual_rate
+        else ""
+    )
     fig.suptitle(
-        f"{schema.display_name}_id={region_id} | range=[{start},{end}) | "
+        f"{schema.display_name}_id={region_id} | source=[{start},{end})"
+        f"{target_text} | "
         f"length={count} ({duration_ms:.3f} ms) | windows={len(indices)} | "
         f"seq_len={seq_len} | hop_len={hop_len} | plot step={step}{warning}",
         fontsize=10,
@@ -433,6 +541,8 @@ def inspect_prepared_slices(
             "plotted_bursts": 0,
             "plotted_windows": 0,
             "warning_count": 0,
+            "coordinate_schema": _text(data.get("coordinate_schema"))
+            or "single_rate",
             "generated_files": [],
         }
 
@@ -453,6 +563,18 @@ def inspect_prepared_slices(
         )
         print(f"  raw_path: {resolved_raw}")
         print(f"  metadata_path: {resolved_metadata}")
+    elif schema.is_dual_rate:
+        source_sample_rate = float(_scalar(data["source_sample_rate"]))
+        if not math.isclose(
+            signal.sample_rate,
+            source_sample_rate,
+            rel_tol=1e-9,
+            abs_tol=max(1e-12, source_sample_rate * 1e-9),
+        ):
+            raise ValueError(
+                "raw signal sample rate does not match dual-rate source metadata: "
+                f"{signal.sample_rate} != {source_sample_rate}"
+            )
 
     sample_rate_value = float(_scalar(data["sample_rate"]))
     seq_len = int(_scalar(data["seq_len"]))
@@ -489,7 +611,6 @@ def inspect_prepared_slices(
                 indices,
                 selected,
                 out_dir,
-                sample_rate_value,
                 seq_len,
                 hop_len,
                 max_plot_points,
@@ -521,6 +642,12 @@ def inspect_prepared_slices(
         "plotted_bursts": plotted_regions,
         "plotted_windows": plotted_windows,
         "warning_count": warning_count,
+        "coordinate_schema": _text(data.get("coordinate_schema"))
+        or "single_rate",
+        "source_sample_rate": float(
+            _scalar(data.get("source_sample_rate", data["sample_rate"]))
+        ),
+        "sample_rate": sample_rate_value,
         "generated_files": generated_files,
     }
 
@@ -593,8 +720,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  regions in NPZ:      {result['num_regions']}")
     print(f"  plotted regions:     {result['plotted_regions']}")
     print(f"  plotted windows:     {result['plotted_windows']}")
+    print(f"  coordinate schema:   {result['coordinate_schema']}")
+    if "source_sample_rate" in result:
+        print(f"  source sample rate:  {result['source_sample_rate']:.10g} Hz")
+        print(f"  target sample rate:  {result['sample_rate']:.10g} Hz")
     print(f"  output_dir:          {result['output_dir']}")
-    print(f"  coordinate warnings:{result['warning_count']}")
+    print(f"  coordinate warnings: {result['warning_count']}")
     print("  generated files:")
     for path in result["generated_files"]:
         print(f"    {path}")

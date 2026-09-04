@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: signal-fusion
+Version: 0.1.0
+Summary: Core data contracts and infrastructure for wireless signal analysis.
+Requires-Python: >=3.10
+Requires-Dist: numpy>=1.23
+Requires-Dist: scipy>=1.9
+Provides-Extra: inference
+Requires-Dist: onnxruntime>=1.16; extra == "inference"
+Provides-Extra: model
+Requires-Dist: onnx>=1.14; extra == "model"
+Requires-Dist: onnxruntime>=1.16; extra == "model"
+Requires-Dist: torch>=2.0; extra == "model"
+Provides-Extra: training
+Requires-Dist: matplotlib>=3.7; extra == "training"
+Requires-Dist: onnx>=1.14; extra == "training"
+Requires-Dist: onnxruntime>=1.16; extra == "training"
+Requires-Dist: torch>=2.0; extra == "training"
+Provides-Extra: inspection
+Requires-Dist: matplotlib>=3.7; extra == "inspection"

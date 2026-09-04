@@ -102,21 +102,6 @@ class LoaderTests(unittest.TestCase):
         self.assertEqual(loaded["X"].shape, (2, 2, 16))
         self.assertEqual(loaded["meta"]["returned_samples"], 2)
 
-    def test_phase0_lora_fixture_keeps_schema(self):
-        path = PROJECT_ROOT / "data/processed/slices/sigmf_lora_dataset_128.npz"
-        dataset = load_prepared_dataset(
-            path,
-            data_format="npz",
-            seq_len=128,
-            source_id="lora_slices_128_example",
-        )
-
-        self.assertEqual(dataset.X.shape, (4804, 2, 128))
-        self.assertEqual(dataset.X.dtype, np.float32)
-        self.assertEqual(dataset.y.shape, (4804,))
-        self.assertEqual(dataset.meta["x_shape"], (4804, 2, 128))
-        self.assertEqual(dataset.meta["seq_len"], 128)
-
     def test_legacy_loader_paths_reexport_shared_implementation(self):
         feature_wrapper = _load_module(
             "legacy_feature_data_loaders",
@@ -140,4 +125,3 @@ class LoaderTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

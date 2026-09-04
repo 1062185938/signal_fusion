@@ -10,6 +10,8 @@ from .model_inference import (
     RankedPrediction,
 )
 from .preparation import (
+    BlePacketDetectorV1,
+    BlePacketDetectorV1Config,
     EnergyDetectorV1,
     EnergyDetectorV1Config,
     FullSignalDetector,
@@ -24,6 +26,8 @@ from .preparation import (
 
 __all__ = [
     "Evidence",
+    "BlePacketDetectorV1",
+    "BlePacketDetectorV1Config",
     "EnergyDetectorV1",
     "EnergyDetectorV1Config",
     "ModelManifest",

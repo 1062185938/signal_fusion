@@ -1,0 +1,25 @@
+{
+  "best_model_path": "outputs/lora_zigbee_ble_v1_smoke/best_model.pth",
+  "onnx_path": "outputs/lora_zigbee_ble_v1_smoke/lora_zigbee_ble_smoke.onnx",
+  "test_acc": 97.91666666666666,
+  "test_loss": 0.28812408447265625,
+  "seq_len": 128,
+  "input_channels": 2,
+  "class_num": 3,
+  "model_name": "deepconvnet_1d",
+  "optimizer": "adam",
+  "amp_enabled": true,
+  "device": "cuda",
+  "elapsed_sec": 0.7794337272644043,
+  "epochs_completed": 3,
+  "dataset_id": "lora_zigbee_ble_v1",
+  "dataset_dir": "data/processed/training/lora_zigbee_ble_v1",
+  "split_mode": "fixed",
+  "split_sizes": {
+    "train": 504,
+    "validation": 273,
+    "test": 336
+  },
+  "label_map_path": "outputs/lora_zigbee_ble_v1_smoke/label_map.json",
+  "training_result_path": "outputs/lora_zigbee_ble_v1_smoke/training_result.json"
+}

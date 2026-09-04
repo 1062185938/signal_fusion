@@ -37,6 +37,11 @@ signal-inspect = "signal_fusion.preparation.inspection:main"
 signal-extract-features = "signal_fusion.feature_extraction.cli:main"
 signal-infer = "signal_fusion.model_inference.cli:main"
 signal-train = "signal_fusion.training.cli:main"
+signal-assemble-training = "signal_fusion.training_data.cli:main"
+signal-evaluate-snr = "signal_fusion.evaluation.cli:main"
+signal-build-evidence = "signal_fusion.fusion.cli:main"
+signal-select-fusion-weight = "signal_fusion.fusion.weight_cli:main"
+signal-feature-classifier = "signal_fusion.feature_classifier.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

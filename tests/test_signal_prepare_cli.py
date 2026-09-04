@@ -89,11 +89,157 @@ class SignalPrepareCliTests(unittest.TestCase):
                 self.assertEqual(prepared["source_id"].item(), "synthetic_cli_sigmf")
                 self.assertEqual(prepared["X"].shape[1:], (2, 128))
                 self.assertGreater(prepared["X"].shape[0], 0)
+                self.assertIn("burst_id", prepared.files)
+                self.assertNotIn("coordinate_schema", prepared.files)
             summary = json.loads(
                 (base / "prepared_dataset_summary.json").read_text(encoding="utf-8")
             )
             self.assertEqual(summary["source_id"], "synthetic_cli_sigmf")
             self.assertEqual(summary["detector"], "energy_v1")
+
+    def test_full_signal_cli_can_resample_before_target_windowing(self):
+        iq = np.arange(16, dtype=np.float32).astype(np.complex64)
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            input_path = base / "capture.dat"
+            output_path = base / "prepared.npz"
+            iq.tofile(input_path)
+
+            with redirect_stdout(io.StringIO()):
+                exit_code = main(
+                    [
+                        "--input_path",
+                        str(input_path),
+                        "--output_path",
+                        str(output_path),
+                        "--source_id",
+                        "cli_resampled_dat",
+                        "--data_format",
+                        "dat",
+                        "--sample_rate",
+                        "1000000",
+                        "--detector",
+                        "full_signal",
+                        "--start_sample",
+                        "2",
+                        "--end_sample",
+                        "6",
+                        "--target-sample-rate",
+                        "4000000",
+                        "--seq_len",
+                        "4",
+                        "--hop_len",
+                        "4",
+                        "--normalize",
+                        "none",
+                        "--no_remove_dc",
+                    ]
+                )
+
+            self.assertEqual(exit_code, 0)
+            with np.load(output_path, allow_pickle=False) as prepared:
+                self.assertEqual(prepared["X"].shape, (4, 2, 4))
+                self.assertEqual(float(prepared["sample_rate"]), 4_000_000)
+                self.assertEqual(
+                    float(prepared["source_sample_rate"]), 1_000_000
+                )
+                self.assertEqual(
+                    prepared["coordinate_schema"].item(), "dual_rate_v1"
+                )
+                np.testing.assert_array_equal(
+                    prepared["window_start_sample"], [8, 12, 16, 20]
+                )
+                np.testing.assert_array_equal(
+                    prepared["source_window_start_sample"], [2, 3, 4, 5]
+                )
+
+    def test_energy_cli_uses_generic_pipeline_when_resampling_is_requested(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            input_path = base / "capture.dat"
+            output_path = base / "prepared.npz"
+            _synthetic_capture().tofile(input_path)
+
+            with redirect_stdout(io.StringIO()):
+                exit_code = main(
+                    [
+                        "--input_path",
+                        str(input_path),
+                        "--output_path",
+                        str(output_path),
+                        "--source_id",
+                        "energy_resampled",
+                        "--data_format",
+                        "dat",
+                        "--sample_rate",
+                        "10000",
+                        "--detector",
+                        "energy_v1",
+                        "--target_sample_rate",
+                        "40000",
+                        "--seq_len",
+                        "128",
+                        "--hop_len",
+                        "128",
+                        "--chunk_size",
+                        "300",
+                        "--window_ms",
+                        "2",
+                        "--start_threshold_db",
+                        "10",
+                        "--end_threshold_db",
+                        "6",
+                        "--min_signal_ms",
+                        "10",
+                        "--min_gap_ms",
+                        "5",
+                        "--pad_before_ms",
+                        "0",
+                        "--pad_after_ms",
+                        "0",
+                        "--noise_probe_count",
+                        "4",
+                    ]
+                )
+
+            self.assertEqual(exit_code, 0)
+            with np.load(output_path, allow_pickle=False) as prepared:
+                self.assertGreater(prepared["X"].shape[0], 0)
+                self.assertIn("region_id", prepared.files)
+                self.assertNotIn("burst_id", prepared.files)
+                self.assertEqual(float(prepared["sample_rate"]), 40_000)
+                self.assertEqual(float(prepared["source_sample_rate"]), 10_000)
+                self.assertEqual(
+                    prepared["resampling_method"].item(), "polyphase"
+                )
+
+    def test_cli_rejects_invalid_target_sample_rate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "capture.dat"
+            np.zeros(16, dtype=np.complex64).tofile(path)
+            errors = io.StringIO()
+            with redirect_stderr(errors):
+                exit_code = main(
+                    [
+                        "--input_path",
+                        str(path),
+                        "--source_id",
+                        "invalid_target_rate",
+                        "--output_path",
+                        str(Path(directory) / "prepared.npz"),
+                        "--data_format",
+                        "dat",
+                        "--sample_rate",
+                        "1000000",
+                        "--detector",
+                        "full_signal",
+                        "--target_sample_rate",
+                        "0",
+                    ]
+                )
+
+        self.assertEqual(exit_code, 1)
+        self.assertIn("target_sample_rate must be finite and positive", errors.getvalue())
 
     def test_dat_cli_requires_sample_rate(self):
         with tempfile.TemporaryDirectory() as directory:

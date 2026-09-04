@@ -6,6 +6,10 @@ from collections.abc import Callable, Mapping
 from typing import Any
 
 from signal_fusion.preparation.detectors.base import SignalDetector
+from signal_fusion.preparation.detectors.ble_packet_v1 import (
+    BlePacketDetectorV1,
+    BlePacketDetectorV1Config,
+)
 from signal_fusion.preparation.detectors.energy_v1 import (
     EnergyDetectorV1,
     EnergyDetectorV1Config,
@@ -24,9 +28,14 @@ def _energy_v1_factory(options: Mapping[str, Any]) -> SignalDetector:
     return EnergyDetectorV1(EnergyDetectorV1Config(**dict(options)))
 
 
+def _ble_packet_v1_factory(options: Mapping[str, Any]) -> SignalDetector:
+    return BlePacketDetectorV1(BlePacketDetectorV1Config(**dict(options)))
+
+
 DETECTOR_REGISTRY: dict[str, DetectorFactory] = {
     "full_signal": _full_signal_factory,
     "energy_v1": _energy_v1_factory,
+    "ble_packet_v1": _ble_packet_v1_factory,
 }
 
 

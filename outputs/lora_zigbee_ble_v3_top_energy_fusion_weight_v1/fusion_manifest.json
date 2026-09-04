@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "method": "weighted_probability_average",
+  "labels": [
+    "LoRa",
+    "Zigbee",
+    "BLE"
+  ],
+  "weights": {
+    "iq_model": 0.5,
+    "feature_classifier": 0.5
+  },
+  "selection": {
+    "split": "validation",
+    "conditions": [
+      "clean",
+      "controlled_5_db"
+    ],
+    "weight_step": 0.1,
+    "primary_metric": "macro_accuracy_percent",
+    "tie_breakers": [
+      "accuracy_percent",
+      "disagreement_accuracy_percent",
+      "closest_to_equal_weights"
+    ]
+  }
+}

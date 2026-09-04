@@ -20,5 +20,7 @@ logs/
 # 5. 数据集
 data/iq_open/*
 data/raw/*
+data/processed/*
 !data/iq_open/.gitkeep
 !data/raw/.gitkeep
+!data/processed/.gitkeep

@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "model_id": "lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20",
+  "model_type": "linear_62_to_classes",
+  "device": "cuda",
+  "feature_count": 62,
+  "class_count": 3,
+  "label_map": {
+    "0": "LoRa",
+    "1": "Zigbee",
+    "2": "BLE"
+  },
+  "dataset_dir": "/home/dianci/projects/signal_fusion/data/processed/features/lora_zigbee_ble_v3_top_energy_4msps_region_features",
+  "dataset_id": "lora_zigbee_ble_v3_top_energy_4msps_region_features",
+  "configuration": {
+    "batch_size": 64,
+    "learning_rate": 0.01,
+    "max_epochs": 300,
+    "patience": 30,
+    "seed": 44,
+    "standardization": "train_split_mean_std"
+  },
+  "best_epoch": 300,
+  "best_validation_loss": 0.00012461497681215405,
+  "epochs_completed": 300,
+  "elapsed_sec": 1.5621731281280518,
+  "constant_feature_count": 1,
+  "metrics": {
+    "train": {
+      "sample_count": 444,
+      "correct_count": 444,
+      "accuracy_percent": 100.0,
+      "confusion_matrix": [
+        [
+          148,
+          0,
+          0
+        ],
+        [
+          0,
+          148,
+          0
+        ],
+        [
+          0,
+          0,
+          148
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LoRa": 100.0,
+        "Zigbee": 100.0,
+        "BLE": 100.0
+      }
+    },
+    "validation": {
+      "sample_count": 114,
+      "correct_count": 114,
+      "accuracy_percent": 100.0,
+      "confusion_matrix": [
+        [
+          38,
+          0,
+          0
+        ],
+        [
+          0,
+          38,
+          0
+        ],
+        [
+          0,
+          0,
+          38
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LoRa": 100.0,
+        "Zigbee": 100.0,
+        "BLE": 100.0
+      }
+    },
+    "test": {
+      "sample_count": 336,
+      "correct_count": 335,
+      "accuracy_percent": 99.70238095238095,
+      "confusion_matrix": [
+        [
+          111,
+          1,
+          0
+        ],
+        [
+          0,
+          112,
+          0
+        ],
+        [
+          0,
+          0,
+          112
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LoRa": 99.10714285714286,
+        "Zigbee": 100.0,
+        "BLE": 100.0
+      },
+      "conditions": {
+        "clean": {
+          "sample_count": 168,
+          "correct_count": 168,
+          "accuracy_percent": 100.0,
+          "confusion_matrix": [
+            [
+              56,
+              0,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 100.0,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        },
+        "test_awgn": {
+          "sample_count": 168,
+          "correct_count": 167,
+          "accuracy_percent": 99.40476190476191,
+          "confusion_matrix": [
+            [
+              55,
+              1,
+              0
+            ],
+            [
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              56
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LoRa": 98.21428571428571,
+            "Zigbee": 100.0,
+            "BLE": 100.0
+          }
+        }
+      }
+    }
+  },
+  "outputs": {
+    "checkpoint": "outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/best_model.pth",
+    "onnx": "outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/feature_classifier.onnx",
+    "scaler": "outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/feature_scaler.npz",
+    "manifest": "outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/feature_classifier_manifest.json",
+    "result": "outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/training_result.json"
+  }
+}
