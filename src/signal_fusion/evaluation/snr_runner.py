@@ -53,7 +53,7 @@ def _parse_label_map(meta: dict[str, Any]) -> dict[str, str]:
     return normalized
 
 
-def _resolve_device(requested: str):
+def resolve_evaluation_device(requested: str):
     try:
         import torch
     except ImportError as exc:
@@ -67,7 +67,7 @@ def _resolve_device(requested: str):
     return torch.device(requested)
 
 
-def _load_model(
+def load_evaluation_model(
     model_path: Path,
     *,
     model_name: str,
@@ -100,7 +100,7 @@ def _load_model(
     return model
 
 
-def _predict_probabilities(model, x: np.ndarray, *, batch_size: int, device):
+def predict_probabilities(model, x: np.ndarray, *, batch_size: int, device):
     import torch
 
     chunks: list[np.ndarray] = []
@@ -351,8 +351,8 @@ def evaluate_snr_robustness(
     ).astype(str)
     dataset_id = str(_metadata_scalar(dataset.meta, "dataset_id"))
 
-    resolved_device = _resolve_device(device)
-    model = _load_model(
+    resolved_device = resolve_evaluation_device(device)
+    model = load_evaluation_model(
         model_file,
         model_name=model_name,
         class_num=class_num,
@@ -362,7 +362,7 @@ def evaluate_snr_robustness(
     )
 
     conditions: list[dict[str, Any]] = []
-    clean_probabilities = _predict_probabilities(
+    clean_probabilities = predict_probabilities(
         model, dataset.X, batch_size=batch_size, device=resolved_device
     )
     clean_trial = {
@@ -396,7 +396,7 @@ def evaluate_snr_robustness(
                 remove_dc=True,
                 rms_normalize=True,
             )
-            probabilities = _predict_probabilities(
+            probabilities = predict_probabilities(
                 model, noisy_x, batch_size=batch_size, device=resolved_device
             )
             condition_trials.append(
@@ -463,4 +463,9 @@ def evaluate_snr_robustness(
     return result
 
 
-__all__ = ["evaluate_snr_robustness"]
+__all__ = [
+    "evaluate_snr_robustness",
+    "load_evaluation_model",
+    "predict_probabilities",
+    "resolve_evaluation_device",
+]

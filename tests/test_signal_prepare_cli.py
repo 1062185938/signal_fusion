@@ -28,6 +28,51 @@ def _synthetic_capture() -> np.ndarray:
 
 
 class SignalPrepareCliTests(unittest.TestCase):
+    def test_fixed_blocks_cli_keeps_every_non_overlapping_window(self):
+        iq = np.arange(128, dtype=np.float32).astype(np.complex64)
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            input_path = base / "capture.bin"
+            output_path = base / "prepared.npz"
+            iq.tofile(input_path)
+
+            with redirect_stdout(io.StringIO()):
+                exit_code = main(
+                    [
+                        "--input_path",
+                        str(input_path),
+                        "--output_path",
+                        str(output_path),
+                        "--source_id",
+                        "fixed_blocks_cli",
+                        "--data_format",
+                        "bin",
+                        "--sample_rate",
+                        "1000000",
+                        "--detector",
+                        "fixed_blocks",
+                        "--block_size_samples",
+                        "32",
+                        "--block_count",
+                        "2",
+                        "--seq_len",
+                        "8",
+                        "--hop_len",
+                        "8",
+                        "--normalize",
+                        "none",
+                        "--no_remove_dc",
+                    ]
+                )
+
+            self.assertEqual(exit_code, 0)
+            with np.load(output_path, allow_pickle=False) as prepared:
+                self.assertEqual(prepared["X"].shape, (8, 2, 8))
+                np.testing.assert_array_equal(
+                    np.unique(prepared["region_id"], return_counts=True)[1],
+                    [4, 4],
+                )
+
     def test_unified_sigmf_cli_records_source_and_detector(self):
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)

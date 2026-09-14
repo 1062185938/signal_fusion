@@ -1,0 +1,1195 @@
+{
+  "schema_version": 1,
+  "analysis_type": "region_subwindow_power_variability_stratification",
+  "population": {
+    "window_sizes": [
+      512,
+      4096
+    ],
+    "fold_test_locations": {
+      "fold1": "reep",
+      "fold2": "rabot",
+      "fold3": "merelbeke",
+      "fold4": "gentbrugge"
+    },
+    "conditions": {
+      "clean": null,
+      "10_db": 10.0,
+      "7_5_db": 7.5,
+      "5_db": 5.0
+    },
+    "noise_seeds": [
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "unique_test_regions_across_folds": 3840,
+    "classes": {
+      "0": "LTE",
+      "1": "WiFi",
+      "2": "DVB-T"
+    }
+  },
+  "state_metric": {
+    "name": "within_region_512_subwindow_power_range_db",
+    "formula": "20*log10(max(window_rms_after_dc)/min(window_rms_after_dc))",
+    "source_field": "window_512 test.npz normalization_scale",
+    "bins": [
+      {
+        "name": "stable_le_1_db",
+        "range_db": "<=1"
+      },
+      {
+        "name": "moderate_1_to_3_db",
+        "range_db": "(1,3]"
+      },
+      {
+        "name": "variable_3_to_6_db",
+        "range_db": "(3,6]"
+      },
+      {
+        "name": "highly_variable_gt_6_db",
+        "range_db": ">6"
+      }
+    ],
+    "interpretation_limit": "Power variability is a signal-state proxy; it does not prove a packet boundary or interference cause."
+  },
+  "state_population_by_fold": {
+    "fold1": {
+      "stable_le_1_db": 489,
+      "moderate_1_to_3_db": 89,
+      "variable_3_to_6_db": 59,
+      "highly_variable_gt_6_db": 323
+    },
+    "fold2": {
+      "stable_le_1_db": 564,
+      "moderate_1_to_3_db": 68,
+      "variable_3_to_6_db": 27,
+      "highly_variable_gt_6_db": 301
+    },
+    "fold3": {
+      "stable_le_1_db": 463,
+      "moderate_1_to_3_db": 178,
+      "variable_3_to_6_db": 69,
+      "highly_variable_gt_6_db": 250
+    },
+    "fold4": {
+      "stable_le_1_db": 529,
+      "moderate_1_to_3_db": 51,
+      "variable_3_to_6_db": 80,
+      "highly_variable_gt_6_db": 300
+    }
+  },
+  "pooled_accuracy": {
+    "512": {
+      "clean": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 1,
+            "accuracy_percent": 99.90220048899755
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 1,
+            "accuracy_percent": 99.92119779353821
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 1,
+            "accuracy_percent": 92.3076923076923
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 1,
+            "accuracy_percent": 98.44559585492227
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 1,
+            "accuracy_percent": 90.0
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 1,
+            "accuracy_percent": 99.57446808510639
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 1,
+            "accuracy_percent": 98.0392156862745
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 1,
+            "accuracy_percent": 99.65928449744463
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 1,
+            "accuracy_percent": 97.33333333333334
+          }
+        }
+      },
+      "10_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 99.6283618581907
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 99.96847911741528
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 87.6923076923077
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 99.26605504587155
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 97.72020725388602
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 90.0
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 99.1139240506329
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 99.14893617021276
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 96.07843137254902
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 99.47189097103917
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.92179863147605
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 96.39999999999999
+          }
+        }
+      },
+      "7_5_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 99.24694376528117
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 99.96847911741528
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 86.15384615384616
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 98.2699868938401
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 96.21761658031089
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 90.0
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 97.27848101265822
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 98.72340425531915
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 94.11764705882352
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 99.0289608177172
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.90224828934507
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 93.06666666666666
+          }
+        }
+      },
+      "5_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 97.89731051344744
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 99.98423955870764
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 84.61538461538461
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 94.6526867627785
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 93.21243523316062
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 90.0
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 93.60759493670886
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 96.76595744680851
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 85.09803921568627
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 97.85349233390119
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.78494623655914
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 84.66666666666667
+          }
+        }
+      }
+    },
+    "4096": {
+      "clean": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 1,
+            "accuracy_percent": 99.41320293398533
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 1,
+            "accuracy_percent": 99.29078014184397
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 1,
+            "accuracy_percent": 84.61538461538461
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 1,
+            "accuracy_percent": 99.8689384010485
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 1,
+            "accuracy_percent": 98.70466321243524
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 1,
+            "accuracy_percent": 93.33333333333333
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 1,
+            "accuracy_percent": 99.68354430379746
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 1,
+            "accuracy_percent": 100.0
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 1,
+            "accuracy_percent": 98.04088586030664
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 1,
+            "accuracy_percent": 0.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 1,
+            "accuracy_percent": 99.90224828934507
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 1,
+            "accuracy_percent": 86.0
+          }
+        }
+      },
+      "10_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 99.13936430317848
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 99.79511426319937
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 84.61538461538461
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 98.2961992136304
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 97.30569948186528
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 93.33333333333333
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 97.9746835443038
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 99.65957446808511
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 98.4313725490196
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 98.63713798977854
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 0.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.90224828934507
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 90.66666666666666
+          }
+        }
+      },
+      "7_5_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 98.60146699266504
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 99.93695823483057
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 84.61538461538461
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 96.61861074705112
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 96.26943005181347
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 93.33333333333333
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 96.70886075949367
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 99.57446808510639
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 98.0392156862745
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 99.14821124361158
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 0.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.80449657869013
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 95.33333333333334
+          }
+        }
+      },
+      "5_db": {
+        "stable_le_1_db": {
+          "ALL": {
+            "unique_region_count": 2045,
+            "trial_count": 5,
+            "accuracy_percent": 97.24205378973106
+          },
+          "DVB-T": {
+            "unique_region_count": 1269,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 13,
+            "trial_count": 5,
+            "accuracy_percent": 84.61538461538461
+          },
+          "WiFi": {
+            "unique_region_count": 763,
+            "trial_count": 5,
+            "accuracy_percent": 92.870249017038
+          }
+        },
+        "moderate_1_to_3_db": {
+          "ALL": {
+            "unique_region_count": 386,
+            "trial_count": 5,
+            "accuracy_percent": 92.90155440414509
+          },
+          "DVB-T": {
+            "unique_region_count": 10,
+            "trial_count": 5,
+            "accuracy_percent": 100.0
+          },
+          "LTE": {
+            "unique_region_count": 60,
+            "trial_count": 5,
+            "accuracy_percent": 92.66666666666666
+          },
+          "WiFi": {
+            "unique_region_count": 316,
+            "trial_count": 5,
+            "accuracy_percent": 92.72151898734177
+          }
+        },
+        "variable_3_to_6_db": {
+          "ALL": {
+            "unique_region_count": 235,
+            "trial_count": 5,
+            "accuracy_percent": 99.14893617021276
+          },
+          "LTE": {
+            "unique_region_count": 184,
+            "trial_count": 5,
+            "accuracy_percent": 99.89130434782608
+          },
+          "WiFi": {
+            "unique_region_count": 51,
+            "trial_count": 5,
+            "accuracy_percent": 96.47058823529412
+          }
+        },
+        "highly_variable_gt_6_db": {
+          "ALL": {
+            "unique_region_count": 1174,
+            "trial_count": 5,
+            "accuracy_percent": 99.48892674616695
+          },
+          "DVB-T": {
+            "unique_region_count": 1,
+            "trial_count": 5,
+            "accuracy_percent": 0.0
+          },
+          "LTE": {
+            "unique_region_count": 1023,
+            "trial_count": 5,
+            "accuracy_percent": 99.80449657869013
+          },
+          "WiFi": {
+            "unique_region_count": 150,
+            "trial_count": 5,
+            "accuracy_percent": 98.0
+          }
+        }
+      }
+    }
+  },
+  "diagnostic_contrasts": {
+    "512": {
+      "clean": {
+        "ALL": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 2431,
+            "evaluation_count": 2431,
+            "error_count": 8,
+            "accuracy_percent": 99.67091731797613,
+            "error_rate_percent": 0.3290826820238585
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 1409,
+            "evaluation_count": 1409,
+            "error_count": 5,
+            "accuracy_percent": 99.64513839602554,
+            "error_rate_percent": 0.35486160397444994
+          },
+          "error_risk_ratio_high_vs_low": 1.0783356990773598,
+          "error_rate_difference_percent_points": 0.02577892195059145
+        },
+        "WiFi": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 1079,
+            "evaluation_count": 1079,
+            "error_count": 0,
+            "accuracy_percent": 100.0,
+            "error_rate_percent": 0.0
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 201,
+            "evaluation_count": 201,
+            "error_count": 5,
+            "accuracy_percent": 97.51243781094527,
+            "error_rate_percent": 2.4875621890547266
+          },
+          "error_risk_ratio_high_vs_low": null,
+          "error_rate_difference_percent_points": 2.4875621890547266
+        }
+      },
+      "5_db": {
+        "ALL": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 2431,
+            "evaluation_count": 12155,
+            "error_count": 346,
+            "accuracy_percent": 97.15343480049363,
+            "error_rate_percent": 2.846565199506376
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 1409,
+            "evaluation_count": 7045,
+            "error_count": 164,
+            "accuracy_percent": 97.6721078779276,
+            "error_rate_percent": 2.327892122072392
+          },
+          "error_risk_ratio_high_vs_low": 0.817789848086414,
+          "error_rate_difference_percent_points": -0.5186730774339838
+        },
+        "WiFi": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 1079,
+            "evaluation_count": 5395,
+            "error_count": 305,
+            "accuracy_percent": 94.34661723818351,
+            "error_rate_percent": 5.653382761816497
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 201,
+            "evaluation_count": 1005,
+            "error_count": 153,
+            "accuracy_percent": 84.77611940298507,
+            "error_rate_percent": 15.223880597014924
+          },
+          "error_risk_ratio_high_vs_low": 2.692879862980181,
+          "error_rate_difference_percent_points": 9.570497835198427
+        }
+      }
+    },
+    "4096": {
+      "clean": {
+        "ALL": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 2431,
+            "evaluation_count": 2431,
+            "error_count": 17,
+            "accuracy_percent": 99.3006993006993,
+            "error_rate_percent": 0.6993006993006993
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 1409,
+            "evaluation_count": 1409,
+            "error_count": 23,
+            "accuracy_percent": 98.36763662171752,
+            "error_rate_percent": 1.6323633782824698
+          },
+          "error_risk_ratio_high_vs_low": 2.3342796309439318,
+          "error_rate_difference_percent_points": 0.9330626789817705
+        },
+        "WiFi": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 1079,
+            "evaluation_count": 1079,
+            "error_count": 2,
+            "accuracy_percent": 99.81464318813717,
+            "error_rate_percent": 0.18535681186283595
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 201,
+            "evaluation_count": 201,
+            "error_count": 21,
+            "accuracy_percent": 89.55223880597015,
+            "error_rate_percent": 10.44776119402985
+          },
+          "error_risk_ratio_high_vs_low": 56.36567164179104,
+          "error_rate_difference_percent_points": 10.262404382167015
+        }
+      },
+      "5_db": {
+        "ALL": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 2431,
+            "evaluation_count": 12155,
+            "error_count": 419,
+            "accuracy_percent": 96.5528589058001,
+            "error_rate_percent": 3.4471410941999174
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 1409,
+            "evaluation_count": 7045,
+            "error_count": 40,
+            "accuracy_percent": 99.43222143364088,
+            "error_rate_percent": 0.5677785663591199
+          },
+          "error_risk_ratio_high_vs_low": 0.1647099874485705,
+          "error_rate_difference_percent_points": -2.8793625278407973
+        },
+        "WiFi": {
+          "low_variability_le_3_db": {
+            "unique_region_count": 1079,
+            "evaluation_count": 5395,
+            "error_count": 387,
+            "accuracy_percent": 92.82669138090824,
+            "error_rate_percent": 7.173308619091752
+          },
+          "high_variability_gt_3_db": {
+            "unique_region_count": 201,
+            "evaluation_count": 1005,
+            "error_count": 24,
+            "accuracy_percent": 97.61194029850746,
+            "error_rate_percent": 2.3880597014925375
+          },
+          "error_risk_ratio_high_vs_low": 0.3329090979212465,
+          "error_rate_difference_percent_points": -4.785248917599214
+        }
+      }
+    }
+  },
+  "reconciliation": {
+    "comparison": "recomputed region accuracy versus existing snr_evaluation.json",
+    "max_absolute_difference_percent_points": 0.0,
+    "rows": [
+      {
+        "window_size": 512,
+        "fold": "fold1",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 99.58333333333333,
+        "recomputed_region_accuracy_percent": 99.58333333333333,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold1",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 98.52083333333334,
+        "recomputed_region_accuracy_percent": 98.52083333333334,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold1",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 96.75,
+        "recomputed_region_accuracy_percent": 96.75,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold1",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 92.10416666666666,
+        "recomputed_region_accuracy_percent": 92.10416666666666,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold1",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 97.70833333333333,
+        "recomputed_region_accuracy_percent": 97.70833333333333,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold1",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 96.54166666666667,
+        "recomputed_region_accuracy_percent": 96.54166666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold1",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 95.52083333333333,
+        "recomputed_region_accuracy_percent": 95.52083333333333,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold1",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 91.625,
+        "recomputed_region_accuracy_percent": 91.625,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold2",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 99.79166666666667,
+        "recomputed_region_accuracy_percent": 99.79166666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold2",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 99.72916666666667,
+        "recomputed_region_accuracy_percent": 99.72916666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold2",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.64583333333333,
+        "recomputed_region_accuracy_percent": 99.64583333333333,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold2",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 99.0,
+        "recomputed_region_accuracy_percent": 99.0,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold2",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 99.375,
+        "recomputed_region_accuracy_percent": 99.375,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold2",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 99.72916666666667,
+        "recomputed_region_accuracy_percent": 99.72916666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold2",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.77083333333334,
+        "recomputed_region_accuracy_percent": 99.77083333333334,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold2",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 99.77083333333334,
+        "recomputed_region_accuracy_percent": 99.77083333333334,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold3",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 99.375,
+        "recomputed_region_accuracy_percent": 99.375,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold3",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 99.31249999999999,
+        "recomputed_region_accuracy_percent": 99.31249999999999,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold3",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.29166666666666,
+        "recomputed_region_accuracy_percent": 99.29166666666666,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold3",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 99.29166666666666,
+        "recomputed_region_accuracy_percent": 99.29166666666666,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold3",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 98.75,
+        "recomputed_region_accuracy_percent": 98.75,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold3",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 99.0625,
+        "recomputed_region_accuracy_percent": 99.0625,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold3",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.10416666666667,
+        "recomputed_region_accuracy_percent": 99.10416666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold3",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 99.14583333333334,
+        "recomputed_region_accuracy_percent": 99.14583333333334,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold4",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 99.89583333333333,
+        "recomputed_region_accuracy_percent": 99.89583333333333,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold4",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 99.87499999999999,
+        "recomputed_region_accuracy_percent": 99.87499999999999,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold4",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.6875,
+        "recomputed_region_accuracy_percent": 99.6875,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 512,
+        "fold": "fold4",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 98.97916666666667,
+        "recomputed_region_accuracy_percent": 98.97916666666667,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold4",
+        "condition": "clean",
+        "expected_region_accuracy_percent": 100.0,
+        "recomputed_region_accuracy_percent": 100.0,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold4",
+        "condition": "10_db",
+        "expected_region_accuracy_percent": 100.0,
+        "recomputed_region_accuracy_percent": 100.0,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold4",
+        "condition": "7_5_db",
+        "expected_region_accuracy_percent": 99.97916666666666,
+        "recomputed_region_accuracy_percent": 99.97916666666666,
+        "absolute_difference_percent_points": 0.0
+      },
+      {
+        "window_size": 4096,
+        "fold": "fold4",
+        "condition": "5_db",
+        "expected_region_accuracy_percent": 99.89583333333333,
+        "recomputed_region_accuracy_percent": 99.89583333333333,
+        "absolute_difference_percent_points": 0.0
+      }
+    ]
+  },
+  "outputs": {
+    "json": "outputs/technology_recognition_v1_ablation/signal_state_analysis/signal_state_summary.json",
+    "csv": "outputs/technology_recognition_v1_ablation/signal_state_analysis/signal_state_accuracy.csv"
+  }
+}

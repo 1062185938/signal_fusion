@@ -69,8 +69,8 @@
     {
       "source_id": "lora_slices_128_example",
       "role": "prepared_dataset_and_model_input",
-      "path": "data/processed/slices/sigmf_lora_dataset_128.npz",
-      "summary_path": "data/processed/slices/sigmf_lora_dataset_128_dataset_summary.json",
+      "path": "data/processed/slices/test/sigmf_lora_dataset_128.npz",
+      "summary_path": "data/processed/slices/test/sigmf_lora_dataset_128_dataset_summary.json",
       "format": "npz",
       "selection": {
         "sample_indices": [

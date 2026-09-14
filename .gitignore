@@ -21,6 +21,7 @@ logs/
 data/iq_open/*
 data/raw/*
 data/processed/*
+data/external
 !data/iq_open/.gitkeep
 !data/raw/.gitkeep
 !data/processed/.gitkeep

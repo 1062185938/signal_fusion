@@ -11,8 +11,8 @@ class SignalDetector(ABC):
     """Locate candidate signal regions in one raw recording."""
 
     name: str
+    preserve_region_boundaries: bool = False
 
     @abstractmethod
     def detect(self, signal: RawSignal) -> list[SignalRegion]:
         raise NotImplementedError
-

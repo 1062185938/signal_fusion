@@ -1,0 +1,355 @@
+import json
+from pathlib import Path
+import tempfile
+import unittest
+
+import numpy as np
+
+from signal_fusion.benchmarks.technology_recognition import (
+    ALL_REGIONS_DATASET_ID,
+    DATASET_ID,
+    LABELS,
+    LOCATION_FOLDS,
+    V1_LOCATIONS,
+    WINDOW_SIZES,
+    parse_recording_filename,
+    prepare_v1_sources,
+    write_ablation_manifests,
+    write_fold_manifest,
+)
+from signal_fusion.benchmarks.technology_recognition_ablation import (
+    summarize_ablation_runs,
+)
+from signal_fusion.benchmarks.technology_recognition_awgn import (
+    AWGN_SNR_DB_VALUES,
+    AWGN_WINDOW_SIZES,
+    summarize_awgn_runs,
+)
+
+
+class TechnologyRecognitionBenchmarkTests(unittest.TestCase):
+    def test_summarizes_selected_window_awgn_runs_across_folds(self):
+        runs = []
+        for size in AWGN_WINDOW_SIZES:
+            for fold_index, fold_name in enumerate(LOCATION_FOLDS):
+                conditions = []
+                for condition_index, snr_db in enumerate(
+                    (None, *AWGN_SNR_DB_VALUES)
+                ):
+                    accuracy = 99.0 - condition_index - fold_index
+                    per_class = {
+                        str(label): {
+                            "class_name": name,
+                            "mean": accuracy - label,
+                            "std": 0.1,
+                        }
+                        for name, label in LABELS.items()
+                    }
+                    conditions.append(
+                        {
+                            "snr_db": snr_db,
+                            "aggregate": {
+                                "trial_count": 1 if snr_db is None else 5,
+                                "window_accuracy_percent": {
+                                    "mean": accuracy,
+                                    "std": 0.2,
+                                },
+                                "group_accuracy_percent": {
+                                    "mean": accuracy + 0.5,
+                                    "std": 0.1,
+                                },
+                                "per_class_window_accuracy_percent": per_class,
+                                "per_class_group_accuracy_percent": per_class,
+                            },
+                        }
+                    )
+                runs.append(
+                    {
+                        "window_size": size,
+                        "fold": fold_name,
+                        "conditions": conditions,
+                    }
+                )
+
+        summaries = summarize_awgn_runs(runs)
+
+        self.assertEqual(set(summaries), {"512", "4096"})
+        self.assertEqual(
+            summaries["512"]["conditions"]["clean"][
+                "window_accuracy_percent"
+            ]["mean"],
+            97.5,
+        )
+        self.assertEqual(
+            summaries["512"]["conditions"]["5_db"][
+                "region_delta_from_clean_percent_points"
+            ],
+            -3.0,
+        )
+        self.assertEqual(
+            summaries["4096"]["conditions"]["10_db"][
+                "per_class_window_accuracy_percent"
+            ]["1"]["class_name"],
+            "WiFi",
+        )
+        self.assertEqual(
+            summaries["512"]["conditions"]["5_db"][
+                "per_class_region_accuracy_percent"
+            ]["2"]["mean"],
+            92.5,
+        )
+
+        selected = summarize_awgn_runs(runs, window_sizes=(4096,))
+        self.assertEqual(set(selected), {"4096"})
+
+    def test_summarizes_all_folds_by_window_size(self):
+        runs = []
+        for size in WINDOW_SIZES:
+            for index, fold_name in enumerate(LOCATION_FOLDS):
+                per_class = {
+                    str(label): {"accuracy_percent": 80.0 + index}
+                    for label in LABELS.values()
+                }
+                runs.append(
+                    {
+                        "window_size": size,
+                        "fold": fold_name,
+                        "window": {
+                            "accuracy_percent": 80.0 + index,
+                            "mean_predicted_confidence": 0.8,
+                            "per_class": per_class,
+                        },
+                        "region": {"accuracy_percent": 90.0 + index},
+                    }
+                )
+
+        summaries = summarize_ablation_runs(runs)
+
+        self.assertEqual(set(summaries), {str(size) for size in WINDOW_SIZES})
+        self.assertEqual(
+            summaries["128"]["window_accuracy_percent"]["mean"], 81.5
+        )
+        self.assertEqual(
+            summaries["4096"]["region_accuracy_percent"]["mean"], 91.5
+        )
+
+    def test_summarizes_only_requested_window_sizes(self):
+        runs = []
+        for size in (512, 4096):
+            for index, fold_name in enumerate(LOCATION_FOLDS):
+                per_class = {
+                    str(label): {"accuracy_percent": 90.0 + index}
+                    for label in LABELS.values()
+                }
+                runs.append(
+                    {
+                        "window_size": size,
+                        "fold": fold_name,
+                        "window": {
+                            "accuracy_percent": 90.0 + index,
+                            "mean_predicted_confidence": 0.9,
+                            "per_class": per_class,
+                        },
+                        "region": {"accuracy_percent": 95.0 + index},
+                    }
+                )
+
+        summaries = summarize_ablation_runs(
+            runs, window_sizes=(512, 4096)
+        )
+
+        self.assertEqual(set(summaries), {"512", "4096"})
+
+    def test_writes_location_disjoint_fold_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            prepared_root = root / "prepared"
+            recordings = []
+            for location in V1_LOCATIONS:
+                for technology in LABELS:
+                    for run in range(1, 11):
+                        slug = technology.lower().replace("-", "")
+                        source_id = f"tr_{location}_{slug}_r{run:02d}"
+                        source_path = prepared_root / location / f"{source_id}.npz"
+                        source_path.parent.mkdir(parents=True, exist_ok=True)
+                        source_path.touch()
+                        recordings.append(
+                            {
+                                "selected_for_v1": True,
+                                "location": location,
+                                "technology": technology,
+                                "source_id": source_id,
+                            }
+                        )
+            inventory = {"dataset_id": DATASET_ID, "recordings": recordings}
+            output = root / "configs" / "fold1.json"
+
+            actual_path = write_fold_manifest(
+                inventory,
+                prepared_root,
+                output,
+                fold_name="fold1",
+                window_size=512,
+            )
+
+            manifest = json.loads(actual_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                {split: len(sources) for split, sources in manifest["splits"].items()},
+                {"train": 60, "validation": 30, "test": 30},
+            )
+            self.assertEqual(manifest["assembly"]["windows_per_region"], 8)
+            self.assertEqual(manifest["assembly"]["window_selection"], "uniform")
+            self.assertEqual(
+                manifest["dataset_id"], f"{DATASET_ID}_fold1_clean_512"
+            )
+
+    def test_location_folds_use_every_location_once_for_validation_and_test(self):
+        validation_locations = [
+            fold["validation"][0] for fold in LOCATION_FOLDS.values()
+        ]
+        test_locations = [fold["test"][0] for fold in LOCATION_FOLDS.values()]
+
+        self.assertCountEqual(validation_locations, V1_LOCATIONS)
+        self.assertCountEqual(test_locations, V1_LOCATIONS)
+        for fold in LOCATION_FOLDS.values():
+            assigned = set().union(*map(set, fold.values()))
+            self.assertEqual(assigned, set(V1_LOCATIONS))
+
+    def test_writes_complete_ablation_manifest_matrix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            profiles_root = root / "profiles"
+            recordings = []
+            for location in ("gentbrugge", "merelbeke", "rabot", "reep"):
+                for technology in LABELS:
+                    for run in range(1, 11):
+                        slug = technology.lower().replace("-", "")
+                        source_id = f"tr_{location}_{slug}_r{run:02d}"
+                        recordings.append(
+                            {
+                                "selected_for_v1": True,
+                                "location": location,
+                                "technology": technology,
+                                "source_id": source_id,
+                            }
+                        )
+                        for size in WINDOW_SIZES:
+                            path = (
+                                profiles_root
+                                / f"window_{size}"
+                                / "prepared_sources"
+                                / location
+                                / f"{source_id}.npz"
+                            )
+                            path.parent.mkdir(parents=True, exist_ok=True)
+                            path.touch()
+
+            outputs = write_ablation_manifests(
+                {"dataset_id": DATASET_ID, "recordings": recordings},
+                profiles_root,
+                root / "manifests",
+            )
+
+            self.assertEqual(len(outputs), 20)
+            self.assertTrue(all(path.is_file() for path in outputs))
+
+    def test_parses_published_filename_convention(self):
+        parsed = parse_recording_filename(
+            "wf10Msps_g76_rabot_f5240MHz_r1.bin"
+        )
+
+        self.assertEqual(parsed["technology"], "WiFi")
+        self.assertEqual(parsed["sample_rate"], 10_000_000)
+        self.assertEqual(parsed["gain_db"], 76)
+        self.assertEqual(parsed["filename_location"], "rabot")
+        self.assertEqual(parsed["center_frequency_hz"], 5_240_000_000)
+        self.assertEqual(parsed["run"], 1)
+
+    def test_prepares_32_regions_with_all_non_overlapping_windows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "capture.bin"
+            phase = np.arange(40 * 4096, dtype=np.float32) * np.float32(0.01)
+            iq = np.exp(1j * phase).astype(np.complex64)
+            iq.tofile(source)
+            output = root / "output"
+            inventory = {
+                "dataset_id": DATASET_ID,
+                "dataset_root": str(root),
+                "recordings": [
+                    {
+                        "relative_path": source.name,
+                        "location": "rabot",
+                        "technology": "LTE",
+                        "sample_rate": 1_000_000,
+                        "center_frequency_hz": 806_000_000,
+                        "source_id": "tr_rabot_lte_r01",
+                        "selected_for_v1": True,
+                    }
+                ],
+            }
+
+            report = prepare_v1_sources(inventory, output, window_size=512)
+
+            prepared_path = (
+                output
+                / "prepared_sources"
+                / "rabot"
+                / "tr_rabot_lte_r01.npz"
+            )
+            with np.load(prepared_path, allow_pickle=False) as prepared:
+                self.assertEqual(prepared["X"].shape, (256, 2, 512))
+                self.assertEqual(np.unique(prepared["region_id"]).size, 32)
+                np.testing.assert_array_equal(
+                    np.unique(prepared["region_id"], return_counts=True)[1],
+                    np.full(32, 8),
+                )
+                self.assertEqual(prepared["normalization"].item(), "none")
+                self.assertFalse(bool(prepared["remove_dc"].item()))
+                self.assertEqual(prepared["label"].item(), LABELS["LTE"])
+
+        self.assertEqual(report["prepared_source_count"], 1)
+        self.assertEqual(report["total_regions"], 32)
+        self.assertEqual(report["total_windows"], 256)
+
+    def test_prepares_all_complete_regions_when_region_count_is_none(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "capture.bin"
+            block_count = 40
+            phase = np.arange(block_count * 4096, dtype=np.float32) * np.float32(
+                0.01
+            )
+            np.exp(1j * phase).astype(np.complex64).tofile(source)
+            inventory = {
+                "dataset_id": ALL_REGIONS_DATASET_ID,
+                "dataset_root": str(root),
+                "recordings": [
+                    {
+                        "relative_path": source.name,
+                        "location": "rabot",
+                        "technology": "LTE",
+                        "sample_rate": 1_000_000,
+                        "center_frequency_hz": 806_000_000,
+                        "complex_sample_count": block_count * 4096,
+                        "source_id": "tr_rabot_lte_r01",
+                        "selected_for_v1": True,
+                    }
+                ],
+            }
+
+            report = prepare_v1_sources(
+                inventory,
+                root / "output",
+                window_size=512,
+                region_count_per_source=None,
+            )
+
+            self.assertEqual(report["regions_per_source"], block_count)
+            self.assertEqual(report["region_selection"], "all_complete_blocks")
+            self.assertEqual(report["total_regions"], block_count)
+            self.assertEqual(report["total_windows"], block_count * 8)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -147,6 +147,7 @@ Detector 输入 `RawSignal`，只输出 `SignalRegion`，不直接生成训练�
 | --- | --- |
 | `detectors/base.py` | 定义 `SignalDetector` 抽象接口 |
 | `detectors/full_signal.py` | 把整个采集文件视为一个信号区域，适合无需检测的情况 |
+| `detectors/fixed_blocks.py` | 把连续记录划成固定长度 block，并可在全文件范围内均匀选择指定数量的 region |
 | `detectors/energy_v1.py` | 当前 LoRa 能量检测策略及其配置、噪声估计和区域细化逻辑 |
 | `detectors/ble_packet_v1.py` | 使用 BLE 前导码、Access Address、包头与 CRC 约束定位完整 BLE 包 |
 | `detectors/registry.py` | Detector 注册表和按名称构建策略的入口 |
@@ -170,6 +171,19 @@ Reader → native-rate detection → segmentation
 Python 调用 `prepare_signal()`、`prepare_file()` 或 `build_prepared_dataset()` 时，可通过 `resampling=ResamplingConfig(target_sample_rate=4_000_000)` 启用；CLI 可通过 `--target_sample_rate 4000000` 启用。默认值仍为 `None`，因此不传该配置或参数时，已有算法和数据集输出保持不变。
 
 启用重采样后，检测、区域整理及其参数仍使用原始采样率坐标；`seq_len`、`hop_len` 和窗口切片使用目标采样率坐标。输出数据集使用 `dual_rate_v1` 双坐标契约，同时保存 `source_*` 原始坐标和 `target_*` 目标坐标。`signal-inspect` 会自动在原始 IQ 概览中使用 `source_*` 坐标，在 NPZ 窗口图中使用目标坐标。
+
+### 5.4 `benchmarks`：公开数据集实验编排
+
+`benchmarks` 保存公开数据集特有的文件筛选和可复现实验入口，不改变通用 Reader、Detector 或训练模块。
+
+| 文件 | 作用 |
+| --- | --- |
+| `benchmarks/technology_recognition.py` | 解析 LTE/WiFi/DVB-T 数据集文件名，审计 190 个源文件，冻结四地点 V1 子集，并调用通用 `fixed_blocks` pipeline |
+| `benchmarks/technology_recognition_cli.py` | 生成 `inventory.json`，批量生成不同窗口长度的 prepared profile，并生成四地点轮换 manifest |
+| `benchmarks/technology_recognition_ablation.py` | 统一评估 4 Fold × 5 窗口长度模型，计算窗口级、4096 点 region 级和分类别结果 |
+| `benchmarks/technology_recognition_ablation_cli.py` | 公开数据集消融评估命令入口，输出 JSON、CSV 和曲线图 |
+
+V1 使用原生 1 Msps、4096 点 region、每个源文件均匀选择 32 个 region。公开数据集的审计和初始生成结果记录在 `docs/benchmarks/technology_recognition_v1_phase0_phase1.md`，地点隔离的 clean 128 点基线记录在 `docs/benchmarks/technology_recognition_v1_phase2.md`，完整四地点轮换和 128–4096 点窗口消融记录在 `docs/benchmarks/technology_recognition_v1_window_ablation.md`。
 
 ## 6. `feature_extraction`：62 维 IQ 特征提取
 
@@ -482,7 +496,7 @@ signal-prepare \
 
 | 参数 | 默认值 | 支持值或说明 |
 | --- | --- | --- |
-| `--detector` | `energy_v1` | `energy_v1`、`ble_packet_v1` 或 `full_signal` |
+| `--detector` | `energy_v1` | `energy_v1`、`ble_packet_v1`、`full_signal` 或 `fixed_blocks` |
 | `--label` | 无 | 写入所有窗口的整数类别；`energy_v1` 未指定时使用 `0` |
 | `--class_name` | 无 | 可读类别名；`energy_v1` 未指定时使用 `LoRa` |
 | `--seq_len` | `128` | 每个输出窗口的 IQ 点数 |
@@ -511,6 +525,15 @@ signal-prepare \
 | --- | --- | --- |
 | `--start_sample` | `0` | 把全文件方式的区域起点限制在该绝对采样点 |
 | `--end_sample` | 文件末尾 | 把全文件方式的区域终点限制在该绝对采样点 |
+
+#### `fixed_blocks` 参数
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `--block_size_samples` | `4096` | 每个固定 region 的复数 IQ 点数 |
+| `--block_count` | 全部完整 block | 在完整文件范围内均匀选择的 region 数量；不够一个 block 的尾部丢弃 |
+
+`fixed_blocks` 保留相邻 region 的边界，不会因为两个 block 首尾相接而被 segmentation 层重新合并。若 `seq_len=128`、`hop_len=128`、`block_size_samples=4096`，每个 region 会输出全部 32 个非重叠窗口。
 
 #### 通用区域整理参数
 

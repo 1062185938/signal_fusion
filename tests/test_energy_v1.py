@@ -55,7 +55,7 @@ class EnergyDetectorV1Tests(unittest.TestCase):
         expected = json.loads(
             (
                 PROJECT_ROOT
-                / "data/processed/slices/sigmf_lora_dataset_128_dataset_summary.json"
+                / "data/processed/slices/test/sigmf_lora_dataset_128_dataset_summary.json"
             ).read_text(encoding="utf-8")
         )
         report = self.detector.last_report
@@ -70,7 +70,7 @@ class EnergyDetectorV1Tests(unittest.TestCase):
 
     def test_prepared_windows_preserve_phase0_schema_and_values(self):
         fixture_path = (
-            PROJECT_ROOT / "data/processed/slices/sigmf_lora_dataset_128.npz"
+            PROJECT_ROOT / "data/processed/slices/test/sigmf_lora_dataset_128.npz"
         )
         with np.load(fixture_path, allow_pickle=False) as expected:
             self.assertEqual(self.dataset.X.shape, (4804, 2, 128))
@@ -120,4 +120,3 @@ class EnergyDetectorV1Tests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

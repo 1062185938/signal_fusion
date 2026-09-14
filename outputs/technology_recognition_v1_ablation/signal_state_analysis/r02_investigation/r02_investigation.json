@@ -1,0 +1,583 @@
+{
+  "schema_version": 1,
+  "analysis_type": "targeted_reep_wifi_r02_clean_error_investigation",
+  "scope": {
+    "sources": [
+      "tr_reep_wifi_r02",
+      "tr_reep_wifi_r03",
+      "tr_reep_wifi_r10"
+    ],
+    "regions_per_source": 32,
+    "sample_rate_hz": 1000000,
+    "region_samples": 4096
+  },
+  "label_map": {
+    "0": "LTE",
+    "1": "WiFi",
+    "2": "DVB-T"
+  },
+  "by_source": {
+    "tr_reep_wifi_r02": {
+      "region_count": 32,
+      "model_4096_clean_correct_count": 16,
+      "model_512_clean_correct_count": 32,
+      "high_variability_gt_6db_count": 19,
+      "high_variability_4096_clean_error_count": 16,
+      "early_before_0_55s_4096_error_count": 14,
+      "early_before_0_55s_region_count": 16,
+      "late_from_0_55s_4096_error_count": 2,
+      "late_from_0_55s_region_count": 16,
+      "model_4096_5db_correct_evaluations": 138,
+      "model_4096_5db_total_evaluations": 160,
+      "clean_error_region_ids": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        18,
+        20
+      ]
+    },
+    "tr_reep_wifi_r03": {
+      "region_count": 32,
+      "model_4096_clean_correct_count": 32,
+      "model_512_clean_correct_count": 31,
+      "high_variability_gt_6db_count": 3,
+      "high_variability_4096_clean_error_count": 0,
+      "early_before_0_55s_4096_error_count": 0,
+      "early_before_0_55s_region_count": 16,
+      "late_from_0_55s_4096_error_count": 0,
+      "late_from_0_55s_region_count": 16,
+      "model_4096_5db_correct_evaluations": 131,
+      "model_4096_5db_total_evaluations": 160,
+      "clean_error_region_ids": []
+    },
+    "tr_reep_wifi_r10": {
+      "region_count": 32,
+      "model_4096_clean_correct_count": 28,
+      "model_512_clean_correct_count": 31,
+      "high_variability_gt_6db_count": 22,
+      "high_variability_4096_clean_error_count": 4,
+      "early_before_0_55s_4096_error_count": 2,
+      "early_before_0_55s_region_count": 16,
+      "late_from_0_55s_4096_error_count": 2,
+      "late_from_0_55s_region_count": 16,
+      "model_4096_5db_correct_evaluations": 135,
+      "model_4096_5db_total_evaluations": 160,
+      "clean_error_region_ids": [
+        13,
+        15,
+        16,
+        19
+      ]
+    }
+  },
+  "metric_summary": {
+    "r02_wrong_4096_clean": {
+      "subwindow_power_range_db": {
+        "median": 7.987666601990693,
+        "min": 7.51351089129097,
+        "max": 8.334907920200926
+      },
+      "max_adjacent_subwindow_jump_db": {
+        "median": 7.2592312626892905,
+        "min": 4.5574265548591555,
+        "max": 7.969393149512193
+      },
+      "elevated_64_sample_frame_fraction": {
+        "median": 0.125,
+        "min": 0.109375,
+        "max": 0.140625
+      },
+      "longest_elevated_run_samples": {
+        "median": 512.0,
+        "min": 448.0,
+        "max": 576.0
+      },
+      "amplitude_cv": {
+        "median": 0.7916541446177662,
+        "min": 0.7512284029336006,
+        "max": 0.811437903082832
+      },
+      "spectral_entropy": {
+        "median": 0.9374951025418685,
+        "min": 0.9310324632347989,
+        "max": 0.9405229194030508
+      },
+      "spectral_flatness": {
+        "median": 0.5214765758775965,
+        "min": 0.5053937253138601,
+        "max": 0.5348634272111344
+      },
+      "spectral_peak_factor": {
+        "median": 28.505794574417244,
+        "min": 11.834746895895536,
+        "max": 64.46193790368173
+      }
+    },
+    "r02_correct_4096_clean": {
+      "subwindow_power_range_db": {
+        "median": 0.9133060664487829,
+        "min": 0.455465618273756,
+        "max": 7.7975621796962855
+      },
+      "max_adjacent_subwindow_jump_db": {
+        "median": 0.6221081599099811,
+        "min": 0.3603389449375598,
+        "max": 4.963228784731932
+      },
+      "elevated_64_sample_frame_fraction": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.109375
+      },
+      "longest_elevated_run_samples": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 448.0
+      },
+      "amplitude_cv": {
+        "median": 0.5233195535465611,
+        "min": 0.5190362583900759,
+        "max": 0.782003087099746
+      },
+      "spectral_entropy": {
+        "median": 0.9219178945314974,
+        "min": 0.9123502552469683,
+        "max": 0.9357529139669151
+      },
+      "spectral_flatness": {
+        "median": 0.49068091416226933,
+        "min": 0.4770399085556094,
+        "max": 0.5135426921665247
+      },
+      "spectral_peak_factor": {
+        "median": 56.38837862152535,
+        "min": 36.49417342086025,
+        "max": 116.85998686943472
+      }
+    },
+    "r03_all_correct_control": {
+      "subwindow_power_range_db": {
+        "median": 3.295376032784617,
+        "min": 0.49119335599420566,
+        "max": 6.519364024166528
+      },
+      "max_adjacent_subwindow_jump_db": {
+        "median": 3.054418282099263,
+        "min": 0.2805347067506361,
+        "max": 5.988012875725751
+      },
+      "elevated_64_sample_frame_fraction": {
+        "median": 0.03125,
+        "min": 0.0,
+        "max": 0.125
+      },
+      "longest_elevated_run_samples": {
+        "median": 128.0,
+        "min": 0.0,
+        "max": 512.0
+      },
+      "amplitude_cv": {
+        "median": 0.5650756506370251,
+        "min": 0.5087336318889933,
+        "max": 0.6705942659065506
+      },
+      "spectral_entropy": {
+        "median": 0.928977427894009,
+        "min": 0.9097514028054632,
+        "max": 0.9376782025328171
+      },
+      "spectral_flatness": {
+        "median": 0.5073299908077902,
+        "min": 0.4622209130486192,
+        "max": 0.5241254627233962
+      },
+      "spectral_peak_factor": {
+        "median": 48.79116137603033,
+        "min": 23.232909856185053,
+        "max": 84.42627366780175
+      }
+    }
+  },
+  "file_quality": {
+    "tr_reep_wifi_r02": {
+      "finite": true,
+      "complex_sample_count": 131072,
+      "max_abs_component": 0.026886800304055214,
+      "component_p99_abs": 0.011047697626054287,
+      "component_p999_abs": 0.017181916162371635,
+      "fraction_abs_component_ge_0_99": 0.0
+    },
+    "tr_reep_wifi_r03": {
+      "finite": true,
+      "complex_sample_count": 131072,
+      "max_abs_component": 0.02313302457332611,
+      "component_p99_abs": 0.007629625499248505,
+      "component_p999_abs": 0.01205480843782425,
+      "fraction_abs_component_ge_0_99": 0.0
+    },
+    "tr_reep_wifi_r10": {
+      "finite": true,
+      "complex_sample_count": 131072,
+      "max_abs_component": 0.022827839478850365,
+      "component_p99_abs": 0.010101623833179474,
+      "component_p999_abs": 0.01525925099849701,
+      "fraction_abs_component_ge_0_99": 0.0
+    }
+  },
+  "representative_cases": [
+    {
+      "source_id": "tr_reep_wifi_r02",
+      "source_region_id": 0,
+      "region_start_seconds": 0.016384,
+      "subwindow_power_range_db": 7.603944572781167,
+      "model_4096_predicted_label": "LTE",
+      "model_4096_wifi_probability": 0.06167721375823021,
+      "model_512_region_predicted_label": "WiFi",
+      "model_512_region_wifi_probability": 0.9862133264541626,
+      "model_512_wifi_window_votes": 8,
+      "model_4096_5db_correct_trials": 5
+    },
+    {
+      "source_id": "tr_reep_wifi_r02",
+      "source_region_id": 10,
+      "region_start_seconds": 0.356352,
+      "subwindow_power_range_db": 7.9634814351518415,
+      "model_4096_predicted_label": "LTE",
+      "model_4096_wifi_probability": 0.02143697813153267,
+      "model_512_region_predicted_label": "WiFi",
+      "model_512_region_wifi_probability": 0.862359220162034,
+      "model_512_wifi_window_votes": 7,
+      "model_4096_5db_correct_trials": 0
+    },
+    {
+      "source_id": "tr_reep_wifi_r02",
+      "source_region_id": 17,
+      "region_start_seconds": 0.598016,
+      "subwindow_power_range_db": 7.7975621796962855,
+      "model_4096_predicted_label": "WiFi",
+      "model_4096_wifi_probability": 0.6630156636238098,
+      "model_512_region_predicted_label": "WiFi",
+      "model_512_region_wifi_probability": 0.7543218559585512,
+      "model_512_wifi_window_votes": 6,
+      "model_4096_5db_correct_trials": 5
+    },
+    {
+      "source_id": "tr_reep_wifi_r03",
+      "source_region_id": 22,
+      "region_start_seconds": 0.770048,
+      "subwindow_power_range_db": 6.023029326101138,
+      "model_4096_predicted_label": "WiFi",
+      "model_4096_wifi_probability": 0.9719864130020142,
+      "model_512_region_predicted_label": "WiFi",
+      "model_512_region_wifi_probability": 0.9833558425307274,
+      "model_512_wifi_window_votes": 8,
+      "model_4096_5db_correct_trials": 5
+    }
+  ],
+  "method_limits": [
+    "File-level labels do not establish packet-level ground truth.",
+    "Power and STFT patterns can identify transients but cannot alone identify their protocol.",
+    "The 5 dB condition is incremental AWGN applied to already-recorded IQ, not physical over-the-air SNR."
+  ],
+  "outputs": {
+    "csv": "outputs/technology_recognition_v1_ablation/signal_state_analysis/r02_investigation/reep_wifi_region_diagnostics.csv",
+    "plot": "outputs/technology_recognition_v1_ablation/signal_state_analysis/r02_investigation/representative_regions.png",
+    "json": "outputs/technology_recognition_v1_ablation/signal_state_analysis/r02_investigation/r02_investigation.json"
+  },
+  "raw_reconciliation": {
+    "tr_reep_wifi_r01": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r02": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r03": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r04": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r05": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r06": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r07": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r08": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r09": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    },
+    "tr_reep_wifi_r10": {
+      "raw_complex_sample_count": 1100000,
+      "prepared_region_count": 32,
+      "max_abs_difference_prepared_vs_raw": 0.0
+    }
+  },
+  "whole_record_comparison": {
+    "tr_reep_wifi_r01": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 4,
+      "all_high_variability_gt_6db_fraction": 0.014925373134328358,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_4096_wifi_fraction": 0.96875,
+      "all_blocks_model_512_region_wifi_fraction": 0.9888059701492538,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r02": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 33,
+      "all_high_variability_gt_6db_fraction": 0.12313432835820895,
+      "selected_high_variability_gt_6db_count": 19,
+      "selected_high_variability_gt_6db_fraction": 0.59375,
+      "selection_enrichment_ratio": 4.821969696969697,
+      "all_blocks_model_4096_wifi_fraction": 0.8768656716417911,
+      "selected_blocks_model_4096_wifi_fraction": 0.5,
+      "all_blocks_model_512_region_wifi_fraction": 0.9813432835820896,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r03": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 10,
+      "all_high_variability_gt_6db_fraction": 0.03731343283582089,
+      "selected_high_variability_gt_6db_count": 3,
+      "selected_high_variability_gt_6db_fraction": 0.09375,
+      "selection_enrichment_ratio": 2.5125,
+      "all_blocks_model_4096_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 0.996268656716418,
+      "selected_blocks_model_512_region_wifi_fraction": 0.96875
+    },
+    "tr_reep_wifi_r04": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 33,
+      "all_high_variability_gt_6db_fraction": 0.12313432835820895,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9888059701492538,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 0.9925373134328358,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r05": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 1,
+      "all_high_variability_gt_6db_fraction": 0.0037313432835820895,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_4096_wifi_fraction": 0.96875,
+      "all_blocks_model_512_region_wifi_fraction": 0.9925373134328358,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r06": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 25,
+      "all_high_variability_gt_6db_fraction": 0.09328358208955224,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.996268656716418,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 0.996268656716418,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r07": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 1,
+      "all_high_variability_gt_6db_fraction": 0.0037313432835820895,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9888059701492538,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 1.0,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r08": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 1,
+      "all_high_variability_gt_6db_fraction": 0.0037313432835820895,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 0.996268656716418,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r09": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 33,
+      "all_high_variability_gt_6db_fraction": 0.12313432835820895,
+      "selected_high_variability_gt_6db_count": 0,
+      "selected_high_variability_gt_6db_fraction": 0.0,
+      "selection_enrichment_ratio": 0.0,
+      "all_blocks_model_4096_wifi_fraction": 0.9664179104477612,
+      "selected_blocks_model_4096_wifi_fraction": 1.0,
+      "all_blocks_model_512_region_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_512_region_wifi_fraction": 1.0
+    },
+    "tr_reep_wifi_r10": {
+      "all_complete_blocks": 268,
+      "selected_blocks": 32,
+      "all_high_variability_gt_6db_count": 33,
+      "all_high_variability_gt_6db_fraction": 0.12313432835820895,
+      "selected_high_variability_gt_6db_count": 22,
+      "selected_high_variability_gt_6db_fraction": 0.6875,
+      "selection_enrichment_ratio": 5.583333333333334,
+      "all_blocks_model_4096_wifi_fraction": 0.9664179104477612,
+      "selected_blocks_model_4096_wifi_fraction": 0.875,
+      "all_blocks_model_512_region_wifi_fraction": 0.9850746268656716,
+      "selected_blocks_model_512_region_wifi_fraction": 0.96875
+    }
+  },
+  "r02_periodicity": {
+    "high_variability_block_indices": [
+      0,
+      4,
+      12,
+      21,
+      29,
+      37,
+      46,
+      54,
+      62,
+      71,
+      79,
+      87,
+      96,
+      104,
+      112,
+      121,
+      129,
+      137,
+      146,
+      154,
+      162,
+      171,
+      179,
+      187,
+      196,
+      204,
+      212,
+      221,
+      229,
+      237,
+      246,
+      254,
+      262
+    ],
+    "dominant_gaps": [
+      {
+        "blocks": 8,
+        "count": 21,
+        "milliseconds": 32.768
+      },
+      {
+        "blocks": 9,
+        "count": 10,
+        "milliseconds": 36.864
+      },
+      {
+        "blocks": 4,
+        "count": 1,
+        "milliseconds": 16.384
+      }
+    ],
+    "selected_block_indices": [
+      4,
+      12,
+      20,
+      29,
+      37,
+      46,
+      54,
+      62,
+      71,
+      79,
+      87,
+      96,
+      104,
+      113,
+      121,
+      129,
+      138,
+      146,
+      154,
+      163,
+      171,
+      180,
+      188,
+      196,
+      205,
+      213,
+      221,
+      230,
+      238,
+      247,
+      255,
+      263
+    ],
+    "interpretation": "The 32-region uniform grid also advances mainly by 8 or 9 blocks, so it can phase-align with the recurring bursts."
+  },
+  "diagnostic_conclusion": {
+    "verified_primary_driver": "Uniform 32-block selection aliases with recurring 8/9-block WiFi bursts in r02 and r10, overrepresenting high-variability blocks.",
+    "r02_selected_high_variability_enrichment_ratio": 4.821969696969697,
+    "r10_selected_high_variability_enrichment_ratio": 5.583333333333334,
+    "not_supported": [
+      "gross file corruption",
+      "prepared-versus-raw sample mismatch",
+      "obvious full-scale clipping"
+    ],
+    "unresolved": "File-level labels cannot determine whether each burst is desired WiFi, co-channel activity, or another transient."
+  }
+}

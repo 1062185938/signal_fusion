@@ -7,6 +7,7 @@ import numpy as np
 
 from signal_fusion import PreparedDataset
 from signal_fusion.preparation import (
+    FixedBlockDetector,
     FullSignalDetector,
     PreparationConfig,
     RawSignal,
@@ -116,6 +117,38 @@ class NormalizationTests(unittest.TestCase):
 
 
 class PreparationPipelineTests(unittest.TestCase):
+    def test_fixed_blocks_keep_all_non_overlapping_windows(self):
+        iq = np.arange(64, dtype=np.float32).astype(np.complex64)
+        dataset = prepare_signal(
+            _raw_signal(iq),
+            detector=FixedBlockDetector(block_size_samples=16, block_count=4),
+            config=PreparationConfig(
+                seq_len=4,
+                hop_len=4,
+                normalization="none",
+                remove_dc=False,
+            ),
+        )
+
+        self.assertEqual(dataset.X.shape, (16, 2, 4))
+        np.testing.assert_array_equal(
+            np.unique(dataset.meta["region_id"], return_counts=True)[1],
+            [4, 4, 4, 4],
+        )
+        np.testing.assert_array_equal(
+            dataset.meta["region_start_sample"],
+            np.repeat([0, 16, 32, 48], 4),
+        )
+
+    def test_fixed_blocks_select_regions_uniformly(self):
+        detector = FixedBlockDetector(block_size_samples=10, block_count=3)
+        regions = detector.detect(_raw_signal(np.arange(100, dtype=np.float32)))
+
+        self.assertEqual(
+            [(region.start_sample, region.end_sample) for region in regions],
+            [(10, 20), (50, 60), (80, 90)],
+        )
+
     def test_pipeline_returns_prepared_dataset_with_absolute_coordinates(self):
         iq = (
             np.arange(10, dtype=np.float32)

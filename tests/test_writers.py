@@ -14,6 +14,7 @@ from signal_fusion.io import (
 from signal_fusion.preparation.detectors import (
     BlePacketDetectorV1,
     EnergyDetectorV1,
+    FixedBlockDetector,
     FullSignalDetector,
     available_detectors,
     build_detector,
@@ -67,7 +68,7 @@ class DetectorRegistryTests(unittest.TestCase):
     def test_registry_builds_format_independent_strategies(self):
         self.assertEqual(
             available_detectors(),
-            ("full_signal", "energy_v1", "ble_packet_v1"),
+            ("full_signal", "energy_v1", "ble_packet_v1", "fixed_blocks"),
         )
         self.assertIsInstance(
             build_detector("full_signal", {"start_sample": 2, "end_sample": 10}),
@@ -80,6 +81,13 @@ class DetectorRegistryTests(unittest.TestCase):
         self.assertIsInstance(
             build_detector("ble_packet_v1", {"channel": 37}),
             BlePacketDetectorV1,
+        )
+        self.assertIsInstance(
+            build_detector(
+                "fixed_blocks",
+                {"block_size_samples": 4096, "block_count": 32},
+            ),
+            FixedBlockDetector,
         )
 
     def test_registry_rejects_unknown_detector(self):

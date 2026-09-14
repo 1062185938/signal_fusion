@@ -31,6 +31,7 @@ def segment_regions(
     *,
     recording_sample_count: int,
     config: PreparationConfig,
+    preserve_region_boundaries: bool = False,
 ) -> list[SignalRegion]:
     """Clamp, filter, pad, sort, and merge detector output regions."""
 
@@ -70,7 +71,8 @@ def segment_regions(
             continue
         previous = merged[-1]
         gap = region.start_sample - previous.end_sample
-        if gap <= config.merge_gap_samples:
+        touching_preserved = preserve_region_boundaries and gap == 0
+        if gap <= config.merge_gap_samples and not touching_preserved:
             merged[-1] = _merge_pair(previous, region)
         else:
             merged.append(region)
@@ -78,4 +80,3 @@ def segment_regions(
 
 
 __all__ = ["segment_regions"]
-

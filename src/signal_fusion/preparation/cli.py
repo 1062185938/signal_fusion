@@ -14,6 +14,7 @@ from signal_fusion.preparation.dataset import build_prepared_dataset
 from signal_fusion.preparation.detectors import (
     BlePacketDetectorV1,
     EnergyDetectorV1,
+    FixedBlockDetector,
     available_detectors,
     build_detector,
 )
@@ -82,6 +83,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
     full_signal_group = parser.add_argument_group("full_signal detector")
     full_signal_group.add_argument("--start_sample", type=int, default=0)
     full_signal_group.add_argument("--end_sample", type=int, default=None)
+
+    fixed_blocks_group = parser.add_argument_group("fixed_blocks detector")
+    fixed_blocks_group.add_argument(
+        "--block_size_samples", type=int, default=4096
+    )
+    fixed_blocks_group.add_argument("--block_count", type=int, default=None)
 
     segmentation_group = parser.add_argument_group("standard segmentation")
     segmentation_group.add_argument("--min_region_samples", type=int, default=1)
@@ -246,6 +253,41 @@ def main(argv: list[str] | None = None) -> int:
             if not isinstance(detector, BlePacketDetectorV1):
                 raise RuntimeError(
                     "ble_packet_v1 registry returned an invalid detector"
+                )
+            remainder = "pad" if args.remainder == "zero_pad" else args.remainder
+            result = build_prepared_dataset(
+                input_path=args.input_path,
+                output_path=args.output_path,
+                source_id=args.source_id,
+                data_format=args.data_format,
+                reader_options=reader_options,
+                detector=detector,
+                config=PreparationConfig(
+                    seq_len=args.seq_len,
+                    hop_len=args.hop_len,
+                    remainder=remainder,
+                    normalization=args.normalize,
+                    remove_dc=args.remove_dc,
+                    min_region_samples=args.min_region_samples,
+                    merge_gap_samples=args.merge_gap_samples,
+                    pad_before_samples=args.pad_before_samples,
+                    pad_after_samples=args.pad_after_samples,
+                    label=args.label,
+                    class_name=args.class_name,
+                ),
+                resampling=resampling,
+            )
+        elif args.detector == "fixed_blocks":
+            detector = build_detector(
+                "fixed_blocks",
+                {
+                    "block_size_samples": args.block_size_samples,
+                    "block_count": args.block_count,
+                },
+            )
+            if not isinstance(detector, FixedBlockDetector):
+                raise RuntimeError(
+                    "fixed_blocks registry returned an invalid detector"
                 )
             remainder = "pad" if args.remainder == "zero_pad" else args.remainder
             result = build_prepared_dataset(

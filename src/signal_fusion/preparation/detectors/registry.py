@@ -14,6 +14,7 @@ from signal_fusion.preparation.detectors.energy_v1 import (
     EnergyDetectorV1,
     EnergyDetectorV1Config,
 )
+from signal_fusion.preparation.detectors.fixed_blocks import FixedBlockDetector
 from signal_fusion.preparation.detectors.full_signal import FullSignalDetector
 
 
@@ -32,10 +33,15 @@ def _ble_packet_v1_factory(options: Mapping[str, Any]) -> SignalDetector:
     return BlePacketDetectorV1(BlePacketDetectorV1Config(**dict(options)))
 
 
+def _fixed_blocks_factory(options: Mapping[str, Any]) -> SignalDetector:
+    return FixedBlockDetector(**dict(options))
+
+
 DETECTOR_REGISTRY: dict[str, DetectorFactory] = {
     "full_signal": _full_signal_factory,
     "energy_v1": _energy_v1_factory,
     "ble_packet_v1": _ble_packet_v1_factory,
+    "fixed_blocks": _fixed_blocks_factory,
 }
 
 

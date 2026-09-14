@@ -45,6 +45,7 @@ def prepare_signal(
         detected_regions,
         recording_sample_count=signal.sample_count,
         config=config,
+        preserve_region_boundaries=detector.preserve_region_boundaries,
     )
     resampling_plan: ResamplingPlan | None = None
     if resampling is not None:

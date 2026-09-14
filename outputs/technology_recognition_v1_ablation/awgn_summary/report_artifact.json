@@ -1,0 +1,667 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Technology Recognition V1：AWGN 鲁棒性",
+    "description": "基于四个独立测试地点，对 clean、10、7.5、5 dB 增量圆复 AWGN 条件进行交叉 fold 评估。",
+    "generatedAt": "2026-09-10T16:25:36+08:00",
+    "cards": [
+      {
+        "id": "region_512_card",
+        "description": "512 点模型将每个 4096 点 region 的全部 8 个窗口概率取平均。",
+        "dataset": "headline_metrics",
+        "sourceId": "awgn_summary",
+        "metrics": [
+          {
+            "label": "512 region clean",
+            "field": "region_512_clean",
+            "format": "percent"
+          },
+          {
+            "label": "5 dB",
+            "field": "region_512_5db",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "direct_4096_card",
+        "description": "4096 点模型对每个完整 region 直接输出一次分类结果。",
+        "dataset": "headline_metrics",
+        "sourceId": "awgn_summary",
+        "metrics": [
+          {
+            "label": "4096 direct clean",
+            "field": "direct_4096_clean",
+            "format": "percent"
+          },
+          {
+            "label": "5 dB",
+            "field": "direct_4096_5db",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "wifi_5db_card",
+        "description": "四个测试地点的 WiFi region 准确率均值；这是 5 dB 下最弱的类别。",
+        "dataset": "headline_metrics",
+        "sourceId": "awgn_summary",
+        "metrics": [
+          {
+            "label": "512 region WiFi / 5 dB",
+            "field": "wifi_512_region_5db",
+            "format": "percent"
+          },
+          {
+            "label": "4096 direct WiFi / 5 dB",
+            "field": "wifi_4096_5db",
+            "format": "percent"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "overall_accuracy_chart",
+        "title": "不同输入粒度和加噪条件下的准确率",
+        "subtitle": "误差线为四个独立测试地点之间的总体标准差。",
+        "type": "bar",
+        "dataset": "overall_accuracy",
+        "sourceId": "awgn_summary",
+        "encodings": {
+          "x": {
+            "field": "condition",
+            "type": "ordinal",
+            "label": "评估条件"
+          },
+          "y": {
+            "field": "accuracy",
+            "type": "quantitative",
+            "label": "准确率",
+            "format": "percent"
+          },
+          "color": {
+            "field": "model_view",
+            "type": "nominal",
+            "label": "模型输出粒度"
+          },
+          "tooltip": [
+            {
+              "field": "fold_std",
+              "type": "quantitative",
+              "label": "地点 fold 标准差",
+              "format": "percent"
+            },
+            {
+              "field": "drop_from_clean_pp",
+              "type": "quantitative",
+              "label": "相对 clean 变化",
+              "unit": "百分点"
+            },
+            {
+              "field": "windows_per_region",
+              "type": "quantitative",
+              "label": "每个 region 窗口数"
+            }
+          ]
+        },
+        "yAxisTitle": "准确率",
+        "valueFormat": "percent",
+        "layout": "full"
+      },
+      {
+        "id": "class_accuracy_5db_chart",
+        "title": "5 dB 条件下的分类别 region 准确率",
+        "subtitle": "两种方案的主要剩余误差都集中在 WiFi。",
+        "type": "bar",
+        "dataset": "class_accuracy_5db",
+        "sourceId": "awgn_summary",
+        "encodings": {
+          "x": {
+            "field": "class_name",
+            "type": "nominal",
+            "label": "类别"
+          },
+          "y": {
+            "field": "accuracy",
+            "type": "quantitative",
+            "label": "region 准确率",
+            "format": "percent"
+          },
+          "color": {
+            "field": "model_view",
+            "type": "nominal",
+            "label": "模型输出粒度"
+          },
+          "tooltip": [
+            {
+              "field": "fold_std",
+              "type": "quantitative",
+              "label": "地点 fold 标准差",
+              "format": "percent"
+            },
+            {
+              "field": "fold_count",
+              "type": "quantitative",
+              "label": "地点 fold 数"
+            }
+          ]
+        },
+        "yAxisTitle": "region 准确率",
+        "valueFormat": "percent",
+        "layout": "full"
+      }
+    ],
+    "tables": [
+      {
+        "id": "overall_accuracy_table",
+        "title": "跨地点汇总结果",
+        "subtitle": "均值和标准差的统计单位均为四个 held-out test location fold。",
+        "dataset": "overall_accuracy",
+        "sourceId": "awgn_summary",
+        "density": "compact",
+        "columns": [
+          {
+            "field": "model_view",
+            "label": "模型输出粒度",
+            "type": "text"
+          },
+          {
+            "field": "condition",
+            "label": "条件",
+            "type": "text"
+          },
+          {
+            "field": "accuracy",
+            "label": "准确率",
+            "format": "percent"
+          },
+          {
+            "field": "fold_std",
+            "label": "fold 标准差",
+            "format": "percent"
+          },
+          {
+            "field": "drop_from_clean_ratio",
+            "label": "相对 clean 变化",
+            "format": "percent",
+            "movement": true
+          }
+        ],
+        "layout": "full"
+      },
+      {
+        "id": "location_5db_table",
+        "title": "5 dB 条件下的测试地点明细",
+        "subtitle": "reep 是两种模型共同的困难地点；数值为每个地点 5 个噪声种子的均值。",
+        "dataset": "location_5db",
+        "sourceId": "awgn_fold_conditions",
+        "density": "compact",
+        "defaultSort": {
+          "field": "accuracy",
+          "direction": "asc"
+        },
+        "columns": [
+          {
+            "field": "model_view",
+            "label": "模型输出粒度",
+            "type": "text"
+          },
+          {
+            "field": "test_location",
+            "label": "Test location",
+            "type": "text"
+          },
+          {
+            "field": "accuracy",
+            "label": "准确率",
+            "format": "percent"
+          },
+          {
+            "field": "seed_std",
+            "label": "噪声种子标准差",
+            "format": "percent"
+          },
+          {
+            "field": "wifi_accuracy",
+            "label": "WiFi 准确率",
+            "format": "percent"
+          }
+        ],
+        "layout": "full"
+      }
+    ],
+    "sources": [
+      {
+        "id": "awgn_summary",
+        "label": "Technology Recognition V1 AWGN 跨 fold 汇总",
+        "path": "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "sql": "SELECT * FROM read_json_auto('outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json')",
+          "description": "读取 512/4096 两种方案的跨地点、跨条件汇总指标。",
+          "executed_at": "2026-09-10T16:25:36+08:00",
+          "tables_used": [
+            "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json"
+          ],
+          "filters": [
+            "window_size in {512, 4096}",
+            "condition in {clean, 10 dB, 7.5 dB, 5 dB}",
+            "noisy-condition seeds: 44, 45, 46, 47, 48"
+          ],
+          "metric_definitions": [
+            "accuracy = correct predictions / all predictions at the stated granularity",
+            "fold standard deviation = population standard deviation of four held-out-location fold means",
+            "target incremental SNR = input window power / newly added circular complex Gaussian noise power"
+          ]
+        }
+      },
+      {
+        "id": "awgn_fold_conditions",
+        "label": "Technology Recognition V1 AWGN 地点明细",
+        "path": "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv",
+        "query": {
+          "engine": "duckdb",
+          "language": "sql",
+          "sql": "SELECT * FROM read_csv_auto('outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv') WHERE condition = '5 dB'",
+          "description": "读取 5 dB 条件下每个测试地点的准确率和五次噪声试验波动。",
+          "executed_at": "2026-09-10T16:25:36+08:00",
+          "tables_used": [
+            "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv"
+          ],
+          "filters": [
+            "condition = 5 dB",
+            "window_size in {512, 4096}"
+          ],
+          "metric_definitions": [
+            "accuracy = mean accuracy across five AWGN seeds within one held-out-location fold",
+            "seed standard deviation = population standard deviation across seeds 44 through 48"
+          ]
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Technology Recognition V1：AWGN 鲁棒性"
+      },
+      {
+        "id": "executive_summary",
+        "type": "markdown",
+        "sourceId": "awgn_summary",
+        "body": "## 执行摘要\n\n5 dB 下，跨地点 region 准确率为 **97.34%（512 点聚合）**和 **97.61%（4096 点整段）**；差异仅 0.27 个百分点，当前应同时保留。\n\n误差主要来自 WiFi 和 reep 地点。这里评估的是新增 AWGN，并非真实空口 SNR；下一步应先检查和扩充跨地点 WiFi 数据。"
+      },
+      {
+        "id": "overall_chart",
+        "type": "chart",
+        "chartId": "overall_accuracy_chart",
+        "layout": "full"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-09-10T16:25:36+08:00",
+    "status": "ready",
+    "datasets": {
+      "headline_metrics": [
+        {
+          "region_512_clean": 0.9966145833333333,
+          "region_512_5db": 0.9734375,
+          "direct_4096_clean": 0.9895833333333333,
+          "direct_4096_5db": 0.97609375,
+          "wifi_512_region_5db": 0.9284375,
+          "wifi_4096_5db": 0.93578125
+        }
+      ],
+      "overall_accuracy": [
+        {
+          "condition": "clean",
+          "condition_order": 0,
+          "model_view": "512 window",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.94619140625,
+          "fold_std": 0.014052361495250811,
+          "drop_from_clean_ratio": 0.0,
+          "drop_from_clean_pp": 0.0,
+          "fold_count": 4,
+          "trials_per_fold": 1
+        },
+        {
+          "condition": "10 dB",
+          "condition_order": 1,
+          "model_view": "512 window",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9362239583333334,
+          "fold_std": 0.02233005723600352,
+          "drop_from_clean_ratio": -0.009967447916666572,
+          "drop_from_clean_pp": -0.9967447916666572,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "7.5 dB",
+          "condition_order": 2,
+          "model_view": "512 window",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9262955729166667,
+          "fold_std": 0.02844326682765743,
+          "drop_from_clean_ratio": -0.019895833333333286,
+          "drop_from_clean_pp": -1.9895833333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "5 dB",
+          "condition_order": 3,
+          "model_view": "512 window",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9055664062499999,
+          "fold_std": 0.039901732962231256,
+          "drop_from_clean_ratio": -0.04062500000000014,
+          "drop_from_clean_pp": -4.062500000000014,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "clean",
+          "condition_order": 0,
+          "model_view": "512 region",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9966145833333333,
+          "fold_std": 0.002000298371840782,
+          "drop_from_clean_ratio": 0.0,
+          "drop_from_clean_pp": 0.0,
+          "fold_count": 4,
+          "trials_per_fold": 1
+        },
+        {
+          "condition": "10 dB",
+          "condition_order": 1,
+          "model_view": "512 region",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.99359375,
+          "fold_std": 0.005262994417919794,
+          "drop_from_clean_ratio": -0.003020833333333286,
+          "drop_from_clean_pp": -0.3020833333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "7.5 dB",
+          "condition_order": 2,
+          "model_view": "512 region",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9884375,
+          "fold_std": 0.01218571924312315,
+          "drop_from_clean_ratio": -0.008177083333333286,
+          "drop_from_clean_pp": -0.8177083333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "5 dB",
+          "condition_order": 3,
+          "model_view": "512 region",
+          "window_size": 512,
+          "windows_per_region": 8,
+          "accuracy": 0.9734375,
+          "fold_std": 0.030275965956238874,
+          "drop_from_clean_ratio": -0.023177083333333286,
+          "drop_from_clean_pp": -2.3177083333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "clean",
+          "condition_order": 0,
+          "model_view": "4096 direct",
+          "window_size": 4096,
+          "windows_per_region": 1,
+          "accuracy": 0.9895833333333333,
+          "fold_std": 0.008462540004829143,
+          "drop_from_clean_ratio": 0.0,
+          "drop_from_clean_pp": 0.0,
+          "fold_count": 4,
+          "trials_per_fold": 1
+        },
+        {
+          "condition": "10 dB",
+          "condition_order": 1,
+          "model_view": "4096 direct",
+          "window_size": 4096,
+          "windows_per_region": 1,
+          "accuracy": 0.9883333333333334,
+          "fold_std": 0.013663712841358706,
+          "drop_from_clean_ratio": -0.001249999999999858,
+          "drop_from_clean_pp": -0.12499999999998579,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "7.5 dB",
+          "condition_order": 2,
+          "model_view": "4096 direct",
+          "window_size": 4096,
+          "windows_per_region": 1,
+          "accuracy": 0.9859375,
+          "fold_std": 0.018033473409037018,
+          "drop_from_clean_ratio": -0.003645833333333286,
+          "drop_from_clean_pp": -0.3645833333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "condition": "5 dB",
+          "condition_order": 3,
+          "model_view": "4096 direct",
+          "window_size": 4096,
+          "windows_per_region": 1,
+          "accuracy": 0.97609375,
+          "fold_std": 0.0346674350751177,
+          "drop_from_clean_ratio": -0.013489583333333286,
+          "drop_from_clean_pp": -1.3489583333333286,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        }
+      ],
+      "class_accuracy_5db": [
+        {
+          "class_name": "LTE",
+          "model_view": "512 region",
+          "accuracy": 0.99203125,
+          "fold_std": 0.008630602799775922,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "class_name": "WiFi",
+          "model_view": "512 region",
+          "accuracy": 0.9284375,
+          "fold_std": 0.08980501882550886,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "class_name": "DVB-T",
+          "model_view": "512 region",
+          "accuracy": 0.99984375,
+          "fold_std": 0.000270632938682638,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "class_name": "LTE",
+          "model_view": "4096 direct",
+          "accuracy": 0.99328125,
+          "fold_std": 0.010927450740566164,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "class_name": "WiFi",
+          "model_view": "4096 direct",
+          "accuracy": 0.93578125,
+          "fold_std": 0.10727026232692591,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        },
+        {
+          "class_name": "DVB-T",
+          "model_view": "4096 direct",
+          "accuracy": 0.99921875,
+          "fold_std": 0.0013531646934131864,
+          "fold_count": 4,
+          "trials_per_fold": 5
+        }
+      ],
+      "location_5db": [
+        {
+          "model_view": "512 region",
+          "fold": "fold1",
+          "test_location": "reep",
+          "accuracy": 0.9210416666666665,
+          "seed_std": 0.0033850160019316716,
+          "wifi_accuracy": 0.774375,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "512 region",
+          "fold": "fold2",
+          "test_location": "rabot",
+          "accuracy": 0.99,
+          "seed_std": 0.0025173012444988215,
+          "wifi_accuracy": 0.97,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "512 region",
+          "fold": "fold3",
+          "test_location": "merelbeke",
+          "accuracy": 0.9929166666666666,
+          "seed_std": 0.00041666666666668566,
+          "wifi_accuracy": 1.0,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "512 region",
+          "fold": "fold4",
+          "test_location": "gentbrugge",
+          "accuracy": 0.9897916666666667,
+          "seed_std": 0.00153093108923949,
+          "wifi_accuracy": 0.969375,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "4096 direct",
+          "fold": "fold1",
+          "test_location": "reep",
+          "accuracy": 0.91625,
+          "seed_std": 0.004545296714431511,
+          "wifi_accuracy": 0.75,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "4096 direct",
+          "fold": "fold2",
+          "test_location": "rabot",
+          "accuracy": 0.9977083333333334,
+          "seed_std": 0.00041666666666668566,
+          "wifi_accuracy": 0.99625,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "4096 direct",
+          "fold": "fold3",
+          "test_location": "merelbeke",
+          "accuracy": 0.9914583333333334,
+          "seed_std": 0.00041666666666668566,
+          "wifi_accuracy": 1.0,
+          "region_count": 960,
+          "trials": 5
+        },
+        {
+          "model_view": "4096 direct",
+          "fold": "fold4",
+          "test_location": "gentbrugge",
+          "accuracy": 0.9989583333333333,
+          "seed_std": 0.0,
+          "wifi_accuracy": 0.996875,
+          "region_count": 960,
+          "trials": 5
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "awgn_summary",
+      "label": "Technology Recognition V1 AWGN 跨 fold 汇总",
+      "path": "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "sql": "SELECT * FROM read_json_auto('outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json')",
+        "description": "读取 512/4096 两种窗口长度的跨地点、跨条件汇总指标。",
+        "executed_at": "2026-09-10T16:25:36+08:00",
+        "tables_used": [
+          "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_summary.json"
+        ],
+        "filters": [
+          "window_size in {512, 4096}",
+          "condition in {clean, 10 dB, 7.5 dB, 5 dB}",
+          "held-out test locations: reep, rabot, merelbeke, gentbrugge",
+          "noisy-condition seeds: 44, 45, 46, 47, 48"
+        ],
+        "metric_definitions": [
+          "window accuracy = correctly classified windows / all test windows",
+          "512 region accuracy = correct argmax of the mean of 8 non-overlapping window probability vectors / 960 regions",
+          "4096 direct accuracy = correctly classified 4096-point inputs / 960 regions",
+          "reported fold standard deviation = population standard deviation of four held-out-location fold means",
+          "reported noisy fold mean = mean of five AWGN trials with seeds 44 through 48",
+          "target incremental SNR = input window power / newly added circular complex Gaussian noise power"
+        ]
+      }
+    },
+    {
+      "id": "awgn_fold_conditions",
+      "label": "Technology Recognition V1 AWGN 地点明细",
+      "path": "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv",
+      "query": {
+        "engine": "duckdb",
+        "language": "sql",
+        "sql": "SELECT * FROM read_csv_auto('outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv') WHERE condition = '5 dB'",
+        "description": "读取 5 dB 条件下每个 held-out test location 的准确率和五次噪声试验波动。",
+        "executed_at": "2026-09-10T16:25:36+08:00",
+        "tables_used": [
+          "outputs/technology_recognition_v1_ablation/awgn_summary/awgn_fold_conditions.csv"
+        ],
+        "filters": [
+          "condition = 5 dB",
+          "window_size in {512, 4096}"
+        ],
+        "metric_definitions": [
+          "accuracy = mean accuracy across five AWGN seeds within one held-out-location fold",
+          "seed standard deviation = population standard deviation across seeds 44 through 48"
+        ]
+      }
+    }
+  ]
+}

@@ -107,7 +107,10 @@ class TrainingRuntimeTests(unittest.TestCase):
             num_workers=0,
         )
         train, val, test, seq_len, channels = training_cli.load_data(
-            str(PROJECT_ROOT / "data/processed/slices/sigmf_lora_dataset_128.npz"),
+            str(
+                PROJECT_ROOT
+                / "data/processed/slices/test/sigmf_lora_dataset_128.npz"
+            ),
             data_format="npz",
         )
 
@@ -265,7 +268,10 @@ class TrainingRuntimeTests(unittest.TestCase):
             num_workers=0,
         )
         legacy.load_data(
-            str(PROJECT_ROOT / "data/processed/slices/sigmf_lora_dataset_128.npz"),
+            str(
+                PROJECT_ROOT
+                / "data/processed/slices/test/sigmf_lora_dataset_128.npz"
+            ),
             data_format="npz",
         )
         self.assertIs(training_cli.args, legacy.args)
