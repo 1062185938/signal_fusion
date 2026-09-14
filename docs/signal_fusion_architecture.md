@@ -314,6 +314,7 @@ split manifest
 | --- | --- |
 | `training/__init__.py` | 导出训练循环、损失函数、早停和 ONNX 导出接口 |
 | `training/fixed_splits.py` | 读取 `training_data` 的固定三个 split，复核标签、shape 和来源/区域隔离，并直接构建 DataLoader |
+| `training/augmentation.py` | 训练批次中的随机频移、频谱翻转和复 AWGN；不改写固定数据集 |
 | `training/losses.py` | 标准训练使用的 LogitNorm 和 Label Smoothing 损失 |
 | `training/splitting.py` | 随机样本划分和基于 `burst_id` 的分组划分，防止同一 burst 跨集合泄漏 |
 | `training/trainer.py` | 设备选择、优化器、训练/验证循环、早停、指标保存、测试和曲线绘制 |
@@ -874,11 +875,14 @@ signal-train \
 | `--loss` | `logit_norm` | `ce`、`logit_norm` 或 `ls` |
 | `--temp` | `0.2` | `logit_norm` 损失的温度系数 |
 | `--epsilon` | `0.1` | `ls` 标签平滑损失的平滑系数 |
+| `--frequency_shift_probability` | `0.0` | 训练窗口执行随机频移的概率；`0` 表示关闭 |
+| `--frequency_shift_max_fraction` | `0.0` | 最大频移占采样率的比例；`0.1` 表示在 `[-0.1Fs,+0.1Fs]` 中均匀采样 |
+| `--spectral_inversion_probability` | `0.0` | 训练窗口执行复共轭频谱翻转的概率；`0` 表示关闭 |
 | `--awgn_probability` | `0.0` | 仅在训练批次中动态加入 AWGN 的逐窗口概率；`0` 表示关闭 |
 | `--awgn_snr_min` | `5.0` | 训练 AWGN 随机 SNR 下界，单位 dB |
 | `--awgn_snr_max` | `20.0` | 训练 AWGN 随机 SNR 上界，单位 dB |
 
-训练时 AWGN 只作用于送入模型的当前训练批次，不改写 `train.npz`，也不作用于验证集和测试集。每个被选中的窗口独立在上下界之间均匀采样 SNR；SNR 表示“原窗口总功率 / 本次新增噪声功率”。加噪后会重新去直流并执行复信号 RMS 归一化。随机过程使用同一个 `--seed`，不再增加第二套随机种子配置。
+三种增强都只作用于送入模型的当前训练批次，不改写 `train.npz`，也不作用于验证集和测试集。随机频移对每个入选窗口独立采样频移量，随后重新去直流并执行复信号 RMS 归一化；频谱翻转通过复共轭实现，即 `I` 不变、`Q` 取反。AWGN 的 SNR 表示“原窗口总功率 / 本次新增噪声功率”，加噪后同样重新标准化。随机过程共同使用 `--seed`，不再增加第二套种子配置。
 
 数据划分行为：
 

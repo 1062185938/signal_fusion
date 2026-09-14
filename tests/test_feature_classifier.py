@@ -10,6 +10,8 @@ import numpy as np
 from signal_fusion.feature_classifier import (
     FeatureClassifierService,
     build_region_feature_dataset,
+    evaluate_feature_classifier,
+    extract_region_feature_split,
     load_region_feature_split,
 )
 from signal_fusion.feature_classifier.trainer import train_feature_classifier
@@ -93,6 +95,34 @@ def _write_feature_split(
     )
 
 
+def _write_direct_region_split(path: Path) -> None:
+    count = 8
+    length = 32
+    phase = np.linspace(0.0, 4.0 * np.pi, length, endpoint=False)
+    x = np.empty((count, 2, length), dtype=np.float32)
+    for index in range(count):
+        x[index, 0] = np.cos(phase + index * 0.1)
+        x[index, 1] = np.sin(phase + index * 0.1)
+    starts = np.arange(count, dtype=np.int64) * length
+    np.savez_compressed(
+        path,
+        X=x,
+        y=np.repeat(np.arange(2, dtype=np.int64), 4),
+        group_id=np.arange(count, dtype=np.int64),
+        source_region_id=np.arange(count, dtype=np.int64),
+        window_start_sample=starts,
+        window_end_sample=starts + length,
+        region_start_sample=starts,
+        region_end_sample=starts + length,
+        sample_source_id=np.repeat(np.asarray(["source_a", "source_b"]), 4),
+        sample_rate=np.full(count, 1_000_000.0),
+        dataset_id=np.asarray("direct_regions"),
+        split=np.asarray("test"),
+        label_map_json=np.asarray(json.dumps({"0": "A", "1": "B"})),
+        source_id=np.asarray("direct_regions:test"),
+    )
+
+
 class RegionFeatureDatasetTests(unittest.TestCase):
     def test_builds_one_clean_and_configured_noisy_row_per_region(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -127,6 +157,30 @@ class RegionFeatureDatasetTests(unittest.TestCase):
                 {"clean": 2, "train_awgn": 2},
             )
             self.assertEqual(report["splits"]["test"]["region_count"], 2)
+
+    def test_extracts_uniform_regions_directly_from_single_window_groups(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "test.npz"
+            _write_direct_region_split(source_path)
+
+            report = extract_region_feature_split(
+                source_path,
+                root / "features",
+                split_name="test",
+                regions_per_source=2,
+                feature_backend=_FakeFeatureBackend(),
+            )
+
+            result = load_region_feature_split(root / "features" / "test.npz")
+            self.assertEqual(result["features"].shape, (4, FEATURE_COUNT))
+            np.testing.assert_array_equal(result["group_id"], [1, 3, 5, 7])
+            self.assertEqual(
+                dict(zip(*np.unique(result["sample_source_id"], return_counts=True))),
+                {"source_a": 2, "source_b": 2},
+            )
+            self.assertEqual(report["source_count"], 2)
+            self.assertEqual(report["region_count"], 4)
 
 
 @unittest.skipUnless(HAS_TRAINING_RUNTIME, "training runtime is unavailable")
@@ -164,6 +218,16 @@ class FeatureClassifierTrainingTests(unittest.TestCase):
             )
             self.assertEqual(result["metrics"]["test"]["accuracy_percent"], 100.0)
             self.assertEqual(len(prediction.top_k()), 3)
+
+            evaluation = evaluate_feature_classifier(
+                dataset_dir / "test.npz",
+                output_dir / "feature_classifier_manifest.json",
+                root / "evaluation.json",
+            )
+            self.assertEqual(
+                evaluation["metrics"]["window"]["accuracy_percent"], 100.0
+            )
+            self.assertTrue((root / "evaluation.json").is_file())
 
 
 if __name__ == "__main__":

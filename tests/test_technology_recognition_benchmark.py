@@ -14,7 +14,9 @@ from signal_fusion.benchmarks.technology_recognition import (
     WINDOW_SIZES,
     parse_recording_filename,
     prepare_v1_sources,
+    select_external_1msps_recordings,
     write_ablation_manifests,
+    write_all_location_manifest,
     write_fold_manifest,
 )
 from signal_fusion.benchmarks.technology_recognition_ablation import (
@@ -28,6 +30,101 @@ from signal_fusion.benchmarks.technology_recognition_awgn import (
 
 
 class TechnologyRecognitionBenchmarkTests(unittest.TestCase):
+    def test_writes_all_location_run_split_manifest(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            prepared = root / "prepared"
+            recordings = []
+            for location in V1_LOCATIONS:
+                for class_name, label in LABELS.items():
+                    slug = class_name.lower().replace("-", "")
+                    for run in range(1, 11):
+                        source_id = f"{location}_{slug}_{run}"
+                        path = prepared / location / f"{source_id}.npz"
+                        path.parent.mkdir(parents=True, exist_ok=True)
+                        path.touch()
+                        recordings.append(
+                            {
+                                "location": location,
+                                "technology": class_name,
+                                "run": run,
+                                "source_id": source_id,
+                                "selected_for_v1": True,
+                                "label": label,
+                            }
+                        )
+
+            path = write_all_location_manifest(
+                {"dataset_id": ALL_REGIONS_DATASET_ID, "recordings": recordings},
+                prepared,
+                root / "manifest.json",
+                window_size=4096,
+            )
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+
+            self.assertEqual(
+                {name: len(items) for name, items in manifest["splits"].items()},
+                {"train": 96, "validation": 12, "test": 12},
+            )
+            for split_name, expected_runs in {
+                "train": set(range(1, 9)),
+                "validation": {9},
+                "test": {10},
+            }.items():
+                actual_runs = {
+                    int(source["source_id"].rsplit("_", 1)[1])
+                    for source in manifest["splits"][split_name]
+                }
+                self.assertEqual(actual_runs, expected_runs)
+
+    def test_selects_unused_native_rate_external_recordings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            recordings = []
+
+            def add(location, technology, run, frequency_hz):
+                path = root / location / f"{technology}_{run}.bin"
+                path.parent.mkdir(parents=True, exist_ok=True)
+                np.ones(8, dtype=np.complex64).tofile(path)
+                recordings.append(
+                    {
+                        "relative_path": str(path.relative_to(root)),
+                        "location": location,
+                        "technology": technology,
+                        "sample_rate": 1_000_000,
+                        "center_frequency_hz": frequency_hz,
+                        "run": run,
+                        "selected_for_v1": False,
+                    }
+                )
+
+            for location in ("uz", "igent"):
+                for run in range(1, 11):
+                    add(location, "LTE", run, 806_000_000)
+                    add(location, "DVB-T", run, 482_000_000)
+            add("igent", "WiFi", 1, 2_412_000_000)
+            for run in range(1, 4):
+                add("merelbeke", "WiFi", run, 5_180_000_000)
+
+            selected = select_external_1msps_recordings(
+                {
+                    "dataset_root": str(root),
+                    "recordings": recordings,
+                }
+            )
+
+            entries = [
+                entry
+                for entry in selected["recordings"]
+                if entry["selected_for_v1"]
+            ]
+            self.assertEqual(len(entries), 44)
+            self.assertEqual(
+                {entry["evaluation_group"] for entry in entries},
+                {"unseen_location", "unseen_frequency"},
+            )
+            self.assertEqual(len({entry["source_id"] for entry in entries}), 44)
+
     def test_summarizes_selected_window_awgn_runs_across_folds(self):
         runs = []
         for size in AWGN_WINDOW_SIZES:

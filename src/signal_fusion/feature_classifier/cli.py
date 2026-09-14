@@ -5,7 +5,13 @@ from __future__ import annotations
 import argparse
 import json
 
-from signal_fusion.feature_classifier.dataset import build_region_feature_dataset
+from signal_fusion.feature_classifier.dataset import (
+    build_region_feature_dataset,
+    extract_region_feature_split,
+)
+from signal_fusion.feature_classifier.evaluation import (
+    evaluate_feature_classifier,
+)
 from signal_fusion.feature_classifier.trainer import train_feature_classifier
 
 
@@ -21,7 +27,16 @@ def build_arg_parser() -> argparse.ArgumentParser:
     build.add_argument("--awgn-snr-max", type=float, default=20.0)
     build.add_argument("--test-awgn-snr", type=float, default=5.0)
     build.add_argument("--seed", type=int, default=44)
+    build.add_argument("--regions-per-source", type=int, default=None)
     build.add_argument("--overwrite", action="store_true")
+
+    extract = commands.add_parser("extract-split")
+    extract.add_argument("--dataset-path", required=True)
+    extract.add_argument("--output-dir", required=True)
+    extract.add_argument("--split-name", required=True)
+    extract.add_argument("--regions-per-source", type=int, default=None)
+    extract.add_argument("--seed", type=int, default=44)
+    extract.add_argument("--overwrite", action="store_true")
 
     train = commands.add_parser("train")
     train.add_argument("--dataset-dir", required=True)
@@ -33,6 +48,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
     train.add_argument("--patience", type=int, default=30)
     train.add_argument("--seed", type=int, default=44)
     train.add_argument("--overwrite", action="store_true")
+
+    evaluate = commands.add_parser("evaluate")
+    evaluate.add_argument("--dataset-path", required=True)
+    evaluate.add_argument("--manifest", required=True)
+    evaluate.add_argument("--output", required=True)
+    evaluate.add_argument("--overwrite", action="store_true")
     return parser
 
 
@@ -47,9 +68,43 @@ def main(argv: list[str] | None = None) -> int:
             awgn_snr_max=args.awgn_snr_max,
             test_awgn_snr=args.test_awgn_snr,
             seed=args.seed,
+            regions_per_source=args.regions_per_source,
             overwrite=args.overwrite,
         )
         print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "extract-split":
+        result = extract_region_feature_split(
+            args.dataset_path,
+            args.output_dir,
+            split_name=args.split_name,
+            regions_per_source=args.regions_per_source,
+            seed=args.seed,
+            overwrite=args.overwrite,
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "evaluate":
+        result = evaluate_feature_classifier(
+            args.dataset_path,
+            args.manifest,
+            args.output,
+            overwrite=args.overwrite,
+        )
+        metrics = result["metrics"]["window"]
+        print(
+            json.dumps(
+                {
+                    "model_id": result["model_id"],
+                    "sample_count": result["sample_count"],
+                    "accuracy_percent": metrics["accuracy_percent"],
+                    "per_class": metrics["per_class"],
+                    "output_path": result["output_path"],
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         return 0
     result = train_feature_classifier(
         args.dataset_dir,

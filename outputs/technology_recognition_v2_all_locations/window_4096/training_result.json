@@ -1,0 +1,34 @@
+{
+  "best_model_path": "outputs/technology_recognition_v2_all_locations/window_4096/best_model.pth",
+  "onnx_path": "outputs/technology_recognition_v2_all_locations/window_4096/technology_recognition_v2_all_locations_4096.onnx",
+  "test_acc": 98.91169154228857,
+  "test_loss": 0.039525368209133056,
+  "seq_len": 4096,
+  "input_channels": 2,
+  "class_num": 3,
+  "model_name": "deepconvnet_1d",
+  "optimizer": "adam",
+  "amp_enabled": true,
+  "device": "cuda",
+  "elapsed_sec": 119.16093349456787,
+  "epochs_completed": 21,
+  "training_augmentation": {
+    "type": "none",
+    "probability": 0.0,
+    "snr_db_min": 5.0,
+    "snr_db_max": 20.0,
+    "seed": 44,
+    "post_noise_remove_dc": true,
+    "post_noise_rms_normalize": true
+  },
+  "dataset_id": "technology_recognition_lte_wifi_dvbt_v2_all_regions_1msps_all_locations_clean_4096",
+  "dataset_dir": "data/external/processed/technology_recognition_lte_wifi_dvbt/v2_all_locations/window_4096",
+  "split_mode": "fixed",
+  "split_sizes": {
+    "train": 25728,
+    "validation": 3216,
+    "test": 3216
+  },
+  "label_map_path": "outputs/technology_recognition_v2_all_locations/window_4096/label_map.json",
+  "training_result_path": "outputs/technology_recognition_v2_all_locations/window_4096/training_result.json"
+}

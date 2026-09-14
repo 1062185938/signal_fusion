@@ -61,6 +61,36 @@ def _one_group_value(
     return values[0].item()
 
 
+def _uniform_positions(total: int, requested: int) -> np.ndarray:
+    if requested > total:
+        raise ValueError(f"cannot select {requested} regions from only {total}")
+    if requested == total:
+        return np.arange(total, dtype=np.int64)
+    positions = np.floor(
+        (np.arange(requested, dtype=np.float64) + 0.5) * total / requested
+    ).astype(np.int64)
+    if np.unique(positions).size != requested:
+        raise RuntimeError("uniform region selection produced duplicates")
+    return positions
+
+
+def _selected_group_ids(
+    dataset: PreparedDataset,
+    group_ids: np.ndarray,
+    regions_per_source: int | None,
+) -> np.ndarray:
+    unique_groups = np.unique(group_ids)
+    if regions_per_source is None:
+        return unique_groups
+    source_ids = _sample_field(dataset, "sample_source_id").astype(str)
+    selected: list[np.ndarray] = []
+    for source_id in sorted(set(source_ids.tolist())):
+        source_groups = np.unique(group_ids[source_ids == source_id])
+        positions = _uniform_positions(source_groups.size, regions_per_source)
+        selected.append(source_groups[positions])
+    return np.sort(np.concatenate(selected)).astype(np.int64, copy=False)
+
+
 def _region_x(samples: np.ndarray) -> np.ndarray:
     iq = np.asarray(samples, dtype=np.complex64).reshape(-1)
     x = np.empty((1, 2, iq.size), dtype=np.float32)
@@ -148,6 +178,7 @@ def _extract_split(
     awgn_snr_min: float,
     awgn_snr_max: float,
     test_awgn_snr: float | None,
+    regions_per_source: int | None,
     rng: np.random.Generator,
 ) -> dict[str, np.ndarray]:
     dataset = load_prepared_dataset(split_path)
@@ -168,7 +199,9 @@ def _extract_split(
     used_counts: list[int] = []
     sample_rates: list[float] = []
 
-    unique_groups = np.unique(group_ids)
+    unique_groups = _selected_group_ids(
+        dataset, group_ids, regions_per_source
+    )
     for group_position, group_id in enumerate(unique_groups, start=1):
         indices = np.flatnonzero(group_ids == group_id)
         unique_labels = np.unique(dataset.y[indices])
@@ -178,7 +211,41 @@ def _extract_split(
         source_region_id = int(
             _one_group_value(dataset, "source_region_id", indices)
         )
-        region = load_complete_region(split_path, dataset, group_id=int(group_id))
+        direct_fields = {
+            "window_start_sample",
+            "window_end_sample",
+            "region_start_sample",
+            "region_end_sample",
+            "sample_source_id",
+            "sample_rate",
+        }
+        use_direct_window = indices.size == 1 and direct_fields.issubset(
+            dataset.meta
+        )
+        if use_direct_window:
+            index = int(indices[0])
+            window_start = int(dataset.meta["window_start_sample"][index])
+            window_end = int(dataset.meta["window_end_sample"][index])
+            region_start = int(dataset.meta["region_start_sample"][index])
+            region_end = int(dataset.meta["region_end_sample"][index])
+            use_direct_window = (
+                window_start == region_start
+                and window_end == region_end
+                and region_end - region_start == dataset.seq_len
+            )
+        if use_direct_window:
+            samples = (
+                dataset.X[index, 0] + 1j * dataset.X[index, 1]
+            ).astype(np.complex64, copy=False)
+            region_source_id = str(dataset.meta["sample_source_id"][index])
+            region_sample_rate = float(dataset.meta["sample_rate"][index])
+        else:
+            region = load_complete_region(
+                split_path, dataset, group_id=int(group_id)
+            )
+            samples = region.samples
+            region_source_id = region.source_id
+            region_sample_rate = region.sample_rate
 
         for condition, snr_db, noise_seed in _conditions_for_group(
             split_name,
@@ -189,13 +256,13 @@ def _extract_split(
             rng=rng,
         ):
             feature_x, actual_snr = _canonical_feature_input(
-                region.samples,
+                samples,
                 snr_db=snr_db,
                 noise_seed=noise_seed,
             )
             result = feature_service.extract(
-                PreparedDataset(X=feature_x, source_id=region.source_id),
-                sample_rate=region.sample_rate,
+                PreparedDataset(X=feature_x, source_id=region_source_id),
+                sample_rate=region_sample_rate,
                 backend=backend,
                 progress_every=0,
             )
@@ -209,14 +276,14 @@ def _extract_split(
             labels.append(label)
             output_group_ids.append(int(group_id))
             source_region_ids.append(source_region_id)
-            source_ids.append(region.source_id)
+            source_ids.append(region_source_id)
             conditions.append(condition)
             requested_snr.append(np.nan if snr_db is None else snr_db)
             achieved_snr.append(np.nan if actual_snr is None else actual_snr)
             noise_seeds.append(-1 if noise_seed is None else noise_seed)
-            original_counts.append(region.sample_count)
-            used_counts.append(min(region.sample_count, MAX_SIGNAL_LENGTH))
-            sample_rates.append(region.sample_rate)
+            original_counts.append(int(samples.size))
+            used_counts.append(min(int(samples.size), MAX_SIGNAL_LENGTH))
+            sample_rates.append(region_sample_rate)
 
         if group_position % 25 == 0 or group_position == len(unique_groups):
             print(
@@ -253,6 +320,7 @@ def build_region_feature_dataset(
     awgn_snr_max: float = 20.0,
     test_awgn_snr: float | None = 5.0,
     seed: int = 44,
+    regions_per_source: int | None = None,
     overwrite: bool = False,
     feature_backend: FeatureBackend | None = None,
 ) -> dict[str, Any]:
@@ -272,6 +340,14 @@ def build_region_feature_dataset(
     if isinstance(seed, bool) or int(seed) != seed:
         raise TypeError("seed must be an integer")
     seed = int(seed)
+    if regions_per_source is not None:
+        if (
+            isinstance(regions_per_source, bool)
+            or int(regions_per_source) != regions_per_source
+            or regions_per_source <= 0
+        ):
+            raise ValueError("regions_per_source must be positive or None")
+        regions_per_source = int(regions_per_source)
 
     source_dir = Path(dataset_dir).resolve()
     output_directory = Path(output_dir)
@@ -310,6 +386,7 @@ def build_region_feature_dataset(
                 awgn_snr_min=awgn_snr_min,
                 awgn_snr_max=awgn_snr_max,
                 test_awgn_snr=test_awgn_snr,
+                regions_per_source=regions_per_source,
                 rng=rng,
             )
             for split in SPLIT_NAMES
@@ -349,6 +426,7 @@ def build_region_feature_dataset(
             "seed": seed,
             "region_preprocessing": "remove_dc_then_complex_rms_normalize",
             "truncation_policy": "keep_first_samples",
+            "regions_per_source": regions_per_source,
         },
         "splits": {
             split: {
@@ -371,6 +449,105 @@ def build_region_feature_dataset(
             }
             for split, arrays in extracted.items()
         },
+    }
+    report_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    report["report_path"] = str(report_path)
+    return report
+
+
+def extract_region_feature_split(
+    dataset_path: str | Path,
+    output_dir: str | Path,
+    *,
+    split_name: str,
+    regions_per_source: int | None = None,
+    seed: int = 44,
+    overwrite: bool = False,
+    feature_backend: FeatureBackend | None = None,
+) -> dict[str, Any]:
+    """Extract clean 62-dimensional features from one prepared IQ split."""
+
+    if not isinstance(split_name, str) or not split_name.strip():
+        raise ValueError("split_name must be a non-empty string")
+    if regions_per_source is not None:
+        if (
+            isinstance(regions_per_source, bool)
+            or int(regions_per_source) != regions_per_source
+            or regions_per_source <= 0
+        ):
+            raise ValueError("regions_per_source must be positive or None")
+        regions_per_source = int(regions_per_source)
+    if isinstance(seed, bool) or int(seed) != seed:
+        raise TypeError("seed must be an integer")
+    seed = int(seed)
+
+    source_path = Path(dataset_path).resolve()
+    if not source_path.is_file():
+        raise FileNotFoundError(f"prepared IQ split does not exist: {source_path}")
+    output_directory = Path(output_dir)
+    output_path = output_directory / f"{split_name}.npz"
+    report_path = output_directory / f"{split_name}_feature_extraction_report.json"
+    existing = [path for path in (output_path, report_path) if path.exists()]
+    if existing and not overwrite:
+        raise FileExistsError(
+            "feature split output exists; use overwrite=True: "
+            + ", ".join(str(path) for path in existing)
+        )
+
+    source = load_prepared_dataset(source_path)
+    source_dataset_id = str(_scalar(source.meta, "dataset_id"))
+    label_map_json = str(_scalar(source.meta, "label_map_json"))
+    service = FeatureExtractionService()
+
+    def extract(backend: FeatureBackend) -> dict[str, np.ndarray]:
+        return _extract_split(
+            source_path,
+            split_name=split_name,
+            feature_service=service,
+            backend=backend,
+            train_awgn_copies=0,
+            awgn_snr_min=5.0,
+            awgn_snr_max=20.0,
+            test_awgn_snr=None,
+            regions_per_source=regions_per_source,
+            rng=np.random.default_rng(seed),
+        )
+
+    if feature_backend is None:
+        with IQFeatureCtypesBackend() as backend:
+            arrays = extract(backend)
+    else:
+        arrays = extract(feature_backend)
+
+    feature_dataset_id = f"{source_dataset_id}_region_features"
+    output_directory.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(
+        output_path,
+        **arrays,
+        source_dataset_id=np.asarray(source_dataset_id),
+        dataset_id=np.asarray(feature_dataset_id),
+        label_map_json=np.asarray(label_map_json),
+    )
+    report = {
+        "schema_version": 1,
+        "feature_dataset_version": REGION_FEATURE_DATASET_VERSION,
+        "dataset_id": feature_dataset_id,
+        "source_dataset_id": source_dataset_id,
+        "source_dataset_path": str(source_path),
+        "split": split_name,
+        "feature_schema_id": FEATURE_SCHEMA_ID,
+        "feature_count": FEATURE_COUNT,
+        "regions_per_source": regions_per_source,
+        "source_count": int(np.unique(arrays["sample_source_id"]).size),
+        "region_count": int(arrays["features"].shape[0]),
+        "shape": list(arrays["features"].shape),
+        "class_counts": {
+            str(label): int(np.count_nonzero(arrays["y"] == int(label)))
+            for label in sorted(json.loads(label_map_json), key=int)
+        },
+        "output_path": str(output_path),
     }
     report_path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -420,5 +597,6 @@ def load_region_feature_split(path: str | Path) -> dict[str, np.ndarray]:
 __all__ = [
     "REGION_FEATURE_DATASET_VERSION",
     "build_region_feature_dataset",
+    "extract_region_feature_split",
     "load_region_feature_split",
 ]

@@ -13,7 +13,11 @@ import torch
 import torch.nn as nn
 
 from signal_fusion.modeling import build_model
-from signal_fusion.training.augmentation import add_random_complex_awgn
+from signal_fusion.training.augmentation import (
+    add_random_complex_awgn,
+    add_random_frequency_shift,
+    add_random_spectral_inversion,
+)
 from signal_fusion.training.exporter import export_onnx
 from signal_fusion.training.losses import (
     LabelSmoothingCrossEntropy,
@@ -76,11 +80,23 @@ def train_epoch(
     awgn_probability=0.0,
     awgn_snr_min=5.0,
     awgn_snr_max=20.0,
+    frequency_shift_probability=0.0,
+    frequency_shift_max_fraction=0.0,
+    spectral_inversion_probability=0.0,
 ):
     model.train()
     total_loss, correct, total = 0.0, 0, 0
     for inputs, targets in dataloader:
         inputs, targets = inputs.to(device), targets.to(device)
+        inputs = add_random_frequency_shift(
+            inputs,
+            probability=frequency_shift_probability,
+            max_shift_fraction=frequency_shift_max_fraction,
+        )
+        inputs = add_random_spectral_inversion(
+            inputs,
+            probability=spectral_inversion_probability,
+        )
         inputs = add_random_complex_awgn(
             inputs,
             probability=awgn_probability,
@@ -271,6 +287,15 @@ def run_training(options, load_data_fn=None):
     use_amp = device.type == "cuda" and not options.no_amp
     print(f"AMP enabled: {use_amp}")
     print(
+        "Training frequency shift: "
+        f"probability={options.frequency_shift_probability}, "
+        f"range=±{options.frequency_shift_max_fraction:g} Fs"
+    )
+    print(
+        "Training spectral inversion: "
+        f"probability={options.spectral_inversion_probability}"
+    )
+    print(
         "Training AWGN: "
         f"probability={options.awgn_probability}, "
         f"SNR={options.awgn_snr_min:g}..{options.awgn_snr_max:g} dB"
@@ -299,6 +324,9 @@ def run_training(options, load_data_fn=None):
             awgn_probability=options.awgn_probability,
             awgn_snr_min=options.awgn_snr_min,
             awgn_snr_max=options.awgn_snr_max,
+            frequency_shift_probability=options.frequency_shift_probability,
+            frequency_shift_max_fraction=options.frequency_shift_max_fraction,
+            spectral_inversion_probability=options.spectral_inversion_probability,
         )
         val_acc, val_loss = eval_epoch(
             model, val_loader, criterion, device, use_amp
@@ -365,17 +393,30 @@ def run_training(options, load_data_fn=None):
         "elapsed_sec": float(elapsed_time),
         "epochs_completed": len(history["train_loss"]),
         "training_augmentation": {
-            "type": (
-                "dynamic_complex_awgn"
-                if options.awgn_probability > 0.0
-                else "none"
-            ),
-            "probability": float(options.awgn_probability),
-            "snr_db_min": float(options.awgn_snr_min),
-            "snr_db_max": float(options.awgn_snr_max),
             "seed": int(options.seed),
-            "post_noise_remove_dc": True,
-            "post_noise_rms_normalize": True,
+            "frequency_shift": {
+                "enabled": options.frequency_shift_probability > 0.0
+                and options.frequency_shift_max_fraction > 0.0,
+                "probability": float(options.frequency_shift_probability),
+                "max_fraction_of_sample_rate": float(
+                    options.frequency_shift_max_fraction
+                ),
+                "post_shift_remove_dc": True,
+                "post_shift_rms_normalize": True,
+            },
+            "spectral_inversion": {
+                "enabled": options.spectral_inversion_probability > 0.0,
+                "probability": float(options.spectral_inversion_probability),
+                "operation": "complex_conjugation",
+            },
+            "complex_awgn": {
+                "enabled": options.awgn_probability > 0.0,
+                "probability": float(options.awgn_probability),
+                "snr_db_min": float(options.awgn_snr_min),
+                "snr_db_max": float(options.awgn_snr_max),
+                "post_noise_remove_dc": True,
+                "post_noise_rms_normalize": True,
+            },
         },
     }
     if fixed_split_bundle is not None:

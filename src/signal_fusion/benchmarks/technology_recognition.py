@@ -12,6 +12,9 @@ from typing import Any
 
 import numpy as np
 
+from signal_fusion.contracts import PreparedDataset
+from signal_fusion.evaluation.snr import standardize_iq_windows
+from signal_fusion.io import load_prepared_dataset, write_prepared_dataset
 from signal_fusion.io.writers import json_safe
 from signal_fusion.preparation import (
     FixedBlockDetector,
@@ -23,6 +26,9 @@ from signal_fusion.preparation import (
 DATASET_ID = "technology_recognition_lte_wifi_dvbt_v1_1msps"
 ALL_REGIONS_DATASET_ID = (
     "technology_recognition_lte_wifi_dvbt_v2_all_regions_1msps"
+)
+EXTERNAL_1MSPS_DATASET_ID = (
+    "technology_recognition_lte_wifi_dvbt_external_1msps_4096"
 )
 V1_LOCATIONS = ("gentbrugge", "merelbeke", "rabot", "reep")
 LABELS = {"LTE": 0, "WiFi": 1, "DVB-T": 2}
@@ -53,6 +59,11 @@ LOCATION_FOLDS = {
         "validation": ("reep",),
         "test": ("gentbrugge",),
     },
+}
+ALL_LOCATION_RUN_SPLITS = {
+    "train": tuple(range(1, 9)),
+    "validation": (9,),
+    "test": (10,),
 }
 
 _FILENAME_PATTERN = re.compile(
@@ -87,7 +98,7 @@ def parse_recording_filename(path: str | Path) -> dict[str, Any]:
     }
 
 
-def _profile_complex64(path: Path) -> dict[str, Any]:
+def profile_complex64_recording(path: Path) -> dict[str, Any]:
     samples = np.memmap(path, dtype=np.dtype("<c8"), mode="r")
     finite = True
     energy_sum = 0.0
@@ -167,7 +178,7 @@ def build_v1_inventory(dataset_root: str | Path) -> dict[str, Any]:
             entry["source_id"] = (
                 f"tr_{entry['location']}_{slug}_r{entry['run']:02d}"
             )
-            entry.update(_profile_complex64(path))
+            entry.update(profile_complex64_recording(path))
         recordings.append(entry)
 
     selected = [entry for entry in recordings if entry["selected_for_v1"]]
@@ -239,6 +250,84 @@ def build_v1_inventory(dataset_root: str | Path) -> dict[str, Any]:
             "window_size": WINDOW_SIZE,
             "window_hop": WINDOW_SIZE,
             "windows_per_region": WINDOWS_PER_REGION,
+            "window_selection": "all_non_overlapping",
+            "normalization": "none",
+            "remove_dc": False,
+        },
+        "recordings": recordings,
+    }
+
+
+def select_external_1msps_recordings(
+    inventory: dict[str, Any],
+) -> dict[str, Any]:
+    """Select the unused native-1 MS/s recordings for external evaluation."""
+
+    root = Path(str(inventory["dataset_root"]))
+    recordings = [dict(entry) for entry in inventory["recordings"]]
+    selected: list[dict[str, Any]] = []
+    for entry in recordings:
+        is_unseen_location = (
+            entry["sample_rate"] == 1_000_000
+            and entry["location"] in {"uz", "igent"}
+        )
+        is_unseen_frequency = (
+            entry["sample_rate"] == 1_000_000
+            and entry["location"] == "merelbeke"
+            and entry["technology"] == "WiFi"
+            and entry["center_frequency_hz"] == 5_180_000_000
+        )
+        entry["selected_for_v1"] = is_unseen_location or is_unseen_frequency
+        if not entry["selected_for_v1"]:
+            continue
+        entry["evaluation_group"] = (
+            "unseen_location" if is_unseen_location else "unseen_frequency"
+        )
+        slug = _TECHNOLOGY_SLUGS[entry["technology"]]
+        frequency_mhz = entry["center_frequency_hz"] // 1_000_000
+        entry["source_id"] = (
+            f"tr_external_{entry['location']}_{slug}_f{frequency_mhz}_"
+            f"r{entry['run']:02d}"
+        )
+        entry.update(
+            profile_complex64_recording(root / entry["relative_path"])
+        )
+        selected.append(entry)
+
+    expected_file_counts = {"LTE": 20, "WiFi": 4, "DVB-T": 20}
+    actual_file_counts = Counter(entry["technology"] for entry in selected)
+    if dict(actual_file_counts) != expected_file_counts:
+        raise ValueError(
+            "unexpected external 1 MS/s file counts: "
+            f"expected={expected_file_counts}, actual={dict(actual_file_counts)}"
+        )
+    if any(not entry["finite"] for entry in selected):
+        raise ValueError("external 1 MS/s recordings contain non-finite IQ values")
+    source_ids = [entry["source_id"] for entry in selected]
+    if len(set(source_ids)) != len(source_ids):
+        raise ValueError("external 1 MS/s source_id values are not unique")
+
+    return {
+        **inventory,
+        "schema_version": 1,
+        "dataset_id": EXTERNAL_1MSPS_DATASET_ID,
+        "recording_set": "external_1msps",
+        "recording_selection": {
+            "sample_rate": 1_000_000,
+            "selected_recordings": len(selected),
+            "file_counts_by_class": dict(actual_file_counts),
+            "selection": [
+                "all native-1 MS/s recordings from UZ and iGent",
+                "native-1 MS/s Merelbeke WiFi recordings at 5180 MHz",
+            ],
+        },
+        "preparation": {
+            "region_size": REGION_SIZE,
+            "regions_per_source": None,
+            "region_selection": "all_complete_blocks",
+            "window_size": REGION_SIZE,
+            "window_hop": REGION_SIZE,
+            "windows_per_region": 1,
             "window_selection": "all_non_overlapping",
             "normalization": "none",
             "remove_dc": False,
@@ -339,18 +428,21 @@ def prepare_v1_sources(
             }
         )
 
-    region_counts = {result["num_regions"] for result in results}
-    if len(region_counts) != 1:
-        raise RuntimeError(
-            f"prepared sources have inconsistent region counts: {region_counts}"
-        )
-    resolved_region_count = region_counts.pop()
+    region_counts = [result["num_regions"] for result in results]
+    if not region_counts:
+        raise ValueError("inventory does not select any recordings")
+    unique_region_counts = set(region_counts)
+    resolved_region_count = (
+        region_counts[0] if len(unique_region_counts) == 1 else None
+    )
     report = {
         "schema_version": 1,
         "dataset_id": inventory["dataset_id"],
         "prepared_source_count": len(results),
         "window_size": window_size,
         "regions_per_source": resolved_region_count,
+        "regions_per_source_min": min(region_counts),
+        "regions_per_source_max": max(region_counts),
         "region_selection": (
             "all_complete_blocks"
             if region_count_per_source is None
@@ -363,6 +455,184 @@ def prepare_v1_sources(
     }
     report_path = output / "preparation_report.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(
+        json.dumps(json_safe(report), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return report
+
+
+def assemble_external_test_dataset(
+    inventory: dict[str, Any],
+    prepared_root: str | Path,
+    output_path: str | Path,
+) -> dict[str, Any]:
+    """Combine prepared 4096-point sources into one standardized test set."""
+
+    if inventory.get("recording_set") != "external_1msps":
+        raise ValueError("inventory is not the external_1msps recording set")
+    output = Path(output_path)
+    report_path = output.with_name("test_assembly_report.json")
+    existing = [path for path in (output, report_path) if path.exists()]
+    if existing:
+        raise FileExistsError(
+            "external test outputs already exist: "
+            + ", ".join(str(path) for path in existing)
+        )
+
+    base = Path(prepared_root)
+    selected = [
+        entry for entry in inventory["recordings"] if entry["selected_for_v1"]
+    ]
+    x_chunks: list[np.ndarray] = []
+    y_chunks: list[np.ndarray] = []
+    metadata_chunks: dict[str, list[np.ndarray]] = {
+        "group_id": [],
+        "source_region_id": [],
+        "window_id": [],
+        "window_start_sample": [],
+        "window_end_sample": [],
+        "region_start_sample": [],
+        "region_end_sample": [],
+        "source_index": [],
+        "sample_source_id": [],
+        "sample_source_path": [],
+        "sample_location": [],
+        "sample_evaluation_group": [],
+        "sample_class_name": [],
+        "sample_rate": [],
+        "center_frequency": [],
+    }
+    source_reports: list[dict[str, Any]] = []
+    next_group_id = 0
+    for source_index, entry in enumerate(selected):
+        source_path = (
+            base / entry["location"] / f"{entry['source_id']}.npz"
+        )
+        dataset = load_prepared_dataset(source_path)
+        if dataset.seq_len != REGION_SIZE or dataset.y is None:
+            raise ValueError(
+                f"external source must be labeled 4096-point IQ: {source_path}"
+            )
+        if np.unique(dataset.y).tolist() != [LABELS[entry["technology"]]]:
+            raise ValueError(f"unexpected source label: {source_path}")
+        region_ids = np.asarray(dataset.meta["region_id"], dtype=np.int64)
+        if region_ids.shape != (dataset.num_samples,):
+            raise ValueError(f"invalid region_id metadata: {source_path}")
+        if np.unique(region_ids).size != dataset.num_samples:
+            raise ValueError(
+                f"4096-point external sources require one window per region: {source_path}"
+            )
+
+        count = dataset.num_samples
+        x_chunks.append(dataset.X)
+        y_chunks.append(dataset.y)
+        metadata_chunks["group_id"].append(
+            np.arange(next_group_id, next_group_id + count, dtype=np.int64)
+        )
+        next_group_id += count
+        metadata_chunks["source_region_id"].append(region_ids)
+        for field_name in (
+            "window_id",
+            "window_start_sample",
+            "window_end_sample",
+            "region_start_sample",
+            "region_end_sample",
+        ):
+            metadata_chunks[field_name].append(
+                np.asarray(dataset.meta[field_name], dtype=np.int64)
+            )
+        metadata_chunks["source_index"].append(
+            np.full(count, source_index, dtype=np.int64)
+        )
+        metadata_chunks["sample_source_id"].append(
+            np.full(count, entry["source_id"])
+        )
+        metadata_chunks["sample_source_path"].append(
+            np.full(count, entry["relative_path"])
+        )
+        metadata_chunks["sample_location"].append(
+            np.full(count, entry["location"])
+        )
+        metadata_chunks["sample_evaluation_group"].append(
+            np.full(count, entry["evaluation_group"])
+        )
+        metadata_chunks["sample_class_name"].append(
+            np.full(count, entry["technology"])
+        )
+        metadata_chunks["sample_rate"].append(
+            np.full(count, entry["sample_rate"], dtype=np.float64)
+        )
+        metadata_chunks["center_frequency"].append(
+            np.full(count, entry["center_frequency_hz"], dtype=np.float64)
+        )
+        source_reports.append(
+            {
+                "source_id": entry["source_id"],
+                "relative_path": entry["relative_path"],
+                "location": entry["location"],
+                "evaluation_group": entry["evaluation_group"],
+                "technology": entry["technology"],
+                "center_frequency_hz": entry["center_frequency_hz"],
+                "region_count": count,
+            }
+        )
+
+    x = standardize_iq_windows(np.concatenate(x_chunks, axis=0))
+    y = np.concatenate(y_chunks, axis=0).astype(np.int64, copy=False)
+    meta = {
+        field_name: np.concatenate(chunks, axis=0)
+        for field_name, chunks in metadata_chunks.items()
+    }
+    meta.update(
+        {
+            "dataset_id": inventory["dataset_id"],
+            "split": "external_test",
+            "seq_len": REGION_SIZE,
+            "windows_per_region": 1,
+            "region_selection": "all_complete_blocks",
+            "window_selection": "all_non_overlapping",
+            "remove_dc": True,
+            "rms_normalize": True,
+            "rms_epsilon": 1e-12,
+            "label_map_json": json.dumps(
+                {str(label): name for name, label in LABELS.items()},
+                ensure_ascii=False,
+                sort_keys=True,
+            ),
+        }
+    )
+    test_dataset = PreparedDataset(
+        X=x,
+        y=y,
+        meta=meta,
+        source_id=f"{inventory['dataset_id']}:external_test",
+    )
+    write_prepared_dataset(test_dataset, output)
+
+    class_counts = {
+        str(label): int(np.count_nonzero(y == label))
+        for label in sorted(LABELS.values())
+    }
+    complex_mean = x[:, 0, :].mean(axis=1) + 1j * x[:, 1, :].mean(axis=1)
+    rms = np.sqrt(np.mean(np.square(x).sum(axis=1), axis=1))
+    report = {
+        "schema_version": 1,
+        "dataset_id": inventory["dataset_id"],
+        "output_path": str(output),
+        "shape": list(x.shape),
+        "source_count": len(selected),
+        "region_count": int(x.shape[0]),
+        "class_counts": class_counts,
+        "standardization": {
+            "remove_dc": True,
+            "rms_normalize": True,
+            "max_abs_complex_mean": float(np.max(np.abs(complex_mean))),
+            "output_rms_min": float(np.min(rms)),
+            "output_rms_max": float(np.max(rms)),
+        },
+        "sources": source_reports,
+    }
     report_path.write_text(
         json.dumps(json_safe(report), ensure_ascii=False, indent=2),
         encoding="utf-8",
@@ -468,6 +738,97 @@ def write_fold_manifest(
     return output
 
 
+def write_all_location_manifest(
+    inventory: dict[str, Any],
+    prepared_root: str | Path,
+    manifest_path: str | Path,
+    *,
+    window_size: int,
+) -> Path:
+    """Write a source-disjoint run split containing every core location."""
+
+    window_size = _validate_window_size(window_size)
+    windows_per_region = REGION_SIZE // window_size
+    prepared = Path(prepared_root).absolute()
+    output = Path(manifest_path).resolve()
+    if output.exists():
+        raise FileExistsError(f"all-location manifest already exists: {output}")
+
+    split_for_run = {
+        run: split
+        for split, runs in ALL_LOCATION_RUN_SPLITS.items()
+        for run in runs
+    }
+    splits: dict[str, list[dict[str, Any]]] = {
+        split: [] for split in ALL_LOCATION_RUN_SPLITS
+    }
+    selected_locations: set[str] = set()
+    for entry in inventory["recordings"]:
+        if not entry["selected_for_v1"]:
+            continue
+        selected_locations.add(entry["location"])
+        try:
+            split = split_for_run[entry["run"]]
+        except KeyError as exc:
+            raise ValueError(
+                f"selected recording has no run split: {entry['source_id']}"
+            ) from exc
+        source_path = (
+            prepared / entry["location"] / f"{entry['source_id']}.npz"
+        )
+        if not source_path.is_file():
+            raise FileNotFoundError(
+                f"prepared source does not exist: {source_path}"
+            )
+        splits[split].append(
+            {
+                "path": os.path.relpath(source_path, output.parent),
+                "label": LABELS[entry["technology"]],
+                "source_id": entry["source_id"],
+            }
+        )
+
+    if selected_locations != set(V1_LOCATIONS):
+        raise ValueError(
+            "all-location manifest requires the four core locations: "
+            f"actual={sorted(selected_locations)}"
+        )
+    expected_source_counts = {"train": 96, "validation": 12, "test": 12}
+    actual_source_counts = {
+        split: len(sources) for split, sources in splits.items()
+    }
+    if actual_source_counts != expected_source_counts:
+        raise ValueError(
+            "unexpected all-location source counts: "
+            f"expected={expected_source_counts}, actual={actual_source_counts}"
+        )
+
+    manifest = {
+        "schema_version": 1,
+        "dataset_id": (
+            f"{inventory['dataset_id']}_all_locations_clean_{window_size}"
+        ),
+        "label_map": {str(label): name for name, label in LABELS.items()},
+        "assembly": {
+            "windows_per_region": windows_per_region,
+            "regions_per_class": "minimum",
+            "region_selection": "uniform",
+            "window_selection": "uniform",
+            "remove_dc": True,
+            "rms_normalize": True,
+            "rms_epsilon": 1e-12,
+            "require_disjoint_sources": True,
+        },
+        "splits": splits,
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return output
+
+
 def write_ablation_manifests(
     inventory: dict[str, Any],
     profiles_root: str | Path,
@@ -513,7 +874,9 @@ def write_ablation_manifests(
 
 __all__ = [
     "ALL_REGIONS_DATASET_ID",
+    "ALL_LOCATION_RUN_SPLITS",
     "DATASET_ID",
+    "EXTERNAL_1MSPS_DATASET_ID",
     "EXPECTED_COMPLEX_SAMPLES",
     "LABELS",
     "LOCATION_FOLDS",
@@ -523,11 +886,15 @@ __all__ = [
     "WINDOWS_PER_REGION",
     "WINDOW_SIZE",
     "WINDOW_SIZES",
+    "assemble_external_test_dataset",
     "build_v1_inventory",
     "parse_recording_filename",
     "prepare_v1_sources",
+    "profile_complex64_recording",
     "profile_directory",
+    "select_external_1msps_recordings",
     "write_ablation_manifests",
+    "write_all_location_manifest",
     "write_fold_manifest",
     "write_inventory",
 ]

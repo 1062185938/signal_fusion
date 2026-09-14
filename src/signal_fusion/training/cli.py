@@ -66,6 +66,27 @@ def build_arg_parser():
     parser.add_argument("--temp", type=float, default=0.2)
     parser.add_argument("--epsilon", type=float, default=0.1)
     parser.add_argument(
+        "--frequency_shift_probability",
+        type=float,
+        default=0.0,
+        help="Per-window probability of random training-only frequency shift",
+    )
+    parser.add_argument(
+        "--frequency_shift_max_fraction",
+        type=float,
+        default=0.0,
+        help=(
+            "Maximum absolute frequency shift as a fraction of sample rate; "
+            "0.1 means shifts within [-0.1 Fs, +0.1 Fs]"
+        ),
+    )
+    parser.add_argument(
+        "--spectral_inversion_probability",
+        type=float,
+        default=0.0,
+        help="Per-window probability of training-only complex conjugation",
+    )
+    parser.add_argument(
         "--awgn_probability",
         type=float,
         default=0.0,
@@ -199,6 +220,9 @@ def train_and_export_model(
     awgn_probability=0.0,
     awgn_snr_min=5.0,
     awgn_snr_max=20.0,
+    frequency_shift_probability=0.0,
+    frequency_shift_max_fraction=0.0,
+    spectral_inversion_probability=0.0,
 ):
     global args
     args = argparse.Namespace(
@@ -230,6 +254,9 @@ def train_and_export_model(
         awgn_probability=awgn_probability,
         awgn_snr_min=awgn_snr_min,
         awgn_snr_max=awgn_snr_max,
+        frequency_shift_probability=frequency_shift_probability,
+        frequency_shift_max_fraction=frequency_shift_max_fraction,
+        spectral_inversion_probability=spectral_inversion_probability,
     )
     return _run_training()
 

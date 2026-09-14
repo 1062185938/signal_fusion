@@ -102,6 +102,9 @@ def train_and_export_model(
     awgn_probability=0.0,
     awgn_snr_min=5.0,
     awgn_snr_max=20.0,
+    frequency_shift_probability=0.0,
+    frequency_shift_max_fraction=0.0,
+    spectral_inversion_probability=0.0,
 ):
     try:
         return _core_cli.train_and_export_model(
@@ -133,6 +136,9 @@ def train_and_export_model(
             awgn_probability=awgn_probability,
             awgn_snr_min=awgn_snr_min,
             awgn_snr_max=awgn_snr_max,
+            frequency_shift_probability=frequency_shift_probability,
+            frequency_shift_max_fraction=frequency_shift_max_fraction,
+            spectral_inversion_probability=spectral_inversion_probability,
         )
     finally:
         _pull_args()

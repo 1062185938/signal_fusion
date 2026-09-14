@@ -1,0 +1,48 @@
+{
+  "best_model_path": "outputs/technology_recognition_v2_location_validation/window_4096_spectral_inversion_p0p5/fold1/best_model.pth",
+  "onnx_path": "outputs/technology_recognition_v2_location_validation/window_4096_spectral_inversion_p0p5/fold1/technology_recognition_v2_4096_spectral_inversion_fold1.onnx",
+  "test_acc": 99.97512437810944,
+  "test_loss": 0.0006713389460430643,
+  "seq_len": 4096,
+  "input_channels": 2,
+  "class_num": 3,
+  "model_name": "deepconvnet_1d",
+  "optimizer": "adam",
+  "amp_enabled": true,
+  "device": "cuda",
+  "elapsed_sec": 65.16149616241455,
+  "epochs_completed": 16,
+  "training_augmentation": {
+    "seed": 44,
+    "frequency_shift": {
+      "enabled": false,
+      "probability": 0.0,
+      "max_fraction_of_sample_rate": 0.0,
+      "post_shift_remove_dc": true,
+      "post_shift_rms_normalize": true
+    },
+    "spectral_inversion": {
+      "enabled": true,
+      "probability": 0.5,
+      "operation": "complex_conjugation"
+    },
+    "complex_awgn": {
+      "enabled": false,
+      "probability": 0.0,
+      "snr_db_min": 5.0,
+      "snr_db_max": 20.0,
+      "post_noise_remove_dc": true,
+      "post_noise_rms_normalize": true
+    }
+  },
+  "dataset_id": "technology_recognition_lte_wifi_dvbt_v2_all_regions_1msps_fold1_clean_4096",
+  "dataset_dir": "data/external/processed/technology_recognition_lte_wifi_dvbt/v2/folds/window_4096/fold1",
+  "split_mode": "fixed",
+  "split_sizes": {
+    "train": 16080,
+    "validation": 8040,
+    "test": 8040
+  },
+  "label_map_path": "outputs/technology_recognition_v2_location_validation/window_4096_spectral_inversion_p0p5/fold1/label_map.json",
+  "training_result_path": "outputs/technology_recognition_v2_location_validation/window_4096_spectral_inversion_p0p5/fold1/training_result.json"
+}

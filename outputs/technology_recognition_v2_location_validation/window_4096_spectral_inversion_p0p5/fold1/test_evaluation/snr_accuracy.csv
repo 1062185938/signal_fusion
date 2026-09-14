@@ -1,0 +1,3 @@
+condition,snr_db,trial_index,seed,window_accuracy_percent,group_accuracy_percent,window_mean_confidence,achieved_snr_db_mean,achieved_snr_db_std,window_accuracy_LTE_percent,window_accuracy_WiFi_percent,window_accuracy_DVB-T_percent
+clean,,0,,99.97512437810944,99.97512437810944,0.9997631177380311,,,100.0,100.0,99.92537313432835
+added_awgn,10.0,0,44,99.95024875621891,99.95024875621891,0.9995756038311702,10.0,9.55037115721055e-16,99.92537313432835,100.0,99.92537313432835

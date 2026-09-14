@@ -1,0 +1,4383 @@
+{
+  "schema_version": 1,
+  "evaluation_type": "incremental_complex_awgn_snr_sweep",
+  "dataset_id": "technology_recognition_lte_wifi_dvbt_external_1msps_4096",
+  "test_path": "data/external/processed/technology_recognition_lte_wifi_dvbt/external_1msps_4096/test.npz",
+  "model_path": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5_seed46/best_model.pth",
+  "model_name": "deepconvnet_1d",
+  "device": "cuda",
+  "sample_count": 11641,
+  "group_count": 11641,
+  "seq_len": 4096,
+  "input_channels": 2,
+  "label_map": {
+    "0": "LTE",
+    "1": "WiFi",
+    "2": "DVB-T"
+  },
+  "configuration": {
+    "snr_db_values": [
+      10.0
+    ],
+    "trials_per_snr": 1,
+    "base_seed": 44,
+    "batch_size": 256,
+    "noise": "circular_complex_gaussian_exact_per_window_power",
+    "snr_interpretation": "input_window_power_to_newly_added_noise_power",
+    "post_noise_remove_dc": true,
+    "post_noise_rms_normalize": true
+  },
+  "conditions": [
+    {
+      "condition": "clean",
+      "snr_db": null,
+      "trials": [
+        {
+          "trial_index": 0,
+          "seed": null,
+          "metrics": {
+            "window": {
+              "sample_count": 11641,
+              "correct_count": 10624,
+              "error_count": 1017,
+              "accuracy_percent": 91.2636371445752,
+              "mean_predicted_confidence": 0.987626348944958,
+              "confusion_matrix": [
+                [
+                  5358,
+                  0,
+                  2
+                ],
+                [
+                  0,
+                  1072,
+                  0
+                ],
+                [
+                  1014,
+                  1,
+                  4194
+                ]
+              ],
+              "per_class": {
+                "0": {
+                  "class_name": "LTE",
+                  "sample_count": 5360,
+                  "correct_count": 5358,
+                  "accuracy_percent": 99.96268656716418
+                },
+                "1": {
+                  "class_name": "WiFi",
+                  "sample_count": 1072,
+                  "correct_count": 1072,
+                  "accuracy_percent": 100.0
+                },
+                "2": {
+                  "class_name": "DVB-T",
+                  "sample_count": 5209,
+                  "correct_count": 4194,
+                  "accuracy_percent": 80.51449414474948
+                }
+              }
+            },
+            "per_source": {
+              "tr_external_igent_dvbt_f482_r01": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 117,
+                "correct_count": 117,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9968879487779405,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    117
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 117,
+                    "correct_count": 117,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r02": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998311544977018,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r03": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9982820758179053,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r04": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9997983212346462,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r05": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 267,
+                "error_count": 1,
+                "accuracy_percent": 99.6268656716418,
+                "mean_predicted_confidence": 0.9985453766673359,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    267
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 267,
+                    "accuracy_percent": 99.6268656716418
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r06": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9997079483608702,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r07": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998314494072501,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r08": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9997769353994682,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r09": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9990250083492763,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r10": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998012879001561,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r01": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9988840662721378,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r02": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.997136249693472,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r03": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9981198653356352,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r04": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9982931558320771,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r05": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 266,
+                "error_count": 2,
+                "accuracy_percent": 99.25373134328358,
+                "mean_predicted_confidence": 0.9952568211662236,
+                "confusion_matrix": [
+                  [
+                    266,
+                    0,
+                    2
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 266,
+                    "accuracy_percent": 99.25373134328358
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r06": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9986447994388751,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r07": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9982764345051637,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r08": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9977871468707696,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r09": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9971239649092973,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r10": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9986114615379874,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_wifi_f2412_r01": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998520283556697,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r01": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.999964379552585,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r02": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9999636545110104,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r03": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9999645454670066,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r01": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 267,
+                "error_count": 1,
+                "accuracy_percent": 99.6268656716418,
+                "mean_predicted_confidence": 0.9913870407574212,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    267
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 267,
+                    "accuracy_percent": 99.6268656716418
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r02": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 0,
+                "error_count": 268,
+                "accuracy_percent": 0.0,
+                "mean_predicted_confidence": 0.9776734238240257,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    268,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 0,
+                    "accuracy_percent": 0.0
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r03": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 140,
+                "error_count": 128,
+                "accuracy_percent": 52.23880597014925,
+                "mean_predicted_confidence": 0.7656691512509958,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    128,
+                    0,
+                    140
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 140,
+                    "accuracy_percent": 52.23880597014925
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r04": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 0,
+                "error_count": 268,
+                "accuracy_percent": 0.0,
+                "mean_predicted_confidence": 0.9828100553644237,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    268,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 0,
+                    "accuracy_percent": 0.0
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r05": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 13,
+                "error_count": 255,
+                "accuracy_percent": 4.850746268656716,
+                "mean_predicted_confidence": 0.9355542939990314,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    255,
+                    0,
+                    13
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 13,
+                    "accuracy_percent": 4.850746268656716
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r06": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 267,
+                "error_count": 1,
+                "accuracy_percent": 99.6268656716418,
+                "mean_predicted_confidence": 0.9950833732067649,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    267
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 267,
+                    "accuracy_percent": 99.6268656716418
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r07": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 262,
+                "error_count": 6,
+                "accuracy_percent": 97.76119402985076,
+                "mean_predicted_confidence": 0.9833406374525668,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    6,
+                    0,
+                    262
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 262,
+                    "accuracy_percent": 97.76119402985076
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r08": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9956948777188116,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r09": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 192,
+                "error_count": 76,
+                "accuracy_percent": 71.64179104477611,
+                "mean_predicted_confidence": 0.901694036464193,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    76,
+                    0,
+                    192
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 192,
+                    "accuracy_percent": 71.64179104477611
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r10": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 257,
+                "error_count": 11,
+                "accuracy_percent": 95.8955223880597,
+                "mean_predicted_confidence": 0.9708893641607085,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    11,
+                    0,
+                    257
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 257,
+                    "accuracy_percent": 95.8955223880597
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r01": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9975180574762288,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r02": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9993169465616568,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r03": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9995209443480221,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r04": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9991768718655429,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r05": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9993019124020391,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r06": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9994727188526694,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r07": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.99963989030959,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r08": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9996867041979263,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r09": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9983824742818946,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r10": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9995987886813149,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              }
+            },
+            "group": {
+              "sample_count": 11641,
+              "correct_count": 10624,
+              "error_count": 1017,
+              "accuracy_percent": 91.2636371445752,
+              "mean_predicted_confidence": 0.987626348944958,
+              "confusion_matrix": [
+                [
+                  5358,
+                  0,
+                  2
+                ],
+                [
+                  0,
+                  1072,
+                  0
+                ],
+                [
+                  1014,
+                  1,
+                  4194
+                ]
+              ],
+              "per_class": {
+                "0": {
+                  "class_name": "LTE",
+                  "sample_count": 5360,
+                  "correct_count": 5358,
+                  "accuracy_percent": 99.96268656716418
+                },
+                "1": {
+                  "class_name": "WiFi",
+                  "sample_count": 1072,
+                  "correct_count": 1072,
+                  "accuracy_percent": 100.0
+                },
+                "2": {
+                  "class_name": "DVB-T",
+                  "sample_count": 5209,
+                  "correct_count": 4194,
+                  "accuracy_percent": 80.51449414474948
+                }
+              },
+              "vote_method": "mean_probability",
+              "source_count": 44
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 1,
+        "window_accuracy_percent": {
+          "mean": 91.2636371445752,
+          "std": 0.0,
+          "min": 91.2636371445752,
+          "max": 91.2636371445752
+        },
+        "group_accuracy_percent": {
+          "mean": 91.2636371445752,
+          "std": 0.0,
+          "min": 91.2636371445752,
+          "max": 91.2636371445752
+        },
+        "window_mean_confidence": {
+          "mean": 0.987626348944958,
+          "std": 0.0,
+          "min": 0.987626348944958,
+          "max": 0.987626348944958
+        },
+        "per_class_window_accuracy_percent": {
+          "0": {
+            "class_name": "LTE",
+            "mean": 99.96268656716418,
+            "std": 0.0,
+            "min": 99.96268656716418,
+            "max": 99.96268656716418
+          },
+          "1": {
+            "class_name": "WiFi",
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "mean": 80.51449414474948,
+            "std": 0.0,
+            "min": 80.51449414474948,
+            "max": 80.51449414474948
+          }
+        }
+      }
+    },
+    {
+      "condition": "added_awgn",
+      "snr_db": 10.0,
+      "trials": [
+        {
+          "trial_index": 0,
+          "seed": 44,
+          "achieved_snr_db_mean": 10.0,
+          "achieved_snr_db_std": 9.546274592194213e-16,
+          "metrics": {
+            "window": {
+              "sample_count": 11641,
+              "correct_count": 10752,
+              "error_count": 889,
+              "accuracy_percent": 92.36319903788335,
+              "mean_predicted_confidence": 0.9855854366383964,
+              "confusion_matrix": [
+                [
+                  5356,
+                  0,
+                  4
+                ],
+                [
+                  0,
+                  1072,
+                  0
+                ],
+                [
+                  885,
+                  0,
+                  4324
+                ]
+              ],
+              "per_class": {
+                "0": {
+                  "class_name": "LTE",
+                  "sample_count": 5360,
+                  "correct_count": 5356,
+                  "accuracy_percent": 99.92537313432835
+                },
+                "1": {
+                  "class_name": "WiFi",
+                  "sample_count": 1072,
+                  "correct_count": 1072,
+                  "accuracy_percent": 100.0
+                },
+                "2": {
+                  "class_name": "DVB-T",
+                  "sample_count": 5209,
+                  "correct_count": 4324,
+                  "accuracy_percent": 83.0101746976387
+                }
+              }
+            },
+            "per_source": {
+              "tr_external_igent_dvbt_f482_r01": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 117,
+                "correct_count": 117,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.998898394087441,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    117
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 117,
+                    "correct_count": 117,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r02": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998431828484606,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r03": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9983606496408804,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r04": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998329697705027,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r05": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.999340384531377,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r06": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9997436453157397,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r07": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998465242670543,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r08": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998178944658878,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r09": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9993724620609141,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_dvbt_f482_r10": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9998173629170033,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r01": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9985093007336802,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r02": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9949783689495343,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r03": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9970103982669204,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r04": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9979517597760728,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r05": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 265,
+                "error_count": 3,
+                "accuracy_percent": 98.88059701492537,
+                "mean_predicted_confidence": 0.995437357852708,
+                "confusion_matrix": [
+                  [
+                    265,
+                    0,
+                    3
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 265,
+                    "accuracy_percent": 98.88059701492537
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r06": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9983513857891311,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r07": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9976827704639577,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r08": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 267,
+                "error_count": 1,
+                "accuracy_percent": 99.6268656716418,
+                "mean_predicted_confidence": 0.9956137673623526,
+                "confusion_matrix": [
+                  [
+                    267,
+                    0,
+                    1
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 267,
+                    "accuracy_percent": 99.6268656716418
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r09": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9951970559447559,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_lte_f806_r10": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.997589204071173,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_igent_wifi_f2412_r01": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9988962454137518,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r01": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9999614131094804,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r02": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9999608579856246,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_merelbeke_wifi_f5180_r03": {
+                "label": 1,
+                "class_name": "WiFi",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9999615002923937,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    268,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r01": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9951153933557112,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r02": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 5,
+                "error_count": 263,
+                "accuracy_percent": 1.8656716417910446,
+                "mean_predicted_confidence": 0.9314566045554716,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    263,
+                    0,
+                    5
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 5,
+                    "accuracy_percent": 1.8656716417910446
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r03": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 210,
+                "error_count": 58,
+                "accuracy_percent": 78.35820895522389,
+                "mean_predicted_confidence": 0.7949276500895842,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    58,
+                    0,
+                    210
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 210,
+                    "accuracy_percent": 78.35820895522389
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r04": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 6,
+                "error_count": 262,
+                "accuracy_percent": 2.2388059701492535,
+                "mean_predicted_confidence": 0.9503331891636351,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    262,
+                    0,
+                    6
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 6,
+                    "accuracy_percent": 2.2388059701492535
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r05": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 33,
+                "error_count": 235,
+                "accuracy_percent": 12.313432835820896,
+                "mean_predicted_confidence": 0.886601275694904,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    235,
+                    0,
+                    33
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 33,
+                    "accuracy_percent": 12.313432835820896
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r06": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 267,
+                "error_count": 1,
+                "accuracy_percent": 99.6268656716418,
+                "mean_predicted_confidence": 0.9973140432318645,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0,
+                    267
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 267,
+                    "accuracy_percent": 99.6268656716418
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r07": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 265,
+                "error_count": 3,
+                "accuracy_percent": 98.88059701492537,
+                "mean_predicted_confidence": 0.9885612641697499,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    3,
+                    0,
+                    265
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 265,
+                    "accuracy_percent": 98.88059701492537
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r08": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9964450355341186,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    268
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r09": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 211,
+                "error_count": 57,
+                "accuracy_percent": 78.73134328358209,
+                "mean_predicted_confidence": 0.9026734719970333,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    57,
+                    0,
+                    211
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 211,
+                    "accuracy_percent": 78.73134328358209
+                  }
+                }
+              },
+              "tr_external_uz_dvbt_f482_r10": {
+                "label": 2,
+                "class_name": "DVB-T",
+                "sample_count": 268,
+                "correct_count": 262,
+                "error_count": 6,
+                "accuracy_percent": 97.76119402985076,
+                "mean_predicted_confidence": 0.9770312553911067,
+                "confusion_matrix": [
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    6,
+                    0,
+                    262
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 268,
+                    "correct_count": 262,
+                    "accuracy_percent": 97.76119402985076
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r01": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9969988044962954,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r02": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9993126674819348,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r03": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9994985654727736,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r04": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9991712892678246,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r05": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9992590341995011,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r06": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9993115352160895,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r07": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9996334485598465,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r08": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9996732457805035,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r09": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9983976917035544,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              },
+              "tr_external_uz_lte_f806_r10": {
+                "label": 0,
+                "class_name": "LTE",
+                "sample_count": 268,
+                "correct_count": 268,
+                "error_count": 0,
+                "accuracy_percent": 100.0,
+                "mean_predicted_confidence": 0.9995698481798172,
+                "confusion_matrix": [
+                  [
+                    268,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    0,
+                    0
+                  ]
+                ],
+                "per_class": {
+                  "0": {
+                    "class_name": "LTE",
+                    "sample_count": 268,
+                    "correct_count": 268,
+                    "accuracy_percent": 100.0
+                  },
+                  "1": {
+                    "class_name": "WiFi",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  },
+                  "2": {
+                    "class_name": "DVB-T",
+                    "sample_count": 0,
+                    "correct_count": 0,
+                    "accuracy_percent": null
+                  }
+                }
+              }
+            },
+            "group": {
+              "sample_count": 11641,
+              "correct_count": 10752,
+              "error_count": 889,
+              "accuracy_percent": 92.36319903788335,
+              "mean_predicted_confidence": 0.9855854366383964,
+              "confusion_matrix": [
+                [
+                  5356,
+                  0,
+                  4
+                ],
+                [
+                  0,
+                  1072,
+                  0
+                ],
+                [
+                  885,
+                  0,
+                  4324
+                ]
+              ],
+              "per_class": {
+                "0": {
+                  "class_name": "LTE",
+                  "sample_count": 5360,
+                  "correct_count": 5356,
+                  "accuracy_percent": 99.92537313432835
+                },
+                "1": {
+                  "class_name": "WiFi",
+                  "sample_count": 1072,
+                  "correct_count": 1072,
+                  "accuracy_percent": 100.0
+                },
+                "2": {
+                  "class_name": "DVB-T",
+                  "sample_count": 5209,
+                  "correct_count": 4324,
+                  "accuracy_percent": 83.0101746976387
+                }
+              },
+              "vote_method": "mean_probability",
+              "source_count": 44
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 1,
+        "window_accuracy_percent": {
+          "mean": 92.36319903788335,
+          "std": 0.0,
+          "min": 92.36319903788335,
+          "max": 92.36319903788335
+        },
+        "group_accuracy_percent": {
+          "mean": 92.36319903788335,
+          "std": 0.0,
+          "min": 92.36319903788335,
+          "max": 92.36319903788335
+        },
+        "window_mean_confidence": {
+          "mean": 0.9855854366383964,
+          "std": 0.0,
+          "min": 0.9855854366383964,
+          "max": 0.9855854366383964
+        },
+        "per_class_window_accuracy_percent": {
+          "0": {
+            "class_name": "LTE",
+            "mean": 99.92537313432835,
+            "std": 0.0,
+            "min": 99.92537313432835,
+            "max": 99.92537313432835
+          },
+          "1": {
+            "class_name": "WiFi",
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "mean": 83.0101746976387,
+            "std": 0.0,
+            "min": 83.0101746976387,
+            "max": 83.0101746976387
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "json": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5_seed46/external_1msps_evaluation/snr_evaluation.json",
+    "csv": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5_seed46/external_1msps_evaluation/snr_accuracy.csv",
+    "plot": null
+  }
+}

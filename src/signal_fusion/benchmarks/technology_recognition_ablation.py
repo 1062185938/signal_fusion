@@ -334,4 +334,270 @@ def evaluate_ablation_matrix(
     return result
 
 
-__all__ = ["evaluate_ablation_matrix", "summarize_ablation_runs"]
+def _compact_classification_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
+    window = metrics["window"]
+    per_class = window["per_class"]
+    class_accuracies = [
+        item["accuracy_percent"]
+        for item in per_class.values()
+        if item["accuracy_percent"] is not None
+    ]
+    return {
+        "sample_count": window["sample_count"],
+        "correct_count": window["correct_count"],
+        "accuracy_percent": window["accuracy_percent"],
+        "macro_accuracy_percent": float(np.mean(class_accuracies)),
+        "mean_predicted_confidence": window["mean_predicted_confidence"],
+        "confusion_matrix": window["confusion_matrix"],
+        "per_class": per_class,
+    }
+
+
+def evaluate_external_test_set(
+    *,
+    dataset_path: str | Path,
+    model_root: str | Path,
+    output_dir: str | Path,
+    device: str = "auto",
+    batch_size: int = 256,
+) -> dict[str, Any]:
+    """Evaluate all four location-fold checkpoints on one external test set."""
+
+    if batch_size <= 0:
+        raise ValueError("batch_size must be positive")
+    output = Path(output_dir)
+    json_path = output / "external_evaluation.json"
+    summary_csv_path = output / "external_model_results.csv"
+    source_csv_path = output / "external_source_results.csv"
+    existing = [
+        path
+        for path in (json_path, summary_csv_path, source_csv_path)
+        if path.exists()
+    ]
+    if existing:
+        raise FileExistsError(
+            "external evaluation outputs already exist: "
+            + ", ".join(str(path) for path in existing)
+        )
+
+    dataset = load_prepared_dataset(dataset_path)
+    if dataset.y is None or dataset.seq_len != 4096:
+        raise ValueError("external test dataset must contain labeled 4096-point IQ")
+    label_map = json.loads(
+        str(np.asarray(dataset.meta["label_map_json"]).item())
+    )
+    expected_label_map = {
+        str(label): name for name, label in LABELS.items()
+    }
+    if label_map != expected_label_map:
+        raise ValueError("external test label map does not match the benchmark")
+
+    sample_count = dataset.num_samples
+    group_ids = np.asarray(dataset.meta["group_id"], dtype=np.int64)
+    source_ids = np.asarray(dataset.meta["sample_source_id"]).astype(str)
+    locations = np.asarray(dataset.meta["sample_location"]).astype(str)
+    evaluation_groups = np.asarray(
+        dataset.meta["sample_evaluation_group"]
+    ).astype(str)
+    center_frequencies = np.asarray(
+        dataset.meta["center_frequency"], dtype=np.float64
+    )
+    for name, values in (
+        ("group_id", group_ids),
+        ("sample_source_id", source_ids),
+        ("sample_location", locations),
+        ("sample_evaluation_group", evaluation_groups),
+        ("center_frequency", center_frequencies),
+    ):
+        if values.shape != (sample_count,):
+            raise ValueError(f"external metadata {name!r} has invalid shape")
+
+    subset_masks: dict[str, np.ndarray] = {
+        "all": np.ones(sample_count, dtype=bool),
+        "unseen_location": evaluation_groups == "unseen_location",
+        "unseen_frequency": evaluation_groups == "unseen_frequency",
+    }
+    subset_masks.update(
+        {
+            f"location_{location}": locations == location
+            for location in sorted(set(locations.tolist()))
+        }
+    )
+    if any(not np.any(mask) for mask in subset_masks.values()):
+        raise ValueError("external evaluation contains an empty reporting subset")
+
+    resolved_device = resolve_evaluation_device(device)
+    probability_sets: list[np.ndarray] = []
+    model_results: list[dict[str, Any]] = []
+    compact_source_results: list[dict[str, Any]] = []
+
+    def evaluate_probabilities(
+        model_id: str, probabilities: np.ndarray
+    ) -> dict[str, Any]:
+        subsets: dict[str, Any] = {}
+        full_metrics: dict[str, Any] | None = None
+        for subset_name, mask in subset_masks.items():
+            metrics = classification_metrics(
+                probabilities[mask],
+                dataset.y[mask],
+                group_ids[mask],
+                source_ids[mask],
+                label_map,
+            )
+            subsets[subset_name] = _compact_classification_metrics(metrics)
+            if subset_name == "all":
+                full_metrics = metrics
+        if full_metrics is None:
+            raise RuntimeError("external all-data metrics were not computed")
+        for source_id, source_metrics in full_metrics["per_source"].items():
+            mask = source_ids == source_id
+            unique_location = np.unique(locations[mask])
+            unique_group = np.unique(evaluation_groups[mask])
+            unique_frequency = np.unique(center_frequencies[mask])
+            if (
+                unique_location.size != 1
+                or unique_group.size != 1
+                or unique_frequency.size != 1
+            ):
+                raise ValueError(f"source metadata is inconsistent: {source_id}")
+            compact_source_results.append(
+                {
+                    "model_id": model_id,
+                    "source_id": source_id,
+                    "location": str(unique_location[0]),
+                    "evaluation_group": str(unique_group[0]),
+                    "center_frequency_hz": float(unique_frequency[0]),
+                    "class_name": source_metrics["class_name"],
+                    "sample_count": source_metrics["sample_count"],
+                    "accuracy_percent": source_metrics["accuracy_percent"],
+                    "mean_predicted_confidence": source_metrics[
+                        "mean_predicted_confidence"
+                    ],
+                }
+            )
+        return {"model_id": model_id, "subsets": subsets}
+
+    model_base = Path(model_root)
+    for fold_name, fold_locations in LOCATION_FOLDS.items():
+        model_path = model_base / fold_name / "best_model.pth"
+        model = load_evaluation_model(
+            model_path,
+            model_name="deepconvnet_1d",
+            class_num=len(LABELS),
+            input_channels=int(dataset.X.shape[1]),
+            seq_len=dataset.seq_len,
+            device=resolved_device,
+        )
+        probabilities = predict_probabilities(
+            model,
+            dataset.X,
+            batch_size=batch_size,
+            device=resolved_device,
+        )
+        probability_sets.append(probabilities)
+        result = evaluate_probabilities(fold_name, probabilities)
+        result["training_locations"] = list(fold_locations["train"])
+        model_results.append(result)
+
+    ensemble_probabilities = np.mean(probability_sets, axis=0)
+    ensemble_result = evaluate_probabilities("ensemble_mean", ensemble_probabilities)
+    predictions = np.stack(
+        [probabilities.argmax(axis=1) for probabilities in probability_sets],
+        axis=0,
+    )
+    agreement = {
+        subset_name: {
+            "sample_count": int(np.count_nonzero(mask)),
+            "all_four_agree_count": int(
+                np.count_nonzero(
+                    np.all(predictions[:, mask] == predictions[0:1, mask], axis=0)
+                )
+            ),
+        }
+        for subset_name, mask in subset_masks.items()
+    }
+    for values in agreement.values():
+        values["all_four_agree_ratio"] = (
+            values["all_four_agree_count"] / values["sample_count"]
+        )
+
+    result = {
+        "schema_version": 1,
+        "evaluation_type": "external_clean_multi_checkpoint",
+        "dataset_id": str(np.asarray(dataset.meta["dataset_id"]).item()),
+        "dataset_path": str(dataset_path),
+        "device": str(resolved_device),
+        "model_name": "deepconvnet_1d",
+        "window_size": 4096,
+        "source_count": len(set(source_ids.tolist())),
+        "sample_count": sample_count,
+        "label_map": label_map,
+        "models": model_results,
+        "ensemble": ensemble_result,
+        "model_agreement": agreement,
+        "outputs": {
+            "json": str(json_path),
+            "summary_csv": str(summary_csv_path),
+            "source_csv": str(source_csv_path),
+        },
+    }
+    output.mkdir(parents=True, exist_ok=True)
+    json_path.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    summary_fields = [
+        "model_id",
+        "subset",
+        "sample_count",
+        "accuracy_percent",
+        "macro_accuracy_percent",
+        "mean_predicted_confidence",
+        "accuracy_LTE_percent",
+        "accuracy_WiFi_percent",
+        "accuracy_DVB-T_percent",
+    ]
+    with summary_csv_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=summary_fields)
+        writer.writeheader()
+        for model_result in [*model_results, ensemble_result]:
+            for subset_name, metrics in model_result["subsets"].items():
+                row = {
+                    "model_id": model_result["model_id"],
+                    "subset": subset_name,
+                    "sample_count": metrics["sample_count"],
+                    "accuracy_percent": metrics["accuracy_percent"],
+                    "macro_accuracy_percent": metrics["macro_accuracy_percent"],
+                    "mean_predicted_confidence": metrics[
+                        "mean_predicted_confidence"
+                    ],
+                }
+                for name, label in LABELS.items():
+                    row[f"accuracy_{name}_percent"] = metrics["per_class"][
+                        str(label)
+                    ]["accuracy_percent"]
+                writer.writerow(row)
+
+    source_fields = [
+        "model_id",
+        "source_id",
+        "location",
+        "evaluation_group",
+        "center_frequency_hz",
+        "class_name",
+        "sample_count",
+        "accuracy_percent",
+        "mean_predicted_confidence",
+    ]
+    with source_csv_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=source_fields)
+        writer.writeheader()
+        writer.writerows(compact_source_results)
+    return result
+
+
+__all__ = [
+    "evaluate_ablation_matrix",
+    "evaluate_external_test_set",
+    "summarize_ablation_runs",
+]

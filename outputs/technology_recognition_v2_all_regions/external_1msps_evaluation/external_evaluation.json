@@ -1,0 +1,1416 @@
+{
+  "schema_version": 1,
+  "evaluation_type": "external_clean_multi_checkpoint",
+  "dataset_id": "technology_recognition_lte_wifi_dvbt_external_1msps_4096",
+  "dataset_path": "data/external/processed/technology_recognition_lte_wifi_dvbt/external_1msps_4096/test.npz",
+  "device": "cuda",
+  "model_name": "deepconvnet_1d",
+  "window_size": 4096,
+  "source_count": 44,
+  "sample_count": 11641,
+  "label_map": {
+    "0": "LTE",
+    "1": "WiFi",
+    "2": "DVB-T"
+  },
+  "models": [
+    {
+      "model_id": "fold1",
+      "subsets": {
+        "all": {
+          "sample_count": 11641,
+          "correct_count": 11605,
+          "accuracy_percent": 99.69074821750709,
+          "macro_accuracy_percent": 99.72564705747514,
+          "mean_predicted_confidence": 0.9979306856961853,
+          "confusion_matrix": [
+            [
+              5330,
+              0,
+              30
+            ],
+            [
+              2,
+              1070,
+              0
+            ],
+            [
+              2,
+              2,
+              5205
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5330,
+              "accuracy_percent": 99.44029850746269
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 1072,
+              "correct_count": 1070,
+              "accuracy_percent": 99.81343283582089
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 5205,
+              "accuracy_percent": 99.92320982914187
+            }
+          }
+        },
+        "unseen_location": {
+          "sample_count": 10837,
+          "correct_count": 10801,
+          "accuracy_percent": 99.66780474301005,
+          "macro_accuracy_percent": 99.53907989329605,
+          "mean_predicted_confidence": 0.997782913220812,
+          "confusion_matrix": [
+            [
+              5330,
+              0,
+              30
+            ],
+            [
+              2,
+              266,
+              0
+            ],
+            [
+              2,
+              2,
+              5205
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5330,
+              "accuracy_percent": 99.44029850746269
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 266,
+              "accuracy_percent": 99.25373134328358
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 5205,
+              "accuracy_percent": 99.92320982914187
+            }
+          }
+        },
+        "unseen_frequency": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999224895713341,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_igent": {
+          "sample_count": 5477,
+          "correct_count": 5445,
+          "accuracy_percent": 99.41573854299799,
+          "macro_accuracy_percent": 99.3751389356106,
+          "mean_predicted_confidence": 0.9960384166260281,
+          "confusion_matrix": [
+            [
+              2654,
+              0,
+              26
+            ],
+            [
+              2,
+              266,
+              0
+            ],
+            [
+              2,
+              2,
+              2525
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2654,
+              "accuracy_percent": 99.02985074626865
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 266,
+              "accuracy_percent": 99.25373134328358
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2529,
+              "correct_count": 2525,
+              "accuracy_percent": 99.84183471727955
+            }
+          }
+        },
+        "location_merelbeke": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999224895713341,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_uz": {
+          "sample_count": 5360,
+          "correct_count": 5356,
+          "accuracy_percent": 99.92537313432835,
+          "macro_accuracy_percent": 99.92537313432837,
+          "mean_predicted_confidence": 0.9995654893121613,
+          "confusion_matrix": [
+            [
+              2676,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              2680
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2676,
+              "accuracy_percent": 99.85074626865672
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2680,
+              "correct_count": 2680,
+              "accuracy_percent": 100.0
+            }
+          }
+        }
+      },
+      "training_locations": [
+        "gentbrugge",
+        "merelbeke"
+      ]
+    },
+    {
+      "model_id": "fold2",
+      "subsets": {
+        "all": {
+          "sample_count": 11641,
+          "correct_count": 9842,
+          "accuracy_percent": 84.54600120264583,
+          "macro_accuracy_percent": 88.5069827479993,
+          "mean_predicted_confidence": 0.9862085184698897,
+          "confusion_matrix": [
+            [
+              5254,
+              0,
+              106
+            ],
+            [
+              0,
+              1072,
+              0
+            ],
+            [
+              1690,
+              3,
+              3516
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5254,
+              "accuracy_percent": 98.0223880597015
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 1072,
+              "correct_count": 1072,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3516,
+              "accuracy_percent": 67.49856018429641
+            }
+          }
+        },
+        "unseen_location": {
+          "sample_count": 10837,
+          "correct_count": 9038,
+          "accuracy_percent": 83.39946479653041,
+          "macro_accuracy_percent": 88.5069827479993,
+          "mean_predicted_confidence": 0.9851875955260767,
+          "confusion_matrix": [
+            [
+              5254,
+              0,
+              106
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              1690,
+              3,
+              3516
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5254,
+              "accuracy_percent": 98.0223880597015
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3516,
+              "accuracy_percent": 67.49856018429641
+            }
+          }
+        },
+        "unseen_frequency": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999693915322052,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_igent": {
+          "sample_count": 5477,
+          "correct_count": 5377,
+          "accuracy_percent": 98.17418294686873,
+          "macro_accuracy_percent": 98.7532483883469,
+          "mean_predicted_confidence": 0.9773113682569542,
+          "confusion_matrix": [
+            [
+              2584,
+              0,
+              96
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              1,
+              3,
+              2525
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2584,
+              "accuracy_percent": 96.41791044776119
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2529,
+              "correct_count": 2525,
+              "accuracy_percent": 99.84183471727955
+            }
+          }
+        },
+        "location_merelbeke": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999693915322052,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_uz": {
+          "sample_count": 5360,
+          "correct_count": 3661,
+          "accuracy_percent": 68.30223880597015,
+          "macro_accuracy_percent": 68.30223880597015,
+          "mean_predicted_confidence": 0.9932357479053647,
+          "confusion_matrix": [
+            [
+              2670,
+              0,
+              10
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1689,
+              0,
+              991
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2670,
+              "accuracy_percent": 99.6268656716418
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2680,
+              "correct_count": 991,
+              "accuracy_percent": 36.9776119402985
+            }
+          }
+        }
+      },
+      "training_locations": [
+        "gentbrugge",
+        "reep"
+      ]
+    },
+    {
+      "model_id": "fold3",
+      "subsets": {
+        "all": {
+          "sample_count": 11641,
+          "correct_count": 9991,
+          "accuracy_percent": 85.82595996907482,
+          "macro_accuracy_percent": 89.44477674021904,
+          "mean_predicted_confidence": 0.9936382667826434,
+          "confusion_matrix": [
+            [
+              5341,
+              0,
+              19
+            ],
+            [
+              0,
+              1072,
+              0
+            ],
+            [
+              1630,
+              1,
+              3578
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5341,
+              "accuracy_percent": 99.6455223880597
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 1072,
+              "correct_count": 1072,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3578,
+              "accuracy_percent": 68.68880783259743
+            }
+          }
+        },
+        "unseen_location": {
+          "sample_count": 10837,
+          "correct_count": 9187,
+          "accuracy_percent": 84.77438405462766,
+          "macro_accuracy_percent": 89.44477674021904,
+          "mean_predicted_confidence": 0.9931714223673547,
+          "confusion_matrix": [
+            [
+              5341,
+              0,
+              19
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              1630,
+              1,
+              3578
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5341,
+              "accuracy_percent": 99.6455223880597
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3578,
+              "accuracy_percent": 68.68880783259743
+            }
+          }
+        },
+        "unseen_frequency": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999307953006592,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_igent": {
+          "sample_count": 5477,
+          "correct_count": 5460,
+          "accuracy_percent": 99.68961110096768,
+          "macro_accuracy_percent": 99.78781458464891,
+          "mean_predicted_confidence": 0.9942365960524598,
+          "confusion_matrix": [
+            [
+              2664,
+              0,
+              16
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              0,
+              1,
+              2528
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2664,
+              "accuracy_percent": 99.40298507462687
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2529,
+              "correct_count": 2528,
+              "accuracy_percent": 99.96045867931988
+            }
+          }
+        },
+        "location_merelbeke": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999307953006592,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_uz": {
+          "sample_count": 5360,
+          "correct_count": 3727,
+          "accuracy_percent": 69.53358208955224,
+          "macro_accuracy_percent": 69.53358208955224,
+          "mean_predicted_confidence": 0.9920829976894963,
+          "confusion_matrix": [
+            [
+              2677,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1630,
+              0,
+              1050
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2677,
+              "accuracy_percent": 99.88805970149254
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2680,
+              "correct_count": 1050,
+              "accuracy_percent": 39.17910447761194
+            }
+          }
+        }
+      },
+      "training_locations": [
+        "rabot",
+        "reep"
+      ]
+    },
+    {
+      "model_id": "fold4",
+      "subsets": {
+        "all": {
+          "sample_count": 11641,
+          "correct_count": 10227,
+          "accuracy_percent": 87.85327720986169,
+          "macro_accuracy_percent": 90.95173847598254,
+          "mean_predicted_confidence": 0.9872867776687874,
+          "confusion_matrix": [
+            [
+              5359,
+              0,
+              1
+            ],
+            [
+              0,
+              1072,
+              0
+            ],
+            [
+              1412,
+              1,
+              3796
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5359,
+              "accuracy_percent": 99.98134328358209
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 1072,
+              "correct_count": 1072,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3796,
+              "accuracy_percent": 72.87387214436552
+            }
+          }
+        },
+        "unseen_location": {
+          "sample_count": 10837,
+          "correct_count": 9423,
+          "accuracy_percent": 86.95210851711728,
+          "macro_accuracy_percent": 90.95173847598254,
+          "mean_predicted_confidence": 0.9863468395054334,
+          "confusion_matrix": [
+            [
+              5359,
+              0,
+              1
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              1412,
+              1,
+              3796
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 5360,
+              "correct_count": 5359,
+              "accuracy_percent": 99.98134328358209
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 5209,
+              "correct_count": 3796,
+              "accuracy_percent": 72.87387214436552
+            }
+          }
+        },
+        "unseen_frequency": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999560685596656,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_igent": {
+          "sample_count": 5477,
+          "correct_count": 5476,
+          "accuracy_percent": 99.98174182946869,
+          "macro_accuracy_percent": 99.98756218905471,
+          "mean_predicted_confidence": 0.9974066895280242,
+          "confusion_matrix": [
+            [
+              2679,
+              0,
+              1
+            ],
+            [
+              0,
+              268,
+              0
+            ],
+            [
+              0,
+              0,
+              2529
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2679,
+              "accuracy_percent": 99.96268656716418
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 268,
+              "correct_count": 268,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2529,
+              "correct_count": 2529,
+              "accuracy_percent": 100.0
+            }
+          }
+        },
+        "location_merelbeke": {
+          "sample_count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0,
+          "macro_accuracy_percent": 100.0,
+          "mean_predicted_confidence": 0.9999560685596656,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              804,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 804,
+              "correct_count": 804,
+              "accuracy_percent": 100.0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            }
+          }
+        },
+        "location_uz": {
+          "sample_count": 5360,
+          "correct_count": 3947,
+          "accuracy_percent": 73.63805970149254,
+          "macro_accuracy_percent": 73.63805970149254,
+          "mean_predicted_confidence": 0.9750455711148123,
+          "confusion_matrix": [
+            [
+              2680,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1412,
+              1,
+              1267
+            ]
+          ],
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "sample_count": 2680,
+              "correct_count": 2680,
+              "accuracy_percent": 100.0
+            },
+            "1": {
+              "class_name": "WiFi",
+              "sample_count": 0,
+              "correct_count": 0,
+              "accuracy_percent": null
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "sample_count": 2680,
+              "correct_count": 1267,
+              "accuracy_percent": 47.276119402985074
+            }
+          }
+        }
+      },
+      "training_locations": [
+        "merelbeke",
+        "rabot"
+      ]
+    }
+  ],
+  "ensemble": {
+    "model_id": "ensemble_mean",
+    "subsets": {
+      "all": {
+        "sample_count": 11641,
+        "correct_count": 10060,
+        "accuracy_percent": 86.41869255218624,
+        "macro_accuracy_percent": 89.88559912092445,
+        "mean_predicted_confidence": 0.945693084065856,
+        "confusion_matrix": [
+          [
+            5345,
+            0,
+            15
+          ],
+          [
+            0,
+            1072,
+            0
+          ],
+          [
+            1564,
+            2,
+            3643
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 5360,
+            "correct_count": 5345,
+            "accuracy_percent": 99.72014925373134
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 1072,
+            "correct_count": 1072,
+            "accuracy_percent": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 5209,
+            "correct_count": 3643,
+            "accuracy_percent": 69.93664810904204
+          }
+        }
+      },
+      "unseen_location": {
+        "sample_count": 10837,
+        "correct_count": 9256,
+        "accuracy_percent": 85.41109163052505,
+        "macro_accuracy_percent": 89.88559912092445,
+        "mean_predicted_confidence": 0.9416681428322314,
+        "confusion_matrix": [
+          [
+            5345,
+            0,
+            15
+          ],
+          [
+            0,
+            268,
+            0
+          ],
+          [
+            1564,
+            2,
+            3643
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 5360,
+            "correct_count": 5345,
+            "accuracy_percent": 99.72014925373134
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 268,
+            "correct_count": 268,
+            "accuracy_percent": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 5209,
+            "correct_count": 3643,
+            "accuracy_percent": 69.93664810904204
+          }
+        }
+      },
+      "unseen_frequency": {
+        "sample_count": 804,
+        "correct_count": 804,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "mean_predicted_confidence": 0.999944686240966,
+        "confusion_matrix": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            804,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 0,
+            "correct_count": 0,
+            "accuracy_percent": null
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 804,
+            "correct_count": 804,
+            "accuracy_percent": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 0,
+            "correct_count": 0,
+            "accuracy_percent": null
+          }
+        }
+      },
+      "location_igent": {
+        "sample_count": 5477,
+        "correct_count": 5461,
+        "accuracy_percent": 99.70786927149899,
+        "macro_accuracy_percent": 99.79950976631277,
+        "mean_predicted_confidence": 0.988688677366609,
+        "confusion_matrix": [
+          [
+            2666,
+            0,
+            14
+          ],
+          [
+            0,
+            268,
+            0
+          ],
+          [
+            0,
+            2,
+            2527
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 2680,
+            "correct_count": 2666,
+            "accuracy_percent": 99.4776119402985
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 268,
+            "correct_count": 268,
+            "accuracy_percent": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 2529,
+            "correct_count": 2527,
+            "accuracy_percent": 99.92091735863978
+          }
+        }
+      },
+      "location_merelbeke": {
+        "sample_count": 804,
+        "correct_count": 804,
+        "accuracy_percent": 100.0,
+        "macro_accuracy_percent": 100.0,
+        "mean_predicted_confidence": 0.999944686240966,
+        "confusion_matrix": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            804,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 0,
+            "correct_count": 0,
+            "accuracy_percent": null
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 804,
+            "correct_count": 804,
+            "accuracy_percent": 100.0
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 0,
+            "correct_count": 0,
+            "accuracy_percent": null
+          }
+        }
+      },
+      "location_uz": {
+        "sample_count": 5360,
+        "correct_count": 3795,
+        "accuracy_percent": 70.80223880597015,
+        "macro_accuracy_percent": 70.80223880597015,
+        "mean_predicted_confidence": 0.893621227226861,
+        "confusion_matrix": [
+          [
+            2679,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            1564,
+            0,
+            1116
+          ]
+        ],
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "sample_count": 2680,
+            "correct_count": 2679,
+            "accuracy_percent": 99.96268656716418
+          },
+          "1": {
+            "class_name": "WiFi",
+            "sample_count": 0,
+            "correct_count": 0,
+            "accuracy_percent": null
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "sample_count": 2680,
+            "correct_count": 1116,
+            "accuracy_percent": 41.64179104477612
+          }
+        }
+      }
+    }
+  },
+  "model_agreement": {
+    "all": {
+      "sample_count": 11641,
+      "all_four_agree_count": 9693,
+      "all_four_agree_ratio": 0.8326604243621682
+    },
+    "unseen_location": {
+      "sample_count": 10837,
+      "all_four_agree_count": 8889,
+      "all_four_agree_ratio": 0.8202454553843315
+    },
+    "unseen_frequency": {
+      "sample_count": 804,
+      "all_four_agree_count": 804,
+      "all_four_agree_ratio": 1.0
+    },
+    "location_igent": {
+      "sample_count": 5477,
+      "all_four_agree_count": 5367,
+      "all_four_agree_ratio": 0.9799160124155559
+    },
+    "location_merelbeke": {
+      "sample_count": 804,
+      "all_four_agree_count": 804,
+      "all_four_agree_ratio": 1.0
+    },
+    "location_uz": {
+      "sample_count": 5360,
+      "all_four_agree_count": 3522,
+      "all_four_agree_ratio": 0.6570895522388059
+    }
+  },
+  "outputs": {
+    "json": "outputs/technology_recognition_v2_all_regions/external_1msps_evaluation/external_evaluation.json",
+    "summary_csv": "outputs/technology_recognition_v2_all_regions/external_1msps_evaluation/external_model_results.csv",
+    "source_csv": "outputs/technology_recognition_v2_all_regions/external_1msps_evaluation/external_source_results.csv"
+  }
+}
