@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "evaluation_type": "external_2048_multiseed_incremental_awgn",
+  "dataset": "data/external/processed/technology_recognition_lte_wifi_dvbt/external_1msps_2048/test.npz",
+  "region_count": 11641,
+  "windows_per_region": 2,
+  "window_size": 2048,
+  "model_seeds": [
+    44,
+    45,
+    46
+  ],
+  "noise_seeds": [
+    44,
+    45,
+    46,
+    47,
+    48
+  ],
+  "conditions": [
+    "clean",
+    "10_db",
+    "7.5_db",
+    "5_db"
+  ],
+  "training_artificial_awgn": false,
+  "noise": "circular_complex_gaussian_exact_per_window_power",
+  "snr_interpretation": "input_window_power_to_newly_added_noise_power",
+  "per_model_seed": {
+    "44": {
+      "clean": {
+        "snr_db": null,
+        "trial_count": 1,
+        "region_accuracy_percent": {
+          "mean": 98.73722188815394,
+          "std": 0.0,
+          "min": 98.73722188815394,
+          "max": 98.73722188815394
+        },
+        "window_accuracy_percent": {
+          "mean": 98.007044068379,
+          "std": 0.0,
+          "min": 98.007044068379,
+          "max": 98.007044068379
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.77611940298507,
+            "std": 0.0,
+            "min": 99.77611940298507,
+            "max": 99.77611940298507
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 97.4083317335381,
+            "std": 0.0,
+            "min": 97.4083317335381,
+            "max": 97.4083317335381
+          }
+        },
+        "achieved_snr_db": null
+      },
+      "10_db": {
+        "snr_db": 10.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.38836869684737,
+          "std": 0.035377133033202404,
+          "min": 99.33854479855682,
+          "max": 99.42444807147153
+        },
+        "window_accuracy_percent": {
+          "mean": 98.38158233828707,
+          "std": 0.05655280677135273,
+          "min": 98.30770552358045,
+          "max": 98.4623314148269
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 98.93283582089552,
+            "std": 0.07311909679949741,
+            "min": 98.80597014925372,
+            "max": 99.02985074626865
+          },
+          "WiFi": {
+            "mean": 99.90671641791045,
+            "std": 0.0,
+            "min": 99.90671641791045,
+            "max": 99.90671641791045
+          },
+          "DVB-T": {
+            "mean": 99.75043194471107,
+            "std": 0.061910214999411774,
+            "min": 99.65444423113841,
+            "max": 99.84641965828374
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 10.0,
+          "std": 0.0,
+          "min": 10.0,
+          "max": 10.0
+        }
+      },
+      "7.5_db": {
+        "snr_db": 7.5,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 98.93308135039946,
+          "std": 0.01834391934031527,
+          "min": 98.90902843398334,
+          "max": 98.96057039773216
+        },
+        "window_accuracy_percent": {
+          "mean": 97.6230564384503,
+          "std": 0.05753595756254619,
+          "min": 97.54746155828538,
+          "max": 97.68061163130315
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 97.74253731343283,
+            "std": 0.04865076421792958,
+            "min": 97.6679104477612,
+            "max": 97.81716417910448
+          },
+          "WiFi": {
+            "mean": 99.90671641791045,
+            "std": 0.0,
+            "min": 99.90671641791045,
+            "max": 99.90671641791045
+          },
+          "DVB-T": {
+            "mean": 99.95776540602802,
+            "std": 0.03071606834325209,
+            "min": 99.90401228642733,
+            "max": 99.98080245728546
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 7.5,
+          "std": 0.0,
+          "min": 7.5,
+          "max": 7.5
+        }
+      },
+      "5_db": {
+        "snr_db": 5.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 96.65664461815996,
+          "std": 0.09432163718794648,
+          "min": 96.52091744695473,
+          "max": 96.76144661111589
+        },
+        "window_accuracy_percent": {
+          "mean": 94.75131002491194,
+          "std": 0.09657912084910596,
+          "min": 94.6353406064771,
+          "max": 94.8930504252212
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 92.76492537313433,
+            "std": 0.20922157863994587,
+            "min": 92.46268656716417,
+            "max": 92.98507462686567
+          },
+          "WiFi": {
+            "mean": 99.90671641791045,
+            "std": 0.0,
+            "min": 99.90671641791045,
+            "max": 99.90671641791045
+          },
+          "DVB-T": {
+            "mean": 99.99232098291418,
+            "std": 0.009404836793179843,
+            "min": 99.98080245728546,
+            "max": 100.0
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 5.0,
+          "std": 0.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "45": {
+      "clean": {
+        "snr_db": null,
+        "trial_count": 1,
+        "region_accuracy_percent": {
+          "mean": 97.72356326776051,
+          "std": 0.0,
+          "min": 97.72356326776051,
+          "max": 97.72356326776051
+        },
+        "window_accuracy_percent": {
+          "mean": 97.51310024911949,
+          "std": 0.0,
+          "min": 97.51310024911949,
+          "max": 97.51310024911949
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 94.91265118064888,
+            "std": 0.0,
+            "min": 94.91265118064888,
+            "max": 94.91265118064888
+          }
+        },
+        "achieved_snr_db": null
+      },
+      "10_db": {
+        "snr_db": 10.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 98.92620908856627,
+          "std": 0.018820464135559444,
+          "min": 98.90043810669187,
+          "max": 98.95198007044068
+        },
+        "window_accuracy_percent": {
+          "mean": 98.35667038914183,
+          "std": 0.05327388277197579,
+          "min": 98.27334421441456,
+          "max": 98.4236749420153
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.86194029850745,
+            "std": 0.019026192214900532,
+            "min": 99.8320895522388,
+            "max": 99.88805970149254
+          },
+          "WiFi": {
+            "mean": 99.90671641791045,
+            "std": 0.0,
+            "min": 99.90671641791045,
+            "max": 99.90671641791045
+          },
+          "DVB-T": {
+            "mean": 97.76156651948551,
+            "std": 0.058983649436503346,
+            "min": 97.6962948742561,
+            "max": 97.84987521597236
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 10.0,
+          "std": 0.0,
+          "min": 10.0,
+          "max": 10.0
+        }
+      },
+      "7.5_db": {
+        "snr_db": 7.5,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.39695902413882,
+          "std": 0.04257198417099686,
+          "min": 99.33854479855682,
+          "max": 99.46739970792888
+        },
+        "window_accuracy_percent": {
+          "mean": 98.53878532772099,
+          "std": 0.0761298824537571,
+          "min": 98.44085559659823,
+          "max": 98.62554763336483
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.64925373134328,
+            "std": 0.032098228608367634,
+            "min": 99.60820895522387,
+            "max": 99.70149253731343
+          },
+          "WiFi": {
+            "mean": 99.81343283582089,
+            "std": 0.0,
+            "min": 99.81343283582089,
+            "max": 99.81343283582089
+          },
+          "DVB-T": {
+            "mean": 99.0516413899021,
+            "std": 0.1217796239366823,
+            "min": 98.86734497984257,
+            "max": 99.23209829141871
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 7.5,
+          "std": 0.0,
+          "min": 7.5,
+          "max": 7.5
+        }
+      },
+      "5_db": {
+        "snr_db": 5.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.04819173610515,
+          "std": 0.0885095567211906,
+          "min": 98.96916072502361,
+          "max": 99.20968988918479
+        },
+        "window_accuracy_percent": {
+          "mean": 97.5938493256593,
+          "std": 0.05536597558396007,
+          "min": 97.51310024911949,
+          "max": 97.67631646765741
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 98.15671641791045,
+            "std": 0.16281659872590112,
+            "min": 97.98507462686568,
+            "max": 98.45149253731343
+          },
+          "WiFi": {
+            "mean": 99.81343283582089,
+            "std": 0.0,
+            "min": 99.81343283582089,
+            "max": 99.81343283582089
+          },
+          "DVB-T": {
+            "mean": 99.80802457285466,
+            "std": 0.036424776273775314,
+            "min": 99.75043194471108,
+            "max": 99.86561720099827
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 5.0,
+          "std": 0.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    },
+    "46": {
+      "clean": {
+        "snr_db": null,
+        "trial_count": 1,
+        "region_accuracy_percent": {
+          "mean": 99.78524181771326,
+          "std": 0.0,
+          "min": 99.78524181771326,
+          "max": 99.78524181771326
+        },
+        "window_accuracy_percent": {
+          "mean": 99.5575981444893,
+          "std": 0.0,
+          "min": 99.5575981444893,
+          "max": 99.5575981444893
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.72014925373134,
+            "std": 0.0,
+            "min": 99.72014925373134,
+            "max": 99.72014925373134
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 99.80802457285466,
+            "std": 0.0,
+            "min": 99.80802457285466,
+            "max": 99.80802457285466
+          }
+        },
+        "achieved_snr_db": null
+      },
+      "10_db": {
+        "snr_db": 10.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.76462503221373,
+          "std": 0.015932683610504855,
+          "min": 99.74229018125591,
+          "max": 99.78524181771326
+        },
+        "window_accuracy_percent": {
+          "mean": 99.40812644961774,
+          "std": 0.02993085025373257,
+          "min": 99.3600206167855,
+          "max": 99.433038398763
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.51492537313433,
+            "std": 0.0408748177242675,
+            "min": 99.4589552238806,
+            "max": 99.57089552238806
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 99.97312344019966,
+            "std": 0.009404836793179843,
+            "min": 99.96160491457093,
+            "max": 99.98080245728546
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 10.0,
+          "std": 0.0,
+          "min": 10.0,
+          "max": 10.0
+        }
+      },
+      "7.5_db": {
+        "snr_db": 7.5,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.63920625375826,
+          "std": 0.01801922254394407,
+          "min": 99.61343527188386,
+          "max": 99.6563869083412
+        },
+        "window_accuracy_percent": {
+          "mean": 99.13409500901984,
+          "std": 0.015978932426544003,
+          "min": 99.11090112533287,
+          "max": 99.15385276179023
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 99.23507462686567,
+            "std": 0.03913465851380673,
+            "min": 99.17910447761194,
+            "max": 99.27238805970148
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 99.98080245728546,
+            "std": 0.0,
+            "min": 99.98080245728546,
+            "max": 99.98080245728546
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 7.5,
+          "std": 0.0,
+          "min": 7.5,
+          "max": 7.5
+        }
+      },
+      "5_db": {
+        "snr_db": 5.0,
+        "trial_count": 5,
+        "region_accuracy_percent": {
+          "mean": 99.2320247401426,
+          "std": 0.03418907094258663,
+          "min": 99.1753285800189,
+          "max": 99.27841250751653
+        },
+        "window_accuracy_percent": {
+          "mean": 98.18572287604158,
+          "std": 0.045504415902925366,
+          "min": 98.12301348681385,
+          "max": 98.24327806889443
+        },
+        "region_per_class_accuracy_percent": {
+          "LTE": {
+            "mean": 98.3507462686567,
+            "std": 0.07425279381392344,
+            "min": 98.22761194029852,
+            "max": 98.45149253731343
+          },
+          "WiFi": {
+            "mean": 100.0,
+            "std": 0.0,
+            "min": 100.0,
+            "max": 100.0
+          },
+          "DVB-T": {
+            "mean": 99.98080245728546,
+            "std": 0.0,
+            "min": 99.98080245728546,
+            "max": 99.98080245728546
+          }
+        },
+        "achieved_snr_db": {
+          "mean": 5.0,
+          "std": 0.0,
+          "min": 5.0,
+          "max": 5.0
+        }
+      }
+    }
+  },
+  "aggregate_across_model_seeds": {
+    "clean": {
+      "snr_db": null,
+      "region_accuracy_percent": {
+        "mean": 98.74867565787589,
+        "std": 0.8417157091181663,
+        "min": 97.72356326776051,
+        "max": 99.78524181771326
+      },
+      "window_accuracy_percent": {
+        "mean": 98.35924748732926,
+        "std": 0.8710255822049056,
+        "min": 97.51310024911949,
+        "max": 99.5575981444893
+      },
+      "region_per_class_accuracy_percent": {
+        "LTE": {
+          "mean": 99.83208955223881,
+          "std": 0.12090934138820877,
+          "min": 99.72014925373134,
+          "max": 100.0
+        },
+        "WiFi": {
+          "mean": 100.0,
+          "std": 0.0,
+          "min": 100.0,
+          "max": 100.0
+        },
+        "DVB-T": {
+          "mean": 97.37633582901388,
+          "std": 1.998655875950774,
+          "min": 94.91265118064888,
+          "max": 99.80802457285466
+        }
+      },
+      "region_delta_from_clean_percent_points": 0.0
+    },
+    "10_db": {
+      "snr_db": 10.0,
+      "region_accuracy_percent": {
+        "mean": 99.35973427254244,
+        "std": 0.3428802233356144,
+        "min": 98.92620908856627,
+        "max": 99.76462503221373
+      },
+      "window_accuracy_percent": {
+        "mean": 98.71545972568221,
+        "std": 0.4898949167173404,
+        "min": 98.35667038914183,
+        "max": 99.40812644961774
+      },
+      "region_per_class_accuracy_percent": {
+        "LTE": {
+          "mean": 99.43656716417911,
+          "std": 0.3833308312347076,
+          "min": 98.93283582089552,
+          "max": 99.86194029850745
+        },
+        "WiFi": {
+          "mean": 99.93781094527363,
+          "std": 0.04397430231259744,
+          "min": 99.90671641791045,
+          "max": 100.0
+        },
+        "DVB-T": {
+          "mean": 99.16170730146541,
+          "std": 0.9942144411756115,
+          "min": 97.76156651948551,
+          "max": 99.97312344019966
+        }
+      },
+      "region_delta_from_clean_percent_points": 0.6110586146665469
+    },
+    "7.5_db": {
+      "snr_db": 7.5,
+      "region_accuracy_percent": {
+        "mean": 99.32308220943219,
+        "std": 0.29296920497925794,
+        "min": 98.93308135039946,
+        "max": 99.63920625375826
+      },
+      "window_accuracy_percent": {
+        "mean": 98.43197892506372,
+        "std": 0.621484832839145,
+        "min": 97.6230564384503,
+        "max": 99.13409500901984
+      },
+      "region_per_class_accuracy_percent": {
+        "LTE": {
+          "mean": 98.87562189054727,
+          "std": 0.8188596040907147,
+          "min": 97.74253731343283,
+          "max": 99.64925373134328
+        },
+        "WiFi": {
+          "mean": 99.90671641791045,
+          "std": 0.07616572583281234,
+          "min": 99.81343283582089,
+          "max": 100.0
+        },
+        "DVB-T": {
+          "mean": 99.6634030844052,
+          "std": 0.43268306690434943,
+          "min": 99.0516413899021,
+          "max": 99.98080245728546
+        }
+      },
+      "region_delta_from_clean_percent_points": 0.5744065515562937
+    },
+    "5_db": {
+      "snr_db": 5.0,
+      "region_accuracy_percent": {
+        "mean": 98.31228703146924,
+        "std": 1.1731190601426018,
+        "min": 96.65664461815996,
+        "max": 99.2320247401426
+      },
+      "window_accuracy_percent": {
+        "mean": 96.84362740887093,
+        "std": 1.4990936375742294,
+        "min": 94.75131002491194,
+        "max": 98.18572287604158
+      },
+      "region_per_class_accuracy_percent": {
+        "LTE": {
+          "mean": 96.42412935323382,
+          "std": 2.588660171044363,
+          "min": 92.76492537313433,
+          "max": 98.3507462686567
+        },
+        "WiFi": {
+          "mean": 99.90671641791045,
+          "std": 0.07616572583281234,
+          "min": 99.81343283582089,
+          "max": 100.0
+        },
+        "DVB-T": {
+          "mean": 99.92704933768476,
+          "std": 0.08429448416241456,
+          "min": 99.80802457285466,
+          "max": 99.99232098291418
+        }
+      },
+      "region_delta_from_clean_percent_points": -0.43638862640665366
+    }
+  },
+  "quality_checks": {
+    "all_evaluations_used_cuda": true,
+    "all_models_used_same_prepared_test": true,
+    "all_noisy_conditions_have_five_trials_seeds_44_through_48": true,
+    "all_group_confusion_matrices_total_11641": true,
+    "achieved_snr_matches_target": true
+  }
+}

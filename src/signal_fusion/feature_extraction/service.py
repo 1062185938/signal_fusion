@@ -65,7 +65,7 @@ def extract_feature_matrix(
     backend: FeatureBackend,
     progress_every: int = 100,
 ) -> np.ndarray:
-    """Extract one stable 62-dimensional row for each canonical IQ sample."""
+    """Extract one stable 64-dimensional row for each canonical IQ sample."""
 
     x = np.asarray(x, dtype=np.float32)
     if x.ndim != 3 or x.shape[1] != 2:

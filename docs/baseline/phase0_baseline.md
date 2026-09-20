@@ -2,6 +2,11 @@
 
 记录日期：2026-08-21（Asia/Shanghai）
 
+> 历史基线说明：本文记录重构前的 62 维 `matlab_iq_features_62_v1`
+> 行为，不是当前使用手册。当前运行时已经切换到 64 维
+> `matlab_iq_features_64_v2`；旧特征文件、旧动态库和旧分类器不得与新 schema
+> 混用。
+
 ## 1. 目的与边界
 
 本基线用于在后续目录重构前固定“当前可以工作的行为”，重点保护 MATLAB 特征提取、C ABI 和 ONNX 推理行为。Phase 0 不实现 `signal_fusion`，不定义最终 Agent/Skill 协议，也不把当前 SigMF 能量切片算法固化为以后所有信号的统一算法。
@@ -171,4 +176,3 @@ NPZ 内部 `source_data_path`、`source_meta_path` 仍是旧 Windows 风格相�
 - 单类别 LoRa ONNX 仅用于回归，不能作为模型准确率或泛化能力基准。
 - 在本机 conda 环境中，同步核心 `_sync_signal_inference(...)` 可在 CPU 完成 8 条 batch 推理；CLI/async 包装经 10 秒仍未退出。该现象被记录为既有行为，Phase 0 不修改推理代码。重构后应单独验证并决定是否修复异步边界。
 - 公开 RadioML 2016.10a 数据约 612 MB，Phase 0 只登记，不进入默认 smoke 测试。
-

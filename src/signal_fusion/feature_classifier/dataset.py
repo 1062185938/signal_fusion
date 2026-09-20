@@ -1,4 +1,4 @@
-"""Build one 62-dimensional feature row per complete continuous region."""
+"""Build one 64-dimensional feature row per complete continuous region."""
 
 from __future__ import annotations
 
@@ -467,7 +467,7 @@ def extract_region_feature_split(
     overwrite: bool = False,
     feature_backend: FeatureBackend | None = None,
 ) -> dict[str, Any]:
-    """Extract clean 62-dimensional features from one prepared IQ split."""
+    """Extract clean 64-dimensional features from one prepared IQ split."""
 
     if not isinstance(split_name, str) or not split_name.strip():
         raise ValueError("split_name must be a non-empty string")

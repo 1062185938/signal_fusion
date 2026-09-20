@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "analysis_type": "uz_dvbt_short_window_decision_distribution",
+  "device": "cuda",
+  "dataset_path": "data/external/processed/technology_recognition_lte_wifi_dvbt/external_1msps_4096/test.npz",
+  "models": {
+    "512": "outputs/technology_recognition_v2_all_locations/window_512_spectral_inversion_p0p5/best_model.pth",
+    "4096": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5/best_model.pth"
+  },
+  "region_contract": "one 4096-sample region split into eight non-overlapping, independently standardized 512-sample windows",
+  "aggregation_512": "mean class probability over all eight windows",
+  "overall": {
+    "region_count": 2680,
+    "window_count": 21440,
+    "individual_512_window_accuracy_percent": 36.651119402985074,
+    "mean_probability_512_region_accuracy_percent": 37.94776119402985,
+    "strict_majority_512_region_accuracy_percent": 37.3134328358209,
+    "plurality_vote_512_region_accuracy_percent": 37.5,
+    "plurality_vote_tie_count": 15,
+    "direct_4096_region_accuracy_percent": 66.00746268656717,
+    "both_correct_count": 912,
+    "only_512_correct_count": 105,
+    "only_4096_correct_count": 857,
+    "both_wrong_count": 806,
+    "mean_probability_wrong_despite_strict_dvbt_majority_count": 0,
+    "mean_probability_correct_without_strict_dvbt_majority_count": 17
+  },
+  "contingency": {
+    "both_correct": {
+      "region_count": 912,
+      "dvbt_window_count_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 3,
+        "4": 10,
+        "5": 29,
+        "6": 56,
+        "7": 138,
+        "8": 676
+      },
+      "mean_dvbt_window_count": 7.5701754385964914,
+      "median_dvbt_window_count": 8.0,
+      "zero_correct_windows_count": 0,
+      "one_to_three_correct_windows_count": 3,
+      "four_correct_windows_count": 10,
+      "five_to_seven_correct_windows_count": 223,
+      "all_eight_correct_windows_count": 676,
+      "strict_dvbt_majority_count": 899,
+      "mean_512_dvbt_probability": 0.9372016148447468,
+      "mean_4096_dvbt_probability": 0.9792919747139278
+    },
+    "only_512_correct": {
+      "region_count": 105,
+      "dvbt_window_count_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 3,
+        "5": 13,
+        "6": 7,
+        "7": 13,
+        "8": 68
+      },
+      "mean_dvbt_window_count": 7.20952380952381,
+      "median_dvbt_window_count": 8.0,
+      "zero_correct_windows_count": 0,
+      "one_to_three_correct_windows_count": 1,
+      "four_correct_windows_count": 3,
+      "five_to_seven_correct_windows_count": 33,
+      "all_eight_correct_windows_count": 68,
+      "strict_dvbt_majority_count": 101,
+      "mean_512_dvbt_probability": 0.8909527262535232,
+      "mean_4096_dvbt_probability": 0.1656561730418443
+    },
+    "only_4096_correct": {
+      "region_count": 857,
+      "dvbt_window_count_distribution": {
+        "0": 802,
+        "1": 19,
+        "2": 23,
+        "3": 10,
+        "4": 3,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      },
+      "mean_dvbt_window_count": 0.12485414235705951,
+      "median_dvbt_window_count": 0.0,
+      "zero_correct_windows_count": 802,
+      "one_to_three_correct_windows_count": 52,
+      "four_correct_windows_count": 3,
+      "five_to_seven_correct_windows_count": 0,
+      "all_eight_correct_windows_count": 0,
+      "strict_dvbt_majority_count": 0,
+      "mean_512_dvbt_probability": 0.01658416736031217,
+      "mean_4096_dvbt_probability": 0.9109692186847451
+    },
+    "both_wrong": {
+      "region_count": 806,
+      "dvbt_window_count_distribution": {
+        "0": 754,
+        "1": 27,
+        "2": 14,
+        "3": 9,
+        "4": 2,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0
+      },
+      "mean_dvbt_window_count": 0.11166253101736973,
+      "median_dvbt_window_count": 0.0,
+      "zero_correct_windows_count": 754,
+      "one_to_three_correct_windows_count": 50,
+      "four_correct_windows_count": 2,
+      "five_to_seven_correct_windows_count": 0,
+      "all_eight_correct_windows_count": 0,
+      "strict_dvbt_majority_count": 0,
+      "mean_512_dvbt_probability": 0.015788032033355257,
+      "mean_4096_dvbt_probability": 0.1434739727068897
+    }
+  },
+  "per_source": [
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r01",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 94.35634328358209,
+      "mean_probability_512_region_accuracy_percent": 99.6268656716418,
+      "direct_4096_region_accuracy_percent": 99.6268656716418,
+      "only_512_correct_count": 1,
+      "only_4096_correct_count": 1,
+      "both_wrong_count": 0,
+      "mean_dvbt_window_count": 7.548507462686567
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r02",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 0.0,
+      "mean_probability_512_region_accuracy_percent": 0.0,
+      "direct_4096_region_accuracy_percent": 3.731343283582089,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 10,
+      "both_wrong_count": 258,
+      "mean_dvbt_window_count": 0.0
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r03",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 0.0,
+      "mean_probability_512_region_accuracy_percent": 0.0,
+      "direct_4096_region_accuracy_percent": 57.83582089552238,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 155,
+      "both_wrong_count": 113,
+      "mean_dvbt_window_count": 0.0
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r04",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 20.988805970149254,
+      "mean_probability_512_region_accuracy_percent": 20.8955223880597,
+      "direct_4096_region_accuracy_percent": 13.432835820895523,
+      "only_512_correct_count": 48,
+      "only_4096_correct_count": 28,
+      "both_wrong_count": 184,
+      "mean_dvbt_window_count": 1.6791044776119404
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r05",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 0.09328358208955223,
+      "mean_probability_512_region_accuracy_percent": 0.0,
+      "direct_4096_region_accuracy_percent": 25.37313432835821,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 68,
+      "both_wrong_count": 200,
+      "mean_dvbt_window_count": 0.007462686567164179
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r06",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 0.046641791044776115,
+      "mean_probability_512_region_accuracy_percent": 0.0,
+      "direct_4096_region_accuracy_percent": 98.88059701492537,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 265,
+      "both_wrong_count": 3,
+      "mean_dvbt_window_count": 0.0037313432835820895
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r07",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 55.73694029850746,
+      "mean_probability_512_region_accuracy_percent": 60.07462686567165,
+      "direct_4096_region_accuracy_percent": 91.4179104477612,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 84,
+      "both_wrong_count": 23,
+      "mean_dvbt_window_count": 4.458955223880597
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r08",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 95.8955223880597,
+      "mean_probability_512_region_accuracy_percent": 100.0,
+      "direct_4096_region_accuracy_percent": 100.0,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 0,
+      "both_wrong_count": 0,
+      "mean_dvbt_window_count": 7.6716417910447765
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r09",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 97.20149253731343,
+      "mean_probability_512_region_accuracy_percent": 97.38805970149254,
+      "direct_4096_region_accuracy_percent": 77.98507462686567,
+      "only_512_correct_count": 54,
+      "only_4096_correct_count": 2,
+      "both_wrong_count": 5,
+      "mean_dvbt_window_count": 7.776119402985074
+    },
+    {
+      "source_id": "tr_external_uz_dvbt_f482_r10",
+      "region_count": 268,
+      "individual_512_window_accuracy_percent": 2.192164179104478,
+      "mean_probability_512_region_accuracy_percent": 1.4925373134328357,
+      "direct_4096_region_accuracy_percent": 91.7910447761194,
+      "only_512_correct_count": 2,
+      "only_4096_correct_count": 244,
+      "both_wrong_count": 20,
+      "mean_dvbt_window_count": 0.17537313432835822
+    }
+  ],
+  "elapsed_seconds": 1.0752184391021729
+}

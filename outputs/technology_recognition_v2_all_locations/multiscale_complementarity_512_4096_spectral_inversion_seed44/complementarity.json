@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "analysis_type": "matched_multiscale_region_complementarity",
+  "device": "cuda",
+  "fusion_performed": false,
+  "training_condition": {
+    "seed": 44,
+    "spectral_inversion_probability": 0.5,
+    "frequency_shift_probability": 0.0,
+    "awgn_probability": 0.0
+  },
+  "models": {
+    "512": "outputs/technology_recognition_v2_all_locations/window_512_spectral_inversion_p0p5/best_model.pth",
+    "4096": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5/best_model.pth"
+  },
+  "scale_contract": {
+    "region_samples": 4096,
+    "512": "mean probability over 8 non-overlapping, per-window standardized windows",
+    "4096": "one direct standardized-region prediction"
+  },
+  "internal_fixed_test": {
+    "overall": {
+      "region_count": 3216,
+      "accuracy_512_percent": 99.96890547263682,
+      "accuracy_4096_percent": 99.96890547263682,
+      "both_correct_count": 3215,
+      "only_512_correct_count": 0,
+      "only_4096_correct_count": 0,
+      "both_wrong_count": 1,
+      "prediction_disagreement_count": 0,
+      "prediction_disagreement_percent": 0.0,
+      "oracle_accuracy_percent": 99.96890547263682,
+      "oracle_gain_over_best_single_pp": 0.0
+    },
+    "per_class": {
+      "LTE": {
+        "region_count": 1072,
+        "accuracy_512_percent": 99.90671641791045,
+        "accuracy_4096_percent": 99.90671641791045,
+        "both_correct_count": 1071,
+        "only_512_correct_count": 0,
+        "only_4096_correct_count": 0,
+        "both_wrong_count": 1,
+        "prediction_disagreement_count": 0,
+        "prediction_disagreement_percent": 0.0,
+        "oracle_accuracy_percent": 99.90671641791045,
+        "oracle_gain_over_best_single_pp": 0.0
+      },
+      "WiFi": {
+        "region_count": 1072,
+        "accuracy_512_percent": 100.0,
+        "accuracy_4096_percent": 100.0,
+        "both_correct_count": 1072,
+        "only_512_correct_count": 0,
+        "only_4096_correct_count": 0,
+        "both_wrong_count": 0,
+        "prediction_disagreement_count": 0,
+        "prediction_disagreement_percent": 0.0,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_best_single_pp": 0.0
+      },
+      "DVB-T": {
+        "region_count": 1072,
+        "accuracy_512_percent": 100.0,
+        "accuracy_4096_percent": 100.0,
+        "both_correct_count": 1072,
+        "only_512_correct_count": 0,
+        "only_4096_correct_count": 0,
+        "both_wrong_count": 0,
+        "prediction_disagreement_count": 0,
+        "prediction_disagreement_percent": 0.0,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_best_single_pp": 0.0
+      }
+    }
+  },
+  "external_1msps_test": {
+    "overall": {
+      "region_count": 11641,
+      "accuracy_512_percent": 85.67133407782836,
+      "accuracy_4096_percent": 92.11407954643072,
+      "both_correct_count": 9863,
+      "only_512_correct_count": 110,
+      "only_4096_correct_count": 860,
+      "both_wrong_count": 808,
+      "prediction_disagreement_count": 970,
+      "prediction_disagreement_percent": 8.33261747272571,
+      "oracle_accuracy_percent": 93.0590155484924,
+      "oracle_gain_over_best_single_pp": 0.9449360020616804
+    },
+    "per_class": {
+      "LTE": {
+        "region_count": 5360,
+        "accuracy_512_percent": 99.90671641791045,
+        "accuracy_4096_percent": 99.92537313432835,
+        "both_correct_count": 5353,
+        "only_512_correct_count": 2,
+        "only_4096_correct_count": 3,
+        "both_wrong_count": 2,
+        "prediction_disagreement_count": 5,
+        "prediction_disagreement_percent": 0.09328358208955223,
+        "oracle_accuracy_percent": 99.96268656716418,
+        "oracle_gain_over_best_single_pp": 0.03731343283582822
+      },
+      "WiFi": {
+        "region_count": 1072,
+        "accuracy_512_percent": 100.0,
+        "accuracy_4096_percent": 100.0,
+        "both_correct_count": 1072,
+        "only_512_correct_count": 0,
+        "only_4096_correct_count": 0,
+        "both_wrong_count": 0,
+        "prediction_disagreement_count": 0,
+        "prediction_disagreement_percent": 0.0,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_best_single_pp": 0.0
+      },
+      "DVB-T": {
+        "region_count": 5209,
+        "accuracy_512_percent": 68.07448646573239,
+        "accuracy_4096_percent": 82.45344595891726,
+        "both_correct_count": 3438,
+        "only_512_correct_count": 108,
+        "only_4096_correct_count": 857,
+        "both_wrong_count": 806,
+        "prediction_disagreement_count": 965,
+        "prediction_disagreement_percent": 18.5256287195239,
+        "oracle_accuracy_percent": 84.52678057208676,
+        "oracle_gain_over_best_single_pp": 2.0733346131695085
+      }
+    },
+    "per_location": {
+      "igent": {
+        "region_count": 5477,
+        "accuracy_512_percent": 99.92696731787476,
+        "accuracy_4096_percent": 99.87219280628081,
+        "both_correct_count": 5468,
+        "only_512_correct_count": 5,
+        "only_4096_correct_count": 2,
+        "both_wrong_count": 2,
+        "prediction_disagreement_count": 7,
+        "prediction_disagreement_percent": 0.12780719371918933,
+        "oracle_accuracy_percent": 99.96348365893738,
+        "oracle_gain_over_best_single_pp": 0.03651634106263124
+      },
+      "merelbeke": {
+        "region_count": 804,
+        "accuracy_512_percent": 100.0,
+        "accuracy_4096_percent": 100.0,
+        "both_correct_count": 804,
+        "only_512_correct_count": 0,
+        "only_4096_correct_count": 0,
+        "both_wrong_count": 0,
+        "prediction_disagreement_count": 0,
+        "prediction_disagreement_percent": 0.0,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_best_single_pp": 0.0
+      },
+      "uz": {
+        "region_count": 5360,
+        "accuracy_512_percent": 68.95522388059702,
+        "accuracy_4096_percent": 83.00373134328358,
+        "both_correct_count": 3591,
+        "only_512_correct_count": 105,
+        "only_4096_correct_count": 858,
+        "both_wrong_count": 806,
+        "prediction_disagreement_count": 963,
+        "prediction_disagreement_percent": 17.96641791044776,
+        "oracle_accuracy_percent": 84.96268656716418,
+        "oracle_gain_over_best_single_pp": 1.9589552238805985
+      }
+    }
+  },
+  "elapsed_seconds": 8.013599872589111
+}

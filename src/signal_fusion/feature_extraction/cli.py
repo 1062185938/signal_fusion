@@ -1,4 +1,4 @@
-"""CLI and file-level compatibility API for IQ feature extraction."""
+"""CLI and file-level API for IQ feature extraction."""
 
 from __future__ import annotations
 
@@ -9,7 +9,11 @@ from typing import Any
 
 import numpy as np
 
-from signal_fusion.feature_extraction.contracts import FEATURE_COUNT, FeatureResult
+from signal_fusion.feature_extraction.contracts import (
+    FEATURE_COUNT,
+    FEATURE_SCHEMA_ID,
+    FeatureResult,
+)
 from signal_fusion.feature_extraction.service import (
     FeatureExtractionService,
     extract_feature_matrix,
@@ -90,19 +94,43 @@ def _infer_sample_rate(
     )
 
 
-def write_feature_result(result: FeatureResult, output_path: str | Path) -> Path:
-    """Write the exact five-field NPZ schema consumed by existing tools."""
+FEATURE_ROW_IDENTITY_FIELDS = (
+    "group_id",
+    "sample_source_id",
+    "source_region_id",
+)
+
+
+def write_feature_result(
+    result: FeatureResult,
+    output_path: str | Path,
+    *,
+    row_identity: dict[str, Any] | None = None,
+) -> Path:
+    """Write a self-identifying feature artifact for downstream consumers."""
 
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(
-        output,
-        features=result.features,
-        sample_rate=np.asarray(result.sample_rate, dtype=np.float64),
-        seq_len=np.asarray(result.seq_len, dtype=np.int64),
-        feature_count=np.asarray(FEATURE_COUNT, dtype=np.int64),
-        feature_names=np.asarray(result.feature_names),
-    )
+    payload = {
+        "features": result.features,
+        "sample_rate": np.asarray(result.sample_rate, dtype=np.float64),
+        "seq_len": np.asarray(result.seq_len, dtype=np.int64),
+        "feature_count": np.asarray(FEATURE_COUNT, dtype=np.int64),
+        "feature_schema_id": np.asarray(FEATURE_SCHEMA_ID),
+        "feature_names": np.asarray(result.feature_names),
+        "source_dataset_id": np.asarray(result.source_id),
+    }
+    for field_name, raw_values in dict(row_identity or {}).items():
+        if field_name not in FEATURE_ROW_IDENTITY_FIELDS:
+            raise ValueError(f"unsupported feature row identity: {field_name}")
+        values = np.asarray(raw_values)
+        if values.shape != (result.num_samples,) or values.dtype.hasobject:
+            raise ValueError(
+                f"feature row identity {field_name} must be a pickle-free "
+                f"[{result.num_samples}] vector"
+            )
+        payload[field_name] = values
+    np.savez_compressed(output, **payload)
     return output
 
 
@@ -121,7 +149,7 @@ def extract_features_from_dataset(
     dependency_dir: list[str] | None = None,
     progress_every: int = 100,
 ) -> dict[str, Any]:
-    """Load one dataset, run the core service, and preserve the old NPZ API."""
+    """Load one dataset, run the core service, and write a feature artifact."""
 
     dataset = load_prepared_dataset(
         path=data_path,
@@ -148,12 +176,27 @@ def extract_features_from_dataset(
         dependency_dirs=dependency_dir,
         progress_every=progress_every,
     )
-    written_path = write_feature_result(result, output_path)
+    row_identity: dict[str, np.ndarray] = {}
+    for field_name in FEATURE_ROW_IDENTITY_FIELDS:
+        if field_name not in dataset.meta:
+            continue
+        values = np.asarray(dataset.meta[field_name])
+        if values.shape != (dataset.num_samples,):
+            raise ValueError(
+                f"dataset {field_name} must contain one value per sample"
+            )
+        row_identity[field_name] = values[: result.num_samples]
+    written_path = write_feature_result(
+        result,
+        output_path,
+        row_identity=row_identity,
+    )
     return {
         "output_path": str(written_path),
         "num_samples": result.num_samples,
         "feature_shape": tuple(int(dimension) for dimension in result.features.shape),
         "feature_dtype": str(result.features.dtype),
+        "feature_schema_id": FEATURE_SCHEMA_ID,
         "sample_rate": result.sample_rate,
         "seq_len": result.seq_len,
     }
@@ -234,6 +277,7 @@ def main(argv: list[str] | None = None) -> int:
 
 
 __all__ = [
+    "FEATURE_ROW_IDENTITY_FIELDS",
     "build_arg_parser",
     "extract_feature_matrix",
     "extract_features_from_dataset",

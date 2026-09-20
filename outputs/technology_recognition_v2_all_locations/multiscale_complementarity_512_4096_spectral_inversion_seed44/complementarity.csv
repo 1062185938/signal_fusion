@@ -1,0 +1,3 @@
+scope,region_count,accuracy_512_percent,accuracy_4096_percent,both_correct_count,only_512_correct_count,only_4096_correct_count,both_wrong_count,prediction_disagreement_count,prediction_disagreement_percent,oracle_accuracy_percent,oracle_gain_over_best_single_pp
+internal_fixed_test,3216,99.96890547263682,99.96890547263682,3215,0,0,1,0,0.0,99.96890547263682,0.0
+external_1msps_test,11641,85.67133407782836,92.11407954643072,9863,110,860,808,970,8.33261747272571,93.0590155484924,0.9449360020616804

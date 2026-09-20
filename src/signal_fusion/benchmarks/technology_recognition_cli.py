@@ -19,6 +19,13 @@ from signal_fusion.benchmarks.technology_recognition import (
     write_all_location_manifest,
     write_inventory,
 )
+from signal_fusion.benchmarks.technology_recognition_cross_rate import (
+    CROSS_RATE_WINDOW_SIZE,
+    SOURCE_REGION_SIZE,
+    assemble_cross_rate_test_dataset,
+    prepare_cross_rate_sources,
+    select_external_10msps_recordings,
+)
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -29,7 +36,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-dir", required=True)
     parser.add_argument(
         "--recording-set",
-        choices=("core", "external-1msps"),
+        choices=("core", "external-1msps", "external-10msps"),
         default="core",
         help="Choose the benchmark recording set to audit or prepare.",
     )
@@ -80,6 +87,16 @@ def main(argv: list[str] | None = None) -> int:
             parser.error("manifests are only valid for the core recording set")
         if args.prepare and args.window_sizes != [4096]:
             parser.error("external-1msps preparation requires --window-sizes 4096")
+    elif args.recording_set == "external-10msps":
+        inventory = select_external_10msps_recordings(inventory)
+        if args.manifests_dir is not None or args.all_location_manifest is not None:
+            parser.error("manifests are only valid for the core recording set")
+        if args.all_regions:
+            parser.error("external-10msps always uses all complete native regions")
+        if args.prepare and args.window_sizes != [CROSS_RATE_WINDOW_SIZE]:
+            parser.error(
+                "external-10msps preparation requires --window-sizes 2048"
+            )
     if args.manifests_dir is not None and args.all_location_manifest is not None:
         parser.error(
             "--manifests-dir and --all-location-manifest are mutually exclusive"
@@ -92,12 +109,17 @@ def main(argv: list[str] | None = None) -> int:
                 "--all-location-manifest requires exactly one --window-sizes value"
             )
 
-    use_all_regions = args.all_regions or args.recording_set == "external-1msps"
+    use_all_regions = args.all_regions or args.recording_set != "core"
     if use_all_regions:
         if args.recording_set == "core":
             inventory["dataset_id"] = ALL_REGIONS_DATASET_ID
+        region_size = (
+            SOURCE_REGION_SIZE
+            if args.recording_set == "external-10msps"
+            else REGION_SIZE
+        )
         selected_region_counts = {
-            entry["complex_sample_count"] // REGION_SIZE
+            entry["complex_sample_count"] // region_size
             for entry in inventory["recordings"]
             if entry["selected_for_v1"]
         }
@@ -123,14 +145,17 @@ def main(argv: list[str] | None = None) -> int:
         prepared_profiles = []
         for window_size in args.window_sizes:
             profile_dir = profile_directory(args.output_dir, window_size)
-            report = prepare_v1_sources(
-                inventory,
-                profile_dir,
-                window_size=window_size,
-                region_count_per_source=(
-                    None if use_all_regions else REGIONS_PER_SOURCE
-                ),
-            )
+            if args.recording_set == "external-10msps":
+                report = prepare_cross_rate_sources(inventory, profile_dir)
+            else:
+                report = prepare_v1_sources(
+                    inventory,
+                    profile_dir,
+                    window_size=window_size,
+                    region_count_per_source=(
+                        None if use_all_regions else REGIONS_PER_SOURCE
+                    ),
+                )
             prepared_profiles.append(
                 {
                     "window_size": window_size,
@@ -147,6 +172,13 @@ def main(argv: list[str] | None = None) -> int:
             result["external_test"] = assemble_external_test_dataset(
                 inventory,
                 profile_directory(args.output_dir, 4096)
+                / "prepared_sources",
+                f"{args.output_dir}/test.npz",
+            )
+        elif args.recording_set == "external-10msps":
+            result["external_test"] = assemble_cross_rate_test_dataset(
+                inventory,
+                profile_directory(args.output_dir, CROSS_RATE_WINDOW_SIZE)
                 / "prepared_sources",
                 f"{args.output_dir}/test.npz",
             )

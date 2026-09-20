@@ -1,4 +1,4 @@
-"""Core runtime for stable 62-dimensional IQ feature extraction."""
+"""Core runtime for stable 64-dimensional IQ feature extraction."""
 
 from .backend import (
     IQFeatureCtypesBackend,
@@ -14,6 +14,14 @@ from .feature_map import (
     default_feature_map_path,
     feature_code_names,
     load_feature_map,
+)
+from .ofdm_periodicity import (
+    DEFAULT_SEARCH_RADIUS_SAMPLES,
+    PERIODICITY_SCHEMA_ID,
+    PeriodicityBatchResult,
+    PeriodicityCandidate,
+    measure_periodicity,
+    measure_periodicity_batch,
 )
 from .resource_paths import (
     asset_path,
@@ -39,6 +47,10 @@ __all__ = [
     "IQFeatureCtypesBackend",
     "MAX_SIGNAL_LENGTH",
     "MIN_SIGNAL_LENGTH",
+    "DEFAULT_SEARCH_RADIUS_SAMPLES",
+    "PERIODICITY_SCHEMA_ID",
+    "PeriodicityBatchResult",
+    "PeriodicityCandidate",
     "STATUS_MESSAGES",
     "asset_path",
     "c_api_header_path",
@@ -49,6 +61,8 @@ __all__ = [
     "feature_code_names",
     "feature_map_resource_path",
     "load_feature_map",
+    "measure_periodicity",
+    "measure_periodicity_batch",
     "native_resource_dir",
     "resolve_sample_rate",
 ]

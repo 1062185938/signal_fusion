@@ -1,4 +1,4 @@
-"""Contracts for the 62-dimensional IQ feature extraction runtime."""
+"""Contracts for the 64-dimensional IQ feature extraction runtime."""
 
 from __future__ import annotations
 
@@ -11,8 +11,8 @@ import numpy as np
 from signal_fusion.contracts import Evidence
 
 
-FEATURE_COUNT = 62
-FEATURE_SCHEMA_ID = "matlab_iq_features_62_v1"
+FEATURE_COUNT = 64
+FEATURE_SCHEMA_ID = "matlab_iq_features_64_v2"
 
 
 @dataclass(slots=True)

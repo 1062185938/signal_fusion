@@ -1,0 +1,79 @@
+clearvars;
+clc;
+
+projectDir = fileparts(mfilename('fullpath'));
+cd(projectDir);
+
+outputDir = fullfile(projectDir, 'codegen_dynamic_library');
+
+if exist(outputDir, 'dir')
+    rmdir(outputDir, 's');
+end
+
+mkdir(outputDir);
+
+cfg = coder.config('dll');
+cfg.TargetLang = 'C';
+cfg.GenerateReport = true;
+cfg.GenerateExampleMain = 'GenerateCodeOnly';
+
+% Only generate C source code here. The DLL is built by gcc below so this
+% script does not depend on MATLAB's mex compiler detection.
+cfg.GenCodeOnly = true;
+
+% iData/qData:
+%   single column vectors, variable length from 1 to 4096 samples.
+iqType = coder.typeof( ...
+    single(0), ...
+    [4096, 1], ...
+    [true, false]);
+
+% sampleRate:
+%   scalar double, Hz.
+sampleRateType = 0.0;
+
+codegen( ...
+    'extractIQAllFeatures', ...
+    '-config', cfg, ...
+    '-args', {iqType, iqType, sampleRateType}, ...
+    '-d', outputDir);
+
+fprintf('C code generation completed.\n');
+
+gccPath = 'gcc';
+localGcc = 'D:\software_work\mingw64\bin\gcc.exe';
+if ispc && exist(localGcc, 'file')
+    gccPath = localGcc;
+end
+
+cFiles = dir(fullfile(outputDir, '*.c'));
+if isempty(cFiles)
+    error('NO_GENERATED_C_FILES');
+end
+
+cFileArgs = '';
+for fileIndex = 1:numel(cFiles)
+    cFileArgs = [cFileArgs, ' "', fullfile(outputDir, cFiles(fileIndex).name), '"']; %#ok<AGROW>
+end
+
+matlabIncludeDir = fullfile(matlabroot, 'extern', 'include');
+dllPath = fullfile(outputDir, 'extractIQAllFeatures.dll');
+defPath = fullfile(outputDir, 'extractIQAllFeatures_manual.def');
+
+compileCommand = sprintf( ...
+    ['"%s" -shared -O2 -std=c99 -fopenmp ', ...
+     '-I "%s" -I "%s" %s ', ...
+     '-Wl,--output-def,"%s" -o "%s"'], ...
+    gccPath, outputDir, matlabIncludeDir, cFileArgs, defPath, dllPath);
+
+fprintf('Running gcc build command...\n');
+[status, commandOutput] = system(compileCommand);
+fprintf('%s\n', commandOutput);
+
+if status ~= 0
+    error('GCC_DLL_BUILD_FAILED');
+end
+
+fprintf('Dynamic library build completed.\n');
+fprintf('DLL path: %s\n', dllPath);
+fprintf('Header path: %s\n', fullfile(outputDir, 'extractIQAllFeatures.h'));

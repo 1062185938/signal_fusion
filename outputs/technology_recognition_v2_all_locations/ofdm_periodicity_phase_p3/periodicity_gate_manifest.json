@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "result_type": "technology_recognition_periodicity_gate",
+  "labels": [
+    "LTE",
+    "WiFi",
+    "DVB-T"
+  ],
+  "sample_rate_hz": 1000000,
+  "region_sample_count": 4096,
+  "periodicity_schema_id": "ofdm_periodicity_v1",
+  "candidates": [
+    {
+      "candidate_id": "period_66p67us",
+      "period_seconds": 6.666666666666667e-05
+    },
+    {
+      "candidate_id": "period_224us",
+      "period_seconds": 0.000224
+    },
+    {
+      "candidate_id": "period_896us",
+      "period_seconds": 0.000896
+    }
+  ],
+  "frozen_rule": {
+    "selected_on": "validation",
+    "reliability_margin": 0.021475793793797496,
+    "threshold_selection": "smallest periodicity margin strictly above every LTE/DVB-T validation misclassification",
+    "validation_periodicity_calibration": {
+      "reliability_margin": 0.021475793793797496,
+      "lte_dvbt_region_count": 2144,
+      "raw_correct_count": 2083,
+      "raw_accuracy_percent": 97.15485074626865,
+      "reliable_count": 1678,
+      "reliable_coverage_percent": 78.26492537313433,
+      "reliable_correct_count": 1678,
+      "reliable_error_count": 0,
+      "reliable_accuracy_percent": 100.0,
+      "insufficient_evidence_count": 466,
+      "wifi_region_count": 1072,
+      "wifi_counterfactual_reliable_count": 490,
+      "wifi_counterfactual_reliable_percent": 45.708955223880594,
+      "per_class": {
+        "0": {
+          "class_name": "LTE",
+          "region_count": 1072,
+          "raw_correct_count": 1011,
+          "reliable_count": 606,
+          "reliable_correct_count": 606
+        },
+        "2": {
+          "class_name": "DVB-T",
+          "region_count": 1072,
+          "raw_correct_count": 1072,
+          "reliable_count": 1072,
+          "reliable_correct_count": 1072
+        }
+      }
+    },
+    "eligibility": "all member top1 labels are LTE or DVB-T, both labels occur, and ensemble top1 is not WiFi",
+    "action": "use periodicity prediction only when eligible and reliable; otherwise preserve ensemble prediction",
+    "protected_decisions": [
+      "all unanimous member decisions",
+      "all ensemble WiFi decisions",
+      "all conflicts containing a WiFi member vote"
+    ]
+  },
+  "validation_dataset_path": "/mnt/sda2/mydata/signal_fusion_data/processed/technology_recognition_lte_wifi_dvbt/v2_all_locations/window_4096/validation.npz"
+}

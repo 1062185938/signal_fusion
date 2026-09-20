@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "gate": "three_seed_top1_agreement",
+  "region_count": 11641,
+  "accepted_count": 11245,
+  "accepted_fraction_percent": 96.59823039257796,
+  "review_required_count": 396,
+  "review_required_fraction_percent": 3.4017696074220427,
+  "accepted_ensemble_accuracy_percent": 100.0,
+  "review_subset_ensemble_accuracy_percent": 96.96969696969697,
+  "ensemble_total_accuracy_percent": 99.89691607250236,
+  "ensemble_total_error_count": 12,
+  "ensemble_errors_caught_by_gate": 12,
+  "ensemble_error_recall_percent": 100.0,
+  "ensemble_review_precision_percent": 3.0303030303030303,
+  "per_model": {
+    "44": {
+      "accuracy_percent": 98.73722188815394,
+      "error_count": 147,
+      "errors_caught_by_gate": 147,
+      "error_recall_percent": 100.0,
+      "accepted_accuracy_percent": 100.0,
+      "review_precision_percent": 37.121212121212125
+    },
+    "45": {
+      "accuracy_percent": 97.72356326776051,
+      "error_count": 265,
+      "errors_caught_by_gate": 265,
+      "error_recall_percent": 100.0,
+      "accepted_accuracy_percent": 100.0,
+      "review_precision_percent": 66.91919191919192
+    },
+    "46": {
+      "accuracy_percent": 99.78524181771326,
+      "error_count": 25,
+      "errors_caught_by_gate": 25,
+      "error_recall_percent": 100.0,
+      "accepted_accuracy_percent": 100.0,
+      "review_precision_percent": 6.313131313131313
+    }
+  },
+  "review_subset_per_location": {
+    "igent": 24,
+    "merelbeke": 0,
+    "uz": 372
+  }
+}

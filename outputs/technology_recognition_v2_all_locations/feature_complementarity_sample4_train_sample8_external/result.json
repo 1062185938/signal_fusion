@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "analysis_type": "region_feature_iq_complementarity_pilot",
+  "scope": {
+    "feature_train_regions_per_source": 4,
+    "feature_external_regions_per_source": 8,
+    "feature_train_count": 384,
+    "feature_validation_count": 48,
+    "feature_internal_test_count": 48,
+    "external_count": 352,
+    "external_source_count": 44,
+    "region_samples": 4096,
+    "iq_window_samples": 2048,
+    "iq_windows_per_region": 2
+  },
+  "caveats": [
+    "Pilot uses a fixed uniform subset rather than all regions.",
+    "Feature MLP hyperparameters were fixed before external evaluation and were not tuned on external labels."
+  ],
+  "feature_models": {
+    "linear_existing": {
+      "internal_test_accuracy_percent": 100.0,
+      "configuration": {
+        "model_type": "linear_62_to_3",
+        "source": "existing_feature_classifier_sample4"
+      },
+      "external": {
+        "count": 352,
+        "correct_count": 219,
+        "accuracy_percent": 62.21590909090909,
+        "per_class_accuracy_percent": {
+          "LTE": 60.0,
+          "WiFi": 100.0,
+          "DVB-T": 56.875
+        }
+      }
+    },
+    "mlp_seed44": {
+      "internal_validation_accuracy_percent": 100.0,
+      "internal_test_accuracy_percent": 100.0,
+      "epochs_completed": 84,
+      "configuration": {
+        "model_type": "mlp_62_32_3",
+        "hidden_units": 32,
+        "activation": "relu",
+        "alpha": 0.001,
+        "seed": 44
+      },
+      "external": {
+        "count": 352,
+        "correct_count": 226,
+        "accuracy_percent": 64.20454545454545,
+        "per_class_accuracy_percent": {
+          "LTE": 65.0,
+          "WiFi": 100.0,
+          "DVB-T": 56.25
+        }
+      }
+    },
+    "mlp_seed45": {
+      "internal_validation_accuracy_percent": 100.0,
+      "internal_test_accuracy_percent": 100.0,
+      "epochs_completed": 78,
+      "configuration": {
+        "model_type": "mlp_62_32_3",
+        "hidden_units": 32,
+        "activation": "relu",
+        "alpha": 0.001,
+        "seed": 45
+      },
+      "external": {
+        "count": 352,
+        "correct_count": 224,
+        "accuracy_percent": 63.63636363636363,
+        "per_class_accuracy_percent": {
+          "LTE": 63.125,
+          "WiFi": 100.0,
+          "DVB-T": 56.875
+        }
+      }
+    },
+    "mlp_seed46": {
+      "internal_validation_accuracy_percent": 100.0,
+      "internal_test_accuracy_percent": 100.0,
+      "epochs_completed": 68,
+      "configuration": {
+        "model_type": "mlp_62_32_3",
+        "hidden_units": 32,
+        "activation": "relu",
+        "alpha": 0.001,
+        "seed": 46
+      },
+      "external": {
+        "count": 352,
+        "correct_count": 226,
+        "accuracy_percent": 64.20454545454545,
+        "per_class_accuracy_percent": {
+          "LTE": 64.375,
+          "WiFi": 100.0,
+          "DVB-T": 56.875
+        }
+      }
+    }
+  },
+  "iq_models": {
+    "44": {
+      "count": 352,
+      "correct_count": 343,
+      "accuracy_percent": 97.44318181818183,
+      "per_class_accuracy_percent": {
+        "LTE": 100.0,
+        "WiFi": 100.0,
+        "DVB-T": 94.375
+      }
+    },
+    "45": {
+      "count": 352,
+      "correct_count": 342,
+      "accuracy_percent": 97.1590909090909,
+      "per_class_accuracy_percent": {
+        "LTE": 100.0,
+        "WiFi": 100.0,
+        "DVB-T": 93.75
+      }
+    },
+    "46": {
+      "count": 352,
+      "correct_count": 352,
+      "accuracy_percent": 100.0,
+      "per_class_accuracy_percent": {
+        "LTE": 100.0,
+        "WiFi": 100.0,
+        "DVB-T": 100.0
+      }
+    }
+  },
+  "complementarity": {
+    "linear_existing": {
+      "44": {
+        "both_correct": 219,
+        "iq_only_correct": 124,
+        "feature_only_correct": 0,
+        "both_wrong": 9,
+        "iq_error_count": 9,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.44318181818183,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "45": {
+        "both_correct": 219,
+        "iq_only_correct": 123,
+        "feature_only_correct": 0,
+        "both_wrong": 10,
+        "iq_error_count": 10,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.1590909090909,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "46": {
+        "both_correct": 219,
+        "iq_only_correct": 133,
+        "feature_only_correct": 0,
+        "both_wrong": 0,
+        "iq_error_count": 0,
+        "feature_recall_on_iq_errors_percent": null,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_iq_percent_points": 0.0
+      }
+    },
+    "mlp_seed44": {
+      "44": {
+        "both_correct": 226,
+        "iq_only_correct": 117,
+        "feature_only_correct": 0,
+        "both_wrong": 9,
+        "iq_error_count": 9,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.44318181818183,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "45": {
+        "both_correct": 226,
+        "iq_only_correct": 116,
+        "feature_only_correct": 0,
+        "both_wrong": 10,
+        "iq_error_count": 10,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.1590909090909,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "46": {
+        "both_correct": 226,
+        "iq_only_correct": 126,
+        "feature_only_correct": 0,
+        "both_wrong": 0,
+        "iq_error_count": 0,
+        "feature_recall_on_iq_errors_percent": null,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_iq_percent_points": 0.0
+      }
+    },
+    "mlp_seed45": {
+      "44": {
+        "both_correct": 224,
+        "iq_only_correct": 119,
+        "feature_only_correct": 0,
+        "both_wrong": 9,
+        "iq_error_count": 9,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.44318181818183,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "45": {
+        "both_correct": 224,
+        "iq_only_correct": 118,
+        "feature_only_correct": 0,
+        "both_wrong": 10,
+        "iq_error_count": 10,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.1590909090909,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "46": {
+        "both_correct": 224,
+        "iq_only_correct": 128,
+        "feature_only_correct": 0,
+        "both_wrong": 0,
+        "iq_error_count": 0,
+        "feature_recall_on_iq_errors_percent": null,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_iq_percent_points": 0.0
+      }
+    },
+    "mlp_seed46": {
+      "44": {
+        "both_correct": 226,
+        "iq_only_correct": 117,
+        "feature_only_correct": 0,
+        "both_wrong": 9,
+        "iq_error_count": 9,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.44318181818183,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "45": {
+        "both_correct": 226,
+        "iq_only_correct": 116,
+        "feature_only_correct": 0,
+        "both_wrong": 10,
+        "iq_error_count": 10,
+        "feature_recall_on_iq_errors_percent": 0.0,
+        "oracle_accuracy_percent": 97.1590909090909,
+        "oracle_gain_over_iq_percent_points": 0.0
+      },
+      "46": {
+        "both_correct": 226,
+        "iq_only_correct": 126,
+        "feature_only_correct": 0,
+        "both_wrong": 0,
+        "iq_error_count": 0,
+        "feature_recall_on_iq_errors_percent": null,
+        "oracle_accuracy_percent": 100.0,
+        "oracle_gain_over_iq_percent_points": 0.0
+      }
+    }
+  }
+}

@@ -1,0 +1,1064 @@
+{
+  "schema_version": 1,
+  "analysis_type": "iq_error_detectability",
+  "dataset": "data/external/processed/technology_recognition_lte_wifi_dvbt/external_1msps_4096/test.npz",
+  "region_count": 11641,
+  "region_samples": 4096,
+  "iq_window_samples": 2048,
+  "windows_per_region": 2,
+  "model_seeds": [
+    44,
+    45,
+    46
+  ],
+  "targets": {
+    "seed_44": {
+      "accuracy_percent": 98.73722188815394,
+      "error_count": 147,
+      "per_class_error_count": {
+        "LTE": 12,
+        "WiFi": 0,
+        "DVB-T": 135
+      },
+      "per_location_error_count": {
+        "igent": 12,
+        "merelbeke": 0,
+        "uz": 135
+      },
+      "error_characteristics": {
+        "top1_confidence_at_least_0.90": 4,
+        "top1_confidence_at_least_0.99": 1,
+        "top1_top2_margin_at_least_0.90": 3,
+        "windows_agree": 59,
+        "all_three_seeds_agree": 0
+      },
+      "signals": {
+        "low_top1_confidence": {
+          "unique_score_count": 6450,
+          "error_auroc": 0.9788739229814076,
+          "error_average_precision": 0.2829416854486037,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 39,
+              "error_recall_percent": 26.53061224489796,
+              "review_precision_percent": 33.33333333333333,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.0628254078445
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 120,
+              "error_recall_percent": 81.63265306122449,
+              "review_precision_percent": 20.58319039451115,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.755832881172
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 144,
+              "error_recall_percent": 97.95918367346938,
+              "review_precision_percent": 12.360515021459227,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.97136311569301
+            }
+          }
+        },
+        "small_top1_top2_margin": {
+          "unique_score_count": 11639,
+          "error_auroc": 0.9788336771980412,
+          "error_average_precision": 0.28030446668090003,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 38,
+              "error_recall_percent": 25.850340136054424,
+              "review_precision_percent": 32.47863247863248,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.05414786532454
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 120,
+              "error_recall_percent": 81.63265306122449,
+              "review_precision_percent": 20.58319039451115,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.755832881172
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 144,
+              "error_recall_percent": 97.95918367346938,
+              "review_precision_percent": 12.360515021459227,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.97136311569301
+            }
+          }
+        },
+        "high_prediction_entropy": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9794740586333717,
+          "error_average_precision": 0.30740849976751833,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 41,
+              "error_recall_percent": 27.89115646258503,
+              "review_precision_percent": 35.04273504273504,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.08018049288442
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 121,
+              "error_recall_percent": 82.31292517006803,
+              "review_precision_percent": 20.754716981132077,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.76487610779526
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 144,
+              "error_recall_percent": 97.95918367346938,
+              "review_precision_percent": 12.360515021459227,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.97136311569301
+            }
+          }
+        },
+        "window_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9412275437406562,
+          "error_average_precision": 0.13059097511081222,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 18,
+              "error_recall_percent": 12.244897959183673,
+              "review_precision_percent": 15.384615384615385,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.88059701492537
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 78,
+              "error_recall_percent": 53.06122448979592,
+              "review_precision_percent": 13.379073756432247,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.37601736299511
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 116,
+              "error_recall_percent": 78.91156462585033,
+              "review_precision_percent": 9.957081545064378,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.7040855288278
+            }
+          }
+        },
+        "window_label_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.7880964809797244,
+          "error_average_precision": 0.1573234148038271,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 14,
+              "error_recall_percent": 9.523809523809524,
+              "review_precision_percent": 11.965811965811966,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.84588684484554
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 88,
+              "error_recall_percent": 59.863945578231295,
+              "review_precision_percent": 15.09433962264151,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.46644962922771
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 88,
+              "error_recall_percent": 59.863945578231295,
+              "review_precision_percent": 7.553648068669528,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.43680794196258
+            }
+          }
+        },
+        "seed_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9854487819140185,
+          "error_average_precision": 0.3176371102467318,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 36,
+              "error_recall_percent": 24.489795918367346,
+              "review_precision_percent": 30.76923076923077,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.03679278028463
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 139,
+              "error_recall_percent": 94.5578231292517,
+              "review_precision_percent": 23.842195540308747,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.92765418701393
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 146,
+              "error_recall_percent": 99.31972789115646,
+              "review_precision_percent": 12.532188841201716,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.99045437189767
+            }
+          }
+        },
+        "seed_vote_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.9891682617017574,
+          "error_average_precision": 0.3712121212121212,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 58,
+              "error_recall_percent": 39.455782312925166,
+              "review_precision_percent": 49.572649572649574,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.2276987157237
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 147,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 25.21440823327616,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 147,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 12.618025751072961,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    "seed_45": {
+      "accuracy_percent": 97.72356326776051,
+      "error_count": 265,
+      "per_class_error_count": {
+        "LTE": 0,
+        "WiFi": 0,
+        "DVB-T": 265
+      },
+      "per_location_error_count": {
+        "igent": 0,
+        "merelbeke": 0,
+        "uz": 265
+      },
+      "error_characteristics": {
+        "top1_confidence_at_least_0.90": 32,
+        "top1_confidence_at_least_0.99": 1,
+        "top1_top2_margin_at_least_0.90": 9,
+        "windows_agree": 135,
+        "all_three_seeds_agree": 0
+      },
+      "signals": {
+        "low_top1_confidence": {
+          "unique_score_count": 7108,
+          "error_auroc": 0.9788336252421517,
+          "error_average_precision": 0.4298717824978475,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 56,
+              "error_recall_percent": 21.132075471698116,
+              "review_precision_percent": 47.863247863247864,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.1863936133287
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 201,
+              "error_recall_percent": 75.84905660377359,
+              "review_precision_percent": 34.476843910806174,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.42123349611141
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 264,
+              "error_recall_percent": 99.62264150943396,
+              "review_precision_percent": 22.660944206008583,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.99045437189767
+            }
+          }
+        },
+        "small_top1_top2_margin": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9788342886712841,
+          "error_average_precision": 0.4299617828991574,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 56,
+              "error_recall_percent": 21.132075471698116,
+              "review_precision_percent": 47.863247863247864,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.1863936133287
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 201,
+              "error_recall_percent": 75.84905660377359,
+              "review_precision_percent": 34.476843910806174,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.42123349611141
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 264,
+              "error_recall_percent": 99.62264150943396,
+              "review_precision_percent": 22.660944206008583,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.99045437189767
+            }
+          }
+        },
+        "high_prediction_entropy": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9789444179072792,
+          "error_average_precision": 0.43464321999830996,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 59,
+              "error_recall_percent": 22.264150943396228,
+              "review_precision_percent": 50.427350427350426,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.21242624088859
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 201,
+              "error_recall_percent": 75.84905660377359,
+              "review_precision_percent": 34.476843910806174,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.42123349611141
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 264,
+              "error_recall_percent": 99.62264150943396,
+              "review_precision_percent": 22.660944206008583,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.99045437189767
+            }
+          }
+        },
+        "window_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9580815619775495,
+          "error_average_precision": 0.28692129064205407,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 45,
+              "error_recall_percent": 16.9811320754717,
+              "review_precision_percent": 38.46153846153847,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.09094064560917
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 159,
+              "error_recall_percent": 60.0,
+              "review_precision_percent": 27.27272727272727,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.04141797793453
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 236,
+              "error_recall_percent": 89.05660377358491,
+              "review_precision_percent": 20.257510729613735,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.72317678503245
+            }
+          }
+        },
+        "window_label_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.7374155786428893,
+          "error_average_precision": 0.21798394801066992,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 42,
+              "error_recall_percent": 15.849056603773585,
+              "review_precision_percent": 35.8974358974359,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.0649080180493
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 130,
+              "error_recall_percent": 49.056603773584904,
+              "review_precision_percent": 22.29845626072041,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 98.77916440586002
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 130,
+              "error_recall_percent": 49.056603773584904,
+              "review_precision_percent": 11.158798283261802,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 98.71134020618557
+            }
+          }
+        },
+        "seed_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.991858065971393,
+          "error_average_precision": 0.742142158170046,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 94,
+              "error_recall_percent": 35.471698113207545,
+              "review_precision_percent": 80.34188034188034,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.51614022908713
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 254,
+              "error_recall_percent": 95.84905660377359,
+              "review_precision_percent": 43.56775300171527,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.90052450714415
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 260,
+              "error_recall_percent": 98.11320754716981,
+              "review_precision_percent": 22.317596566523605,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.95227185948835
+            }
+          }
+        },
+        "seed_vote_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.994242264416315,
+          "error_average_precision": 0.6691919191919192,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 53,
+              "error_recall_percent": 20.0,
+              "review_precision_percent": 45.2991452991453,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 98.16036098576883
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 265,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 45.45454545454545,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 265,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 22.746781115879827,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    "seed_46": {
+      "accuracy_percent": 99.78524181771326,
+      "error_count": 25,
+      "per_class_error_count": {
+        "LTE": 15,
+        "WiFi": 0,
+        "DVB-T": 10
+      },
+      "per_location_error_count": {
+        "igent": 15,
+        "merelbeke": 0,
+        "uz": 10
+      },
+      "error_characteristics": {
+        "top1_confidence_at_least_0.90": 3,
+        "top1_confidence_at_least_0.99": 1,
+        "top1_top2_margin_at_least_0.90": 3,
+        "windows_agree": 5,
+        "all_three_seeds_agree": 0
+      },
+      "signals": {
+        "low_top1_confidence": {
+          "unique_score_count": 9697,
+          "error_auroc": 0.9908884297520661,
+          "error_average_precision": 0.3943112298500981,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 21,
+              "error_recall_percent": 84.0,
+              "review_precision_percent": 17.94871794871795,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.96528982992017
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 23,
+              "error_recall_percent": 92.0,
+              "review_precision_percent": 3.9451114922813035,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.98191354675349
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 25,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.1459227467811157,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "small_top1_top2_margin": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9912672176308539,
+          "error_average_precision": 0.4693787685285591,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 21,
+              "error_recall_percent": 84.0,
+              "review_precision_percent": 17.94871794871795,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.96528982992017
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 23,
+              "error_recall_percent": 92.0,
+              "review_precision_percent": 3.9451114922813035,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.98191354675349
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 25,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.1459227467811157,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "high_prediction_entropy": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9896315426997245,
+          "error_average_precision": 0.25645496362717224,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 21,
+              "error_recall_percent": 84.0,
+              "review_precision_percent": 17.94871794871795,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.96528982992017
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 23,
+              "error_recall_percent": 92.0,
+              "review_precision_percent": 3.9451114922813035,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.98191354675349
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 25,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.1459227467811157,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "window_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9696866391184573,
+          "error_average_precision": 0.27101338103535777,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 18,
+              "error_recall_percent": 72.0,
+              "review_precision_percent": 15.384615384615385,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.93925720236028
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 22,
+              "error_recall_percent": 88.0,
+              "review_precision_percent": 3.7735849056603774,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.97287032013023
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 23,
+              "error_recall_percent": 92.0,
+              "review_precision_percent": 1.9742489270386268,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.98090874379534
+            }
+          }
+        },
+        "window_label_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.896857782369146,
+          "error_average_precision": 0.1724725271172617,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 20,
+              "error_recall_percent": 80.0,
+              "review_precision_percent": 17.094017094017094,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.9566122874002
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 20,
+              "error_recall_percent": 80.0,
+              "review_precision_percent": 3.430531732418525,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.9547838668837
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 20,
+              "error_recall_percent": 80.0,
+              "review_precision_percent": 1.7167381974248928,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.95227185948835
+            }
+          }
+        },
+        "seed_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9182059228650138,
+          "error_average_precision": 0.026595076767964333,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 4,
+              "error_recall_percent": 16.0,
+              "review_precision_percent": 3.418803418803419,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.81777160708087
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 14,
+              "error_recall_percent": 56.00000000000001,
+              "review_precision_percent": 2.401372212692967,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.90052450714415
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 18,
+              "error_recall_percent": 72.0,
+              "review_precision_percent": 1.5450643776824033,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.9331806032837
+            }
+          }
+        },
+        "seed_vote_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.9840306473829201,
+          "error_average_precision": 0.06313131313131314,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 15,
+              "error_recall_percent": 60.0,
+              "review_precision_percent": 12.82051282051282,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.91322457480042
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 25,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 4.288164665523156,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 25,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.1459227467811157,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    "ensemble_mean": {
+      "accuracy_percent": 99.89691607250236,
+      "error_count": 12,
+      "per_class_error_count": {
+        "LTE": 3,
+        "WiFi": 0,
+        "DVB-T": 9
+      },
+      "per_location_error_count": {
+        "igent": 3,
+        "merelbeke": 0,
+        "uz": 9
+      },
+      "error_characteristics": {
+        "top1_confidence_at_least_0.90": 0,
+        "top1_confidence_at_least_0.99": 0,
+        "top1_top2_margin_at_least_0.90": 0,
+        "windows_agree": 4,
+        "all_three_seeds_agree": 0
+      },
+      "signals": {
+        "low_top1_confidence": {
+          "unique_score_count": 10454,
+          "error_auroc": 0.994983804855677,
+          "error_average_precision": 0.18996944589937237,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 9,
+              "error_recall_percent": 75.0,
+              "review_precision_percent": 7.6923076923076925,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.97396737244011
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.0583190394511153,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 1.0300429184549356,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "small_top1_top2_margin": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9949694728695503,
+          "error_average_precision": 0.18657361001678194,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 9,
+              "error_recall_percent": 75.0,
+              "review_precision_percent": 7.6923076923076925,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.97396737244011
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.0583190394511153,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 1.0300429184549356,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "high_prediction_entropy": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9946685011608909,
+          "error_average_precision": 0.2546060215435352,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 9,
+              "error_recall_percent": 75.0,
+              "review_precision_percent": 7.6923076923076925,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.97396737244011
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.0583190394511153,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 1.0300429184549356,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        },
+        "window_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9258606357669045,
+          "error_average_precision": 0.035281591140552654,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 3,
+              "error_recall_percent": 25.0,
+              "review_precision_percent": 2.564102564102564,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.92190211732037
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 6,
+              "error_recall_percent": 50.0,
+              "review_precision_percent": 1.0291595197255576,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.94574064026045
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 8,
+              "error_recall_percent": 66.66666666666666,
+              "review_precision_percent": 0.6866952789699571,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.9618174875907
+            }
+          }
+        },
+        "window_label_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.8281308223693639,
+          "error_average_precision": 0.04168728234230478,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 6,
+              "error_recall_percent": 50.0,
+              "review_precision_percent": 5.128205128205128,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.94793474488026
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 8,
+              "error_recall_percent": 66.66666666666666,
+              "review_precision_percent": 1.3722126929674099,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.96382709350696
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 8,
+              "error_recall_percent": 66.66666666666666,
+              "review_precision_percent": 0.6866952789699571,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.9618174875907
+            }
+          }
+        },
+        "seed_probability_divergence": {
+          "unique_score_count": 11641,
+          "error_auroc": 0.9634749333562646,
+          "error_average_precision": 0.08563552081210325,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 7,
+              "error_recall_percent": 58.333333333333336,
+              "review_precision_percent": 5.982905982905983,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.9566122874002
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 8,
+              "error_recall_percent": 66.66666666666666,
+              "review_precision_percent": 1.3722126929674099,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 99.96382709350696
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 9,
+              "error_recall_percent": 75.0,
+              "review_precision_percent": 0.7725321888412017,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 99.97136311569301
+            }
+          }
+        },
+        "seed_vote_disagreement": {
+          "unique_score_count": 2,
+          "error_auroc": 0.9834895519821137,
+          "error_average_precision": 0.030303030303030304,
+          "review_budgets": {
+            "1_percent": {
+              "review_count": 117,
+              "review_fraction_percent": 1.0050682931019672,
+              "caught_error_count": 6,
+              "error_recall_percent": 50.0,
+              "review_precision_percent": 5.128205128205128,
+              "retained_count": 11524,
+              "retained_accuracy_percent": 99.94793474488026
+            },
+            "5_percent": {
+              "review_count": 583,
+              "review_fraction_percent": 5.0081608109268965,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 2.0583190394511153,
+              "retained_count": 11058,
+              "retained_accuracy_percent": 100.0
+            },
+            "10_percent": {
+              "review_count": 1165,
+              "review_fraction_percent": 10.007731294562323,
+              "caught_error_count": 12,
+              "error_recall_percent": 100.0,
+              "review_precision_percent": 1.0300429184549356,
+              "retained_count": 10476,
+              "retained_accuracy_percent": 100.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "notes": [
+    "External data is a development diagnostic set and must not be used to freeze production thresholds.",
+    "Risk rankings are evaluated against known labels only for offline analysis."
+  ]
+}

@@ -1,4 +1,4 @@
-"""Region-level classification from the canonical 62 IQ features."""
+"""Region-level classification from the canonical 64 IQ features."""
 
 from .dataset import (
     REGION_FEATURE_DATASET_VERSION,

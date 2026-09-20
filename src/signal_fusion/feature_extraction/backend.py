@@ -40,7 +40,7 @@ def default_library_name() -> str:
 
 
 class IQFeatureCtypesBackend:
-    """Extract one 62-dimensional vector through the stable C interface."""
+    """Extract one 64-dimensional vector through the stable C interface."""
 
     def __init__(
         self,

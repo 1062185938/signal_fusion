@@ -1,0 +1,10 @@
+{
+  "dataset_id": "technology_recognition_external_1msps_fusion_candidate_windows_private",
+  "artifact_visibility": "private_audit_do_not_send_to_llm",
+  "num_windows": 972,
+  "num_regions": 486,
+  "windows_per_region": 2,
+  "seq_len": 2048,
+  "parent_window_dataset_path": "/mnt/sda2/mydata/signal_fusion_data/processed/technology_recognition_lte_wifi_dvbt/external_1msps_2048/test.npz",
+  "candidate_region_dataset_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/external_1msps_2048_three_seed/fusion_candidates_4096_private.npz"
+}

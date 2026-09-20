@@ -36,10 +36,12 @@ signal-prepare = "signal_fusion.preparation.cli:main"
 signal-inspect = "signal_fusion.preparation.inspection:main"
 signal-extract-features = "signal_fusion.feature_extraction.cli:main"
 signal-infer = "signal_fusion.model_inference.cli:main"
+signal-infer-ensemble = "signal_fusion.model_inference.ensemble_cli:main"
 signal-train = "signal_fusion.training.cli:main"
 signal-assemble-training = "signal_fusion.training_data.cli:main"
 signal-evaluate-snr = "signal_fusion.evaluation.cli:main"
 signal-build-evidence = "signal_fusion.fusion.cli:main"
+signal-rebuild-regions = "signal_fusion.fusion.region_cli:main"
 signal-select-fusion-weight = "signal_fusion.fusion.weight_cli:main"
 signal-feature-classifier = "signal_fusion.feature_classifier.cli:main"
 
@@ -55,5 +57,5 @@ where = ["src"]
     "*.md",
     "include/*.h",
     "native/linux/*.so",
-    "native/windows/*.dll",
 ]
+"signal_fusion.fusion.references" = ["*.md"]

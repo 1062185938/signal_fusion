@@ -1,4 +1,4 @@
-"""Loading and validation for the stable 62-dimensional feature map."""
+"""Loading and validation for the stable 64-dimensional feature map."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from signal_fusion.feature_extraction.contracts import FEATURE_COUNT
+from signal_fusion.feature_extraction.contracts import FEATURE_COUNT, FEATURE_SCHEMA_ID
 from signal_fusion.feature_extraction.resource_paths import feature_map_resource_path
 
 
@@ -20,9 +20,9 @@ REQUIRED_FEATURE_FIELDS = (
     "reference",
 )
 EXPECTED_GROUP_COUNTS = {
-    "time_domain": 12,
-    "frequency_domain": 25,
-    "time_frequency": 25,
+    "time_domain": 15,
+    "frequency_domain": 21,
+    "time_frequency": 28,
 }
 
 
@@ -42,6 +42,11 @@ def load_feature_map(path: str | Path | None = None) -> dict[str, Any]:
         mapping = json.load(handle)
     if not isinstance(mapping, dict):
         raise ValueError("feature_map.json 顶层必须是 JSON object。")
+    if mapping.get("schema_id") != FEATURE_SCHEMA_ID:
+        raise ValueError(
+            "feature_map.json schema_id 必须为 "
+            f"{FEATURE_SCHEMA_ID!r}，实际为 {mapping.get('schema_id')!r}。"
+        )
 
     features = mapping.get("features")
     if not isinstance(features, list):

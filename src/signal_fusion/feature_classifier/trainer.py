@@ -80,7 +80,7 @@ def train_feature_classifier(
     seed: int = 44,
     overwrite: bool = False,
 ) -> dict[str, Any]:
-    """Train a standardized Linear(62, class_count) baseline."""
+    """Train a standardized Linear(64, class_count) baseline."""
 
     import torch
     from torch import nn
@@ -244,7 +244,7 @@ def train_feature_classifier(
     manifest = {
         "schema_version": 1,
         "model_id": model_id,
-        "model_type": "linear_62_to_classes",
+        "model_type": f"linear_{FEATURE_COUNT}_to_classes",
         "feature_schema_id": FEATURE_SCHEMA_ID,
         "feature_names": list(feature_names),
         "labels": [label_map[str(index)] for index in range(len(label_map))],

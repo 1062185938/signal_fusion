@@ -1,0 +1,13 @@
+source_id,class_name,region_count,baseline_accuracy_percent,gate_candidate_count,periodicity_resolved_count,changed_label_count,corrected_error_count,introduced_error_count,fused_accuracy_percent
+tr_gentbrugge_dvbt_r10,DVB-T,268,100.0,0,0,0,0,0,100.0
+tr_gentbrugge_lte_r10,LTE,268,100.0,0,0,0,0,0,100.0
+tr_gentbrugge_wifi_r10,WiFi,268,100.0,0,0,0,0,0,100.0
+tr_merelbeke_dvbt_r10,DVB-T,268,100.0,0,0,0,0,0,100.0
+tr_merelbeke_lte_r10,LTE,268,99.6268656716418,7,6,1,1,0,100.0
+tr_merelbeke_wifi_r10,WiFi,268,100.0,0,0,0,0,0,100.0
+tr_rabot_dvbt_r10,DVB-T,268,100.0,0,0,0,0,0,100.0
+tr_rabot_lte_r10,LTE,268,100.0,0,0,0,0,0,100.0
+tr_rabot_wifi_r10,WiFi,268,100.0,0,0,0,0,0,100.0
+tr_reep_dvbt_r10,DVB-T,268,100.0,0,0,0,0,0,100.0
+tr_reep_lte_r10,LTE,268,100.0,0,0,0,0,0,100.0
+tr_reep_wifi_r10,WiFi,268,100.0,0,0,0,0,0,100.0

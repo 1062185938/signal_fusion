@@ -1,4 +1,4 @@
-"""Small linear classifier for standardized 62-dimensional feature vectors."""
+"""Small linear classifier for standardized 64-dimensional feature vectors."""
 
 from __future__ import annotations
 

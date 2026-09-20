@@ -6,7 +6,7 @@ import unittest
 import numpy as np
 
 from signal_fusion import ModelManifest, PreparedDataset
-from signal_fusion.feature_extraction import FeatureExtractionService
+from signal_fusion.feature_extraction import FEATURE_COUNT, FeatureExtractionService
 from signal_fusion.fusion import (
     CompleteRegion,
     FusionManifest,
@@ -23,7 +23,7 @@ class _FeatureBackend:
 
     def extract_features(self, i_data, q_data, sample_rate):
         self.input_lengths.append(len(i_data))
-        return np.arange(62, dtype=np.float32) + float(np.mean(i_data))
+        return np.arange(FEATURE_COUNT, dtype=np.float32) + float(np.mean(i_data))
 
 
 class _ModelBackend:
@@ -169,17 +169,17 @@ class FusionTests(unittest.TestCase):
             "LoRa",
         )
         self.assertEqual(len(feature_classifier.inputs), 1)
-        self.assertEqual(feature_classifier.inputs[0].shape, (1, 62))
+        self.assertEqual(feature_classifier.inputs[0].shape, (1, FEATURE_COUNT))
         self.assertEqual(bundle["fusion_result"]["final_label"], "BLE")
         self.assertEqual(bundle["fusion_result"]["weights"]["iq_model"], 0.5)
 
         features = bundle["feature_evidence"]
         self.assertEqual(features["scope"], "complete_continuous_region")
-        self.assertEqual(features["feature_count"], 62)
+        self.assertEqual(features["feature_count"], FEATURE_COUNT)
         self.assertEqual(features["extraction_count"], 1)
         self.assertEqual(features["input"]["used_sample_count"], 256)
         self.assertFalse(features["input"]["truncated"])
-        self.assertEqual(len(features["groups"]["time_domain"]), 12)
+        self.assertEqual(len(features["groups"]["time_domain"]), 15)
         first_feature = features["groups"]["time_domain"][0]
         self.assertEqual(
             set(first_feature),

@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "result_type": "region_iq_model_ensemble",
+  "group_id": 2516,
+  "source_id": "tr_external_igent_dvbt_f482_r09",
+  "labels": [
+    "LTE",
+    "WiFi",
+    "DVB-T"
+  ],
+  "decision_status": "review_required",
+  "risk_gate": {
+    "method": "unanimous_member_region_top1",
+    "member_count": 3,
+    "unanimous": false,
+    "unique_top1_labels": [
+      "WiFi",
+      "DVB-T"
+    ],
+    "reason": "member_region_top1_disagreement"
+  },
+  "ensemble": {
+    "aggregation": "mean_probability_across_members",
+    "region_probabilities": [
+      0.03577959661682447,
+      0.202069052727893,
+      0.7621513406435648
+    ],
+    "region_top3": [
+      {
+        "rank": 1,
+        "class_index": 2,
+        "label": "DVB-T",
+        "probability": 0.7621513406435648
+      },
+      {
+        "rank": 2,
+        "class_index": 1,
+        "label": "WiFi",
+        "probability": 0.202069052727893
+      },
+      {
+        "rank": 3,
+        "class_index": 0,
+        "label": "LTE",
+        "probability": 0.03577959661682447
+      }
+    ],
+    "uncertainty": {
+      "top1_probability": 0.7621513406435648,
+      "top1_top2_margin": 0.5600822879156718,
+      "normalized_entropy": 0.5910233049917463
+    }
+  },
+  "members": [
+    {
+      "model_id": "window_2048_spectral_inversion_p0p5",
+      "provider": "CPU",
+      "region_probabilities": [
+        0.0032250704243779182,
+        0.0038344410713762045,
+        0.9929404854774475
+      ],
+      "region_top3": [
+        {
+          "rank": 1,
+          "class_index": 2,
+          "label": "DVB-T",
+          "probability": 0.9929404854774475
+        },
+        {
+          "rank": 2,
+          "class_index": 1,
+          "label": "WiFi",
+          "probability": 0.0038344410713762045
+        },
+        {
+          "rank": 3,
+          "class_index": 0,
+          "label": "LTE",
+          "probability": 0.0032250704243779182
+        }
+      ],
+      "window_aggregation": "mean_probability",
+      "window_agreement": {
+        "agreeing_windows": 2,
+        "window_count": 2,
+        "ratio": 1.0
+      },
+      "window_predictions": [
+        {
+          "sample_index": 5032,
+          "label": "DVB-T",
+          "confidence": 0.996107280254364
+        },
+        {
+          "sample_index": 5033,
+          "label": "DVB-T",
+          "confidence": 0.989773690700531
+        }
+      ]
+    },
+    {
+      "model_id": "window_2048_spectral_inversion_p0p5_seed45",
+      "provider": "CPU",
+      "region_probabilities": [
+        0.004475763998925686,
+        0.0026283971965312958,
+        0.9928958415985107
+      ],
+      "region_top3": [
+        {
+          "rank": 1,
+          "class_index": 2,
+          "label": "DVB-T",
+          "probability": 0.9928958415985107
+        },
+        {
+          "rank": 2,
+          "class_index": 0,
+          "label": "LTE",
+          "probability": 0.004475763998925686
+        },
+        {
+          "rank": 3,
+          "class_index": 1,
+          "label": "WiFi",
+          "probability": 0.0026283971965312958
+        }
+      ],
+      "window_aggregation": "mean_probability",
+      "window_agreement": {
+        "agreeing_windows": 2,
+        "window_count": 2,
+        "ratio": 1.0
+      },
+      "window_predictions": [
+        {
+          "sample_index": 5032,
+          "label": "DVB-T",
+          "confidence": 0.9921895265579224
+        },
+        {
+          "sample_index": 5033,
+          "label": "DVB-T",
+          "confidence": 0.9936022162437439
+        }
+      ]
+    },
+    {
+      "model_id": "window_2048_spectral_inversion_p0p5_seed46",
+      "provider": "CPU",
+      "region_probabilities": [
+        0.0996379554271698,
+        0.5997443199157715,
+        0.30061769485473633
+      ],
+      "region_top3": [
+        {
+          "rank": 1,
+          "class_index": 1,
+          "label": "WiFi",
+          "probability": 0.5997443199157715
+        },
+        {
+          "rank": 2,
+          "class_index": 2,
+          "label": "DVB-T",
+          "probability": 0.30061769485473633
+        },
+        {
+          "rank": 3,
+          "class_index": 0,
+          "label": "LTE",
+          "probability": 0.0996379554271698
+        }
+      ],
+      "window_aggregation": "mean_probability",
+      "window_agreement": {
+        "agreeing_windows": 2,
+        "window_count": 2,
+        "ratio": 1.0
+      },
+      "window_predictions": [
+        {
+          "sample_index": 5032,
+          "label": "WiFi",
+          "confidence": 0.6204820275306702
+        },
+        {
+          "sample_index": 5033,
+          "label": "WiFi",
+          "confidence": 0.5790066123008728
+        }
+      ]
+    }
+  ],
+  "input": {
+    "dataset_path": "/mnt/sda2/mydata/signal_fusion_data/processed/technology_recognition_lte_wifi_dvbt/external_1msps_2048/test.npz",
+    "model_paths": [
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/technology_recognition_v2_all_locations_2048_spectral_inversion.onnx",
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5_seed45/technology_recognition_v2_all_locations_2048_spectral_inversion_seed45.onnx",
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5_seed46/technology_recognition_v2_all_locations_2048_spectral_inversion_seed46.onnx"
+    ],
+    "label_map_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/label_map.json"
+  }
+}

@@ -8,7 +8,7 @@
 
 - 原始采集文件的可选预处理；
 - 已处理 IQ 数据集的统一读写；
-- MATLAB/C ABI 62 维特征提取；
+- MATLAB/C ABI 64 维特征提取；
 - ONNX 小模型推理；
 - PyTorch 模型定义、训练与 ONNX 导出；
 - 面向后续融合分析的统一数据契约。
@@ -185,17 +185,17 @@ Python 调用 `prepare_signal()`、`prepare_file()` 或 `build_prepared_dataset(
 
 V1 使用原生 1 Msps、4096 点 region、每个源文件均匀选择 32 个 region。公开数据集的审计和初始生成结果记录在 `docs/benchmarks/technology_recognition_v1_phase0_phase1.md`，地点隔离的 clean 128 点基线记录在 `docs/benchmarks/technology_recognition_v1_phase2.md`，完整四地点轮换和 128–4096 点窗口消融记录在 `docs/benchmarks/technology_recognition_v1_window_ablation.md`。
 
-## 6. `feature_extraction`：62 维 IQ 特征提取
+## 6. `feature_extraction`：64 维 IQ 特征提取
 
 该模块封装现有 MATLAB 生成的 C/C++ 动态库。Python 层只负责输入校验、C ABI 调用、特征名称映射和结果组织，不改变原特征算法。
 
 | 文件 | 作用 |
 | --- | --- |
 | `feature_extraction/__init__.py` | 导出特征提取公共接口 |
-| `feature_extraction/contracts.py` | 定义固定 62 维的 `FeatureResult`、特征数量和 schema ID，并支持转换为 `Evidence` |
-| `feature_extraction/backend.py` | 使用 `ctypes` 加载动态库，声明 C ABI 参数并逐个样本提取 62 维特征 |
+| `feature_extraction/contracts.py` | 定义固定 64 维的 `FeatureResult`、特征数量和 schema ID `matlab_iq_features_64_v2`，并支持转换为 `Evidence` |
+| `feature_extraction/backend.py` | 使用 `ctypes` 加载动态库，声明 C ABI 参数并逐个样本提取 64 维特征 |
 | `feature_extraction/service.py` | 面向 `PreparedDataset` 的业务层；解析采样率、控制样本范围并组织 `FeatureResult` |
-| `feature_extraction/feature_map.py` | 加载并校验 `feature_map.json`，保证 62 个特征名称唯一且顺序稳定 |
+| `feature_extraction/feature_map.py` | 加载并校验 `feature_map.json`，保证 64 个特征名称唯一、顺序稳定且分组为 15/21/28 |
 | `feature_extraction/resource_paths.py` | 统一定位打包后的动态库、C 头文件、feature map 和说明文档 |
 | `feature_extraction/cli.py` | `signal-extract-features` 命令入口，加载数据集并写出特征 NPZ |
 
@@ -204,10 +204,9 @@ V1 使用原生 1 Msps、4096 点 region、每个源文件均匀选择 32 个 re
 | 资源 | 作用 |
 | --- | --- |
 | `assets/__init__.py` | 将资源目录声明为可随 Python 包发布的子包 |
-| `feature_map.json` | 62 维特征的索引、代码名和说明映射 |
+| `feature_map.json` | 64 维特征的索引、代码名、分组和说明映射 |
 | `include/iq_feature_c_api.h` | 动态库公开的 C ABI 声明 |
 | `native/linux/*.so` | Linux 特征提取动态库 |
-| `native/windows/*.dll` | Windows 动态库及其运行时依赖 |
 | `*_iq_features.md` | 时域、频域、时频域特征说明 |
 
 内部调用关系：
@@ -218,23 +217,23 @@ CLI → io.load_prepared_dataset → FeatureExtractionService
     → FeatureResult → Evidence
 ```
 
-### 6.1 `feature_classifier`：region 级 62 维特征分类
+### 6.1 `feature_classifier`：region 级 64 维特征分类
 
-该模块使用完整连续 region 的 62 维特征训练独立分类器，不使用窗口特征统计。
+该模块使用完整连续 region 的 64 维特征训练独立分类器，不使用窗口特征统计。
 特征数据构建时通过装配数据的来源信息回读完整 region，统一去直流和复 RMS
 归一化，超过 16384 点时保留前 16384 点，然后实际调用特征动态库一次。
 
 | 文件 | 作用 |
 | --- | --- |
 | `feature_classifier/dataset.py` | 构建 region 级特征 split；训练集可生成 5–20 dB AWGN 特征副本，测试集可生成固定 5 dB 条件 |
-| `feature_classifier/model.py` | 定义最小的 `Linear(62, class_count)` 分类器 |
+| `feature_classifier/model.py` | 定义最小的 `Linear(64, class_count)` 分类器 |
 | `feature_classifier/trainer.py` | 仅使用训练 split 计算标准化参数，执行训练、评估并导出 PTH、ONNX、scaler 和 manifest |
-| `feature_classifier/service.py` | 加载 scaler 和 ONNX，对一行或多行 62 维特征输出类别概率和 Top-K |
+| `feature_classifier/service.py` | 加载 scaler 和 ONNX，对一行或多行 64 维特征输出类别概率和 Top-K |
 | `feature_classifier/cli.py` | 提供 `build-dataset` 和 `train` 两个子命令 |
 
 ```text
-固定 IQ split → 完整连续 region → 一次 62 维特征提取
-              → 训练集 mean/std 标准化 → Linear(62, 3)
+固定 IQ split → 完整连续 region → 一次 64 维特征提取
+              → 训练集 mean/std 标准化 → Linear(64, 3)
               → ONNX 概率输出
 ```
 
@@ -248,9 +247,11 @@ CLI → io.load_prepared_dataset → FeatureExtractionService
 | `model_inference/contracts.py` | 定义单个排序结果 `RankedPrediction` 和批量结果 `ModelInferenceResult`；提供 Top-K 和 `Evidence` 转换 |
 | `model_inference/backend.py` | 封装 ONNX Runtime，读取真实输入输出契约，并按 CUDA 优先、CPU 回退策略执行模型 |
 | `model_inference/service.py` | 校验 `PreparedDataset` 与 `ModelManifest`，执行批量推理、稳定 softmax，并保留 feature 等辅助输出 |
+| `model_inference/ensemble.py` | 对同一 region 的多个模型结果先做模型内窗口概率平均，再做模型间概率平均；按成员 Top1 是否一致输出 `accept` 或 `review_required` |
 | `model_inference/labels.py` | 加载和校验按类别索引排序的 label map |
 | `model_inference/legacy.py` | 适配旧推理函数、文本输出和异步调用方式 |
 | `model_inference/cli.py` | `signal-infer` 命令入口，并保留旧 CLI 输出行为 |
+| `model_inference/ensemble_cli.py` | `signal-infer-ensemble` 命令入口，针对一个 `group_id` 运行多个 ONNX 模型并写出结构化 JSON |
 
 内部调用关系：
 
@@ -359,34 +360,42 @@ training.cli
 
 ### 10.2 `fusion`：Hermes 证据包
 
-`fusion` 不训练新的融合模型，也不直接调用 LLM。它从装配数据集的来源记录中重新读取一个 `group_id` 对应的完整连续 region。全局分支对整个 region 只提取一次 62 维特征，并将该向量送入特征分类器；局部分支按装配数据中的坐标重新切出选定窗口并执行 IQ ONNX 推理。两类分类结果与原始特征证据分别写成不含实验条件的公开盲输入和保留完整实验信息的私有审计文件。
+`fusion` 不训练新的融合模型，也不直接调用 LLM。当前主路径从未做窗口级归一化的 `prepared_sources` 重建完整连续 region，对整段统一去直流和 RMS 归一化，然后只提取一次 64 维特征。IQ 分支继续使用装配测试集中的局部窗口，由三个独立 ONNX 模型先在模型内平均窗口概率、再跨模型平均。冻结的周期门控只在成员发生 LTE/DVB-T 分歧时介入；64 维特征不参与改判，只作为最终解释的全局物理背景。
 
 | 文件 | 作用 |
 | --- | --- |
-| `fusion/region.py` | 根据 `assembly_report.json` 和切片数据的来源坐标，从 SigMF、MAT 或 DAT/BIN 重建完整连续 region；沿用原有整段重采样方案 |
-| `fusion/service.py` | 对完整 region 统一处理；运行IQ与特征分类分支；应用冻结权重并生成融合结果 |
-| `fusion/cli.py` | `signal-build-evidence` 命令入口，以及盲输入与审计文件的隔离写出 |
-| `fusion/weights.py` | 加载、校验并执行加权概率融合 manifest |
-| `fusion/selection.py` | 只用validation选择权重，冻结后评估test |
-| `fusion/weight_cli.py` | `signal-select-fusion-weight` 命令入口 |
+| `fusion/region_dataset.py` | 从未归一化 prepared source 窗口校验并重建连续 region，执行一次 region 级标准化 |
+| `fusion/region_cli.py` | `signal-rebuild-regions` 命令入口 |
+| `fusion/periodicity_gate.py` | 定义 LTE/DVB-T 候选周期、冻结 manifest 合同、region 周期评分和保守门控 |
+| `fusion/ensemble_evidence.py` | 组合三模型 ensemble、冻结周期门控和每个 region 的单个 64 维向量，隔离盲输入与私有审计信息 |
+| `fusion/references/ofdm_periodicity_gate_reference.md` | 说明周期 score、margin、门限、适用范围和 Hermes 解释边界 |
+| `fusion/cli.py` | `signal-build-evidence` 命令入口 |
 
 ```text
-固定 NPZ 中的一个 group_id
-    └──► 根据来源记录读取完整连续 region
-             └──► 可选AWGN（对完整 region 只添加一次）
-                      ├──► 按原坐标切出局部窗口
-                      │       └──► ONNX窗口Top1 → region平均Top3与一致性
-                      └──► 完整region全局特征输入
-                              └──► 最多取前16384点，只提取一次62维特征
-                                      ├──► 特征分类器region Top3
-                                      └──► 冻结权重概率融合
-                                              ├──► 匿名Hermes输入JSON
-                                              └──► 完整审计JSON
+未归一化 prepared source 窗口
+    └──► 按坐标连续拼接完整 region
+             └──► region 级去直流 + RMS 归一化
+                      └──► 每个 region 只提取一次 64 维特征
+
+装配测试集中的 2048 点窗口
+    └──► 三个独立 IQ ONNX 模型
+             └──► 模型内窗口均值 → 跨模型均值 + 一致性风险门控
+
+完整 4096 点 region
+    └──► 66.67 / 224 / 896 μs 归一化自相关
+             └──► 冻结 LTE/DVB-T 周期门控
+
+ensemble + 周期门控
+    └──► accept final_label 或 review_required provisional_label
+
+确定性结果 + 全局 64 维特征
+    ├──► 匿名盲输入 JSON
+    └──► 含真值和来源信息的私有 audit.json
 ```
 
 ### 10.3 `signal-fusion-analysis`：Agent 编排层
 
-项目内 Skill 位于 `skills/signal-fusion-analysis/SKILL.md`。它不包含业务代码，也不在同一推理会话中调用 `fusion.cli` 创建实验条件，只解释已经生成的 `case_XXXX.json` 盲输入。当前输入包含 IQ 模型 region Top3、窗口一致性、窗口 Top1、特征分类器 region Top3、冻结权重产生的 `fusion_result` 和全局 62 维特征。Hermes 必须采用确定性融合标签，只负责解释两条分类分支、物理特征、冲突和限制。每项特征携带 `reference`；Hermes 在分析前完整读取时域、频域和时频域三篇特征说明文档。私有审计文件仅供盲结果冻结后的独立评估使用。
+项目内 Skill 位于 `skills/signal-fusion-analysis/SKILL.md`。业务侧证据合同为“三模型 IQ ensemble + 冻结周期门控 + 全局 64 维原始特征”，不再包含特征分类器或概率权重融合。Skill 会完整读取三篇特征定义、三类别物理解释参考和周期门控参考。分类与 review 状态由代码冻结：`accept` 才有 `final_label`；`review_required` 只有 `provisional_label`。Hermes 只能解释证据、异常和限制，不能重算门控、修改标签或将 review 私自转为 accept。真值和来源信息只保留在独立私有 audit 中。
 
 ## 11. 模块间依赖原则
 
@@ -410,7 +419,7 @@ training.cli
 2. `preparation.readers` 读取连续原始采集；`io.loaders` 读取已经形成样本的数据集，两者用途不同。
 3. `modeling` 管模型结构，`training` 管模型训练，`model_inference` 管部署后的 ONNX 推理。
 4. `FeatureResult` 和 `ModelInferenceResult` 保留完整数值结果，同时可以投影成统一 `Evidence`。
-5. 旧目录中的入口暂时作为兼容包装器，新的业务实现以 `src/signal_fusion` 为准。
+5. 当前业务实现只以 `src/signal_fusion` 为准；旧目录不属于当前运行时合同。
 
 ## 12. 命令入口
 
@@ -418,14 +427,16 @@ training.cli
 | --- | --- | --- |
 | `signal-prepare` | `preparation.cli` | 从原始采集生成切片数据集 |
 | `signal-inspect` | `preparation.inspection` | 检查切片和原始坐标关系 |
-| `signal-extract-features` | `feature_extraction.cli` | 提取 62 维特征 |
+| `signal-extract-features` | `feature_extraction.cli` | 提取 64 维特征 |
 | `signal-infer` | `model_inference.cli` | 执行 ONNX 调制识别 |
+| `signal-infer-ensemble` | `model_inference.ensemble_cli` | 对一个 region 执行多模型概率平均和一致性风险门控 |
+| `signal-rebuild-regions` | `fusion.region_cli` | 从未归一化 prepared source 重建并统一标准化完整 region |
 | `signal-assemble-training` | `training_data.cli` | 从已切片数据构建固定、平衡且可审计的训练集合 |
 | `signal-train` | `training.cli` | 训练模型并导出 ONNX |
 | `signal-evaluate-snr` | `evaluation.cli` | 在干净和受控加噪固定测试集上评估 PTH 模型 |
-| `signal-build-evidence` | `fusion.cli` | 为一个区域生成隔离的 Hermes 盲输入与私有审计 JSON |
+| `signal-build-evidence` | `fusion.cli` | 组合三模型 ensemble、冻结周期门控与整段特征，生成隔离的盲输入和私有审计 JSON |
 | `signal-select-fusion-weight` | `fusion.weight_cli` | 在validation选择融合权重并用冻结权重评估test |
-| `signal-feature-classifier` | `feature_classifier.cli` | 构建 region 特征数据集并训练 62 维线性分类器 |
+| `signal-feature-classifier` | `feature_classifier.cli` | 构建 region 特征数据集并训练 64 维线性分类器 |
 
 ## 13. CLI 使用与参数参考
 
@@ -439,6 +450,8 @@ training.cli
 | `signal-inspect` | `PYTHONPATH=src python -m signal_fusion.preparation.inspection` |
 | `signal-extract-features` | `PYTHONPATH=src python -m signal_fusion.feature_extraction.cli` |
 | `signal-infer` | `PYTHONPATH=src python -m signal_fusion.model_inference.cli` |
+| `signal-infer-ensemble` | `PYTHONPATH=src python -m signal_fusion.model_inference.ensemble_cli` |
+| `signal-rebuild-regions` | `PYTHONPATH=src python -m signal_fusion.fusion.region_cli` |
 | `signal-assemble-training` | `PYTHONPATH=src python -m signal_fusion.training_data.cli` |
 | `signal-train` | `PYTHONPATH=src python -m signal_fusion.training.cli` |
 | `signal-evaluate-snr` | `PYTHONPATH=src python -m signal_fusion.evaluation.cli` |
@@ -453,6 +466,8 @@ signal-prepare --help
 signal-inspect --help
 signal-extract-features --help
 signal-infer --help
+signal-infer-ensemble --help
+signal-rebuild-regions --help
 signal-assemble-training --help
 signal-train --help
 signal-evaluate-snr --help
@@ -676,7 +691,7 @@ signal-inspect \
 
 ### 13.4 `signal-extract-features`
 
-用途：读取已经形成样本的数据集，通过 MATLAB 生成的 C ABI 动态库逐样本提取 62 维特征，并写出特征 NPZ。
+用途：读取已经形成样本的数据集，通过 MATLAB 生成的 C ABI 动态库逐样本提取 64 维特征，并写出特征 NPZ。
 
 基本格式：
 
@@ -727,11 +742,12 @@ signal-extract-features \
 输出 NPZ 固定包含：
 
 ```text
-features       float32 [N, 62]
+features       float32 [N, 64]
 sample_rate    float64 标量
 seq_len        int64 标量
-feature_count  int64 标量，固定为 62
-feature_names  62 个按索引排列的特征名
+feature_count  int64 标量，固定为 64
+feature_schema_id Unicode 标量，固定为 matlab_iq_features_64_v2
+feature_names  64 个按索引排列的特征名
 ```
 
 ### 13.5 `signal-infer`
@@ -782,6 +798,31 @@ signal-infer \
 ```
 
 该历史模型只有一个 LoRa 类别，只适合验证 ONNX 加载、输入格式和输出流程，不代表多类别识别性能。
+
+### 13.5.1 `signal-infer-ensemble`
+
+用途：从已经带有 region/window 边界元数据的窗口数据集中选出一个完整 region，使用三个输入契约和标签顺序一致的 ONNX 模型分别推理。每个模型先对 region 内窗口概率取平均，再对三个模型的 region 概率取平均。三个成员 Top1 一致时输出 `accept`，否则输出 `review_required`。该命令不调用特征分类器或 Hermes，也不自动修改集成标签。
+
+```bash
+signal-infer-ensemble \
+  --dataset_path <包含group_id的test.npz> \
+  --model_path <seed44.onnx> <seed45.onnx> <seed46.onnx> \
+  --label_map_path <label_map.json> \
+  --group_id <整数> \
+  --output <结果.json>
+```
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `--dataset_path` | 必填 | 标准 PreparedDataset NPZ；必须含 `group_id` 以及完整的 region/window 起止位置元数据 |
+| `--model_path` | 必填 | 恰好三个 ONNX 路径；模型必须具有相同输入长度和标签顺序 |
+| `--label_map_path` | 必填 | 所有成员共同使用的标签映射 |
+| `--group_id` | 必填 | 本次推理的 region 标识；命令会选取该 region 的全部窗口 |
+| `--output` | 必填 | 结构化 JSON 输出路径 |
+| `--batch_size` | `64` | 每个模型的窗口推理批大小 |
+| `--overwrite` | 关闭 | 允许覆盖已有输出 |
+
+输出中的 `ensemble.region_top3` 是模型间平均概率结果；`members` 保存每个模型的 region Top3 和窗口 Top1；`decision_status` 只表达模型一致性风险，不是真实标签正确性的保证。该 JSON 会保留模型路径、数据路径和 `source_id` 以便实验审计，不应原样传给 Hermes；后续若调用 Hermes，应另外生成去除路径等内部信息的最小证据输入。
 
 ### 13.6 `signal-assemble-training`
 
@@ -1032,62 +1073,59 @@ snr_accuracy_curve.png   窗口准确率与区域投票准确率的 SNR 曲线
 
 ### 13.9 `signal-build-evidence`
 
-`signal-build-evidence` 从装配测试集中选择一个 `group_id`，通过同目录的 `assembly_report.json` 找到来源切片数据，再根据其中记录的原始文件路径和 region 坐标读取完整连续信号。LoRa 等重采样数据会复用切片阶段记录的整段重采样参数。
+先用 `signal-rebuild-regions` 从未归一化 prepared source 构造连续 region 数据集：
 
-证据生成属于实验控制端。指定 SNR 时，复高斯白噪声先对完整 region 添加一次；ONNX 窗口和全局特征都由同一个处理后 region 产生。该命令可以知道实验条件，但生成的公开 JSON 会将它们删除：
+```bash
+PYTHONPATH=src python -m signal_fusion.fusion.region_cli \
+  --dataset_path <窗口测试集.npz> \
+  --prepared_root <prepared_sources目录> \
+  --output_path <continuous_regions.npz>
+```
+
+随后对 `continuous_regions.npz` 提取特征，再生成 evidence：
 
 ```bash
 PYTHONPATH=src python -m signal_fusion.fusion.cli \
-  --dataset_path data/processed/training/lora_zigbee_ble_v2_4msps/test.npz \
-  --model_path outputs/lora_zigbee_ble_v3_awgn_5_20/lora_zigbee_ble_v3_awgn_5_20.onnx \
-  --label_map_path outputs/lora_zigbee_ble_v3_awgn_5_20/label_map.json \
-  --feature_classifier_manifest outputs/lora_zigbee_ble_v3_top_energy_feature_linear_awgn_5_20/feature_classifier_manifest.json \
-  --fusion_manifest outputs/lora_zigbee_ble_v3_top_energy_fusion_weight_v1/fusion_manifest.json \
-  --group_id 448 \
-  --case_id 1 \
-  --snr_db 5 \
-  --noise_seed 44
+  --dataset_path <窗口测试集.npz> \
+  --region_dataset_path <continuous_regions.npz> \
+  --feature_path <continuous_region_features.npz> \
+  --periodicity_gate_manifest <periodicity_gate_manifest.json> \
+  --model_path <seed44.onnx> <seed45.onnx> <seed46.onnx> \
+  --label_map_path <label_map.json> \
+  --output_dir <evidence输出目录> \
+  --all_groups
 ```
 
 | 参数 | 默认值 | 说明 |
 | --- | --- | --- |
-| `--dataset_path` | 必填 | 装配后的 PreparedDataset NPZ；同目录必须有对应的 `assembly_report.json` |
-| `--model_path` | 必填 | 双输出 ONNX 模型 |
+| `--dataset_path` | 必填 | 保留局部窗口的装配测试集 |
+| `--region_dataset_path` | 必填 | `signal-rebuild-regions` 生成的连续 region 数据集 |
+| `--feature_path` | 必填 | 对连续 region 数据集提取的 64 维特征 NPZ；包含 `group_id`、来源 ID 与来源 region ID，用于逐行对齐校验 |
+| `--periodicity_gate_manifest` | 必填 | 由 validation 冻结、包含候选周期和可靠性门限的 manifest |
+| `--model_path` | 必填 | 恰好三个输入和标签顺序一致的 ONNX 模型 |
 | `--label_map_path` | 必填 | 连续类别索引到名称的 JSON |
-| `--feature_classifier_manifest` | 必填 | 62维region特征分类器 manifest；其标签和特征顺序必须与当前分析链路一致 |
-| `--fusion_manifest` | 必填 | 只由validation选定并冻结的融合权重manifest |
-| `--group_id` | 必填 | 本次分析的区域全局编号 |
-| `--case_id` | 必填 | 正整数匿名案例编号；只用于生成 `case_XXXX` 中性标识 |
+| `--output_dir` | 必填 | `blind/` 和 `audit.json` 的共同输出目录 |
+| `--group_id` / `--all_groups` | 二选一 | 处理一个指定 region 或全部 region |
+| `--case_id_start` | `1` | 连续匿名案例编号的起点 |
 | `--batch_size` | `64` | ONNX 推理批次大小 |
-| `--snr_db` | 不加噪 | 对完整 region 新增复高斯白噪声的 SNR；含义与 `signal-evaluate-snr` 一致 |
-| `--noise_seed` | `44` | 噪声随机种子，保证结果可复现 |
 | `--overwrite` | 默认关闭 | 允许覆盖已有证据文件 |
 
 输出位置固定分离：
 
 ```text
-outputs/hermes_blind_inputs/case_0001.json  交给 Hermes 的公开盲输入
-outputs/hermes_audit/case_0001.json         实验结束后使用的私有审计信息
+<output_dir>/blind/case_0001.json  交给 Hermes 的公开盲输入
+<output_dir>/audit.json             实验结束后使用的私有映射和真值
 ```
 
-公开文件使用 schema version 5，只保留采样率、时长、样本数、窗口配置、IQ模型证据、特征分类器证据、冻结权重产生的融合结果和原始特征证据。它不包含真实标签、来源、模型文件名、运行 provider、权重选择时的实验条件、是否施加实验扰动、SNR、随机种子或其他实验条件。`analysis_id`、文件名和目录均不编码类别或实验条件。
+公开文件只保留安全的采样率、时长、窗口配置、匿名化的三模型 ensemble 证据、周期测量、冻结门控状态和整段 region 的一个 64 维特征向量。真实标签、`group_id`、来源文件、地点、增益和中心频率只写入私有 `audit.json`。代码已经生成确定性的 `decision_status`：`accept` case 提供冻结 `final_label`；review case 的 ensemble 候选只作为 `provisional_label`。
 
-模型分支输出：
+生成前会校验窗口数据、连续 region 和特征文件的普通行标识完全一致，并校验 64 个特征名严格遵循 `feature_map.json` 顺序；这些标识仅用于本地装配检查，不写入 blind case。
 
-- 每个选定窗口仅输出 Top1 `label` 和 `confidence`；
-- IQ模型对各窗口类别概率取平均，输出region平均Top3；
-- 窗口一致性表示窗口 Top1 与 region 平均 Top1 相同的比例。
-- 特征分类器对完整region的单个62维向量输出region Top3。
-
-`fusion_result` 使用 `fusion_manifest.json` 中的冻结权重对两条region概率向量做加权平均，输出融合Top3和唯一 `final_label`。Hermes不得修改权重或覆盖该标签。
-
-特征分支对完整连续 region 只调用一次 62 维特征提取。C ABI 接受的最大长度为 16384 点；region 超长时保留前 16384 点用于特征提取，但完整 region 仍用于加噪和局部窗口重建。JSON 会记录原始长度、实际使用长度和是否截断。每个特征只包含单个 `value`，不再包含跨窗口 `median`、`mean` 或 `std`，也不再生成或附带类别特征参考。
-
-每个特征保留 `reference`，Hermes 在融合前从 `reference_root` 完整读取三篇特征说明文档，再用 `reference` 将62个数值与文档定义对应。Hermes Skill 只解释已经存在的公开文件，不在同一会话中生成实验条件。正式盲测应开启新的 Hermes 会话，只向它提供类似 `outputs/hermes_blind_inputs/case_0001.json` 的中性路径；得到并保存判断后，评估端才能读取相同 case 编号的 audit 文件。
+公开输入共引用五篇文档：三篇特征定义、一篇 LTE／WiFi／DVB-T 物理解释和一篇冻结周期门控说明。Hermes Skill 只解释已经存在的公开文件，不在同一会话中生成实验条件，也不能重新选择标签。正式盲测应开启新的 Hermes 会话，只向它提供 `blind/case_XXXX.json` 中性路径；得到并保存解释后，评估端才能读取私有 `audit.json` 中相同 case 编号的记录。
 
 ### 13.10 `signal-feature-classifier`
 
-先从固定IQ split构建region级62维特征数据集：
+先从固定 IQ split 构建 region 级 64 维特征数据集：
 
 ```bash
 PYTHONPATH=src python -m signal_fusion.feature_classifier.cli build-dataset \

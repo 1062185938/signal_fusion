@@ -1,7 +1,7 @@
 import json
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
 import numpy as np
 
@@ -27,9 +27,144 @@ from signal_fusion.benchmarks.technology_recognition_awgn import (
     AWGN_WINDOW_SIZES,
     summarize_awgn_runs,
 )
+from signal_fusion.benchmarks.technology_recognition_cross_rate import (
+    CROSS_RATE_DATASET_ID,
+    SOURCE_REGION_SIZE,
+    assemble_cross_rate_test_dataset,
+    prepare_cross_rate_sources,
+    select_external_10msps_recordings,
+)
 
 
 class TechnologyRecognitionBenchmarkTests(unittest.TestCase):
+    def test_selects_all_native_10msps_recordings_with_unique_provenance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            recordings = []
+            class_counts = {"LTE": 12, "WiFi": 9, "DVB-T": 5}
+            frequencies = {
+                "LTE": 806_000_000,
+                "WiFi": 2_412_000_000,
+                "DVB-T": 482_000_000,
+            }
+            for technology, count in class_counts.items():
+                for run in range(1, count + 1):
+                    location = "gentbrugge"
+                    path = root / location / f"{technology}_{run}.bin"
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    np.ones(8, dtype=np.complex64).tofile(path)
+                    recordings.append(
+                        {
+                            "relative_path": str(path.relative_to(root)),
+                            "location": location,
+                            "technology": technology,
+                            "sample_rate": 10_000_000,
+                            "gain_db": 20,
+                            "filename_location": (
+                                "uz" if technology == "LTE" and run == 1 else location
+                            ),
+                            "center_frequency_hz": frequencies[technology],
+                            "run": run,
+                            "file_size_aligned": True,
+                            "complex_sample_count": 8,
+                            "selected_for_v1": False,
+                        }
+                    )
+
+            selected_inventory = select_external_10msps_recordings(
+                {"dataset_root": str(root), "recordings": recordings}
+            )
+            selected = [
+                entry
+                for entry in selected_inventory["recordings"]
+                if entry["selected_for_v1"]
+            ]
+
+        self.assertEqual(len(selected), 26)
+        self.assertEqual(len({entry["source_id"] for entry in selected}), 26)
+        self.assertEqual(
+            selected_inventory["recording_selection"]["file_counts_by_class"],
+            class_counts,
+        )
+        self.assertEqual(
+            selected_inventory["recording_selection"][
+                "filename_location_mismatch_count"
+            ],
+            1,
+        )
+
+    def test_prepares_and_assembles_dual_rate_test_regions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "gentbrugge" / "lte10.bin"
+            source.parent.mkdir(parents=True, exist_ok=True)
+            sample_count = SOURCE_REGION_SIZE * 2
+            phase = (
+                np.arange(sample_count, dtype=np.float64)
+                * (2.0 * np.pi * 100_000.0 / 10_000_000.0)
+            )
+            np.exp(1j * phase).astype(np.complex64).tofile(source)
+            source_id = "tr_external10_gentbrugge_lte_f806_g20_r01"
+            inventory = {
+                "dataset_id": CROSS_RATE_DATASET_ID,
+                "dataset_root": str(root),
+                "recording_set": "external_10msps",
+                "recordings": [
+                    {
+                        "relative_path": str(source.relative_to(root)),
+                        "location": "gentbrugge",
+                        "filename_location": "uz",
+                        "filename_location_mismatch": True,
+                        "evaluation_group": "native_10msps_resampled_to_1msps",
+                        "technology": "LTE",
+                        "sample_rate": 10_000_000,
+                        "center_frequency_hz": 806_000_000,
+                        "gain_db": 20,
+                        "run": 1,
+                        "complex_sample_count": sample_count,
+                        "source_id": source_id,
+                        "selected_for_v1": True,
+                    }
+                ],
+            }
+            profile = root / "profile"
+            preparation = prepare_cross_rate_sources(inventory, profile)
+            output = root / "test.npz"
+            assembly = assemble_cross_rate_test_dataset(
+                inventory,
+                profile / "prepared_sources",
+                output,
+            )
+
+            with np.load(output, allow_pickle=False) as dataset:
+                self.assertEqual(dataset["X"].shape, (4, 2, 2048))
+                np.testing.assert_array_equal(dataset["group_id"], [0, 0, 1, 1])
+                np.testing.assert_array_equal(
+                    dataset["source_window_start_sample"],
+                    [0, 20480, 40960, 61440],
+                )
+                np.testing.assert_array_equal(
+                    dataset["target_window_start_sample"],
+                    [0, 2048, 4096, 6144],
+                )
+                np.testing.assert_array_equal(
+                    dataset["source_sample_rate"],
+                    np.full(4, 10_000_000),
+                )
+                np.testing.assert_array_equal(
+                    dataset["target_sample_rate"],
+                    np.full(4, 1_000_000),
+                )
+                self.assertTrue(
+                    bool(dataset["sample_filename_location_mismatch"][0])
+                )
+                self.assertEqual(dataset["coordinate_schema"].item(), "dual_rate_v1")
+
+        self.assertEqual(preparation["total_regions"], 2)
+        self.assertEqual(preparation["total_windows"], 4)
+        self.assertEqual(assembly["region_count"], 2)
+        self.assertEqual(assembly["window_count"], 4)
+
     def test_writes_all_location_run_split_manifest(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

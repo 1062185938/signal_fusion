@@ -40,7 +40,7 @@ class FeatureClassifierResult:
 
 
 class FeatureClassifierService:
-    """Standardize 62 features and run the exported linear ONNX model."""
+    """Standardize 64 features and run the exported linear ONNX model."""
 
     def __init__(
         self,
@@ -66,7 +66,9 @@ class FeatureClassifierService:
             self.mean = np.asarray(scaler["mean"], dtype=np.float32)
             self.scale = np.asarray(scaler["scale"], dtype=np.float32)
         if self.mean.shape != (FEATURE_COUNT,) or self.scale.shape != (FEATURE_COUNT,):
-            raise ValueError("feature scaler must contain 62-dimensional mean and scale")
+            raise ValueError(
+                f"feature scaler must contain {FEATURE_COUNT}-dimensional mean and scale"
+            )
         if not np.all(np.isfinite(self.mean)) or not np.all(np.isfinite(self.scale)):
             raise ValueError("feature scaler contains non-finite values")
         if np.any(self.scale <= 0.0):

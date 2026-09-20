@@ -1,4 +1,4 @@
-"""Evaluation of a trained classifier on extracted 62-feature datasets."""
+"""Evaluation of a trained classifier on extracted 64-feature datasets."""
 
 from __future__ import annotations
 

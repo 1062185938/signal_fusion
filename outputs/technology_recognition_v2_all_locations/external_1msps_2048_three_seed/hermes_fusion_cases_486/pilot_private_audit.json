@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "artifact_visibility": "private_audit_do_not_send_to_llm",
+  "selection_policy": {
+    "ensemble_errors": "all 12",
+    "correct_member_disagreements": {
+      "LTE": 12,
+      "DVB-T": 12
+    },
+    "high_confidence_correct_controls": {
+      "LTE": 4,
+      "WiFi": 4,
+      "DVB-T": 4
+    },
+    "public_order_seed": 44
+  },
+  "case_count": 48,
+  "cases_in_public_order": [
+    {
+      "analysis_id": "case_0065",
+      "group_id": 5223,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "WiFi",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.9999708533287048,
+      "source_id": "tr_external_igent_wifi_f2412_r01"
+    },
+    {
+      "analysis_id": "case_0002",
+      "group_id": 110,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.9999270538489023,
+      "source_id": "tr_external_igent_dvbt_f482_r01"
+    },
+    {
+      "analysis_id": "case_0041",
+      "group_id": 3870,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.6925845959534248,
+      "source_id": "tr_external_igent_lte_f806_r05"
+    },
+    {
+      "analysis_id": "case_0450",
+      "group_id": 8168,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5496560034419721,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0301",
+      "group_id": 7583,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.511947724968195,
+      "source_id": "tr_external_uz_dvbt_f482_r04"
+    },
+    {
+      "analysis_id": "case_0191",
+      "group_id": 7230,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5626629205653444,
+      "source_id": "tr_external_uz_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0044",
+      "group_id": 3874,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5462225191295147,
+      "source_id": "tr_external_igent_lte_f806_r05"
+    },
+    {
+      "analysis_id": "case_0080",
+      "group_id": 5739,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "WiFi",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.9999686280886332,
+      "source_id": "tr_external_merelbeke_wifi_f5180_r01"
+    },
+    {
+      "analysis_id": "case_0482",
+      "group_id": 10612,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5006605265055745,
+      "source_id": "tr_external_uz_lte_f806_r06"
+    },
+    {
+      "analysis_id": "case_0023",
+      "group_id": 2768,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.9999415576457977,
+      "source_id": "tr_external_igent_lte_f806_r01"
+    },
+    {
+      "analysis_id": "case_0035",
+      "group_id": 3466,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6048628352582455,
+      "source_id": "tr_external_igent_lte_f806_r03"
+    },
+    {
+      "analysis_id": "case_0126",
+      "group_id": 6934,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5462964344769716,
+      "source_id": "tr_external_uz_dvbt_f482_r02"
+    },
+    {
+      "analysis_id": "case_0121",
+      "group_id": 6918,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5787112563848495,
+      "source_id": "tr_external_uz_dvbt_f482_r02"
+    },
+    {
+      "analysis_id": "case_0010",
+      "group_id": 989,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.9999220172564188,
+      "source_id": "tr_external_igent_dvbt_f482_r04"
+    },
+    {
+      "analysis_id": "case_0043",
+      "group_id": 3872,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5372319615756472,
+      "source_id": "tr_external_igent_lte_f806_r05"
+    },
+    {
+      "analysis_id": "case_0087",
+      "group_id": 6012,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "WiFi",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.9999682903289795,
+      "source_id": "tr_external_merelbeke_wifi_f5180_r02"
+    },
+    {
+      "analysis_id": "case_0057",
+      "group_id": 4751,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5178737997969923,
+      "source_id": "tr_external_igent_lte_f806_r08"
+    },
+    {
+      "analysis_id": "case_0056",
+      "group_id": 4749,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5125285096776983,
+      "source_id": "tr_external_igent_lte_f806_r08"
+    },
+    {
+      "analysis_id": "case_0464",
+      "group_id": 8233,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5412680963054299,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0470",
+      "group_id": 8264,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.47781363874673843,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0027",
+      "group_id": 3076,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5141218117411578,
+      "source_id": "tr_external_igent_lte_f806_r02"
+    },
+    {
+      "analysis_id": "case_0192",
+      "group_id": 7231,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5022821258753538,
+      "source_id": "tr_external_uz_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0064",
+      "group_id": 5201,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6948093213140965,
+      "source_id": "tr_external_igent_lte_f806_r09"
+    },
+    {
+      "analysis_id": "case_0038",
+      "group_id": 3593,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.9999179740746816,
+      "source_id": "tr_external_igent_lte_f806_r03"
+    },
+    {
+      "analysis_id": "case_0005",
+      "group_id": 578,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.9999313155810038,
+      "source_id": "tr_external_igent_dvbt_f482_r02"
+    },
+    {
+      "analysis_id": "case_0092",
+      "group_id": 6212,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "WiFi",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.9999688863754272,
+      "source_id": "tr_external_merelbeke_wifi_f5180_r03"
+    },
+    {
+      "analysis_id": "case_0185",
+      "group_id": 7223,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5185888692018731,
+      "source_id": "tr_external_uz_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0461",
+      "group_id": 8198,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.512077217300733,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0008",
+      "group_id": 888,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.9999328255653381,
+      "source_id": "tr_external_igent_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0037",
+      "group_id": 3492,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5181142518607279,
+      "source_id": "tr_external_igent_lte_f806_r03"
+    },
+    {
+      "analysis_id": "case_0209",
+      "group_id": 7249,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5067756347125396,
+      "source_id": "tr_external_uz_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0039",
+      "group_id": 3607,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.9999415079752604,
+      "source_id": "tr_external_igent_lte_f806_r04"
+    },
+    {
+      "analysis_id": "case_0025",
+      "group_id": 2861,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6745016823212305,
+      "source_id": "tr_external_igent_lte_f806_r10"
+    },
+    {
+      "analysis_id": "case_0164",
+      "group_id": 7191,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6913381417592367,
+      "source_id": "tr_external_uz_dvbt_f482_r03"
+    },
+    {
+      "analysis_id": "case_0033",
+      "group_id": 3285,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.681363311605916,
+      "source_id": "tr_external_igent_lte_f806_r02"
+    },
+    {
+      "analysis_id": "case_0463",
+      "group_id": 8232,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.511977821685529,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0406",
+      "group_id": 7803,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5010529371599356,
+      "source_id": "tr_external_uz_dvbt_f482_r05"
+    },
+    {
+      "analysis_id": "case_0471",
+      "group_id": 8266,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "WiFi",
+      "ensemble_confidence": 0.509822261830171,
+      "source_id": "tr_external_uz_dvbt_f482_r07"
+    },
+    {
+      "analysis_id": "case_0021",
+      "group_id": 2516,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.7621465822060903,
+      "source_id": "tr_external_igent_dvbt_f482_r09"
+    },
+    {
+      "analysis_id": "case_0098",
+      "group_id": 6751,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.6786139874408642,
+      "source_id": "tr_external_uz_dvbt_f482_r10"
+    },
+    {
+      "analysis_id": "case_0045",
+      "group_id": 3876,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.8202528282999992,
+      "source_id": "tr_external_igent_lte_f806_r05"
+    },
+    {
+      "analysis_id": "case_0335",
+      "group_id": 7654,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5036075624326865,
+      "source_id": "tr_external_uz_dvbt_f482_r05"
+    },
+    {
+      "analysis_id": "case_0030",
+      "group_id": 3095,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6458866638907542,
+      "source_id": "tr_external_igent_lte_f806_r02"
+    },
+    {
+      "analysis_id": "case_0031",
+      "group_id": 3130,
+      "selection_role": "high_confidence_correct_control",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.9999253253142039,
+      "source_id": "tr_external_igent_lte_f806_r02"
+    },
+    {
+      "analysis_id": "case_0295",
+      "group_id": 7506,
+      "selection_role": "member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "DVB-T",
+      "ensemble_confidence": 0.5512764702240626,
+      "source_id": "tr_external_uz_dvbt_f482_r04"
+    },
+    {
+      "analysis_id": "case_0042",
+      "group_id": 3871,
+      "selection_role": "member_disagreement",
+      "true_label": "LTE",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5407978355263671,
+      "source_id": "tr_external_igent_lte_f806_r05"
+    },
+    {
+      "analysis_id": "case_0332",
+      "group_id": 7647,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.6757173538208008,
+      "source_id": "tr_external_uz_dvbt_f482_r05"
+    },
+    {
+      "analysis_id": "case_0338",
+      "group_id": 7659,
+      "selection_role": "ensemble_error+member_disagreement",
+      "true_label": "DVB-T",
+      "ensemble_label": "LTE",
+      "ensemble_confidence": 0.5022584861872019,
+      "source_id": "tr_external_uz_dvbt_f482_r05"
+    }
+  ]
+}

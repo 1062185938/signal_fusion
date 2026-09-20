@@ -275,7 +275,7 @@ def _feature_model_evidence(
             }
             for class_index in ranked
         ],
-        "input_scope": "complete_continuous_region_62_features",
+        "input_scope": "complete_continuous_region_64_features",
     }
 
 
@@ -424,9 +424,9 @@ def analyze_group_branches(
         ),
         "interpretation_notes": [
             "source provenance is audit-only and must not be classification evidence",
-            "the 62 features are extracted once from the continuous region",
+            "the 64 features are extracted once from the continuous region",
             "the IQ model uses local windows cut from that same continuous region",
-            "the feature classifier consumes the same single 62-feature vector",
+            "the feature classifier consumes the same single 64-feature vector",
             "no probability fusion rule is applied in this phase",
         ],
     }
@@ -555,13 +555,13 @@ def build_hermes_input(
         },
         "objective": (
             "Explain the deterministic fusion result using the two classifier "
-            "branches and the global 62-dimensional feature observations"
+            "branches and the global 64-dimensional feature observations"
         ),
         "decision_rules": [
             "Use fusion_result.final_label as the final classification",
             "Treat the two classifier Top3 outputs as separate evidence branches",
             "Use window agreement only to describe IQ-model local stability",
-            "Use the 62 values as the global physical description of the region",
+            "Use the 64 values as the global physical description of the region",
             "Read all three feature documents under reference_root completely before interpreting the feature values",
             "Do not treat an individual handcrafted feature as a class signature",
             "State material conflicts between either classifier and the global features",

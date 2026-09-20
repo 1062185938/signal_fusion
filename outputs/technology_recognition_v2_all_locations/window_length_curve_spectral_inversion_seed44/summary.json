@@ -1,0 +1,1232 @@
+{
+  "schema_version": 1,
+  "analysis_type": "matched_window_length_curve",
+  "device": "cuda",
+  "fusion_performed": false,
+  "window_sizes": [
+    512,
+    1024,
+    2048,
+    4096
+  ],
+  "region_samples": 4096,
+  "sample_rate_hz": 1000000.0,
+  "training_condition": {
+    "seed": 44,
+    "spectral_inversion_probability": 0.5,
+    "frequency_shift_probability": 0.0,
+    "awgn_probability": 0.0
+  },
+  "models": {
+    "512": "outputs/technology_recognition_v2_all_locations/window_512_spectral_inversion_p0p5/best_model.pth",
+    "1024": "outputs/technology_recognition_v2_all_locations/window_1024_spectral_inversion_p0p5/best_model.pth",
+    "2048": "outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/best_model.pth",
+    "4096": "outputs/technology_recognition_v2_all_locations/window_4096_spectral_inversion_p0p5/best_model.pth"
+  },
+  "training_results": {
+    "512": {
+      "window_test_accuracy_percent": 99.21097636815921,
+      "elapsed_seconds": 232.96486902236938,
+      "epochs_completed": 26
+    },
+    "1024": {
+      "window_test_accuracy_percent": 99.65018656716418,
+      "elapsed_seconds": 210.2857322692871,
+      "epochs_completed": 30
+    },
+    "2048": {
+      "window_test_accuracy_percent": 99.92226368159204,
+      "elapsed_seconds": 186.585777759552,
+      "epochs_completed": 30
+    },
+    "4096": {
+      "window_test_accuracy_percent": 99.96890547263682,
+      "elapsed_seconds": 119.59542489051819,
+      "epochs_completed": 21
+    }
+  },
+  "internal_fixed_test": {
+    "512": {
+      "overall": {
+        "count": 3216,
+        "correct_count": 3215,
+        "accuracy_percent": 99.96890547263682
+      },
+      "per_class": {
+        "LTE": {
+          "count": 1072,
+          "correct_count": 1071,
+          "accuracy_percent": 99.90671641791045
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "1024": {
+      "overall": {
+        "count": 3216,
+        "correct_count": 3212,
+        "accuracy_percent": 99.87562189054727
+      },
+      "per_class": {
+        "LTE": {
+          "count": 1072,
+          "correct_count": 1068,
+          "accuracy_percent": 99.6268656716418
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "2048": {
+      "overall": {
+        "count": 3216,
+        "correct_count": 3215,
+        "accuracy_percent": 99.96890547263682
+      },
+      "per_class": {
+        "LTE": {
+          "count": 1072,
+          "correct_count": 1071,
+          "accuracy_percent": 99.90671641791045
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "4096": {
+      "overall": {
+        "count": 3216,
+        "correct_count": 3215,
+        "accuracy_percent": 99.96890547263682
+      },
+      "per_class": {
+        "LTE": {
+          "count": 1072,
+          "correct_count": 1071,
+          "accuracy_percent": 99.90671641791045
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        }
+      }
+    }
+  },
+  "external_1msps_test": {
+    "512": {
+      "overall": {
+        "count": 11641,
+        "correct_count": 9973,
+        "accuracy_percent": 85.67133407782836
+      },
+      "per_class": {
+        "LTE": {
+          "count": 5360,
+          "correct_count": 5355,
+          "accuracy_percent": 99.90671641791045
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 5209,
+          "correct_count": 3546,
+          "accuracy_percent": 68.07448646573239
+        }
+      },
+      "per_location": {
+        "igent": {
+          "count": 5477,
+          "correct_count": 5473,
+          "accuracy_percent": 99.92696731787476
+        },
+        "merelbeke": {
+          "count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0
+        },
+        "uz": {
+          "count": 5360,
+          "correct_count": 3696,
+          "accuracy_percent": 68.95522388059702
+        }
+      },
+      "per_source": {
+        "tr_external_igent_dvbt_f482_r01": {
+          "count": 117,
+          "correct_count": 117,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 266,
+          "accuracy_percent": 99.25373134328358
+        },
+        "tr_external_igent_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 266,
+          "accuracy_percent": 99.25373134328358
+        },
+        "tr_external_igent_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_wifi_f2412_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r01": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_uz_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 0,
+          "accuracy_percent": 0.0
+        },
+        "tr_external_uz_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 0,
+          "accuracy_percent": 0.0
+        },
+        "tr_external_uz_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 56,
+          "accuracy_percent": 20.8955223880597
+        },
+        "tr_external_uz_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 0,
+          "accuracy_percent": 0.0
+        },
+        "tr_external_uz_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 0,
+          "accuracy_percent": 0.0
+        },
+        "tr_external_uz_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 161,
+          "accuracy_percent": 60.07462686567165
+        },
+        "tr_external_uz_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 261,
+          "accuracy_percent": 97.38805970149254
+        },
+        "tr_external_uz_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 4,
+          "accuracy_percent": 1.4925373134328357
+        },
+        "tr_external_uz_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_uz_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "1024": {
+      "overall": {
+        "count": 11641,
+        "correct_count": 10761,
+        "accuracy_percent": 92.44051198350657
+      },
+      "per_class": {
+        "LTE": {
+          "count": 5360,
+          "correct_count": 5354,
+          "accuracy_percent": 99.88805970149254
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 5209,
+          "correct_count": 4335,
+          "accuracy_percent": 83.22134766749856
+        }
+      },
+      "per_location": {
+        "igent": {
+          "count": 5477,
+          "correct_count": 5472,
+          "accuracy_percent": 99.90870914734343
+        },
+        "merelbeke": {
+          "count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0
+        },
+        "uz": {
+          "count": 5360,
+          "correct_count": 4485,
+          "accuracy_percent": 83.67537313432835
+        }
+      },
+      "per_source": {
+        "tr_external_igent_dvbt_f482_r01": {
+          "count": 117,
+          "correct_count": 117,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_igent_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 265,
+          "accuracy_percent": 98.88059701492537
+        },
+        "tr_external_igent_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_igent_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_wifi_f2412_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 34,
+          "accuracy_percent": 12.686567164179104
+        },
+        "tr_external_uz_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 67,
+          "accuracy_percent": 25.0
+        },
+        "tr_external_uz_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 179,
+          "accuracy_percent": 66.7910447761194
+        },
+        "tr_external_uz_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 9,
+          "accuracy_percent": 3.3582089552238807
+        },
+        "tr_external_uz_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 264,
+          "accuracy_percent": 98.50746268656717
+        },
+        "tr_external_uz_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 201,
+          "accuracy_percent": 75.0
+        },
+        "tr_external_uz_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 248,
+          "accuracy_percent": 92.53731343283582
+        },
+        "tr_external_uz_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_uz_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "2048": {
+      "overall": {
+        "count": 11641,
+        "correct_count": 11494,
+        "accuracy_percent": 98.73722188815394
+      },
+      "per_class": {
+        "LTE": {
+          "count": 5360,
+          "correct_count": 5348,
+          "accuracy_percent": 99.77611940298507
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 5209,
+          "correct_count": 5074,
+          "accuracy_percent": 97.4083317335381
+        }
+      },
+      "per_location": {
+        "igent": {
+          "count": 5477,
+          "correct_count": 5465,
+          "accuracy_percent": 99.78090195362425
+        },
+        "merelbeke": {
+          "count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0
+        },
+        "uz": {
+          "count": 5360,
+          "correct_count": 5225,
+          "accuracy_percent": 97.48134328358209
+        }
+      },
+      "per_source": {
+        "tr_external_igent_dvbt_f482_r01": {
+          "count": 117,
+          "correct_count": 117,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 265,
+          "accuracy_percent": 98.88059701492537
+        },
+        "tr_external_igent_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 266,
+          "accuracy_percent": 99.25373134328358
+        },
+        "tr_external_igent_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 261,
+          "accuracy_percent": 97.38805970149254
+        },
+        "tr_external_igent_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_wifi_f2412_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 226,
+          "accuracy_percent": 84.32835820895522
+        },
+        "tr_external_uz_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 260,
+          "accuracy_percent": 97.01492537313433
+        },
+        "tr_external_uz_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 234,
+          "accuracy_percent": 87.31343283582089
+        },
+        "tr_external_uz_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 218,
+          "accuracy_percent": 81.34328358208955
+        },
+        "tr_external_uz_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_uz_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "4096": {
+      "overall": {
+        "count": 11641,
+        "correct_count": 10723,
+        "accuracy_percent": 92.11407954643072
+      },
+      "per_class": {
+        "LTE": {
+          "count": 5360,
+          "correct_count": 5356,
+          "accuracy_percent": 99.92537313432835
+        },
+        "WiFi": {
+          "count": 1072,
+          "correct_count": 1072,
+          "accuracy_percent": 100.0
+        },
+        "DVB-T": {
+          "count": 5209,
+          "correct_count": 4295,
+          "accuracy_percent": 82.45344595891726
+        }
+      },
+      "per_location": {
+        "igent": {
+          "count": 5477,
+          "correct_count": 5470,
+          "accuracy_percent": 99.87219280628081
+        },
+        "merelbeke": {
+          "count": 804,
+          "correct_count": 804,
+          "accuracy_percent": 100.0
+        },
+        "uz": {
+          "count": 5360,
+          "correct_count": 4449,
+          "accuracy_percent": 83.00373134328358
+        }
+      },
+      "per_source": {
+        "tr_external_igent_dvbt_f482_r01": {
+          "count": 117,
+          "correct_count": 117,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_igent_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_igent_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_igent_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 264,
+          "accuracy_percent": 98.50746268656717
+        },
+        "tr_external_igent_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_igent_wifi_f2412_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_merelbeke_wifi_f5180_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r01": {
+          "count": 268,
+          "correct_count": 267,
+          "accuracy_percent": 99.6268656716418
+        },
+        "tr_external_uz_dvbt_f482_r02": {
+          "count": 268,
+          "correct_count": 10,
+          "accuracy_percent": 3.731343283582089
+        },
+        "tr_external_uz_dvbt_f482_r03": {
+          "count": 268,
+          "correct_count": 155,
+          "accuracy_percent": 57.83582089552238
+        },
+        "tr_external_uz_dvbt_f482_r04": {
+          "count": 268,
+          "correct_count": 36,
+          "accuracy_percent": 13.432835820895523
+        },
+        "tr_external_uz_dvbt_f482_r05": {
+          "count": 268,
+          "correct_count": 68,
+          "accuracy_percent": 25.37313432835821
+        },
+        "tr_external_uz_dvbt_f482_r06": {
+          "count": 268,
+          "correct_count": 265,
+          "accuracy_percent": 98.88059701492537
+        },
+        "tr_external_uz_dvbt_f482_r07": {
+          "count": 268,
+          "correct_count": 245,
+          "accuracy_percent": 91.4179104477612
+        },
+        "tr_external_uz_dvbt_f482_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_dvbt_f482_r09": {
+          "count": 268,
+          "correct_count": 209,
+          "accuracy_percent": 77.98507462686567
+        },
+        "tr_external_uz_dvbt_f482_r10": {
+          "count": 268,
+          "correct_count": 246,
+          "accuracy_percent": 91.7910447761194
+        },
+        "tr_external_uz_lte_f806_r01": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r02": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r03": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r04": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r05": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r06": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r07": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r08": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r09": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        },
+        "tr_external_uz_lte_f806_r10": {
+          "count": 268,
+          "correct_count": 268,
+          "accuracy_percent": 100.0
+        }
+      }
+    }
+  },
+  "pairwise_complementarity_with_4096": {
+    "512": {
+      "both_correct_count": 9863,
+      "only_512_correct_count": 110,
+      "only_4096_correct_count": 860,
+      "both_wrong_count": 808,
+      "oracle_accuracy_percent": 93.0590155484924,
+      "oracle_gain_over_4096_pp": 0.9449360020616804
+    },
+    "1024": {
+      "both_correct_count": 10462,
+      "only_1024_correct_count": 299,
+      "only_4096_correct_count": 261,
+      "both_wrong_count": 619,
+      "oracle_accuracy_percent": 94.68258740658018,
+      "oracle_gain_over_4096_pp": 2.5685078601494715
+    },
+    "2048": {
+      "both_correct_count": 10712,
+      "only_2048_correct_count": 782,
+      "only_4096_correct_count": 11,
+      "both_wrong_count": 136,
+      "oracle_accuracy_percent": 98.8317154883601,
+      "oracle_gain_over_4096_pp": 6.717635941929389
+    }
+  },
+  "four_scale_oracle": {
+    "correct_count": 11514,
+    "accuracy_percent": 98.90902843398334,
+    "gain_over_4096_pp": 6.794948887552621
+  },
+  "elapsed_seconds": 12.68039584159851
+}

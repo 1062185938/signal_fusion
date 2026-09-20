@@ -1,4 +1,3 @@
-import importlib.util
 import json
 from pathlib import Path
 import tempfile
@@ -19,29 +18,8 @@ from signal_fusion.feature_extraction import (
     default_library_dir,
     feature_code_names,
     load_feature_map,
-    native_resource_dir,
 )
-from signal_fusion.feature_extraction.cli import extract_features_from_dataset
-
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-WIFI_FIXTURE = (
-    PROJECT_ROOT
-    / "data/raw/wifi/"
-    "WIFI_5_batch;Freq=5230 MHz;Span=80 MHz;Rate=100.0 MHz;0005.mat"
-)
-FEATURE_GOLDEN = (
-    PROJECT_ROOT / "data/processed/extraction/wifi_5_features_4096_smoke.npz"
-)
-
-
-def _load_module(module_name: str, path: Path):
-    spec = importlib.util.spec_from_file_location(module_name, path)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Cannot import compatibility wrapper: {path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+from signal_fusion.feature_extraction.cli import write_feature_result
 
 
 class FakeFeatureBackend:
@@ -70,7 +48,7 @@ class FeatureResultTests(unittest.TestCase):
         self.assertEqual(evidence.kind, "iq_features")
         self.assertEqual(evidence.producer, FEATURE_SCHEMA_ID)
         self.assertEqual(len(evidence.payload["values"]), FEATURE_COUNT)
-        self.assertIn('"feature_61": 61.0', serialized)
+        self.assertIn('"feature_63": 63.0', serialized)
 
     def test_contract_rejects_wrong_feature_width(self):
         with self.assertRaisesRegex(ValueError, "shape"):
@@ -84,9 +62,32 @@ class FeatureResultTests(unittest.TestCase):
                 seq_len=128,
             )
 
+    def test_written_artifact_identifies_the_current_schema(self):
+        result = FeatureResult(
+            source_id="artifact",
+            features=np.zeros((1, FEATURE_COUNT), dtype=np.float32),
+            feature_names=tuple(
+                f"feature_{index}" for index in range(FEATURE_COUNT)
+            ),
+            sample_rate=1_000_000,
+            seq_len=128,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            output = write_feature_result(result, Path(directory) / "features.npz")
+            with np.load(output, allow_pickle=False) as artifact:
+                schema_id = str(artifact["feature_schema_id"].reshape(()).item())
+                feature_count = int(artifact["feature_count"].reshape(()).item())
+                source_dataset_id = str(
+                    artifact["source_dataset_id"].reshape(()).item()
+                )
+
+        self.assertEqual(schema_id, FEATURE_SCHEMA_ID)
+        self.assertEqual(feature_count, FEATURE_COUNT)
+        self.assertEqual(source_dataset_id, "artifact")
+
 
 class FeatureMapTests(unittest.TestCase):
-    def test_phase0_feature_map_contract_is_explicit(self):
+    def test_current_feature_map_contract_is_explicit(self):
         mapping = load_feature_map()
         names = feature_code_names(mapping)
         counts = {
@@ -95,76 +96,62 @@ class FeatureMapTests(unittest.TestCase):
         }
 
         self.assertEqual(mapping["feature_count"], FEATURE_COUNT)
+        self.assertEqual(mapping["schema_id"], FEATURE_SCHEMA_ID)
         self.assertEqual(counts, EXPECTED_GROUP_COUNTS)
         self.assertEqual(names[0], "time_rms_amplitude")
         self.assertEqual(
             names[-1], "time_frequency_wsst_ridge_energy_ratio"
         )
 
-    def test_packaged_feature_map_and_reference_documents_are_exact_copies(self):
-        legacy_references = PROJECT_ROOT / "iq_feature_extraction/references"
-        packaged_references = default_feature_map_path().parent
-        filenames = (
-            "feature_map.json",
+        self.assertIn("time_envelope_power_autocorrelation_peak", names)
+        self.assertIn("time_frequency_stft_frame_energy_cv", names)
+
+    def test_packaged_reference_documents_are_resolvable(self):
+        references = default_feature_map_path().parent
+        self.assertIn(
+            "signal_fusion/feature_extraction/assets",
+            references.as_posix(),
+        )
+        for filename in (
             "frequency_domain_iq_features.md",
             "time_domain_iq_features.md",
             "time_frequency_iq_features.md",
-        )
-
-        self.assertIn(
-            "signal_fusion/feature_extraction/assets",
-            packaged_references.as_posix(),
-        )
-        for filename in filenames:
-            self.assertEqual(
-                (packaged_references / filename).read_bytes(),
-                (legacy_references / filename).read_bytes(),
-            )
-
-        legacy_mapping = load_feature_map(legacy_references / "feature_map.json")
-        packaged_mapping = load_feature_map()
-        self.assertEqual(
-            feature_code_names(packaged_mapping),
-            feature_code_names(legacy_mapping),
-        )
+        ):
+            self.assertTrue((references / filename).is_file())
 
 
 class FeatureNativeAssetTests(unittest.TestCase):
-    def test_packaged_header_is_exact_copy_of_both_legacy_headers(self):
-        packaged_header = c_api_header_path().read_bytes()
+    def test_packaged_header_and_linux_library_use_64_feature_contract(self):
+        header = c_api_header_path().read_text(encoding="utf-8")
+        library = default_library_dir() / "libextractAllFeatures.so"
 
-        self.assertEqual(
-            packaged_header,
-            (PROJECT_ROOT / "iq_feature_extraction/native/linux/iq_feature_c_api.h")
-            .read_bytes(),
-        )
-        self.assertEqual(
-            packaged_header,
-            (PROJECT_ROOT / "iq_feature_extraction/native/windows/iq_feature_c_api.h")
-            .read_bytes(),
-        )
+        self.assertIn("64 维特征", header)
+        self.assertIn("长度至少为 64", header)
+        self.assertTrue(library.is_file())
+        self.assertGreater(library.stat().st_size, 0)
 
-    def test_packaged_native_bundles_are_exact_copies(self):
-        legacy_native = PROJECT_ROOT / "iq_feature_extraction/native"
-        linux_dir = native_resource_dir("linux")
-        windows_dir = native_resource_dir("windows")
+    def test_linux_library_extracts_one_finite_64_feature_vector(self):
+        sample_count = 512
+        time = np.arange(sample_count, dtype=np.float64) / sample_count
+        amplitude = 0.7 + 0.3 * np.sin(2.0 * np.pi * 3.0 * time)
+        phase = 2.0 * np.pi * (17.0 * time + 11.0 * time**2)
+        samples = amplitude * np.exp(1j * phase)
 
-        self.assertEqual(default_library_dir(), linux_dir)
-        self.assertEqual(
-            (linux_dir / "libextractAllFeatures.so").read_bytes(),
-            (legacy_native / "linux/libextractAllFeatures.so").read_bytes(),
-        )
-        for filename in (
-            "extractAllFeatures.dll",
-            "libgcc_s_seh-1.dll",
-            "libgomp-1.dll",
-            "libstdc++-6.dll",
-            "libwinpthread-1.dll",
-        ):
-            self.assertEqual(
-                (windows_dir / filename).read_bytes(),
-                (legacy_native / "windows" / filename).read_bytes(),
+        with IQFeatureCtypesBackend() as backend:
+            features = backend.extract_features(
+                samples.real,
+                samples.imag,
+                1_000_000.0,
             )
+
+        self.assertEqual(features.shape, (FEATURE_COUNT,))
+        self.assertEqual(features.dtype, np.float32)
+        self.assertTrue(np.all(np.isfinite(features)))
+        centered_envelope = np.abs(samples - np.mean(samples))
+        expected_envelope_cv = float(
+            np.std(centered_envelope, ddof=1) / np.mean(centered_envelope)
+        )
+        self.assertAlmostEqual(float(features[4]), expected_envelope_cv, places=5)
 
 
 class FeatureExtractionServiceTests(unittest.TestCase):
@@ -202,64 +189,6 @@ class FeatureExtractionServiceTests(unittest.TestCase):
                 backend=FakeFeatureBackend(),
                 progress_every=0,
             )
-
-
-class FeatureCompatibilityTests(unittest.TestCase):
-    def test_legacy_modules_reexport_core_runtime(self):
-        scripts = PROJECT_ROOT / "iq_feature_extraction/scripts"
-        backend_wrapper = _load_module(
-            "legacy_feature_backend", scripts / "ctypes_backend.py"
-        )
-        map_wrapper = _load_module(
-            "legacy_feature_map", scripts / "feature_map_utils.py"
-        )
-        cli_wrapper = _load_module(
-            "legacy_feature_cli", scripts / "feature_extractor.py"
-        )
-
-        self.assertIs(backend_wrapper.IQFeatureCtypesBackend, IQFeatureCtypesBackend)
-        self.assertIs(map_wrapper.load_feature_map, load_feature_map)
-        self.assertIs(
-            cli_wrapper.extract_features_from_dataset,
-            extract_features_from_dataset,
-        )
-
-    def test_real_wifi_fixture_preserves_five_field_npz_and_values(self):
-        with tempfile.TemporaryDirectory() as directory:
-            output_path = Path(directory) / "features.npz"
-            summary = extract_features_from_dataset(
-                data_path=str(WIFI_FIXTURE),
-                output_path=str(output_path),
-                data_format="mat",
-                x_key="iq",
-                seq_len=4096,
-                sample_rate=100_000_000,
-                max_samples=5,
-                progress_every=0,
-            )
-            with np.load(output_path, allow_pickle=False) as actual:
-                actual_payload = {
-                    field: actual[field].copy() for field in actual.files
-                }
-            with np.load(FEATURE_GOLDEN, allow_pickle=False) as expected:
-                expected_payload = {
-                    field: expected[field].copy() for field in expected.files
-                }
-
-        self.assertEqual(
-            list(actual_payload),
-            ["features", "sample_rate", "seq_len", "feature_count", "feature_names"],
-        )
-        self.assertEqual(summary["feature_shape"], (5, FEATURE_COUNT))
-        np.testing.assert_allclose(
-            actual_payload["features"],
-            expected_payload["features"],
-            rtol=1e-5,
-            atol=1e-6,
-        )
-        np.testing.assert_array_equal(
-            actual_payload["feature_names"], expected_payload["feature_names"]
-        )
 
 
 if __name__ == "__main__":

@@ -15,7 +15,12 @@ from signal_fusion.feature_classifier import (
     load_region_feature_split,
 )
 from signal_fusion.feature_classifier.trainer import train_feature_classifier
-from signal_fusion.feature_extraction import FEATURE_COUNT, feature_code_names, load_feature_map
+from signal_fusion.feature_extraction import (
+    FEATURE_COUNT,
+    FEATURE_SCHEMA_ID,
+    feature_code_names,
+    load_feature_map,
+)
 from signal_fusion.fusion import CompleteRegion
 
 
@@ -87,7 +92,7 @@ def _write_feature_split(
         sample_source_id=np.asarray([f"{split}_{index}" for index in range(count)]),
         condition=np.full(count, "clean"),
         feature_names=feature_names,
-        feature_schema_id=np.asarray("matlab_iq_features_62_v1"),
+        feature_schema_id=np.asarray(FEATURE_SCHEMA_ID),
         dataset_id=np.asarray("synthetic_region_features"),
         label_map_json=np.asarray(
             json.dumps({"0": "LoRa", "1": "Zigbee", "2": "BLE"})

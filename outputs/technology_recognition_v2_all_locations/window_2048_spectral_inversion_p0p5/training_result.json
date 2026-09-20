@@ -1,0 +1,48 @@
+{
+  "best_model_path": "outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/best_model.pth",
+  "onnx_path": "outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/technology_recognition_v2_all_locations_2048_spectral_inversion.onnx",
+  "test_acc": 99.92226368159204,
+  "test_loss": 0.002001009992699125,
+  "seq_len": 2048,
+  "input_channels": 2,
+  "class_num": 3,
+  "model_name": "deepconvnet_1d",
+  "optimizer": "adam",
+  "amp_enabled": true,
+  "device": "cuda",
+  "elapsed_sec": 186.585777759552,
+  "epochs_completed": 30,
+  "training_augmentation": {
+    "seed": 44,
+    "frequency_shift": {
+      "enabled": false,
+      "probability": 0.0,
+      "max_fraction_of_sample_rate": 0.0,
+      "post_shift_remove_dc": true,
+      "post_shift_rms_normalize": true
+    },
+    "spectral_inversion": {
+      "enabled": true,
+      "probability": 0.5,
+      "operation": "complex_conjugation"
+    },
+    "complex_awgn": {
+      "enabled": false,
+      "probability": 0.0,
+      "snr_db_min": 5.0,
+      "snr_db_max": 20.0,
+      "post_noise_remove_dc": true,
+      "post_noise_rms_normalize": true
+    }
+  },
+  "dataset_id": "technology_recognition_lte_wifi_dvbt_v2_all_regions_1msps_all_locations_clean_2048",
+  "dataset_dir": "data/external/processed/technology_recognition_lte_wifi_dvbt/v2_all_locations/window_2048",
+  "split_mode": "fixed",
+  "split_sizes": {
+    "train": 51456,
+    "validation": 6432,
+    "test": 6432
+  },
+  "label_map_path": "outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/label_map.json",
+  "training_result_path": "outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/training_result.json"
+}

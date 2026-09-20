@@ -1,5 +1,9 @@
 # Phase 0 重构前后验证方法
 
+> 历史验证说明：本页命令冻结的是 62 维 Phase 0 行为，仅用于阅读旧基线，
+> 不得再对当前 64 维动态库执行。当前连通性验证以
+> `tests/test_feature_extraction.py` 和 `matlab_iq_features_64_v2` 为准。
+
 ## 1. 验证原则
 
 后续重构允许目录、包名和 Agent/Skill 入口变化，但不能无意改变三类既有行为：
@@ -172,4 +176,3 @@ timeout 10s env PYTHONDONTWRITEBYTECODE=1 \
 - 不用 RadioML 2016.10a 大文件作为默认 smoke fixture。
 - 不评估单类 LoRa 模型的准确率、召回率或未知类拒识能力。
 - 不检查尚未实现的 signal fusion 与 LLM 输出。
-

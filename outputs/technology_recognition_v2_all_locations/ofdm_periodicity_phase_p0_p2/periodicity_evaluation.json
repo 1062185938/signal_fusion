@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "result_type": "technology_recognition_periodicity_phase_p0_p2",
+  "scope": {
+    "labels": [
+      "LTE",
+      "WiFi",
+      "DVB-T"
+    ],
+    "sample_rate_hz": 1000000,
+    "region_sample_count": 4096,
+    "periodicity_role": "LTE_vs_DVB-T_physical_evidence_only",
+    "wifi_is_not_classified_by_periodicity": true
+  },
+  "phase_p0_baseline": {
+    "source_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/external_1msps_2048_three_seed/ensemble_evaluation.json",
+    "labels": [
+      "LTE",
+      "WiFi",
+      "DVB-T"
+    ],
+    "region_count": 11641,
+    "source_count": 44,
+    "correct_count": 11629,
+    "error_count": 12,
+    "accuracy_percent": 99.89691607250236,
+    "unanimous_region_count": 11245,
+    "unanimous_error_count": 0,
+    "review_region_count": 396,
+    "review_error_count": 12
+  },
+  "phase_p1_measurement": {
+    "schema_id": "ofdm_periodicity_v1",
+    "method": "energy_normalized_complex_autocorrelation",
+    "search_radius_samples": 2,
+    "candidates": [
+      {
+        "candidate_id": "period_66p67us",
+        "period_seconds": 6.666666666666667e-05
+      },
+      {
+        "candidate_id": "period_224us",
+        "period_seconds": 0.000224
+      },
+      {
+        "candidate_id": "period_896us",
+        "period_seconds": 0.000896
+      }
+    ],
+    "classification_rule": "LTE when period_66p67us exceeds max(period_224us, period_896us), otherwise DVB-T"
+  },
+  "phase_p2_location_isolated_folds": [
+    {
+      "fold": "fold1",
+      "threshold_selection": "smallest absolute LTE/DVB score margin strictly above every validation misclassification",
+      "reliability_margin": 0.03614038974046708,
+      "train": {
+        "reliability_margin": 0.03614038974046708,
+        "lte_dvbt_region_count": 10720,
+        "raw_correct_count": 10419,
+        "raw_accuracy_percent": 97.19216417910448,
+        "reliable_count": 6472,
+        "reliable_coverage_percent": 60.37313432835821,
+        "reliable_correct_count": 6472,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 4248,
+        "wifi_region_count": 5360,
+        "wifi_counterfactual_reliable_count": 1284,
+        "wifi_counterfactual_reliable_percent": 23.955223880597014,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 5360,
+            "raw_correct_count": 5059,
+            "reliable_count": 1113,
+            "reliable_correct_count": 1113
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 5360,
+            "raw_correct_count": 5360,
+            "reliable_count": 5359,
+            "reliable_correct_count": 5359
+          }
+        }
+      },
+      "validation": {
+        "reliability_margin": 0.03614038974046708,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5226,
+        "raw_accuracy_percent": 97.5,
+        "reliable_count": 3087,
+        "reliable_coverage_percent": 57.593283582089555,
+        "reliable_correct_count": 3087,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 2273,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 365,
+        "wifi_counterfactual_reliable_percent": 13.619402985074627,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2551,
+            "reliable_count": 415,
+            "reliable_correct_count": 415
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2675,
+            "reliable_count": 2672,
+            "reliable_correct_count": 2672
+          }
+        }
+      },
+      "test": {
+        "reliability_margin": 0.03614038974046708,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5306,
+        "raw_accuracy_percent": 98.99253731343283,
+        "reliable_count": 3721,
+        "reliable_coverage_percent": 69.42164179104478,
+        "reliable_correct_count": 3721,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 1639,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 447,
+        "wifi_counterfactual_reliable_percent": 16.67910447761194,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2626,
+            "reliable_count": 1042,
+            "reliable_correct_count": 1042
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2679,
+            "reliable_correct_count": 2679
+          }
+        }
+      }
+    },
+    {
+      "fold": "fold2",
+      "threshold_selection": "smallest absolute LTE/DVB score margin strictly above every validation misclassification",
+      "reliability_margin": 0.03459586203098298,
+      "train": {
+        "reliability_margin": 0.03459586203098298,
+        "lte_dvbt_region_count": 10720,
+        "raw_correct_count": 10442,
+        "raw_accuracy_percent": 97.40671641791045,
+        "reliable_count": 6884,
+        "reliable_coverage_percent": 64.21641791044776,
+        "reliable_correct_count": 6884,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 3836,
+        "wifi_region_count": 5360,
+        "wifi_counterfactual_reliable_count": 927,
+        "wifi_counterfactual_reliable_percent": 17.294776119402986,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 5360,
+            "raw_correct_count": 5082,
+            "reliable_count": 1525,
+            "reliable_correct_count": 1525
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 5360,
+            "raw_correct_count": 5360,
+            "reliable_count": 5359,
+            "reliable_correct_count": 5359
+          }
+        }
+      },
+      "validation": {
+        "reliability_margin": 0.03459586203098298,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5283,
+        "raw_accuracy_percent": 98.56343283582089,
+        "reliable_count": 3542,
+        "reliable_coverage_percent": 66.08208955223881,
+        "reliable_correct_count": 3542,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 1818,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 1001,
+        "wifi_counterfactual_reliable_percent": 37.350746268656714,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2603,
+            "reliable_count": 863,
+            "reliable_correct_count": 863
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2679,
+            "reliable_correct_count": 2679
+          }
+        }
+      },
+      "test": {
+        "reliability_margin": 0.03459586203098298,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5226,
+        "raw_accuracy_percent": 97.5,
+        "reliable_count": 3152,
+        "reliable_coverage_percent": 58.80597014925373,
+        "reliable_correct_count": 3151,
+        "reliable_error_count": 1,
+        "reliable_accuracy_percent": 99.96827411167513,
+        "insufficient_evidence_count": 2208,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 411,
+        "wifi_counterfactual_reliable_percent": 15.335820895522389,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2551,
+            "reliable_count": 479,
+            "reliable_correct_count": 479
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2675,
+            "reliable_count": 2673,
+            "reliable_correct_count": 2672
+          }
+        }
+      }
+    },
+    {
+      "fold": "fold3",
+      "threshold_selection": "smallest absolute LTE/DVB score margin strictly above every validation misclassification",
+      "reliability_margin": 0.023830853402614597,
+      "train": {
+        "reliability_margin": 0.023830853402614597,
+        "lte_dvbt_region_count": 10720,
+        "raw_correct_count": 10532,
+        "raw_accuracy_percent": 98.24626865671642,
+        "reliable_count": 8264,
+        "reliable_coverage_percent": 77.08955223880596,
+        "reliable_correct_count": 8259,
+        "reliable_error_count": 5,
+        "reliable_accuracy_percent": 99.93949661181026,
+        "insufficient_evidence_count": 2456,
+        "wifi_region_count": 5360,
+        "wifi_counterfactual_reliable_count": 1954,
+        "wifi_counterfactual_reliable_percent": 36.45522388059702,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 5360,
+            "raw_correct_count": 5177,
+            "reliable_count": 2907,
+            "reliable_correct_count": 2905
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 5360,
+            "raw_correct_count": 5355,
+            "reliable_count": 5357,
+            "reliable_correct_count": 5354
+          }
+        }
+      },
+      "validation": {
+        "reliability_margin": 0.023830853402614597,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5136,
+        "raw_accuracy_percent": 95.82089552238806,
+        "reliable_count": 3588,
+        "reliable_coverage_percent": 66.94029850746269,
+        "reliable_correct_count": 3588,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 1772,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 970,
+        "wifi_counterfactual_reliable_percent": 36.19402985074627,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2456,
+            "reliable_count": 908,
+            "reliable_correct_count": 908
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2680,
+            "reliable_correct_count": 2680
+          }
+        }
+      },
+      "test": {
+        "reliability_margin": 0.023830853402614597,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5283,
+        "raw_accuracy_percent": 98.56343283582089,
+        "reliable_count": 4329,
+        "reliable_coverage_percent": 80.76492537313433,
+        "reliable_correct_count": 4328,
+        "reliable_error_count": 1,
+        "reliable_accuracy_percent": 99.97689997689997,
+        "insufficient_evidence_count": 1031,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 1547,
+        "wifi_counterfactual_reliable_percent": 57.723880597014926,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2603,
+            "reliable_count": 1649,
+            "reliable_correct_count": 1648
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2680,
+            "reliable_correct_count": 2680
+          }
+        }
+      }
+    },
+    {
+      "fold": "fold4",
+      "threshold_selection": "smallest absolute LTE/DVB score margin strictly above every validation misclassification",
+      "reliability_margin": 0.021475793793797496,
+      "train": {
+        "reliability_margin": 0.021475793793797496,
+        "lte_dvbt_region_count": 10720,
+        "raw_correct_count": 10509,
+        "raw_accuracy_percent": 98.03171641791045,
+        "reliable_count": 8556,
+        "reliable_coverage_percent": 79.81343283582089,
+        "reliable_correct_count": 8548,
+        "reliable_error_count": 8,
+        "reliable_accuracy_percent": 99.90649836372137,
+        "insufficient_evidence_count": 2164,
+        "wifi_region_count": 5360,
+        "wifi_counterfactual_reliable_count": 2730,
+        "wifi_counterfactual_reliable_percent": 50.93283582089552,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 5360,
+            "raw_correct_count": 5154,
+            "reliable_count": 3198,
+            "reliable_correct_count": 3193
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 5360,
+            "raw_correct_count": 5355,
+            "reliable_count": 5358,
+            "reliable_correct_count": 5355
+          }
+        }
+      },
+      "validation": {
+        "reliability_margin": 0.021475793793797496,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5306,
+        "raw_accuracy_percent": 98.99253731343283,
+        "reliable_count": 4567,
+        "reliable_coverage_percent": 85.20522388059702,
+        "reliable_correct_count": 4567,
+        "reliable_error_count": 0,
+        "reliable_accuracy_percent": 100.0,
+        "insufficient_evidence_count": 793,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 1210,
+        "wifi_counterfactual_reliable_percent": 45.149253731343286,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2626,
+            "reliable_count": 1888,
+            "reliable_correct_count": 1888
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2679,
+            "reliable_correct_count": 2679
+          }
+        }
+      },
+      "test": {
+        "reliability_margin": 0.021475793793797496,
+        "lte_dvbt_region_count": 5360,
+        "raw_correct_count": 5136,
+        "raw_accuracy_percent": 95.82089552238806,
+        "reliable_count": 3764,
+        "reliable_coverage_percent": 70.22388059701493,
+        "reliable_correct_count": 3763,
+        "reliable_error_count": 1,
+        "reliable_accuracy_percent": 99.97343251859724,
+        "insufficient_evidence_count": 1596,
+        "wifi_region_count": 2680,
+        "wifi_counterfactual_reliable_count": 1127,
+        "wifi_counterfactual_reliable_percent": 42.05223880597015,
+        "per_class": {
+          "0": {
+            "class_name": "LTE",
+            "region_count": 2680,
+            "raw_correct_count": 2456,
+            "reliable_count": 1084,
+            "reliable_correct_count": 1083
+          },
+          "2": {
+            "class_name": "DVB-T",
+            "region_count": 2680,
+            "raw_correct_count": 2680,
+            "reliable_count": 2680,
+            "reliable_correct_count": 2680
+          }
+        }
+      }
+    }
+  ],
+  "aggregate_outer_test": {
+    "lte_dvbt_region_count": 21440,
+    "raw_correct_count": 20951,
+    "raw_accuracy_percent": 97.71921641791045,
+    "reliable_count": 14966,
+    "reliable_coverage_percent": 69.80410447761194,
+    "reliable_correct_count": 14963,
+    "reliable_error_count": 3,
+    "reliable_accuracy_percent": 99.97995456367767,
+    "wifi_region_count": 10720,
+    "wifi_counterfactual_reliable_count": 3532,
+    "wifi_counterfactual_reliable_percent": 32.94776119402985
+  },
+  "interpretation_limits": [
+    "The four folds are development cross-validation, not a never-used final test.",
+    "The periodicity branch does not identify WiFi and must be gated by IQ-model disagreement.",
+    "The external 44-file result is retrospective and is not part of this P2 score."
+  ]
+}

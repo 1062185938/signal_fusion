@@ -1,0 +1,23 @@
+{
+  "dataset_id": "technology_recognition_external_1msps_fusion_candidates_private",
+  "artifact_visibility": "private_audit_do_not_send_to_llm",
+  "num_regions": 486,
+  "seq_len": 4096,
+  "counts": {
+    "ensemble_errors": 12,
+    "member_disagreements": 396,
+    "error_and_disagreement_overlap": 12,
+    "high_confidence_correct_controls": 90,
+    "selected_unique_regions": 486
+  },
+  "selection_policy": {
+    "ensemble_errors": "all",
+    "member_region_top1_disagreements": "all",
+    "high_confidence_correct_controls": {
+      "minimum_ensemble_probability": 0.99,
+      "requires_unanimous_member_top1": true,
+      "count_per_class": 30,
+      "source_selection": "deterministic_round_robin_by_source_then_probability"
+    }
+  }
+}

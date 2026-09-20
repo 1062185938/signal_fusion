@@ -1,0 +1,301 @@
+{
+  "schema_version": 2,
+  "bundle_type": "hermes_signal_fusion_input",
+  "evidence_type": "blind_region_ensemble_with_global_features",
+  "analysis_id": "case_0207",
+  "signal_context": {
+    "effective_sample_rate_hz": 1000000.0,
+    "observation_sample_count": 4096,
+    "observation_duration_seconds": 0.004096,
+    "iq_window_sample_count": 2048,
+    "iq_window_count": 2
+  },
+  "iq_ensemble_evidence": {
+    "decision_status": "review_required",
+    "risk_gate": {
+      "method": "unanimous_member_region_top1",
+      "member_count": 3,
+      "unanimous": false,
+      "unique_top1_labels": [
+        "LTE",
+        "DVB-T"
+      ],
+      "reason": "member_region_top1_disagreement"
+    },
+    "ensemble": {
+      "aggregation": "mean_probability_across_members",
+      "region_probabilities": [
+        0.4583688280545175,
+        0.001973011336910228,
+        0.5396581528087457
+      ],
+      "region_top3": [
+        {
+          "rank": 1,
+          "class_index": 2,
+          "label": "DVB-T",
+          "probability": 0.5396581528087457
+        },
+        {
+          "rank": 2,
+          "class_index": 0,
+          "label": "LTE",
+          "probability": 0.4583688280545175
+        },
+        {
+          "rank": 3,
+          "class_index": 1,
+          "label": "WiFi",
+          "probability": 0.001973011336910228
+        }
+      ],
+      "uncertainty": {
+        "top1_probability": 0.5396581528087457,
+        "top1_top2_margin": 0.08128932475422823,
+        "normalized_entropy": 0.639647658778829
+      }
+    },
+    "members": [
+      {
+        "member_id": "iq_member_1",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.5682414174079895
+          },
+          {
+            "rank": 2,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.42844584584236145
+          },
+          {
+            "rank": 3,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.0033127479255199432
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 1,
+          "window_count": 2,
+          "ratio": 0.5
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "LTE",
+            "confidence": 0.8452737927436829
+          },
+          {
+            "window_index": 1,
+            "label": "DVB-T",
+            "confidence": 0.9872065782546997
+          }
+        ]
+      },
+      {
+        "member_id": "iq_member_2",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.9388760924339294
+          },
+          {
+            "rank": 2,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.059578847140073776
+          },
+          {
+            "rank": 3,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.001545072766020894
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 2,
+          "window_count": 2,
+          "ratio": 1.0
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "LTE",
+            "confidence": 0.9884743094444275
+          },
+          {
+            "window_index": 1,
+            "label": "LTE",
+            "confidence": 0.8892778754234314
+          }
+        ]
+      },
+      {
+        "member_id": "iq_member_3",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.9911541938781738
+          },
+          {
+            "rank": 2,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.007784545887261629
+          },
+          {
+            "rank": 3,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.0010612133191898465
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 2,
+          "window_count": 2,
+          "ratio": 1.0
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "DVB-T",
+            "confidence": 0.982693076133728
+          },
+          {
+            "window_index": 1,
+            "label": "DVB-T",
+            "confidence": 0.9996153116226196
+          }
+        ]
+      }
+    ]
+  },
+  "global_feature_evidence": {
+    "feature_schema_id": "matlab_iq_features_64_v2",
+    "extraction_scope": "complete_continuous_region",
+    "extraction_count": 1,
+    "preprocessing": {
+      "scope": "complete_region",
+      "remove_dc": true,
+      "rms_normalize": true
+    },
+    "feature_count": 64,
+    "values": {
+      "time_rms_amplitude": 1.0,
+      "time_papr_db": 8.866487503051758,
+      "time_amplitude_skewness": 0.53206866979599,
+      "time_amplitude_kurtosis": 2.8881075382232666,
+      "time_envelope_cv": 0.525149405002594,
+      "time_amplitude_entropy": 0.8258258700370789,
+      "time_c20": 0.008894006721675396,
+      "time_c40": 0.07218848913908005,
+      "time_c41": 0.01616128906607628,
+      "time_c42": 0.044897910207509995,
+      "time_differential_phase_std": 1.8955376148223877,
+      "time_autocorrelation_peak_magnitude": 0.5189030170440674,
+      "time_autocorrelation_peak_lag_ratio": 0.000244140625,
+      "time_mean_autocorrelation_magnitude": 0.022196335718035698,
+      "time_envelope_power_autocorrelation_peak": 0.2374982088804245,
+      "freq_normalized_mean_frequency": -0.24766401946544647,
+      "freq_normalized_median_frequency": -0.3486328125,
+      "freq_normalized_spectral_spread": 0.2468821257352829,
+      "freq_normalized_occupied_bandwidth_90": 0.763671875,
+      "freq_normalized_peak_frequency": -0.4240722358226776,
+      "freq_log10_band_power": 0.003737440798431635,
+      "freq_global_spectral_entropy": 0.9237303137779236,
+      "freq_global_spectral_crest_factor": 10.679098129272461,
+      "freq_global_spectral_flatness": 0.42672407627105713,
+      "freq_normalized_spectral_skewness": 1.3410428762435913,
+      "freq_psd_standard_deviation": 1.3306786286193528e-06,
+      "freq_log_mean_bispectrum_magnitude": -4.46196174621582,
+      "freq_log_max_bispectrum_magnitude": -3.2654569149017334,
+      "freq_log_bispectral_energy": -4.069588661193848,
+      "freq_normalized_bispectral_entropy": 0.83247971534729,
+      "freq_normalized_bispectrum_peak_frequency_1": -0.39453125,
+      "freq_normalized_bispectrum_peak_frequency_2": -0.07421875,
+      "freq_mean_squared_bicoherence": 0.030215982347726822,
+      "freq_max_squared_bicoherence": 0.2630966007709503,
+      "freq_normalized_bicoherence_entropy": 0.9598240256309509,
+      "freq_bicoherence_weighted_biphase_concentration": 0.01744968444108963,
+      "time_frequency_spectral_kurtosis_mean": 3.993238687515259,
+      "time_frequency_spectral_kurtosis_std": 0.5226415991783142,
+      "time_frequency_spectral_skewness_mean": 1.3188095092773438,
+      "time_frequency_spectral_skewness_std": 0.1643080860376358,
+      "time_frequency_spectral_crest_mean": 15.227010726928711,
+      "time_frequency_spectral_crest_std": 4.0268402099609375,
+      "time_frequency_spectral_flatness_mean": 0.28043052554130554,
+      "time_frequency_spectral_flatness_std": 0.028235340490937233,
+      "time_frequency_spectral_entropy_mean": 0.85395747423172,
+      "time_frequency_spectral_entropy_std": 0.015926430001854897,
+      "time_frequency_normalized_stft_ridge_frequency_std": 0.025221766903996468,
+      "time_frequency_normalized_stft_ridge_slope": 0.005197830498218536,
+      "time_frequency_normalized_spectral_centroid_std": 0.021703341975808144,
+      "time_frequency_normalized_spectral_spread_mean": 0.24833862483501434,
+      "time_frequency_normalized_spectral_spread_std": 0.012741719372570515,
+      "time_frequency_stft_frame_energy_cv": 0.14237076044082642,
+      "time_frequency_stft_active_frame_ratio": 1.0,
+      "time_frequency_stft_energy_transition_ratio": 0.0,
+      "time_frequency_normalized_fsst_ridge_frequency_std": 0.07338682562112808,
+      "time_frequency_normalized_fsst_ridge_slope": 0.004608302377164364,
+      "time_frequency_normalized_fsst_ridge_curvature_rms": 0.04972466826438904,
+      "time_frequency_fsst_ridge_energy_ratio": 0.10860836505889893,
+      "time_frequency_normalized_fsst_time_frequency_entropy": 0.9021371006965637,
+      "time_frequency_normalized_wsst_ridge_frequency_std": 0.11018087714910507,
+      "time_frequency_normalized_wsst_ridge_slope": -0.00032196560641750693,
+      "time_frequency_normalized_wsst_bandwidth_mean": 0.12440130114555359,
+      "time_frequency_normalized_wsst_bandwidth_std": 0.020737983286380768,
+      "time_frequency_wsst_ridge_energy_ratio": 0.47696179151535034
+    },
+    "reference_documents": [
+      "time_domain_iq_features.md",
+      "frequency_domain_iq_features.md",
+      "time_frequency_iq_features.md",
+      "technology_reference_lte_wifi_dvbt.md"
+    ],
+    "reference_document_paths": {
+      "time_domain_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/time_domain_iq_features.md",
+      "frequency_domain_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/frequency_domain_iq_features.md",
+      "time_frequency_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/time_frequency_iq_features.md",
+      "technology_reference_lte_wifi_dvbt.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/fusion/references/technology_reference_lte_wifi_dvbt.md"
+    }
+  },
+  "objective": "Decide the most plausible technology from the IQ ensemble and the complete-region physical features without using hidden provenance or ground truth",
+  "decision_contract": {
+    "ensemble_label_source": "iq_ensemble_evidence.ensemble.region_top3[0]",
+    "ensemble_label_is_frozen": false,
+    "llm_role": "make an independent final decision using both the IQ ensemble and the complete-region physical features",
+    "allowed_final_labels": [
+      "LTE",
+      "WiFi",
+      "DVB-T",
+      "insufficient_evidence"
+    ],
+    "requirements": [
+      "inspect all 64 feature values and all three ensemble members",
+      "ground physical interpretations in the referenced documents",
+      "treat member disagreement as uncertainty, not as a class vote count",
+      "change the ensemble label only when multiple coherent physical observations support another allowed label",
+      "use insufficient_evidence when neither branch supports a reliable class decision"
+    ]
+  },
+  "required_output": {
+    "final_label": "LTE, WiFi, DVB-T, or insufficient_evidence",
+    "confidence_level": "high, medium, or low",
+    "summary": "concise final decision and fusion rationale",
+    "model_evidence": "list of model-based reasons",
+    "feature_evidence": "list of feature-based reasons",
+    "conflicting_evidence": "list; empty when no material conflict exists",
+    "limitations": "list of limitations"
+  }
+}
