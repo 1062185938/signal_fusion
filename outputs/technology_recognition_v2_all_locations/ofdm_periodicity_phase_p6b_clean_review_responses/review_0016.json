@@ -1,0 +1,36 @@
+    {
+      "analysis_id": "review_0016",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "Insufficient coherent evidence for a single region label. The IQ ensemble leads with DVB-T (0.6939 vs WiFi 0.2994, margin 0.3944) and iq_member_1 is a high-confidence DVB-T with 1.0 window agreement, but the two 2048-sample windows carry different class content (w0 unanimous DVB-T at 0.9687-0.9957, w1 two of three members WiFi with iq_member_2 at 0.9977), iq_member_2's region Top1 is a near-tie (0.5140 WiFi vs 0.4853 DVB-T) that contradicts its own window predictions, and the frozen periodicity gate that could separate the DVB-T/LTE branch is ineligible (WiFi inside member Top1 scope) and resolved=false, so it cannot adjudicate the WiFi-vs-DVB-T conflict. Abstaining per the requirement to recommend only for coherent evidence.",
+      "model_evidence": [
+        "Ensemble (mean_probability_across_members): DVB-T 0.6939, WiFi 0.2994, LTE 0.0067; top1-top2 margin 0.3944; normalized entropy 0.5899.",
+        "Risk gate (unanimous_member_region_top1): unanimous=false, unique_top1_labels [WiFi, DVB-T], reason member_region_top1_disagreement.",
+        "iq_member_1: region DVB-T 0.9158 (WiFi 0.0834, LTE 0.0009); window agreement 1.0 (w0 DVB-T 0.9957, w1 DVB-T 0.8358).",
+        "iq_member_2: region WiFi 0.5140 vs DVB-T 0.4853 (difference 0.0287, near-tie); window agreement 0.5 (w0 DVB-T 0.9687, w1 WiFi 0.9977) - its region Top1 is contradicted by its own window predictions.",
+        "iq_member_3: region DVB-T 0.6806 vs WiFi 0.3010 (LTE 0.0185); window agreement 0.5 (w0 DVB-T 0.9828, w1 WiFi 0.5920, weak confidence).",
+        "Window level: w0 is unanimous DVB-T across all three members (0.9687-0.9957), w1 is WiFi for two of three members (0.5920, 0.9977) with one DVB-T (0.8358), indicating the two segments of the 4.096 ms region do not share one class."
+      ],
+      "periodicity_evidence": [
+        "period_896us: peak lag 896 (nominal 896), normalized_correlation 0.2222 = dvbt_score, consistent with the DVB-T 8K nominal delay; period_66p67us 0.0181 (lte_score, peak lag 69); period_224us 0.0138 (dvbt_2k_score, peak lag 225); score margin 0.2041.",
+        "Frozen gate unchanged: reliability_margin 0.02148, eligible=false, reliable=true, resolved=false, changed=false. The reliability criterion is satisfied by the margin, but eligibility fails because member region Top1 labels are not restricted to {LTE, DVB-T} (WiFi present in scope).",
+        "Because eligible=false and resolved=false, the periodicity branch supplies no adjudicating vote and must not override the IQ ensemble; the 0.2222 value is a normalized autocorrelation strength, not a class probability."
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "Member region Top1 disagreement (WiFi vs DVB-T) with the ensemble leading DVB-T only by mean aggregation.",
+        "Window-level split: w0 unanimous DVB-T versus w1 majority WiFi (iq_member_2 0.9977) - region non-stationarity means one region label cannot represent both segments.",
+        "iq_member_2 region Top1 is a 0.0287 near-tie that its own windows contradict; iq_member_3's w1 flip to WiFi is low-confidence (0.5920).",
+        "The only branch able to separate LTE from DVB-T periodicity is the frozen gate, and it is ineligible and unresolved, so the WiFi-versus-DVB-T conflict is left unadjudicated.",
+        "WiFi ensemble support (0.2994) is non-negligible, unlike cases where the minority class is effectively zero, so WiFi cannot be dismissed as noise."
+      ],
+      "limitations": [
+        "Blind review only: ground_truth_available=false and recommendation_is_operational_final=false.",
+        "Single 4096-sample (4.096 ms) observation at 1 MS/s, providing only two 2048-sample windows, so window-level statistics rest on two points.",
+        "The three IQ members are correlated same-family models; their votes are not calibrated independent evidence.",
+        "Periodicity correlation magnitudes are small (0.0138-0.2222) and near-noise; the reliability margin is frozen and no threshold or fusion weight was invented, loosened or re-fitted.",
+        "No global feature evidence is supplied by this case, so feature_evidence is empty rather than back-computed.",
+        "Confidence is capped at low because region-level and window-level evidence disagree."
+      ]
+    }

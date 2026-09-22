@@ -1,0 +1,52 @@
+    {
+      "analysis_id": "review_0011",
+      "recommendation_status": "recommend",
+      "recommended_label": "LTE",
+      "confidence_level": "medium",
+      "summary": "IQ ensemble 以 LTE 0.76636 / DVB-T 0.22622 / WiFi 0.00742 的均值概率把 LTE 排在首位，top1-top2 margin 0.54015（本批中较宽的分离），normalized entropy 0.5248。3 个成员中 2 个 Top1 为 LTE 且置信度很高（0.93166、0.91745，对应 DVB-T 仅 0.06577、0.08005），6 个局部窗口中 5 个为 LTE 且四个 LTE 窗口置信度都在 0.9147 以上；唯一反对方是 iq_member_3，其 DVB-T 领先并不大（0.53282 对 LTE 0.44998），且它自己的两个窗口互相矛盾（window 0 DVB-T 0.74902、window 1 LTE 0.67431），即该分歧在成员内部即不自洽。周期分支三个候选中 LTE 的 66.67 µs 相关最高（0.056948，约为 8K 候选的 1.57 倍、2K 候选的 2.32 倍），方向与 ensemble 一致，但其 margin 0.020749 略低于冻结门限 0.021476，reliable/resolved/changed 均为 false，因此只能视为方向一致但不具裁决效力的测量，不能用来宣告分歧已解决。64 维全局特征只显示宽带、近噪声状、整段连续占用的多载波共享结构（并伴随段内幅度与主峰位置的起伏），属 insufficient，既不提供独立类别支持也不构成反证。综合判读为 LTE，置信度 medium：多数成员、多数窗口、ensemble 分离度与周期方向一致，唯一异议来自单个成员且由其自身窗口自相矛盾。",
+      "model_evidence": [
+        "ensemble 区域均值概率为 LTE 0.76636、DVB-T 0.22622、WiFi 0.00742，top1=LTE，top1-top2 margin 0.54015，normalized entropy 0.5248，LTE 领先幅度明显。",
+        "risk_gate 记录 unanimous=false、unique_top1_labels=[LTE, DVB-T]、reason=member_region_top1_disagreement，与 review_required 一致。",
+        "成员级投票 2/3 LTE 且置信度高：iq_member_1 LTE 0.93166（DVB-T 0.06577、WiFi 0.00257）、iq_member_2 LTE 0.91745（DVB-T 0.08005、WiFi 0.00250）；异议方 iq_member_3 为 DVB-T 0.53282、LTE 0.44998、WiFi 0.01719。",
+        "窗口级统计 5/6 LTE：m1 (LTE 0.91473, LTE 0.94860) agreement 1.0；m2 (LTE 0.91530, LTE 0.91959) agreement 1.0；m3 (DVB-T 0.74902, LTE 0.67431) agreement 0.5。四个 LTE 窗口置信度均 ≥0.9147，唯一的 DVB-T 窗口为 0.7490。",
+        "异议方 iq_member_3 内部不一致：其 window_index=0 判 DVB-T（0.74902）而 window_index=1 判 LTE（0.67431），两个窗口方向相反，说明其区域级 DVB-T 领先来自窗口间相互抵消后的微弱净值，而不是稳定一致的证据。",
+        "WiFi 在所有成员与 ensemble 中都可忽略（成员 ≤0.01719，ensemble 0.00742），模型证据不支持 WiFi。",
+        "provisional_label=LTE 只是确定性系统给出的基线候选；本推荐另以成员多数、窗口多数与 ensemble 分离度的一致领先为依据，并非照抄基线标签。"
+      ],
+      "periodicity_evidence": [
+        "period_66p67us（LTE 候选）：peak_lag=67、peak_period=67 µs、normalized_correlation=0.056948，是三个候选中最高者。",
+        "period_224us（DVB-T 2K）：peak_lag=226、normalized_correlation=0.024579（最低）。",
+        "period_896us（DVB-T 8K）：peak_lag=897、normalized_correlation=0.036198；两个 DVB-T 候选彼此接近且都低于 LTE 候选，未出现任一 DVB-T 候选的突出单峰。",
+        "scores：prediction_label=LTE，dvbt_score=max(2K,8K)=0.036198，margin=0.020749；冻结核验 margin=0.0214758，margin 未达门限 → reliable=false、resolved=false、changed=false（eligible=true）。",
+        "方向与 ensemble 一致，但按门控参考 margin 未过门限即不得作为确认或改判依据；reliable=false 只表示证据不足，不等于支持相反类别。",
+        "该测量在完整连续 region 上一次性完成，是能量归一双边复自相关的重复相关强度，不是概率或置信度，也不等同于循环前缀确认、同步序列匹配或导频检测。"
+      ],
+      "feature_evidence": [
+        "预处理已去直流并复 RMS 归一化：time_rms_amplitude=1.0000、freq_log10_band_power=0.0199，仅作质量控制，不含绝对功率或类别信息。",
+        "包络起伏中等偏高、尾部偏重：time_papr_db=9.9777、time_envelope_cv=0.5757、time_amplitude_kurtosis=4.2335、time_amplitude_skewness=0.9742、time_amplitude_entropy=0.7834。按参考文档，包络与幅度分布变化可提示衰落、突发边界或干扰，但不能自动等价为 WiFi，也不是任一类的专有特征。",
+        "高阶累积量可成组解释但不具判据效力：time_c20=0.0159、C40=0.1474、C41=0.0700、C42=0.3671（C40 相对突出）；参考文档明确不存在经验证的类别阈值，且受多载波叠加、短观测与噪声影响，不得据单个累积量投票。",
+        "自相关类：time_autocorrelation_peak_magnitude=0.0928（lag ratio 0.000244，约 1 个采样点）、time_mean_autocorrelation_magnitude=0.0157、time_envelope_power_autocorrelation_peak=0.1600；仅提示短延迟重复与一定的包络功率重复，不能确认循环前缀或符号周期。",
+        "频谱分散、近乎平坦、左右基本对称：freq_normalized_occupied_bandwidth_90=0.8501、freq_global_spectral_entropy=0.9861、freq_global_spectral_flatness=0.8779、freq_global_spectral_crest_factor=3.7264、spectral skewness=-0.1115；均值频率 +0.0277、中值频率 +0.0449、峰值频率 +0.3188。按参考文档，占用带宽不能反推协议标准带宽；峰值频率由最大 PSD bin 决定，可能来自窄带干扰或残余偏置，位置类统计不能用于判类。",
+        "双谱/双相干耦合弱且双相位方向不集中：mean_squared_bicoherence=0.0410、max_squared_bicoherence=0.3613、bicoherence_weighted_biphase_concentration=0.0356、bispectral_entropy=0.9374，双谱峰值坐标接近直流 (-0.03125, -0.02734)；这些量受幅度尺度与短数据影响，无类别区分力。",
+        "时频活动性显示整段连续占用、无能量通断：STFTActiveFrameRatio=1.0、能量状态跃迁比例=0.0；同时 STFTFrameEnergyCV=0.3890（中等偏高）说明段内存在幅度强弱变化；逐帧谱熵均值 0.9280（std 0.0081）、谱平坦度均值 0.5407（std 0.0341）、谱峰因子均值 6.5447（std 1.0572）、谱质心 std 0.0267。按参考文档，活动性特征只使用片段内部相对阈值，不能替代独立突发检测，也不能确认 WiFi 包边界。",
+        "脊线类特征不构成判据：STFT 脊线频率 std 0.2310、斜率 -0.2616；FSST 脊线 std 0.2185、斜率 0.0290、曲率 RMS 0.1187、能量占比 0.0562；WSST 脊线 std 0.1168、斜率 0.0031、带宽均值 0.1269、脊线能量占比 0.3073。多载波信号下主脊线只是每帧最大功率 bin，在多个分量之间切换，明显的负斜率不得解释为扫频或 chirp；较高的 WSST 脊线能量占比也可能由导频、干扰或滤波后的局部频带造成。",
+        "综合：64 维特征只表现出三类共享的宽带、近噪声状、连续占用多载波结构，并伴随段内幅度与主峰位置的起伏；无法把这些物理表现归属到某一个类别，判定为 insufficient，不提供独立类别支持，也不构成对 ensemble 的实质反驳。"
+      ],
+      "conflicting_evidence": [
+        "成员 Top1 分歧成立：iq_member_3 以 DVB-T 0.53282 高于 LTE 0.44998 排在首位，与 iq_member_1、iq_member_2 的 LTE 结论相反，构成 review_required 的直接原因。",
+        "该异议的领先幅度不大（0.08284），且异议成员自身两个窗口方向相反（window 0 DVB-T 0.74902、window 1 LTE 0.67431），说明其区域级 DVB-T 判定是内部抵消后的净结果，稳定性差。",
+        "所有 LTE 侧窗口（m1 两个、m2 两个、m3 的 window 1）置信度集中在 0.6743~0.9486，而唯一的 DVB-T 窗口为 0.7490，两者重叠区间说明该位置三类可分性下降，任何单一窗口判决都不宜单独采信。",
+        "周期分支方向虽为 LTE，但 margin 0.020749 未达冻结门限 0.0214758，无裁决力：既不能作为对 LTE 的确认，也不能用于改判或解释 iq_member_3 的分歧，该分歧在现有证据下未被独立物理证据消解。",
+        "全局特征侧存在与平稳单一信号不完全一致的迹象（包络 CV 0.5757、幅度峰度 4.2335、帧能量 CV 0.3890、STFT 脊线斜率 -0.2616，提示段内幅度与主峰位置变化），但这些表现与衰落、干扰、分量切换等替代解释同样相容，不能作为任一候选标签的独立支持，更不能据此推断 WiFi。",
+        "无能量通断（活动帧比例 1.0、跃迁比例 0.0）说明本 region 内不存在明显的包边界或开关结构，因此不能把 iq_member_3 的 window 0 判定解释为独立突发信号进入。"
+      ],
+      "limitations": [
+        "观测仅为 1 MS/s、4096 点、4.096 ms 的局部短时视图，不能推断协议标准带宽、LTE 链路方向、WiFi 版本或 DVB-T 模式；0.8501 的归一化 90% 占用带宽只说明能量铺满当前 1 MHz 视图的大部分，不能反推标准信道带宽。",
+        "现有 64 维特征不包含循环前缀确认、OFDM 同步与符号定时、循环平稳谱、WiFi 前导相关与包边界检测、LTE PSS/SSS 与资源栅格匹配、DVB-T 导频/TPS/载波间隔/保护间隔检测，不能声称已测量到任何协议专属结构。",
+        "周期分支只覆盖 LTE/DVB-T，不识别 WiFi；本次 eligible=true 但 reliable=false，margin 距门限仅差 0.00073，属门限附近的判定，其结论对阈值与噪声条件敏感，不能当作稳定物理结论使用。",
+        "成员概率已按均值聚合并存在分歧，不宜当作三条相互校准的独立证据重复计票；64 维中谱熵、平坦度、峰值因子、包络统计彼此高度相关，同样不得重复计票。",
+        "STFT 活动性使用片段内部相对阈值，只能说明本 region 内没有能量通断，不能确认或排除包边界（region 可能完全落在单个包或单个符号序列内部）。",
+        "本 region 已被确定性系统判为 review_required 且无最终标签，provisional LTE 只是基线候选；按规则建议置信度上限为 medium，本次以多数成员、多数窗口与 ensemble 分离度的一致领先为依据取 medium，但仍低于任何可宣称已确认的水平。",
+        "本建议为非操作性盲测输出，未读取地点、增益、中心频率、来源路径或任何隐藏真值；一经给出即冻结，不得在获知审计信息后修改。"
+      ]
+    }

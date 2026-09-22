@@ -1,0 +1,38 @@
+    {
+      "analysis_id": "review_0033",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "成员证据相互冲突且第三名成员近乎不具判别力，唯一可用物理门控又不适用于本案，故不给出推荐。ensemble 平均概率为 DVB-T 0.4776 对 WiFi 0.4301（Top1-Top2 间隔仅 0.0476，归一化熵 0.8518，是本批中最高、LTE 仍占 0.0923），aggregation 只是把对立的成员折叠成一个很薄的领先。iq_member_1 region 明确偏 DVB-T 0.6680（0.9769 高置信窗口 0），iq_member_2 region 明确偏 WiFi 0.6794（窗口 1 达 0.9123），两者方向相反，互为实质反证；iq_member_3 region 为 DVB-T 0.4527 / WiFi 0.2815 / LTE 0.2659 的三方近平局，两个窗口标签分别为 LTE 0.4574 与 DVB-T 0.4653，置信度均低于 0.5，属近似随机输出。三名成员窗口一致率均为 0.5，且窗口 1 出现 2/3 成员转向 WiFi，表明 region 内非平稳。周期分支虽给出 DVB-T 方向的强相关，但成员 Top1 含 WiFi，eligible=false、resolved=false，其相关峰不得用于覆盖 ensemble 的 WiFi 判决，也不构成本案的有效类别证据；review_reason 为 outside_periodicity_gate_scope。因此按合同弃权。",
+      "model_evidence": [
+        "ensemble 平均概率：DVB-T 0.4776、WiFi 0.4301、LTE 0.0923；Top1-Top2 间隔仅 0.0476，归一化熵 0.8518，判别力很弱。",
+        "iq_member_1 region Top1=DVB-T 0.6680（WiFi 0.3293）；窗口 0 为 DVB-T 0.9769，窗口 1 翻转为 WiFi 0.6376，窗口一致率 0.5。",
+        "iq_member_2 region Top1=WiFi 0.6794（DVB-T 0.3122）；窗口 0 为 DVB-T 0.5382，窗口 1 翻转为 WiFi 0.9123，窗口一致率 0.5。",
+        "iq_member_3 region 为三方近平局：DVB-T 0.4527、WiFi 0.2815、LTE 0.2659；窗口 0 为 LTE 0.4574、窗口 1 为 DVB-T 0.4653，两次窗口预测置信度均低于 0.5，窗口一致率 0.5，该成员几乎不提供方向信息。",
+        "成员 region 级方向相反：iq_member_1 偏 DVB-T、iq_member_2 偏 WiFi，且两者领先量都较大（0.6680 对 0.3293、0.6794 对 0.3122），属互相否证而非弱异议。",
+        "窗口级变化：窗口 0 为 iq_member_1/iq_member_2 的 DVB-T 加 iq_member_3 的 LTE，窗口 1 为 2/3 成员 WiFi，说明 region 内存在类别倾向的整体移动。",
+        "LTE 的 ensemble 概率 0.0923 主要来自 iq_member_3 的 0.2659，其余成员均不超过 0.0085；除该成员的模糊输出外，分歧集中在 DVB-T 与 WiFi 之间。"
+      ],
+      "periodicity_evidence": [
+        "归一化自相关测量：period_66p67us=0.01975、period_224us=0.03423、period_896us=0.19747；lte_score=0.01975，dvbt_score=0.19747，prediction_label=DVB-T，margin=0.17772。",
+        "frozen_gate：eligible=false、reliable=true、resolved=false、changed=false；reliable=true 仅表示 margin 超过冻结门限，eligible=false 使该门控整体不适用。",
+        "成员 Top1 标签包含 WiFi，超出该门控的适用范围：该门控只处理 LTE/DVB-T 分歧，明确不得修改 ensemble 的 WiFi 判决，也不得利用周期预测绕过 WiFi 保护规则。",
+        "因此 896 μs 处的高相关峰不能作为支持 DVB-T 的附加证据，也不代表已检测到 DVB-T 帧结构；本次结论不依赖该分支。",
+        "本 case 的 review_reason 为 outside_periodicity_gate_scope，成员分歧不在该门控设计范围内，周期分支无法解决该分歧。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员 region 级方向对立且各自明确：iq_member_1 的 DVB-T 0.6680 与 iq_member_2 的 WiFi 0.6794 互相否证，缺少共同方向。",
+        "ensemble 判别力不足：Top1-Top2 间隔 0.0476、归一化熵 0.8518，且 Top1 概率仅 0.4776 低于半数，均值聚合把成员对立折成一个很薄的 DVB-T 领先。",
+        "iq_member_3 近乎非判别：region 三方分布 0.4527 / 0.2815 / 0.2659，窗口预测为 LTE 0.4574 与 DVB-T 0.4653，均低于 0.5 置信，无法作为支持任一类别的证据。",
+        "region 内非平稳：三名成员窗口一致率均为 0.5，窗口 1 有 2/3 成员转向 WiFi（其中一次 0.9123 高置信）。",
+        "周期分支在本案 eligible=false，DVB-T 方向缺少任何合规的独立物理证据支撑，冲突无法由现有物理证据裁决。"
+      ],
+      "limitations": [
+        "1 MHz / 4.096 ms 单 region 观测只提供局部短时视图，无法恢复帧级结构或协议同步结构。",
+        "周期相关值不是概率或置信度；本案因 eligible=false 而不能用于裁决，其高相关峰亦可能受噪声、干扰、信道、频偏和有限样本影响。",
+        "窗口级翻转只说明 region 内非平稳，不代表已检测到 WiFi 包边界、前导或任何同步结构，也不涉及 WiFi 版本、带宽或调制阶数。",
+        "三个 IQ 成员为同类型相关模型，其一致性或对立都不是标定过的独立证据，未引入新的融合权重或特征阈值。",
+        "本输出是盲实验推荐，不是运行态最终标签；输入本已被确定性系统判为 review_required。"
+      ]
+    }

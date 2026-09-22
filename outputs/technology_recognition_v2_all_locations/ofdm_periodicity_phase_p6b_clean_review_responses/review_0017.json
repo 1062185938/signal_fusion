@@ -1,0 +1,36 @@
+    {
+      "analysis_id": "review_0017",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "证据不足以支撑对整段 4.096 ms 观测给出单一类别标签。IQ 集成以 DVB-T 领先（0.6166 对 WiFi 0.3750，间隔 0.2416），但两个 2048 点窗口的内容不一致：窗口 1 三个成员一致判为 DVB-T 且置信度高（0.9987 / 0.9986 / 0.6876），而窗口 0 有两个成员判为 WiFi（0.7988 / 0.8776，第三个成员仅弱置信 DVB-T 0.7082），说明该区域内存在两段特征不同的信号；同时 iq_member_3 的整段 Top1 为 WiFi（0.5798 对 DVB-T 0.3977），与集成结论相反。唯一可能区分 DVB-T 与 LTE 周期性的冻结门在 WiFi 进入成员 Top1 后判定为不合格（eligible=false，resolved=false），无法用于裁决本案例中 WiFi 与 DVB-T 的冲突。按“仅在证据自洽时给出推荐，否则弃权”的要求弃权。",
+      "model_evidence": [
+        "集成证据（mean_probability_across_members）：DVB-T 0.6166、WiFi 0.3750、LTE 0.0083；第一名与第二名间隔 0.2416；归一化熵 0.6424，熵值偏高说明分布并不集中。",
+        "风险门（unanimous_member_region_top1）：unanimous=false，成员整段 Top1 标签集合为 [WiFi, DVB-T]，触发原因 member_region_top1_disagreement，与本案例需复核的状态一致。",
+        "iq_member_1：整段 DVB-T 0.8535（WiFi 0.1453、LTE 0.0012）；两个窗口一致（比率 1.0），窗口 0 为 DVB-T 0.7082、窗口 1 为 DVB-T 0.9987，是唯一整段一致的成员。",
+        "iq_member_2：整段 DVB-T 0.5988 对 WiFi 0.4000（差 0.1988）；窗口一致比率 0.5，窗口 0 为 WiFi 0.7988、窗口 1 为 DVB-T 0.9986，与其整段 DVB-T 结论自相矛盾。",
+        "iq_member_3：整段 WiFi 0.5798 对 DVB-T 0.3977（差 0.1821、非高置信）；窗口一致比率 0.5，窗口 0 为 WiFi 0.8776、窗口 1 为 DVB-T 0.6876。",
+        "窗口层面：窗口 1 三个成员一致为 DVB-T（0.6876–0.9987）；窗口 0 为两成员 WiFi 对一成员弱置信 DVB-T，即整段观测内部存在类别不一致的两段。"
+      ],
+      "periodicity_evidence": [
+        "period_896us：峰值延迟 896（标称 896），归一化相关 0.1935，等于 dvbt_score，与 DVB-T 8K 标称延迟一致；period_66p67us 为 0.0283（lte_score，峰值延迟 65）；period_224us 为 0.0167（dvbt_2k_score，峰值延迟 222）；分数间隔 0.1652。",
+        "冻结门未改变：reliability_margin 0.02148，eligible=false，reliable=true，resolved=false，changed=false。间隔高于可靠性阈值因此 reliable=true，但不合格（eligible=false）是因为成员整段 Top1 标签并不限于 {LTE, DVB-T} 范围之内（WiFi 已进入范围）。",
+        "由于 eligible=false 且 resolved=false，周期分支不能对集成结论进行覆盖或作为裁决票；0.1935 只是归一化自相关强度测量值，并非类别概率。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员整段 Top1 标签不一致（WiFi 与 DVB-T），集成仅靠均值聚合以 DVB-T 领先。",
+        "窗口层面分裂：窗口 1 三成员一致 DVB-T，窗口 0 为两成员 WiFi（最高 0.8776），区域非平稳，单一区域标签无法同时代表两段。",
+        "iq_member_3 整段 Top1 为 WiFi，且 iq_member_2 的窗口 0 判为 WiFi 0.7988，与整段 DVB-T 结论相反。",
+        "唯一能区分 DVB-T 与 LTE 周期性的分支是冻结门，而该门在本案例中不合格且未解决，因此 WiFi 与 DVB-T 之间的冲突没有得到任何可用的裁决依据。",
+        "WiFi 的集成支持度（0.3750）不可忽略，不能当作噪声排除；但也不足以支持将整段判为 WiFi。"
+      ],
+      "limitations": [
+        "仅为盲评：ground_truth_available=false，recommendation_is_operational_final=false，推荐不是可用的最终标签。",
+        "单一 4096 点（4.096 ms）观测、1 MS/s 采样，仅提供两个 2048 点窗口，窗口级统计只基于两个样本点。",
+        "三个 IQ 成员为同族相关模型，其投票不能视为经过标定的独立证据，成员数量优势并不等于证据强度。",
+        "周期性相关量级偏小（0.0167–0.1935）且接近噪声水平；可靠性间隔为冻结值，未新增阈值、未放宽或重新拟合任何门限与融合权重。",
+        "本案例未提供全局特征证据，feature_evidence 保持为空而未做反推。",
+        "置信度限定为 low，因为区域级与窗口级证据相互矛盾。"
+      ]
+    }

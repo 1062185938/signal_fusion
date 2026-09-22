@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "bundle_type": "signal_fusion_review_experiment_input",
+  "evidence_type": "blind_unresolved_review_recommendation",
+  "analysis_id": "review_0026",
+  "signal_context": {
+    "effective_sample_rate_hz": 1000000.0,
+    "observation_sample_count": 4096,
+    "observation_duration_seconds": 0.004096,
+    "iq_window_sample_count": 2048,
+    "iq_window_count": 2
+  },
+  "review_context": {
+    "decision_status": "review_required",
+    "provisional_label": "DVB-T",
+    "review_reason": "outside_periodicity_gate_scope",
+    "automatic_resolution": "unresolved"
+  },
+  "iq_ensemble_evidence": {
+    "decision_status": "review_required",
+    "risk_gate": {
+      "method": "unanimous_member_region_top1",
+      "member_count": 3,
+      "unanimous": false,
+      "unique_top1_labels": [
+        "WiFi",
+        "DVB-T"
+      ],
+      "reason": "member_region_top1_disagreement"
+    },
+    "ensemble": {
+      "aggregation": "mean_probability_across_members",
+      "region_probabilities": [
+        0.009167285868898034,
+        0.44972069064776105,
+        0.5411120106776556
+      ],
+      "region_top3": [
+        {
+          "rank": 1,
+          "class_index": 2,
+          "label": "DVB-T",
+          "probability": 0.5411120106776556
+        },
+        {
+          "rank": 2,
+          "class_index": 1,
+          "label": "WiFi",
+          "probability": 0.44972069064776105
+        },
+        {
+          "rank": 3,
+          "class_index": 0,
+          "label": "LTE",
+          "probability": 0.009167285868898034
+        }
+      ],
+      "uncertainty": {
+        "top1_probability": 0.5411120106776556,
+        "top1_top2_margin": 0.09139132002989453,
+        "normalized_entropy": 0.6687629288034168
+      }
+    },
+    "members": [
+      {
+        "member_id": "iq_member_1",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.8829155564308167
+          },
+          {
+            "rank": 2,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.11590501666069031
+          },
+          {
+            "rank": 3,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.0011794554302468896
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 2,
+          "window_count": 2,
+          "ratio": 1.0
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "DVB-T",
+            "confidence": 0.9606418609619141
+          },
+          {
+            "window_index": 1,
+            "label": "DVB-T",
+            "confidence": 0.8051892518997192
+          }
+        ]
+      },
+      {
+        "member_id": "iq_member_2",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.8941810131072998
+          },
+          {
+            "rank": 2,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.10469861328601837
+          },
+          {
+            "rank": 3,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.001120312255807221
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 2,
+          "window_count": 2,
+          "ratio": 1.0
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "WiFi",
+            "confidence": 0.8066259026527405
+          },
+          {
+            "window_index": 1,
+            "label": "WiFi",
+            "confidence": 0.9817361831665039
+          }
+        ]
+      },
+      {
+        "member_id": "iq_member_3",
+        "region_top3": [
+          {
+            "rank": 1,
+            "class_index": 2,
+            "label": "DVB-T",
+            "probability": 0.6357218623161316
+          },
+          {
+            "rank": 2,
+            "class_index": 1,
+            "label": "WiFi",
+            "probability": 0.33907604217529297
+          },
+          {
+            "rank": 3,
+            "class_index": 0,
+            "label": "LTE",
+            "probability": 0.025202089920639992
+          }
+        ],
+        "window_aggregation": "mean_probability",
+        "window_agreement": {
+          "agreeing_windows": 2,
+          "window_count": 2,
+          "ratio": 1.0
+        },
+        "window_predictions": [
+          {
+            "window_index": 0,
+            "label": "DVB-T",
+            "confidence": 0.5420158505439758
+          },
+          {
+            "window_index": 1,
+            "label": "DVB-T",
+            "confidence": 0.7294278740882874
+          }
+        ]
+      }
+    ]
+  },
+  "periodicity_evidence": {
+    "schema_id": "ofdm_periodicity_v1",
+    "method": "energy_normalized_complex_autocorrelation",
+    "scope": "complete_continuous_region",
+    "sample_rate_hz": 1000000.0,
+    "sample_count": 4096,
+    "candidates": [
+      {
+        "candidate_id": "period_66p67us",
+        "nominal_period_seconds": 6.666666666666667e-05,
+        "nominal_lag_samples": 66.66666666666667,
+        "search_radius_samples": 2,
+        "resolvable": true,
+        "peak_lag_samples": 69,
+        "peak_period_seconds": 6.9e-05,
+        "normalized_correlation": 0.013641626574099064
+      },
+      {
+        "candidate_id": "period_224us",
+        "nominal_period_seconds": 0.000224,
+        "nominal_lag_samples": 224.0,
+        "search_radius_samples": 2,
+        "resolvable": true,
+        "peak_lag_samples": 224,
+        "peak_period_seconds": 0.000224,
+        "normalized_correlation": 0.029492070898413658
+      },
+      {
+        "candidate_id": "period_896us",
+        "nominal_period_seconds": 0.000896,
+        "nominal_lag_samples": 896.0,
+        "search_radius_samples": 2,
+        "resolvable": true,
+        "peak_lag_samples": 896,
+        "peak_period_seconds": 0.000896,
+        "normalized_correlation": 0.215189591050148
+      }
+    ],
+    "scores": {
+      "lte_score": 0.013641626574099064,
+      "dvbt_2k_score": 0.029492070898413658,
+      "dvbt_8k_score": 0.215189591050148,
+      "dvbt_score": 0.215189591050148,
+      "prediction_label": "DVB-T",
+      "margin": 0.20154796540737152
+    },
+    "frozen_gate": {
+      "reliability_margin": 0.021475793793797496,
+      "eligible": false,
+      "reliable": true,
+      "resolved": false,
+      "changed": false
+    }
+  },
+  "reference_document_paths": {
+    "technology_reference_lte_wifi_dvbt.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/fusion/references/technology_reference_lte_wifi_dvbt.md",
+    "ofdm_periodicity_gate_reference.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/fusion/references/ofdm_periodicity_gate_reference.md"
+  },
+  "objective": "Provide one blind, non-operational class recommendation or abstain using only the evidence and references in this file",
+  "decision_contract": {
+    "ground_truth_available": false,
+    "recommendation_is_operational_final": false,
+    "allowed_labels": [
+      "LTE",
+      "WiFi",
+      "DVB-T"
+    ],
+    "abstention_allowed": true,
+    "requirements": [
+      "do not read audit files, sibling files, other cases, or provenance",
+      "do not assume evidence that is absent from this case",
+      "do not invent feature thresholds or fusion weights",
+      "return recommend only for coherent evidence; otherwise abstain"
+    ]
+  },
+  "required_output": {
+    "analysis_id": "exactly this input analysis_id",
+    "recommendation_status": "recommend or abstain",
+    "recommended_label": "LTE, WiFi, DVB-T, or null",
+    "confidence_level": "medium or low",
+    "summary": "concise blind recommendation or abstention reason",
+    "model_evidence": "list of model observations",
+    "periodicity_evidence": "list of periodicity observations",
+    "feature_evidence": "list; empty when no global features are supplied",
+    "conflicting_evidence": "list of material conflicts",
+    "limitations": "list of limitations"
+  }
+}

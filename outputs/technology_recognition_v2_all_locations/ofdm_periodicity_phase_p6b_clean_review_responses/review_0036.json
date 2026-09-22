@@ -1,0 +1,37 @@
+    {
+      "analysis_id": "review_0036",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "证据不足以支持单一类别。ensemble 平均概率为 LTE 0.5125 对 DVB-T 0.4823，Top1-Top2 间隔仅 0.0303，属本批中最薄的领先，归一化熵 0.6568，均值聚合只是把成员对立折叠成一个近乎持平的结果。成员方向明确对立：iq_member_1 稳定且强判 DVB-T（region 0.8729，两窗口 DVB-T 0.9992 / 0.7466，一致率 1.0），iq_member_2 与 iq_member_3 在 region 级判 LTE（0.6700、0.7438，各自领先量 0.345 与 0.495），其中 iq_member_3 两窗口一致 LTE。iq_member_1 并非弱异议成员，其反证是决定性的，因此不能按“近期平的孤立即异议”从轻处理。窗口级多数还在 region 内部翻转（窗口 0 为 2/3 DVB-T，窗口 1 为 2/3 LTE），说明存在非平稳。周期分支虽在适用范围内（eligible=true）且方向指向 LTE，但 margin 0.01198 远低于冻结门限 0.02148（reliable=false），按参考口径只表示证据不足，不能确认 LTE，也不能作为 DVB-T 的反证，故无法裁决该僵局。按合同弃权。",
+      "model_evidence": [
+        "ensemble 平均概率：LTE 0.5125、DVB-T 0.4823、WiFi 0.0052；Top1-Top2 间隔仅 0.0303，归一化熵 0.6568，领先极薄。",
+        "iq_member_1 region Top1=DVB-T 0.8729（LTE 0.1238），窗口 0 与窗口 1 均为 DVB-T（0.9992 / 0.7466），窗口一致率 1.0，方向明确且内部稳定。",
+        "iq_member_2 region Top1=LTE 0.6700（DVB-T 0.3251）；窗口 0 为 DVB-T 0.6488，窗口 1 翻转为 LTE 0.9982，窗口一致率 0.5。",
+        "iq_member_3 region Top1=LTE 0.7438（DVB-T 0.2487），窗口 0 与窗口 1 均为 LTE（0.8208 / 0.6668），窗口一致率 1.0。",
+        "成员 region 级方向为 2:1 偏 LTE，但唯一 DVB-T 成员 iq_member_1 的领先量最大（0.749），并非近期平式的弱异议。",
+        "窗口级多数在 region 内翻转：窗口 0 为 2/3 成员 DVB-T，窗口 1 为 2/3 成员 LTE，说明类别倾向在 region 内部发生移动。",
+        "WiFi 在所有成员与 ensemble 中均不超过 0.0075，未参与 Top1 竞争；分歧只在 LTE 与 DVB-T 之间。"
+      ],
+      "periodicity_evidence": [
+        "归一化自相关测量：period_66p67us=0.04483、period_224us=0.02901、period_896us=0.03284；lte_score=0.04483，dvbt_score=0.03284，prediction_label=LTE，margin=0.01198。",
+        "frozen_gate：eligible=true、reliable=false、resolved=false、changed=false；margin 0.01198 远低于冻结 reliability_margin 0.02148。",
+        "按参考口径，reliable=false 只表示周期证据不足，不表示 DVB-T 成立；该分支既不能确认 ensemble 的 LTE，也不构成对 LTE 的反证。",
+        "三个候选相关值都处于 0.029~0.045 的近噪声量级，分离度不足；周期分支未解决成员分歧，review_reason 为 periodicity_below_threshold。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员方向对立且强度相当：iq_member_1 稳定强判 DVB-T（0.8729，两窗口一致，其中一次 0.9992）与 iq_member_3 稳定判 LTE（0.7438，两窗口一致）互为实质反证。",
+        "ensemble 判别力不足：Top1-Top2 间隔 0.0303、Top1 概率仅 0.5125；均值聚合在两名对立成员之间产生近乎持平的结果。",
+        "region 内非平稳：窗口级多数由窗口 0 的 2/3 DVB-T 变为窗口 1 的 2/3 LTE，iq_member_2 的窗口标签也在同一方向翻转。",
+        "iq_member_2 的两个窗口置信度差异大（0.6488 对 0.9982），说明其 region 级 LTE 领先部分依赖窗口间的平均，而非全程一致。",
+        "在范围内的周期分支 margin 未达门限，无法为该僵局提供独立的物理裁决，分歧仍保持 review 状态。"
+      ],
+      "limitations": [
+        "1 MHz / 4.096 ms 单 region 观测只提供局部短时视图，无法恢复帧级结构或协议同步结构。",
+        "周期相关值接近噪声量级，对频偏、信道、有限样本和预处理敏感，且不是概率或置信度。",
+        "窗口级翻转只说明 region 内非平稳，不代表已检测到任何同步或帧结构。",
+        "三个 IQ 成员为同类型相关模型，其一致性或对立都不是标定过的独立证据，未引入新的融合权重或特征阈值。",
+        "本输出是盲实验推荐，不是运行态最终标签；输入本已被确定性系统判为 review_required。"
+      ]
+    }

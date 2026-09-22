@@ -1,0 +1,28 @@
+{
+      "analysis_id": "review_0002",
+      "recommendation_status": "recommend",
+      "recommended_label": "LTE",
+      "confidence_level": "medium",
+      "summary": "两个 IQ 成员以极高置信度给出 LTE（0.9986 / 0.9989），且窗口完全一致；ensemble 平均概率 LTE 0.8203、margin 0.64。仅第三个成员以微弱优势给出 DVB-T（0.5341 vs LTE 0.4633）且自身窗口不一致，属于内部不确定的弱分歧。周期门控所有候选相关值均接近噪声（<0.05），名义预测 DVB-T 但 margin 0.0154 低于冻结门限 0.0215、reliable=false，不构成有判别力的物理矛盾。综合证据一致指向 LTE，故推荐保留暂定标签 LTE。",
+      "model_evidence": [
+        "成员 iq_member_1 与 iq_member_2 均以极高置信度给出 LTE（0.9986 / 0.9989），且两个窗口预测完全一致（window_agreement ratio 1.0）。",
+        "ensemble 平均概率 LTE 0.8203、DVB-T 0.1787、WiFi 0.0010；top1 与 top2 margin 0.6415，LTE 占主导。",
+        "成员 iq_member_3 仅以微弱优势给出 DVB-T（0.5341 vs LTE 0.4633），且其两个窗口本身不一致（窗口0 LTE 0.73、窗口1 DVB-T 0.80，ratio 0.5），属于接近 50/50 的弱投票。"
+      ],
+      "periodicity_evidence": [
+        "三个候选的归一化相关值均极低（period_66p67us=0.0342、period_224us=0.0496、period_896us=0.0419），接近噪声水平，未检测到任何候选周期的显著重复结构。",
+        "周期门控名义预测 DVB-T（dvbt_score 0.0496 > lte_score 0.0342），但 margin 仅 0.0154，低于冻结可靠性门限 0.0215，frozen_gate.reliable=false、resolved=false、changed=false。",
+        "相关值本身属于测量值而非类别概率，且整体近噪声，因此周期证据不具备判别力。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员 iq_member_3 的 Top1（DVB-T）与其余两成员的 Top1（LTE）不一致；但其置信度接近 50/50 且窗口内部互相矛盾，冲突强度有限。",
+        "periodicity 名义预测 DVB-T 与 IQ ensemble 的 LTE 结论相反；但因相关值近噪声且未达可靠门限，不构成实质性物理冲突。"
+      ],
+      "limitations": [
+        "本 case 不含 global_feature_evidence，未使用任何 64 维特征。",
+        "周期相关值整体接近噪声，周期证据无判别力，不能用于支持 DVB-T。",
+        "4.096 ms / 1 MHz 仅提供局部短时观测，无法恢复完整协议结构或链路方向。",
+        "成员多数置信并非经校准的独立证据，不能当作三次独立投票对待。"
+      ]
+    }

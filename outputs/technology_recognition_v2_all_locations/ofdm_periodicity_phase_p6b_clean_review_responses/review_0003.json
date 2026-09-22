@@ -1,0 +1,28 @@
+    {
+      "analysis_id": "review_0003",
+      "recommendation_status": "recommend",
+      "recommended_label": "DVB-T",
+      "confidence_level": "medium",
+      "summary": "两个 IQ 成员以高置信度给出 DVB-T（0.9952 / 0.8635），窗口完全一致；ensemble 平均 DVB-T 0.7576、margin 0.547。仅第三个成员以微弱优势给出 WiFi（0.4924 vs DVB-T 0.4140）且自身窗口不一致（WiFi 0.709 / DVB-T 0.690），属于内部矛盾的弱投票。周期证据在 896us（DVB-T 8K）处出现明显相关峰 0.2258，远高于 LTE 0.0331 与 DVB-T 2K 0.0293 的近噪声水平，margin 0.1927、reliable=true，物理上明确指向 DVB-T 8K。IQ ensemble 与周期证据相互一致，故推荐 DVB-T。",
+      "model_evidence": [
+        "成员 iq_member_1 以极高置信度给出 DVB-T（0.9952），两个窗口均为 DVB-T（ratio 1.0）。",
+        "成员 iq_member_2 以较高置信度给出 DVB-T（0.8635），两个窗口均为 DVB-T（ratio 1.0）。",
+        "成员 iq_member_3 仅以微弱优势给出 WiFi（0.4924 vs DVB-T 0.4140），且两个窗口本身不一致（窗口0 WiFi 0.709、窗口1 DVB-T 0.690，ratio 0.5），属于低置信、内部矛盾的投票。",
+        "ensemble 平均概率 DVB-T 0.7576、WiFi 0.2106、LTE 0.0318，top1 与 top2 margin 0.547，DVB-T 占主导。"
+      ],
+      "periodicity_evidence": [
+        "period_896us（DVB-T 8K）归一化相关值 0.2258，明显高于 period_66p67us（LTE）0.0331 与 period_224us（DVB-T 2K）0.0293 的近噪声水平，呈现清晰的 8K 周期相关峰。",
+        "周期 margin 0.1927，远超冻结可靠性门限 0.0215，frozen_gate.reliable=true，物理上支持 DVB-T。",
+        "frozen_gate.eligible=false：因成员 Top1 出现 WiFi，超出 LTE/DVB-T 周期门控范围（review_reason=outside_periodicity_gate_scope），周期分支不能经由冻结门控自动改判，但其测量本身仍支持 DVB-T。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员 iq_member_3 的 Top1（WiFi）与其余两成员的 Top1（DVB-T）不一致；但其置信度仅 0.492 且窗口内部互相矛盾，冲突强度弱。"
+      ],
+      "limitations": [
+        "本 case 不含 global_feature_evidence，未使用任何 64 维特征。",
+        "周期门控因成员 Top1 含 WiFi 而不 eligible，不能走冻结周期改判路径，周期证据仅作物理佐证。",
+        "4.096 ms / 1 MHz 仅提供局部短时观测，无法恢复完整协议结构。",
+        "成员投票并非经校准的独立证据，不能当作三次独立投票对待。"
+      ]
+    }

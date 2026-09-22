@@ -1,0 +1,2131 @@
+{
+  "schema_version": 1,
+  "result_type": "technology_recognition_periodicity_phase_p5_awgn",
+  "noise_definition": "per-region circular complex AWGN relative to the complete captured region power; this is incremental SNR, not physical over-the-air SNR",
+  "noise_application": "add noise once to each 4096-sample region, then derive the two standardized 2048-sample IQ-model windows from the same noisy region",
+  "frozen_gate": {
+    "manifest_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/ofdm_periodicity_phase_p3/periodicity_gate_manifest.json",
+    "reliability_margin": 0.021475793793797496,
+    "threshold_was_refit": false,
+    "model_was_retrained": false,
+    "eligibility": "all member top1 labels are LTE or DVB-T, both labels occur, and ensemble top1 is not WiFi"
+  },
+  "input": {
+    "window_dataset_path": "/mnt/sda2/mydata/signal_fusion_data/processed/technology_recognition_lte_wifi_dvbt/external_1msps_2048/test.npz",
+    "region_dataset_path": "/mnt/sda2/mydata/signal_fusion_data/processed/technology_recognition_lte_wifi_dvbt/external_1msps_4096/test.npz",
+    "clean_evaluation_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/ofdm_periodicity_phase_p4_external_1msps/periodicity_frozen_gate_evaluation.json",
+    "model_paths": [
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/technology_recognition_v2_all_locations_2048_spectral_inversion.onnx",
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5_seed45/technology_recognition_v2_all_locations_2048_spectral_inversion_seed45.onnx",
+      "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5_seed46/technology_recognition_v2_all_locations_2048_spectral_inversion_seed46.onnx"
+    ],
+    "label_map_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/window_2048_spectral_inversion_p0p5/label_map.json",
+    "snr_db_values": [
+      2.5,
+      0.0
+    ],
+    "noise_seeds": [
+      44,
+      45,
+      46,
+      47,
+      48
+    ]
+  },
+  "clean_reference": {
+    "region_count": 11641,
+    "baseline_ensemble": {
+      "correct_count": 11629,
+      "error_count": 12,
+      "accuracy_percent": 99.89691607250236
+    },
+    "member_disagreement_count": 394,
+    "lte_dvbt_gate_candidate_count": 382,
+    "periodicity_resolved_count": 375,
+    "changed_label_count": 10,
+    "corrected_error_count": 10,
+    "introduced_error_count": 0,
+    "net_correction_count": 10,
+    "fused": {
+      "correct_count": 11639,
+      "error_count": 2,
+      "accuracy_percent": 99.98281934541706
+    },
+    "review_required": {
+      "region_count": 19,
+      "coverage_percent": 0.16321621853792628
+    },
+    "accepted": {
+      "region_count": 11622,
+      "coverage_percent": 99.83678378146207,
+      "correct_count": 11622,
+      "error_count": 0,
+      "accuracy_percent": 100.0
+    },
+    "reliability_margin": 0.021475793793797496,
+    "invariants": {
+      "unanimous_changed_count": 0,
+      "ensemble_wifi_changed_count": 0,
+      "ineligible_changed_count": 0
+    },
+    "per_class": {
+      "0": {
+        "class_name": "LTE",
+        "region_count": 5360,
+        "baseline_ensemble": {
+          "correct_count": 5357,
+          "error_count": 3,
+          "accuracy_percent": 99.94402985074628
+        },
+        "member_disagreement_count": 24,
+        "lte_dvbt_gate_candidate_count": 24,
+        "periodicity_resolved_count": 17,
+        "changed_label_count": 3,
+        "corrected_error_count": 3,
+        "introduced_error_count": 0,
+        "net_correction_count": 3,
+        "fused": {
+          "correct_count": 5360,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 7,
+          "coverage_percent": 0.13059701492537315
+        },
+        "accepted": {
+          "region_count": 5353,
+          "coverage_percent": 99.86940298507463,
+          "correct_count": 5353,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "1": {
+        "class_name": "WiFi",
+        "region_count": 1072,
+        "baseline_ensemble": {
+          "correct_count": 1072,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 1072,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 1072,
+          "coverage_percent": 100.0,
+          "correct_count": 1072,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "2": {
+        "class_name": "DVB-T",
+        "region_count": 5209,
+        "baseline_ensemble": {
+          "correct_count": 5200,
+          "error_count": 9,
+          "accuracy_percent": 99.82722211556921
+        },
+        "member_disagreement_count": 370,
+        "lte_dvbt_gate_candidate_count": 358,
+        "periodicity_resolved_count": 358,
+        "changed_label_count": 7,
+        "corrected_error_count": 7,
+        "introduced_error_count": 0,
+        "net_correction_count": 7,
+        "fused": {
+          "correct_count": 5207,
+          "error_count": 2,
+          "accuracy_percent": 99.96160491457094
+        },
+        "review_required": {
+          "region_count": 12,
+          "coverage_percent": 0.2303705125743905
+        },
+        "accepted": {
+          "region_count": 5197,
+          "coverage_percent": 99.7696294874256,
+          "correct_count": 5197,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "per_source": {
+      "tr_external_igent_dvbt_f482_r01": {
+        "region_count": 117,
+        "baseline_ensemble": {
+          "correct_count": 117,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 117,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 117,
+          "coverage_percent": 100.0,
+          "correct_count": 117,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r02": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r03": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r04": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r05": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r06": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r07": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r08": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r09": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 1,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 1,
+          "coverage_percent": 0.3731343283582089
+        },
+        "accepted": {
+          "region_count": 267,
+          "coverage_percent": 99.6268656716418,
+          "correct_count": 267,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_dvbt_f482_r10": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r01": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r02": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 5,
+        "lte_dvbt_gate_candidate_count": 5,
+        "periodicity_resolved_count": 3,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 2,
+          "coverage_percent": 0.7462686567164178
+        },
+        "accepted": {
+          "region_count": 266,
+          "coverage_percent": 99.25373134328358,
+          "correct_count": 266,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r03": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 3,
+        "lte_dvbt_gate_candidate_count": 3,
+        "periodicity_resolved_count": 2,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 1,
+          "coverage_percent": 0.3731343283582089
+        },
+        "accepted": {
+          "region_count": 267,
+          "coverage_percent": 99.6268656716418,
+          "correct_count": 267,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r04": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r05": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 265,
+          "error_count": 3,
+          "accuracy_percent": 98.88059701492537
+        },
+        "member_disagreement_count": 5,
+        "lte_dvbt_gate_candidate_count": 5,
+        "periodicity_resolved_count": 4,
+        "changed_label_count": 3,
+        "corrected_error_count": 3,
+        "introduced_error_count": 0,
+        "net_correction_count": 3,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 1,
+          "coverage_percent": 0.3731343283582089
+        },
+        "accepted": {
+          "region_count": 267,
+          "coverage_percent": 99.6268656716418,
+          "correct_count": 267,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r06": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r07": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r08": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 8,
+        "lte_dvbt_gate_candidate_count": 8,
+        "periodicity_resolved_count": 6,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 2,
+          "coverage_percent": 0.7462686567164178
+        },
+        "accepted": {
+          "region_count": 266,
+          "coverage_percent": 99.25373134328358,
+          "correct_count": 266,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r09": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 1,
+        "lte_dvbt_gate_candidate_count": 1,
+        "periodicity_resolved_count": 1,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_lte_f806_r10": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 1,
+        "lte_dvbt_gate_candidate_count": 1,
+        "periodicity_resolved_count": 1,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_igent_wifi_f2412_r01": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_merelbeke_wifi_f5180_r01": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_merelbeke_wifi_f5180_r02": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_merelbeke_wifi_f5180_r03": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r01": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r02": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 42,
+        "lte_dvbt_gate_candidate_count": 42,
+        "periodicity_resolved_count": 42,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r03": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 265,
+          "error_count": 3,
+          "accuracy_percent": 98.88059701492537
+        },
+        "member_disagreement_count": 125,
+        "lte_dvbt_gate_candidate_count": 125,
+        "periodicity_resolved_count": 125,
+        "changed_label_count": 3,
+        "corrected_error_count": 3,
+        "introduced_error_count": 0,
+        "net_correction_count": 3,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r04": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 42,
+        "lte_dvbt_gate_candidate_count": 42,
+        "periodicity_resolved_count": 42,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r05": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 266,
+          "error_count": 2,
+          "accuracy_percent": 99.25373134328358
+        },
+        "member_disagreement_count": 135,
+        "lte_dvbt_gate_candidate_count": 135,
+        "periodicity_resolved_count": 135,
+        "changed_label_count": 2,
+        "corrected_error_count": 2,
+        "introduced_error_count": 0,
+        "net_correction_count": 2,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r06": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r07": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 264,
+          "error_count": 4,
+          "accuracy_percent": 98.50746268656717
+        },
+        "member_disagreement_count": 24,
+        "lte_dvbt_gate_candidate_count": 13,
+        "periodicity_resolved_count": 13,
+        "changed_label_count": 2,
+        "corrected_error_count": 2,
+        "introduced_error_count": 0,
+        "net_correction_count": 2,
+        "fused": {
+          "correct_count": 266,
+          "error_count": 2,
+          "accuracy_percent": 99.25373134328358
+        },
+        "review_required": {
+          "region_count": 11,
+          "coverage_percent": 4.104477611940299
+        },
+        "accepted": {
+          "region_count": 257,
+          "coverage_percent": 95.8955223880597,
+          "correct_count": 257,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r08": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r09": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_dvbt_f482_r10": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 1,
+        "lte_dvbt_gate_candidate_count": 1,
+        "periodicity_resolved_count": 1,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r01": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r02": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r03": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r04": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r05": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r06": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 1,
+        "lte_dvbt_gate_candidate_count": 1,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 1,
+          "coverage_percent": 0.3731343283582089
+        },
+        "accepted": {
+          "region_count": 267,
+          "coverage_percent": 99.6268656716418,
+          "correct_count": 267,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r07": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r08": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r09": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      },
+      "tr_external_uz_lte_f806_r10": {
+        "region_count": 268,
+        "baseline_ensemble": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "member_disagreement_count": 0,
+        "lte_dvbt_gate_candidate_count": 0,
+        "periodicity_resolved_count": 0,
+        "changed_label_count": 0,
+        "corrected_error_count": 0,
+        "introduced_error_count": 0,
+        "net_correction_count": 0,
+        "fused": {
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        },
+        "review_required": {
+          "region_count": 0,
+          "coverage_percent": 0.0
+        },
+        "accepted": {
+          "region_count": 268,
+          "coverage_percent": 100.0,
+          "correct_count": 268,
+          "error_count": 0,
+          "accuracy_percent": 100.0
+        }
+      }
+    },
+    "changed_wrong_to_wrong_count": 0
+  },
+  "awgn_conditions": [
+    {
+      "snr_db": 2.5,
+      "trials": [
+        {
+          "snr_db": 2.5,
+          "noise_seed": 44,
+          "achieved_snr_db_mean": 2.5,
+          "achieved_snr_db_std": 9.04639642188068e-16,
+          "baseline_accuracy_percent": 93.63456747702088,
+          "baseline_error_count": 741,
+          "fused_accuracy_percent": 94.37333562408728,
+          "fused_error_count": 655,
+          "member_disagreement_count": 1276,
+          "lte_dvbt_gate_candidate_count": 1273,
+          "periodicity_resolved_count": 293,
+          "changed_label_count": 86,
+          "corrected_error_count": 86,
+          "introduced_error_count": 0,
+          "net_correction_count": 86,
+          "review_required_count": 983,
+          "accepted_accuracy_percent": 96.97879527115782,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 86.21268656716418,
+              "fused_accuracy_percent": 87.81716417910448,
+              "corrected_error_count": 86,
+              "introduced_error_count": 0
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.81343283582089,
+              "fused_accuracy_percent": 99.81343283582089,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 2.5,
+          "noise_seed": 45,
+          "achieved_snr_db_mean": 2.5,
+          "achieved_snr_db_std": 9.008487903756262e-16,
+          "baseline_accuracy_percent": 93.95240958680526,
+          "baseline_error_count": 704,
+          "fused_accuracy_percent": 94.66540675199725,
+          "fused_error_count": 621,
+          "member_disagreement_count": 1289,
+          "lte_dvbt_gate_candidate_count": 1287,
+          "periodicity_resolved_count": 307,
+          "changed_label_count": 85,
+          "corrected_error_count": 84,
+          "introduced_error_count": 1,
+          "net_correction_count": 83,
+          "review_required_count": 982,
+          "accepted_accuracy_percent": 97.23238577727741,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 86.90298507462687,
+              "fused_accuracy_percent": 88.45149253731343,
+              "corrected_error_count": 84,
+              "introduced_error_count": 1
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.81343283582089,
+              "fused_accuracy_percent": 99.81343283582089,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 2.5,
+          "noise_seed": 46,
+          "achieved_snr_db_mean": 2.5,
+          "achieved_snr_db_std": 9.03824638694719e-16,
+          "baseline_accuracy_percent": 93.54866420410617,
+          "baseline_error_count": 751,
+          "fused_accuracy_percent": 94.5107808607508,
+          "fused_error_count": 639,
+          "member_disagreement_count": 1284,
+          "lte_dvbt_gate_candidate_count": 1281,
+          "periodicity_resolved_count": 328,
+          "changed_label_count": 112,
+          "corrected_error_count": 112,
+          "introduced_error_count": 0,
+          "net_correction_count": 112,
+          "review_required_count": 956,
+          "accepted_accuracy_percent": 97.06130088909687,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 86.02611940298507,
+              "fused_accuracy_percent": 88.11567164179104,
+              "corrected_error_count": 112,
+              "introduced_error_count": 0
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.81343283582089,
+              "fused_accuracy_percent": 99.81343283582089,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 2.5,
+          "noise_seed": 47,
+          "achieved_snr_db_mean": 2.5,
+          "achieved_snr_db_std": 8.976743730677924e-16,
+          "baseline_accuracy_percent": 93.70329009535263,
+          "baseline_error_count": 733,
+          "fused_accuracy_percent": 94.50219053345933,
+          "fused_error_count": 640,
+          "member_disagreement_count": 1303,
+          "lte_dvbt_gate_candidate_count": 1299,
+          "periodicity_resolved_count": 309,
+          "changed_label_count": 93,
+          "corrected_error_count": 93,
+          "introduced_error_count": 0,
+          "net_correction_count": 93,
+          "review_required_count": 994,
+          "accepted_accuracy_percent": 96.99445853292008,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 86.36194029850746,
+              "fused_accuracy_percent": 88.09701492537313,
+              "corrected_error_count": 93,
+              "introduced_error_count": 0
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.81343283582089,
+              "fused_accuracy_percent": 99.81343283582089,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 2.5,
+          "noise_seed": 48,
+          "achieved_snr_db_mean": 2.5,
+          "achieved_snr_db_std": 9.02539750445769e-16,
+          "baseline_accuracy_percent": 93.62597714972941,
+          "baseline_error_count": 742,
+          "fused_accuracy_percent": 94.5107808607508,
+          "fused_error_count": 639,
+          "member_disagreement_count": 1279,
+          "lte_dvbt_gate_candidate_count": 1276,
+          "periodicity_resolved_count": 320,
+          "changed_label_count": 105,
+          "corrected_error_count": 104,
+          "introduced_error_count": 1,
+          "net_correction_count": 103,
+          "review_required_count": 959,
+          "accepted_accuracy_percent": 96.98558322411533,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 86.19402985074628,
+              "fused_accuracy_percent": 88.11567164179104,
+              "corrected_error_count": 104,
+              "introduced_error_count": 1
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.81343283582089,
+              "fused_accuracy_percent": 99.81343283582089,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 5,
+        "baseline_accuracy_percent": {
+          "mean": 93.69298170260286,
+          "std": 0.13866395515148972,
+          "min": 93.54866420410617,
+          "max": 93.95240958680526
+        },
+        "baseline_error_count": {
+          "mean": 734.2,
+          "std": 16.141871019184855,
+          "min": 704.0,
+          "max": 751.0
+        },
+        "fused_accuracy_percent": {
+          "mean": 94.51249892620909,
+          "std": 0.09258444178546629,
+          "min": 94.37333562408728,
+          "max": 94.66540675199725
+        },
+        "fused_error_count": {
+          "mean": 638.8,
+          "std": 10.777754868245982,
+          "min": 621.0,
+          "max": 655.0
+        },
+        "member_disagreement_count": {
+          "mean": 1286.2,
+          "std": 9.495261976375375,
+          "min": 1276.0,
+          "max": 1303.0
+        },
+        "lte_dvbt_gate_candidate_count": {
+          "mean": 1283.2,
+          "std": 9.21737489744233,
+          "min": 1273.0,
+          "max": 1299.0
+        },
+        "periodicity_resolved_count": {
+          "mean": 311.4,
+          "std": 11.943198901466893,
+          "min": 293.0,
+          "max": 328.0
+        },
+        "changed_label_count": {
+          "mean": 96.2,
+          "std": 10.64706532336493,
+          "min": 85.0,
+          "max": 112.0
+        },
+        "corrected_error_count": {
+          "mean": 95.8,
+          "std": 10.703270528207721,
+          "min": 84.0,
+          "max": 112.0
+        },
+        "introduced_error_count": {
+          "mean": 0.4,
+          "std": 0.48989794855663565,
+          "min": 0.0,
+          "max": 1.0
+        },
+        "net_correction_count": {
+          "mean": 95.4,
+          "std": 10.781465577554842,
+          "min": 83.0,
+          "max": 112.0
+        },
+        "review_required_count": {
+          "mean": 974.8,
+          "std": 14.770240350109406,
+          "min": 956.0,
+          "max": 994.0
+        },
+        "accepted_accuracy_percent": {
+          "mean": 97.0505047389135,
+          "std": 0.09559863705186016,
+          "min": 96.97879527115782,
+          "max": 97.23238577727741
+        }
+      }
+    },
+    {
+      "snr_db": 0.0,
+      "trials": [
+        {
+          "snr_db": 0.0,
+          "noise_seed": 44,
+          "achieved_snr_db_mean": 5.633044216615706e-17,
+          "achieved_snr_db_std": 7.177694207742855e-16,
+          "baseline_accuracy_percent": 75.83540932909544,
+          "baseline_error_count": 2813,
+          "fused_accuracy_percent": 76.76316467657418,
+          "fused_error_count": 2705,
+          "member_disagreement_count": 2569,
+          "lte_dvbt_gate_candidate_count": 2563,
+          "periodicity_resolved_count": 260,
+          "changed_label_count": 118,
+          "corrected_error_count": 113,
+          "introduced_error_count": 5,
+          "net_correction_count": 108,
+          "review_required_count": 2309,
+          "accepted_accuracy_percent": 82.31890270038576,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 47.667910447761194,
+              "fused_accuracy_percent": 49.68283582089552,
+              "corrected_error_count": 113,
+              "introduced_error_count": 5
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.25373134328358,
+              "fused_accuracy_percent": 99.25373134328358,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 0.0,
+          "noise_seed": 45,
+          "achieved_snr_db_mean": 5.471508389815696e-17,
+          "achieved_snr_db_std": 7.176856940262694e-16,
+          "baseline_accuracy_percent": 75.68078343784899,
+          "baseline_error_count": 2831,
+          "fused_accuracy_percent": 76.52263551241302,
+          "fused_error_count": 2733,
+          "member_disagreement_count": 2563,
+          "lte_dvbt_gate_candidate_count": 2559,
+          "periodicity_resolved_count": 244,
+          "changed_label_count": 112,
+          "corrected_error_count": 105,
+          "introduced_error_count": 7,
+          "net_correction_count": 98,
+          "review_required_count": 2319,
+          "accepted_accuracy_percent": 81.91375241364514,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 47.257462686567166,
+              "fused_accuracy_percent": 49.08582089552239,
+              "corrected_error_count": 105,
+              "introduced_error_count": 7
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.6268656716418,
+              "fused_accuracy_percent": 99.6268656716418,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 0.0,
+          "noise_seed": 46,
+          "achieved_snr_db_mean": 5.666179770831093e-17,
+          "achieved_snr_db_std": 7.142567903105911e-16,
+          "baseline_accuracy_percent": 75.60347049222575,
+          "baseline_error_count": 2840,
+          "fused_accuracy_percent": 76.4710935486642,
+          "fused_error_count": 2739,
+          "member_disagreement_count": 2508,
+          "lte_dvbt_gate_candidate_count": 2502,
+          "periodicity_resolved_count": 236,
+          "changed_label_count": 109,
+          "corrected_error_count": 105,
+          "introduced_error_count": 4,
+          "net_correction_count": 101,
+          "review_required_count": 2272,
+          "accepted_accuracy_percent": 82.05785035756217,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 47.07089552238806,
+              "fused_accuracy_percent": 48.95522388059702,
+              "corrected_error_count": 105,
+              "introduced_error_count": 4
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.72014925373135,
+              "fused_accuracy_percent": 99.72014925373135,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 0.0,
+          "noise_seed": 47,
+          "achieved_snr_db_mean": 5.782154210584946e-17,
+          "achieved_snr_db_std": 7.084080041183381e-16,
+          "baseline_accuracy_percent": 75.6206511468087,
+          "baseline_error_count": 2838,
+          "fused_accuracy_percent": 76.48827420324714,
+          "fused_error_count": 2737,
+          "member_disagreement_count": 2495,
+          "lte_dvbt_gate_candidate_count": 2489,
+          "periodicity_resolved_count": 232,
+          "changed_label_count": 107,
+          "corrected_error_count": 104,
+          "introduced_error_count": 3,
+          "net_correction_count": 101,
+          "review_required_count": 2263,
+          "accepted_accuracy_percent": 81.94711025805076,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 47.1455223880597,
+              "fused_accuracy_percent": 49.02985074626866,
+              "corrected_error_count": 104,
+              "introduced_error_count": 3
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.53358208955224,
+              "fused_accuracy_percent": 99.53358208955224,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        },
+        {
+          "snr_db": 0.0,
+          "noise_seed": 48,
+          "achieved_snr_db_mean": 4.324189825107937e-17,
+          "achieved_snr_db_std": 7.112184680980287e-16,
+          "baseline_accuracy_percent": 75.48320591014517,
+          "baseline_error_count": 2854,
+          "fused_accuracy_percent": 76.32505798470922,
+          "fused_error_count": 2756,
+          "member_disagreement_count": 2569,
+          "lte_dvbt_gate_candidate_count": 2563,
+          "periodicity_resolved_count": 266,
+          "changed_label_count": 114,
+          "corrected_error_count": 106,
+          "introduced_error_count": 8,
+          "net_correction_count": 98,
+          "review_required_count": 2303,
+          "accepted_accuracy_percent": 81.98757763975155,
+          "per_class": {
+            "0": {
+              "class_name": "LTE",
+              "baseline_accuracy_percent": 46.82835820895522,
+              "fused_accuracy_percent": 48.656716417910445,
+              "corrected_error_count": 106,
+              "introduced_error_count": 8
+            },
+            "1": {
+              "class_name": "WiFi",
+              "baseline_accuracy_percent": 99.6268656716418,
+              "fused_accuracy_percent": 99.6268656716418,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            },
+            "2": {
+              "class_name": "DVB-T",
+              "baseline_accuracy_percent": 100.0,
+              "fused_accuracy_percent": 100.0,
+              "corrected_error_count": 0,
+              "introduced_error_count": 0
+            }
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 5,
+        "baseline_accuracy_percent": {
+          "mean": 75.64470406322481,
+          "std": 0.11491790401643104,
+          "min": 75.48320591014517,
+          "max": 75.83540932909544
+        },
+        "baseline_error_count": {
+          "mean": 2835.2,
+          "std": 13.377593206552515,
+          "min": 2813.0,
+          "max": 2854.0
+        },
+        "fused_accuracy_percent": {
+          "mean": 76.51404518512156,
+          "std": 0.1416753071254243,
+          "min": 76.32505798470922,
+          "max": 76.76316467657418
+        },
+        "fused_error_count": {
+          "mean": 2734.0,
+          "std": 16.492422502470642,
+          "min": 2705.0,
+          "max": 2756.0
+        },
+        "member_disagreement_count": {
+          "mean": 2540.8,
+          "std": 32.424681956805685,
+          "min": 2495.0,
+          "max": 2569.0
+        },
+        "lte_dvbt_gate_candidate_count": {
+          "mean": 2535.2,
+          "std": 32.707185754815406,
+          "min": 2489.0,
+          "max": 2563.0
+        },
+        "periodicity_resolved_count": {
+          "mean": 247.6,
+          "std": 13.29059818066892,
+          "min": 232.0,
+          "max": 266.0
+        },
+        "changed_label_count": {
+          "mean": 112.0,
+          "std": 3.847076812334269,
+          "min": 107.0,
+          "max": 118.0
+        },
+        "corrected_error_count": {
+          "mean": 106.6,
+          "std": 3.261901286060018,
+          "min": 104.0,
+          "max": 113.0
+        },
+        "introduced_error_count": {
+          "mean": 5.4,
+          "std": 1.8547236990991407,
+          "min": 3.0,
+          "max": 8.0
+        },
+        "net_correction_count": {
+          "mean": 101.2,
+          "std": 3.655133376499413,
+          "min": 98.0,
+          "max": 108.0
+        },
+        "review_required_count": {
+          "mean": 2293.2,
+          "std": 21.784398086704165,
+          "min": 2263.0,
+          "max": 2319.0
+        },
+        "accepted_accuracy_percent": {
+          "mean": 82.04503867387908,
+          "std": 0.14511614069366136,
+          "min": 81.91375241364514,
+          "max": 82.31890270038576
+        }
+      }
+    }
+  ]
+}

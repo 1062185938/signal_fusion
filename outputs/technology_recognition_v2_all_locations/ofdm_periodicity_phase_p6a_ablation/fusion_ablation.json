@@ -1,0 +1,2212 @@
+{
+  "schema_version": 1,
+  "result_type": "technology_recognition_fusion_ablation",
+  "stage_definitions": {
+    "iq_member_1..3": "each independently trained IQ model",
+    "iq_ensemble": "mean region probability across the three IQ models",
+    "iq_ensemble_plus_periodicity": "ensemble prediction after the frozen LTE/DVB-T periodicity gate; unresolved reviews retain a provisional prediction for scoring",
+    "iq_ensemble_plus_periodicity_with_reject": "same gated prediction, but unresolved member disagreements are rejected and have no final label"
+  },
+  "conditions": [
+    {
+      "condition_id": "clean",
+      "snr_db": null,
+      "trials": [
+        {
+          "noise_seed": null,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11494,
+              "accepted_error_count": 147,
+              "accepted_accuracy_percent": 98.73722188815394,
+              "full_coverage_accuracy_percent": 98.73722188815394
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11378,
+              "accepted_error_count": 263,
+              "accepted_accuracy_percent": 97.74074392234344,
+              "full_coverage_accuracy_percent": 97.74074392234344
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11616,
+              "accepted_error_count": 25,
+              "accepted_accuracy_percent": 99.78524181771326,
+              "full_coverage_accuracy_percent": 99.78524181771326
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11629,
+              "accepted_error_count": 12,
+              "accepted_accuracy_percent": 99.89691607250236,
+              "full_coverage_accuracy_percent": 99.89691607250236
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11639,
+              "accepted_error_count": 2,
+              "accepted_accuracy_percent": 99.98281934541706,
+              "full_coverage_accuracy_percent": 99.98281934541706
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.83678378146207,
+              "accepted_count": 11622,
+              "accepted_correct_count": 11622,
+              "accepted_error_count": 0,
+              "accepted_accuracy_percent": 100.0,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 394,
+            "eligible_count": 382,
+            "resolved_count": 375,
+            "changed_label_count": 10,
+            "corrected_error_count": 10,
+            "introduced_error_count": 0,
+            "review_required_count": 19
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.11167425478910786,
+            "periodicity_minus_ensemble": 0.0859032729146918
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 1,
+        "region_count_per_trial": 11641,
+        "stages": {
+          "iq_member_1": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 147.0,
+              "std": 0.0,
+              "min": 147.0,
+              "max": 147.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 98.73722188815394,
+              "std": 0.0,
+              "min": 98.73722188815394,
+              "max": 98.73722188815394
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 98.73722188815394,
+              "std": 0.0,
+              "min": 98.73722188815394,
+              "max": 98.73722188815394
+            }
+          },
+          "iq_member_2": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 263.0,
+              "std": 0.0,
+              "min": 263.0,
+              "max": 263.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 97.74074392234344,
+              "std": 0.0,
+              "min": 97.74074392234344,
+              "max": 97.74074392234344
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 97.74074392234344,
+              "std": 0.0,
+              "min": 97.74074392234344,
+              "max": 97.74074392234344
+            }
+          },
+          "iq_member_3": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 25.0,
+              "std": 0.0,
+              "min": 25.0,
+              "max": 25.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.78524181771326,
+              "std": 0.0,
+              "min": 99.78524181771326,
+              "max": 99.78524181771326
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.78524181771326,
+              "std": 0.0,
+              "min": 99.78524181771326,
+              "max": 99.78524181771326
+            }
+          },
+          "iq_ensemble": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 12.0,
+              "std": 0.0,
+              "min": 12.0,
+              "max": 12.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.89691607250236,
+              "std": 0.0,
+              "min": 99.89691607250236,
+              "max": 99.89691607250236
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.89691607250236,
+              "std": 0.0,
+              "min": 99.89691607250236,
+              "max": 99.89691607250236
+            }
+          },
+          "iq_ensemble_plus_periodicity": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 2.0,
+              "std": 0.0,
+              "min": 2.0,
+              "max": 2.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.98281934541706,
+              "std": 0.0,
+              "min": 99.98281934541706,
+              "max": 99.98281934541706
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.98281934541706,
+              "std": 0.0,
+              "min": 99.98281934541706,
+              "max": 99.98281934541706
+            }
+          },
+          "iq_ensemble_plus_periodicity_with_reject": {
+            "coverage_percent": {
+              "mean": 99.83678378146207,
+              "std": 0.0,
+              "min": 99.83678378146207,
+              "max": 99.83678378146207
+            },
+            "accepted_count": {
+              "mean": 11622.0,
+              "std": 0.0,
+              "min": 11622.0,
+              "max": 11622.0
+            },
+            "accepted_error_count": {
+              "mean": 0.0,
+              "std": 0.0,
+              "min": 0.0,
+              "max": 0.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "full_coverage_accuracy_percent": null
+          }
+        },
+        "gate_activity": {
+          "member_disagreement_count": {
+            "mean": 394.0,
+            "std": 0.0,
+            "min": 394.0,
+            "max": 394.0
+          },
+          "eligible_count": {
+            "mean": 382.0,
+            "std": 0.0,
+            "min": 382.0,
+            "max": 382.0
+          },
+          "resolved_count": {
+            "mean": 375.0,
+            "std": 0.0,
+            "min": 375.0,
+            "max": 375.0
+          },
+          "changed_label_count": {
+            "mean": 10.0,
+            "std": 0.0,
+            "min": 10.0,
+            "max": 10.0
+          },
+          "corrected_error_count": {
+            "mean": 10.0,
+            "std": 0.0,
+            "min": 10.0,
+            "max": 10.0
+          },
+          "introduced_error_count": {
+            "mean": 0.0,
+            "std": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "review_required_count": {
+            "mean": 19.0,
+            "std": 0.0,
+            "min": 19.0,
+            "max": 19.0
+          }
+        },
+        "accuracy_deltas_percent_points": {
+          "ensemble_minus_best_member": {
+            "mean": 0.11167425478910786,
+            "std": 0.0,
+            "min": 0.11167425478910786,
+            "max": 0.11167425478910786
+          },
+          "periodicity_minus_ensemble": {
+            "mean": 0.0859032729146918,
+            "std": 0.0,
+            "min": 0.0859032729146918,
+            "max": 0.0859032729146918
+          }
+        }
+      }
+    },
+    {
+      "condition_id": "awgn_10_db",
+      "snr_db": 10.0,
+      "trials": [
+        {
+          "noise_seed": 44,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11572,
+              "accepted_error_count": 69,
+              "accepted_accuracy_percent": 99.40726741688859,
+              "full_coverage_accuracy_percent": 99.40726741688859
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11529,
+              "accepted_error_count": 112,
+              "accepted_accuracy_percent": 99.03788334335538,
+              "full_coverage_accuracy_percent": 99.03788334335538
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11611,
+              "accepted_error_count": 30,
+              "accepted_accuracy_percent": 99.74229018125591,
+              "full_coverage_accuracy_percent": 99.74229018125591
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11620,
+              "accepted_error_count": 21,
+              "accepted_accuracy_percent": 99.81960312687913,
+              "full_coverage_accuracy_percent": 99.81960312687913
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11628,
+              "accepted_error_count": 13,
+              "accepted_accuracy_percent": 99.88832574521089,
+              "full_coverage_accuracy_percent": 99.88832574521089
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.75947083583884,
+              "accepted_count": 11613,
+              "accepted_correct_count": 11608,
+              "accepted_error_count": 5,
+              "accepted_accuracy_percent": 99.95694480323775,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 181,
+            "eligible_count": 178,
+            "resolved_count": 153,
+            "changed_label_count": 8,
+            "corrected_error_count": 8,
+            "introduced_error_count": 0,
+            "review_required_count": 28
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.07731294562321978,
+            "periodicity_minus_ensemble": 0.06872261833176196
+          }
+        },
+        {
+          "noise_seed": 45,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11561,
+              "accepted_error_count": 80,
+              "accepted_accuracy_percent": 99.31277381668241,
+              "full_coverage_accuracy_percent": 99.31277381668241
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11518,
+              "accepted_error_count": 123,
+              "accepted_accuracy_percent": 98.94338974314921,
+              "full_coverage_accuracy_percent": 98.94338974314921
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11613,
+              "accepted_error_count": 28,
+              "accepted_accuracy_percent": 99.75947083583884,
+              "full_coverage_accuracy_percent": 99.75947083583884
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11622,
+              "accepted_error_count": 19,
+              "accepted_accuracy_percent": 99.83678378146207,
+              "full_coverage_accuracy_percent": 99.83678378146207
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11629,
+              "accepted_error_count": 12,
+              "accepted_accuracy_percent": 99.89691607250236,
+              "full_coverage_accuracy_percent": 99.89691607250236
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.74229018125591,
+              "accepted_count": 11611,
+              "accepted_correct_count": 11605,
+              "accepted_error_count": 6,
+              "accepted_accuracy_percent": 99.94832486435277,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 195,
+            "eligible_count": 192,
+            "resolved_count": 165,
+            "changed_label_count": 7,
+            "corrected_error_count": 7,
+            "introduced_error_count": 0,
+            "review_required_count": 30
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.07731294562323399,
+            "periodicity_minus_ensemble": 0.06013229104028994
+          }
+        },
+        {
+          "noise_seed": 46,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11566,
+              "accepted_error_count": 75,
+              "accepted_accuracy_percent": 99.35572545313977,
+              "full_coverage_accuracy_percent": 99.35572545313977
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11509,
+              "accepted_error_count": 132,
+              "accepted_accuracy_percent": 98.86607679752599,
+              "full_coverage_accuracy_percent": 98.86607679752599
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11611,
+              "accepted_error_count": 30,
+              "accepted_accuracy_percent": 99.74229018125591,
+              "full_coverage_accuracy_percent": 99.74229018125591
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11620,
+              "accepted_error_count": 21,
+              "accepted_accuracy_percent": 99.81960312687913,
+              "full_coverage_accuracy_percent": 99.81960312687913
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11632,
+              "accepted_error_count": 9,
+              "accepted_accuracy_percent": 99.92268705437677,
+              "full_coverage_accuracy_percent": 99.92268705437677
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.70792887209002,
+              "accepted_count": 11607,
+              "accepted_correct_count": 11602,
+              "accepted_error_count": 5,
+              "accepted_accuracy_percent": 99.95692254673904,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 208,
+            "eligible_count": 205,
+            "resolved_count": 174,
+            "changed_label_count": 12,
+            "corrected_error_count": 12,
+            "introduced_error_count": 0,
+            "review_required_count": 34
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.07731294562321978,
+            "periodicity_minus_ensemble": 0.10308392749763584
+          }
+        },
+        {
+          "noise_seed": 47,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11572,
+              "accepted_error_count": 69,
+              "accepted_accuracy_percent": 99.40726741688859,
+              "full_coverage_accuracy_percent": 99.40726741688859
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11528,
+              "accepted_error_count": 113,
+              "accepted_accuracy_percent": 99.02929301606392,
+              "full_coverage_accuracy_percent": 99.02929301606392
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11613,
+              "accepted_error_count": 28,
+              "accepted_accuracy_percent": 99.75947083583884,
+              "full_coverage_accuracy_percent": 99.75947083583884
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11624,
+              "accepted_error_count": 17,
+              "accepted_accuracy_percent": 99.85396443604502,
+              "full_coverage_accuracy_percent": 99.85396443604502
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11631,
+              "accepted_error_count": 10,
+              "accepted_accuracy_percent": 99.91409672708531,
+              "full_coverage_accuracy_percent": 99.91409672708531
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.72510952667297,
+              "accepted_count": 11609,
+              "accepted_correct_count": 11605,
+              "accepted_error_count": 4,
+              "accepted_accuracy_percent": 99.96554397450254,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 186,
+            "eligible_count": 181,
+            "resolved_count": 154,
+            "changed_label_count": 7,
+            "corrected_error_count": 7,
+            "introduced_error_count": 0,
+            "review_required_count": 32
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.09449360020617803,
+            "periodicity_minus_ensemble": 0.06013229104028994
+          }
+        },
+        {
+          "noise_seed": 48,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11565,
+              "accepted_error_count": 76,
+              "accepted_accuracy_percent": 99.3471351258483,
+              "full_coverage_accuracy_percent": 99.3471351258483
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11526,
+              "accepted_error_count": 115,
+              "accepted_accuracy_percent": 99.01211236148097,
+              "full_coverage_accuracy_percent": 99.01211236148097
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11608,
+              "accepted_error_count": 33,
+              "accepted_accuracy_percent": 99.7165191993815,
+              "full_coverage_accuracy_percent": 99.7165191993815
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11621,
+              "accepted_error_count": 20,
+              "accepted_accuracy_percent": 99.8281934541706,
+              "full_coverage_accuracy_percent": 99.8281934541706
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11628,
+              "accepted_error_count": 13,
+              "accepted_accuracy_percent": 99.88832574521089,
+              "full_coverage_accuracy_percent": 99.88832574521089
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.76806116313031,
+              "accepted_count": 11614,
+              "accepted_correct_count": 11609,
+              "accepted_error_count": 5,
+              "accepted_accuracy_percent": 99.95694851041846,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 190,
+            "eligible_count": 187,
+            "resolved_count": 163,
+            "changed_label_count": 9,
+            "corrected_error_count": 8,
+            "introduced_error_count": 1,
+            "review_required_count": 27
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.11167425478910786,
+            "periodicity_minus_ensemble": 0.06013229104028994
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 5,
+        "region_count_per_trial": 11641,
+        "stages": {
+          "iq_member_1": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 73.8,
+              "std": 4.261455150532504,
+              "min": 69.0,
+              "max": 80.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.36603384588953,
+              "std": 0.03660729448099697,
+              "min": 99.31277381668241,
+              "max": 99.40726741688859
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.36603384588953,
+              "std": 0.03660729448099697,
+              "min": 99.31277381668241,
+              "max": 99.40726741688859
+            }
+          },
+          "iq_member_2": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 119.0,
+              "std": 7.563068160475615,
+              "min": 112.0,
+              "max": 132.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 98.97775105231509,
+              "std": 0.06496923082617799,
+              "min": 98.86607679752599,
+              "max": 99.03788334335538
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 98.97775105231509,
+              "std": 0.06496923082617799,
+              "min": 98.86607679752599,
+              "max": 99.03788334335538
+            }
+          },
+          "iq_member_3": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 29.8,
+              "std": 1.8330302779823358,
+              "min": 28.0,
+              "max": 33.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.74400824671419,
+              "std": 0.015746330023040628,
+              "min": 99.7165191993815,
+              "max": 99.75947083583884
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.74400824671419,
+              "std": 0.015746330023040628,
+              "min": 99.7165191993815,
+              "max": 99.75947083583884
+            }
+          },
+          "iq_ensemble": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 19.6,
+              "std": 1.4966629547095767,
+              "min": 17.0,
+              "max": 21.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.8316295850872,
+              "std": 0.01285682462597683,
+              "min": 99.81960312687913,
+              "max": 99.85396443604502
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.8316295850872,
+              "std": 0.01285682462597683,
+              "min": 99.81960312687913,
+              "max": 99.85396443604502
+            }
+          },
+          "iq_ensemble_plus_periodicity": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 11.4,
+              "std": 1.624807680927192,
+              "min": 9.0,
+              "max": 13.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.90207026887724,
+              "std": 0.013957629764858025,
+              "min": 99.88832574521089,
+              "max": 99.92268705437677
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.90207026887724,
+              "std": 0.013957629764858025,
+              "min": 99.88832574521089,
+              "max": 99.92268705437677
+            }
+          },
+          "iq_ensemble_plus_periodicity_with_reject": {
+            "coverage_percent": {
+              "mean": 99.7405721157976,
+              "std": 0.02200197315499616,
+              "min": 99.70792887209002,
+              "max": 99.76806116313031
+            },
+            "accepted_count": {
+              "mean": 11610.8,
+              "std": 2.5612496949731396,
+              "min": 11607.0,
+              "max": 11614.0
+            },
+            "accepted_error_count": {
+              "mean": 5.0,
+              "std": 0.6324555320336759,
+              "min": 4.0,
+              "max": 6.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.95693693985011,
+              "std": 0.005445168367507721,
+              "min": 99.94832486435277,
+              "max": 99.96554397450254
+            },
+            "full_coverage_accuracy_percent": null
+          }
+        },
+        "gate_activity": {
+          "member_disagreement_count": {
+            "mean": 192.0,
+            "std": 9.23038460737146,
+            "min": 181.0,
+            "max": 208.0
+          },
+          "eligible_count": {
+            "mean": 188.6,
+            "std": 9.520504188329525,
+            "min": 178.0,
+            "max": 205.0
+          },
+          "resolved_count": {
+            "mean": 161.8,
+            "std": 7.730459236035076,
+            "min": 153.0,
+            "max": 174.0
+          },
+          "changed_label_count": {
+            "mean": 8.6,
+            "std": 1.8547236990991407,
+            "min": 7.0,
+            "max": 12.0
+          },
+          "corrected_error_count": {
+            "mean": 8.4,
+            "std": 1.8547236990991407,
+            "min": 7.0,
+            "max": 12.0
+          },
+          "introduced_error_count": {
+            "mean": 0.2,
+            "std": 0.4,
+            "min": 0.0,
+            "max": 1.0
+          },
+          "review_required_count": {
+            "mean": 30.2,
+            "std": 2.5612496949731396,
+            "min": 27.0,
+            "max": 34.0
+          }
+        },
+        "accuracy_deltas_percent_points": {
+          "ensemble_minus_best_member": {
+            "mean": 0.08762133837299188,
+            "std": 0.013744523666354525,
+            "min": 0.07731294562321978,
+            "max": 0.11167425478910786
+          },
+          "periodicity_minus_ensemble": {
+            "mean": 0.07044068379005353,
+            "std": 0.016657262631787507,
+            "min": 0.06013229104028994,
+            "max": 0.10308392749763584
+          }
+        }
+      }
+    },
+    {
+      "condition_id": "awgn_7.5_db",
+      "snr_db": 7.5,
+      "trials": [
+        {
+          "noise_seed": 44,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11520,
+              "accepted_error_count": 121,
+              "accepted_accuracy_percent": 98.96057039773216,
+              "full_coverage_accuracy_percent": 98.96057039773216
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11574,
+              "accepted_error_count": 67,
+              "accepted_accuracy_percent": 99.42444807147152,
+              "full_coverage_accuracy_percent": 99.42444807147152
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11595,
+              "accepted_error_count": 46,
+              "accepted_accuracy_percent": 99.60484494459239,
+              "full_coverage_accuracy_percent": 99.60484494459239
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11595,
+              "accepted_error_count": 46,
+              "accepted_accuracy_percent": 99.60484494459239,
+              "full_coverage_accuracy_percent": 99.60484494459239
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11612,
+              "accepted_error_count": 29,
+              "accepted_accuracy_percent": 99.75088050854738,
+              "full_coverage_accuracy_percent": 99.75088050854738
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.57048363542651,
+              "accepted_count": 11591,
+              "accepted_correct_count": 11577,
+              "accepted_error_count": 14,
+              "accepted_accuracy_percent": 99.87921663359504,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 160,
+            "eligible_count": 157,
+            "resolved_count": 110,
+            "changed_label_count": 17,
+            "corrected_error_count": 17,
+            "introduced_error_count": 0,
+            "review_required_count": 50
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.0,
+            "periodicity_minus_ensemble": 0.14603556395499595
+          }
+        },
+        {
+          "noise_seed": 45,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11510,
+              "accepted_error_count": 131,
+              "accepted_accuracy_percent": 98.87466712481745,
+              "full_coverage_accuracy_percent": 98.87466712481745
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11573,
+              "accepted_error_count": 68,
+              "accepted_accuracy_percent": 99.41585774418006,
+              "full_coverage_accuracy_percent": 99.41585774418006
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11602,
+              "accepted_error_count": 39,
+              "accepted_accuracy_percent": 99.66497723563268,
+              "full_coverage_accuracy_percent": 99.66497723563268
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11597,
+              "accepted_error_count": 44,
+              "accepted_accuracy_percent": 99.62202559917533,
+              "full_coverage_accuracy_percent": 99.62202559917533
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11611,
+              "accepted_error_count": 30,
+              "accepted_accuracy_percent": 99.74229018125591,
+              "full_coverage_accuracy_percent": 99.74229018125591
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.50176101709475,
+              "accepted_count": 11583,
+              "accepted_correct_count": 11570,
+              "accepted_error_count": 13,
+              "accepted_accuracy_percent": 99.88776655443323,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 171,
+            "eligible_count": 167,
+            "resolved_count": 113,
+            "changed_label_count": 14,
+            "corrected_error_count": 14,
+            "introduced_error_count": 0,
+            "review_required_count": 58
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.0429516364573459,
+            "periodicity_minus_ensemble": 0.12026458208057988
+          }
+        },
+        {
+          "noise_seed": 46,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11503,
+              "accepted_error_count": 138,
+              "accepted_accuracy_percent": 98.81453483377717,
+              "full_coverage_accuracy_percent": 98.81453483377717
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11569,
+              "accepted_error_count": 72,
+              "accepted_accuracy_percent": 99.38149643501417,
+              "full_coverage_accuracy_percent": 99.38149643501417
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11595,
+              "accepted_error_count": 46,
+              "accepted_accuracy_percent": 99.60484494459239,
+              "full_coverage_accuracy_percent": 99.60484494459239
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11601,
+              "accepted_error_count": 40,
+              "accepted_accuracy_percent": 99.6563869083412,
+              "full_coverage_accuracy_percent": 99.6563869083412
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11612,
+              "accepted_error_count": 29,
+              "accepted_accuracy_percent": 99.75088050854738,
+              "full_coverage_accuracy_percent": 99.75088050854738
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.40726741688859,
+              "accepted_count": 11572,
+              "accepted_correct_count": 11556,
+              "accepted_error_count": 16,
+              "accepted_accuracy_percent": 99.86173522295195,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 183,
+            "eligible_count": 180,
+            "resolved_count": 114,
+            "changed_label_count": 11,
+            "corrected_error_count": 11,
+            "introduced_error_count": 0,
+            "review_required_count": 69
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": 0.05154196374881792,
+            "periodicity_minus_ensemble": 0.09449360020617803
+          }
+        },
+        {
+          "noise_seed": 47,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11509,
+              "accepted_error_count": 132,
+              "accepted_accuracy_percent": 98.86607679752599,
+              "full_coverage_accuracy_percent": 98.86607679752599
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11569,
+              "accepted_error_count": 72,
+              "accepted_accuracy_percent": 99.38149643501417,
+              "full_coverage_accuracy_percent": 99.38149643501417
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11597,
+              "accepted_error_count": 44,
+              "accepted_accuracy_percent": 99.62202559917533,
+              "full_coverage_accuracy_percent": 99.62202559917533
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11594,
+              "accepted_error_count": 47,
+              "accepted_accuracy_percent": 99.59625461730091,
+              "full_coverage_accuracy_percent": 99.59625461730091
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11608,
+              "accepted_error_count": 33,
+              "accepted_accuracy_percent": 99.7165191993815,
+              "full_coverage_accuracy_percent": 99.7165191993815
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.45021905334593,
+              "accepted_count": 11577,
+              "accepted_correct_count": 11563,
+              "accepted_error_count": 14,
+              "accepted_accuracy_percent": 99.87907057095966,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 173,
+            "eligible_count": 169,
+            "resolved_count": 109,
+            "changed_label_count": 14,
+            "corrected_error_count": 14,
+            "introduced_error_count": 0,
+            "review_required_count": 64
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.025770981874416066,
+            "periodicity_minus_ensemble": 0.12026458208057988
+          }
+        },
+        {
+          "noise_seed": 48,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11507,
+              "accepted_error_count": 134,
+              "accepted_accuracy_percent": 98.84889614294305,
+              "full_coverage_accuracy_percent": 98.84889614294305
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11583,
+              "accepted_error_count": 58,
+              "accepted_accuracy_percent": 99.50176101709475,
+              "full_coverage_accuracy_percent": 99.50176101709475
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11597,
+              "accepted_error_count": 44,
+              "accepted_accuracy_percent": 99.62202559917533,
+              "full_coverage_accuracy_percent": 99.62202559917533
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11595,
+              "accepted_error_count": 46,
+              "accepted_accuracy_percent": 99.60484494459239,
+              "full_coverage_accuracy_percent": 99.60484494459239
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11607,
+              "accepted_error_count": 34,
+              "accepted_accuracy_percent": 99.70792887209002,
+              "full_coverage_accuracy_percent": 99.70792887209002
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 99.47599003522035,
+              "accepted_count": 11580,
+              "accepted_correct_count": 11563,
+              "accepted_error_count": 17,
+              "accepted_accuracy_percent": 99.853195164076,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 162,
+            "eligible_count": 159,
+            "resolved_count": 101,
+            "changed_label_count": 14,
+            "corrected_error_count": 13,
+            "introduced_error_count": 1,
+            "review_required_count": 61
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.017180654582944044,
+            "periodicity_minus_ensemble": 0.10308392749763584
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 5,
+        "region_count_per_trial": 11641,
+        "stages": {
+          "iq_member_1": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 131.2,
+              "std": 5.635601121442148,
+              "min": 121.0,
+              "max": 138.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 98.87294905935917,
+              "std": 0.048411658117361,
+              "min": 98.81453483377717,
+              "max": 98.96057039773216
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 98.87294905935917,
+              "std": 0.048411658117361,
+              "min": 98.81453483377717,
+              "max": 98.96057039773216
+            }
+          },
+          "iq_member_2": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 67.4,
+              "std": 5.122499389946279,
+              "min": 58.0,
+              "max": 72.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.42101194055493,
+              "std": 0.04400394630999365,
+              "min": 99.38149643501417,
+              "max": 99.50176101709475
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.42101194055493,
+              "std": 0.04400394630999365,
+              "min": 99.38149643501417,
+              "max": 99.50176101709475
+            }
+          },
+          "iq_member_3": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 43.8,
+              "std": 2.5612496949731396,
+              "min": 39.0,
+              "max": 46.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.62374366463362,
+              "std": 0.022001973154996825,
+              "min": 99.60484494459239,
+              "max": 99.66497723563268
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.62374366463362,
+              "std": 0.022001973154996825,
+              "min": 99.60484494459239,
+              "max": 99.66497723563268
+            }
+          },
+          "iq_ensemble": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 44.6,
+              "std": 2.4979991993593593,
+              "min": 40.0,
+              "max": 47.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.61687140280046,
+              "std": 0.021458630696326732,
+              "min": 99.59625461730091,
+              "max": 99.6563869083412
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.61687140280046,
+              "std": 0.021458630696326732,
+              "min": 99.59625461730091,
+              "max": 99.6563869083412
+            }
+          },
+          "iq_ensemble_plus_periodicity": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 31.0,
+              "std": 2.0976176963403033,
+              "min": 29.0,
+              "max": 34.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.73369985396444,
+              "std": 0.018019222543946778,
+              "min": 99.70792887209002,
+              "max": 99.75088050854738
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.73369985396444,
+              "std": 0.018019222543946778,
+              "min": 99.70792887209002,
+              "max": 99.75088050854738
+            }
+          },
+          "iq_ensemble_plus_periodicity_with_reject": {
+            "coverage_percent": {
+              "mean": 99.48114423159522,
+              "std": 0.05449274642093859,
+              "min": 99.40726741688859,
+              "max": 99.57048363542651
+            },
+            "accepted_count": {
+              "mean": 11580.6,
+              "std": 6.343500610861483,
+              "min": 11572.0,
+              "max": 11591.0
+            },
+            "accepted_error_count": {
+              "mean": 14.8,
+              "std": 1.469693845669907,
+              "min": 13.0,
+              "max": 17.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.87219682920318,
+              "std": 0.012723606455208562,
+              "min": 99.853195164076,
+              "max": 99.88776655443323
+            },
+            "full_coverage_accuracy_percent": null
+          }
+        },
+        "gate_activity": {
+          "member_disagreement_count": {
+            "mean": 169.8,
+            "std": 8.280096617793781,
+            "min": 160.0,
+            "max": 183.0
+          },
+          "eligible_count": {
+            "mean": 166.4,
+            "std": 8.187795796183488,
+            "min": 157.0,
+            "max": 180.0
+          },
+          "resolved_count": {
+            "mean": 109.4,
+            "std": 4.586937976471886,
+            "min": 101.0,
+            "max": 114.0
+          },
+          "changed_label_count": {
+            "mean": 14.0,
+            "std": 1.8973665961010275,
+            "min": 11.0,
+            "max": 17.0
+          },
+          "corrected_error_count": {
+            "mean": 13.8,
+            "std": 1.9390719429665315,
+            "min": 11.0,
+            "max": 17.0
+          },
+          "introduced_error_count": {
+            "mean": 0.2,
+            "std": 0.4,
+            "min": 0.0,
+            "max": 1.0
+          },
+          "review_required_count": {
+            "mean": 60.4,
+            "std": 6.343500610861483,
+            "min": 50.0,
+            "max": 69.0
+          }
+        },
+        "accuracy_deltas_percent_points": {
+          "ensemble_minus_best_member": {
+            "mean": -0.006872261833177617,
+            "std": 0.032325208697237005,
+            "min": -0.0429516364573459,
+            "max": 0.05154196374881792
+          },
+          "periodicity_minus_ensemble": {
+            "mean": 0.11682845116399392,
+            "std": 0.017688566516600925,
+            "min": 0.09449360020617803,
+            "max": 0.14603556395499595
+          }
+        }
+      }
+    },
+    {
+      "condition_id": "awgn_5_db",
+      "snr_db": 5.0,
+      "trials": [
+        {
+          "noise_seed": 44,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11216,
+              "accepted_error_count": 425,
+              "accepted_accuracy_percent": 96.34911090112533,
+              "full_coverage_accuracy_percent": 96.34911090112533
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11534,
+              "accepted_error_count": 107,
+              "accepted_accuracy_percent": 99.08083497981274,
+              "full_coverage_accuracy_percent": 99.08083497981274
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11545,
+              "accepted_error_count": 96,
+              "accepted_accuracy_percent": 99.1753285800189,
+              "full_coverage_accuracy_percent": 99.1753285800189
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11499,
+              "accepted_error_count": 142,
+              "accepted_accuracy_percent": 98.78017352461129,
+              "full_coverage_accuracy_percent": 98.78017352461129
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11535,
+              "accepted_error_count": 106,
+              "accepted_accuracy_percent": 99.08942530710421,
+              "full_coverage_accuracy_percent": 99.08942530710421
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 98.03281505025342,
+              "accepted_count": 11412,
+              "accepted_correct_count": 11360,
+              "accepted_error_count": 52,
+              "accepted_accuracy_percent": 99.54433929197336,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 390,
+            "eligible_count": 387,
+            "resolved_count": 161,
+            "changed_label_count": 36,
+            "corrected_error_count": 36,
+            "introduced_error_count": 0,
+            "review_required_count": 229
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.39515505540761353,
+            "periodicity_minus_ensemble": 0.30925178249292173
+          }
+        },
+        {
+          "noise_seed": 45,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11249,
+              "accepted_error_count": 392,
+              "accepted_accuracy_percent": 96.63259170174383,
+              "full_coverage_accuracy_percent": 96.63259170174383
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11532,
+              "accepted_error_count": 109,
+              "accepted_accuracy_percent": 99.06365432522979,
+              "full_coverage_accuracy_percent": 99.06365432522979
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11540,
+              "accepted_error_count": 101,
+              "accepted_accuracy_percent": 99.13237694356155,
+              "full_coverage_accuracy_percent": 99.13237694356155
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11496,
+              "accepted_error_count": 145,
+              "accepted_accuracy_percent": 98.75440254273688,
+              "full_coverage_accuracy_percent": 98.75440254273688
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11533,
+              "accepted_error_count": 108,
+              "accepted_accuracy_percent": 99.07224465252126,
+              "full_coverage_accuracy_percent": 99.07224465252126
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 98.29911519628898,
+              "accepted_count": 11443,
+              "accepted_correct_count": 11388,
+              "accepted_error_count": 55,
+              "accepted_accuracy_percent": 99.51935681202482,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 364,
+            "eligible_count": 361,
+            "resolved_count": 166,
+            "changed_label_count": 37,
+            "corrected_error_count": 37,
+            "introduced_error_count": 0,
+            "review_required_count": 198
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.3779744008246695,
+            "periodicity_minus_ensemble": 0.31784210978437955
+          }
+        },
+        {
+          "noise_seed": 46,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11219,
+              "accepted_error_count": 422,
+              "accepted_accuracy_percent": 96.37488188299974,
+              "full_coverage_accuracy_percent": 96.37488188299974
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11508,
+              "accepted_error_count": 133,
+              "accepted_accuracy_percent": 98.85748647023452,
+              "full_coverage_accuracy_percent": 98.85748647023452
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11539,
+              "accepted_error_count": 102,
+              "accepted_accuracy_percent": 99.12378661627008,
+              "full_coverage_accuracy_percent": 99.12378661627008
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11497,
+              "accepted_error_count": 144,
+              "accepted_accuracy_percent": 98.76299287002834,
+              "full_coverage_accuracy_percent": 98.76299287002834
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11530,
+              "accepted_error_count": 111,
+              "accepted_accuracy_percent": 99.04647367064685,
+              "full_coverage_accuracy_percent": 99.04647367064685
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 97.97268275921313,
+              "accepted_count": 11405,
+              "accepted_correct_count": 11349,
+              "accepted_error_count": 56,
+              "accepted_accuracy_percent": 99.50898728627794,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 398,
+            "eligible_count": 394,
+            "resolved_count": 162,
+            "changed_label_count": 33,
+            "corrected_error_count": 33,
+            "introduced_error_count": 0,
+            "review_required_count": 236
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.36079374624173965,
+            "periodicity_minus_ensemble": 0.28348080061850567
+          }
+        },
+        {
+          "noise_seed": 47,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11239,
+              "accepted_error_count": 402,
+              "accepted_accuracy_percent": 96.54668842882914,
+              "full_coverage_accuracy_percent": 96.54668842882914
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11526,
+              "accepted_error_count": 115,
+              "accepted_accuracy_percent": 99.01211236148097,
+              "full_coverage_accuracy_percent": 99.01211236148097
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11534,
+              "accepted_error_count": 107,
+              "accepted_accuracy_percent": 99.08083497981274,
+              "full_coverage_accuracy_percent": 99.08083497981274
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11502,
+              "accepted_error_count": 139,
+              "accepted_accuracy_percent": 98.8059445064857,
+              "full_coverage_accuracy_percent": 98.8059445064857
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11527,
+              "accepted_error_count": 114,
+              "accepted_accuracy_percent": 99.02070268877245,
+              "full_coverage_accuracy_percent": 99.02070268877245
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 98.25616355983163,
+              "accepted_count": 11438,
+              "accepted_correct_count": 11374,
+              "accepted_error_count": 64,
+              "accepted_accuracy_percent": 99.4404616191642,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 357,
+            "eligible_count": 354,
+            "resolved_count": 154,
+            "changed_label_count": 25,
+            "corrected_error_count": 25,
+            "introduced_error_count": 0,
+            "review_required_count": 203
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.27489047332703365,
+            "periodicity_minus_ensemble": 0.2147581822867437
+          }
+        },
+        {
+          "noise_seed": 48,
+          "region_count": 11641,
+          "stages": {
+            "iq_member_1": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11232,
+              "accepted_error_count": 409,
+              "accepted_accuracy_percent": 96.48655613778885,
+              "full_coverage_accuracy_percent": 96.48655613778885
+            },
+            "iq_member_2": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11525,
+              "accepted_error_count": 116,
+              "accepted_accuracy_percent": 99.0035220341895,
+              "full_coverage_accuracy_percent": 99.0035220341895
+            },
+            "iq_member_3": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11553,
+              "accepted_error_count": 88,
+              "accepted_accuracy_percent": 99.24405119835066,
+              "full_coverage_accuracy_percent": 99.24405119835066
+            },
+            "iq_ensemble": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11497,
+              "accepted_error_count": 144,
+              "accepted_accuracy_percent": 98.76299287002834,
+              "full_coverage_accuracy_percent": 98.76299287002834
+            },
+            "iq_ensemble_plus_periodicity": {
+              "region_count": 11641,
+              "coverage_percent": 100.0,
+              "accepted_count": 11641,
+              "accepted_correct_count": 11531,
+              "accepted_error_count": 110,
+              "accepted_accuracy_percent": 99.05506399793832,
+              "full_coverage_accuracy_percent": 99.05506399793832
+            },
+            "iq_ensemble_plus_periodicity_with_reject": {
+              "region_count": 11641,
+              "coverage_percent": 98.07576668671076,
+              "accepted_count": 11417,
+              "accepted_correct_count": 11366,
+              "accepted_error_count": 51,
+              "accepted_accuracy_percent": 99.55329771393536,
+              "full_coverage_accuracy_percent": null
+            }
+          },
+          "gate_activity": {
+            "member_disagreement_count": 382,
+            "eligible_count": 378,
+            "resolved_count": 158,
+            "changed_label_count": 36,
+            "corrected_error_count": 35,
+            "introduced_error_count": 1,
+            "review_required_count": 224
+          },
+          "accuracy_deltas_percent_points": {
+            "ensemble_minus_best_member": -0.48105832832231954,
+            "periodicity_minus_ensemble": 0.2920711279099777
+          }
+        }
+      ],
+      "aggregate": {
+        "trial_count": 5,
+        "region_count_per_trial": 11641,
+        "stages": {
+          "iq_member_1": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 410.0,
+              "std": 12.312595177297109,
+              "min": 392.0,
+              "max": 425.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 96.47796581049738,
+              "std": 0.10576922238035537,
+              "min": 96.34911090112533,
+              "max": 96.63259170174383
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 96.47796581049738,
+              "std": 0.10576922238035537,
+              "min": 96.34911090112533,
+              "max": 96.63259170174383
+            }
+          },
+          "iq_member_2": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 116.0,
+              "std": 9.16515138991168,
+              "min": 107.0,
+              "max": 133.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.0035220341895,
+              "std": 0.07873165011521027,
+              "min": 98.85748647023452,
+              "max": 99.08083497981274
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.0035220341895,
+              "std": 0.07873165011521027,
+              "min": 98.85748647023452,
+              "max": 99.08083497981274
+            }
+          },
+          "iq_member_3": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 98.8,
+              "std": 6.43117407632541,
+              "min": 88.0,
+              "max": 107.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.15127566360279,
+              "std": 0.05524589018405114,
+              "min": 99.08083497981274,
+              "max": 99.24405119835066
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.15127566360279,
+              "std": 0.05524589018405114,
+              "min": 99.08083497981274,
+              "max": 99.24405119835066
+            }
+          },
+          "iq_ensemble": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 142.8,
+              "std": 2.1354156504062622,
+              "min": 139.0,
+              "max": 145.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 98.77330126277812,
+              "std": 0.018343919340318465,
+              "min": 98.75440254273688,
+              "max": 98.8059445064857
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 98.77330126277812,
+              "std": 0.018343919340318465,
+              "min": 98.75440254273688,
+              "max": 98.8059445064857
+            }
+          },
+          "iq_ensemble_plus_periodicity": {
+            "coverage_percent": {
+              "mean": 100.0,
+              "std": 0.0,
+              "min": 100.0,
+              "max": 100.0
+            },
+            "accepted_count": {
+              "mean": 11641.0,
+              "std": 0.0,
+              "min": 11641.0,
+              "max": 11641.0
+            },
+            "accepted_error_count": {
+              "mean": 109.8,
+              "std": 2.7129319932501077,
+              "min": 106.0,
+              "max": 114.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.05678206339662,
+              "std": 0.023304973741519585,
+              "min": 99.02070268877245,
+              "max": 99.08942530710421
+            },
+            "full_coverage_accuracy_percent": {
+              "mean": 99.05678206339662,
+              "std": 0.023304973741519585,
+              "min": 99.02070268877245,
+              "max": 99.08942530710421
+            }
+          },
+          "iq_ensemble_plus_periodicity_with_reject": {
+            "coverage_percent": {
+              "mean": 98.12730865045958,
+              "std": 0.12776216780399086,
+              "min": 97.97268275921313,
+              "max": 98.29911519628898
+            },
+            "accepted_count": {
+              "mean": 11423.0,
+              "std": 14.872793954062566,
+              "min": 11405.0,
+              "max": 11443.0
+            },
+            "accepted_error_count": {
+              "mean": 55.6,
+              "std": 4.586937976471886,
+              "min": 51.0,
+              "max": 64.0
+            },
+            "accepted_accuracy_percent": {
+              "mean": 99.51328854467513,
+              "std": 0.03980946697576938,
+              "min": 99.4404616191642,
+              "max": 99.55329771393536
+            },
+            "full_coverage_accuracy_percent": null
+          }
+        },
+        "gate_activity": {
+          "member_disagreement_count": {
+            "mean": 378.2,
+            "std": 15.471263684650973,
+            "min": 357.0,
+            "max": 398.0
+          },
+          "eligible_count": {
+            "mean": 374.8,
+            "std": 15.171025014810306,
+            "min": 354.0,
+            "max": 394.0
+          },
+          "resolved_count": {
+            "mean": 160.2,
+            "std": 4.019950248448356,
+            "min": 154.0,
+            "max": 166.0
+          },
+          "changed_label_count": {
+            "mean": 33.4,
+            "std": 4.409081537009721,
+            "min": 25.0,
+            "max": 37.0
+          },
+          "corrected_error_count": {
+            "mean": 33.2,
+            "std": 4.308131845707604,
+            "min": 25.0,
+            "max": 37.0
+          },
+          "introduced_error_count": {
+            "mean": 0.2,
+            "std": 0.4,
+            "min": 0.0,
+            "max": 1.0
+          },
+          "review_required_count": {
+            "mean": 218.0,
+            "std": 14.872793954062566,
+            "min": 198.0,
+            "max": 236.0
+          }
+        },
+        "accuracy_deltas_percent_points": {
+          "ensemble_minus_best_member": {
+            "mean": -0.37797440082467515,
+            "std": 0.06609529786675448,
+            "min": -0.48105832832231954,
+            "max": -0.27489047332703365
+          },
+          "periodicity_minus_ensemble": {
+            "mean": 0.28348080061850567,
+            "std": 0.03644567208246237,
+            "min": 0.2147581822867437,
+            "max": 0.31784210978437955
+          }
+        }
+      }
+    }
+  ],
+  "input": {
+    "clean_predictions_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/ofdm_periodicity_phase_p4_external_1msps/periodicity_frozen_gate_predictions_private.npz",
+    "awgn_predictions_path": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_all_locations/ofdm_periodicity_phase_p5_awgn/periodicity_gate_awgn_predictions_private.npz"
+  }
+}

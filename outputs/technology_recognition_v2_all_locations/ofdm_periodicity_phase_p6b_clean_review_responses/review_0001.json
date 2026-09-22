@@ -1,0 +1,31 @@
+{
+      "analysis_id": "review_0001",
+      "recommendation_status": "recommend",
+      "recommended_label": "DVB-T",
+      "confidence_level": "medium",
+      "summary": "IQ ensemble 三成员 Top1 不一致（member_1 DVB-T 0.889、member_2 WiFi 0.622、member_3 DVB-T 0.676），ensemble 平均概率 DVB-T 0.647 居首（对 WiFi margin 0.302）；周期证据在 896 μs（DVB-T 8K OFDM 符号周期候选）出现 0.214 的归一化相关峰，显著高于 LTE 候选 0.018 与 DVB-T 2K 候选 0.015，物理上与 DVB-T 8K 相符且非 WiFi（~4 μs 符号尺度）周期。ensemble 多数票与较强周期证据共同指向 DVB-T，故推荐 DVB-T；但 member_2 两窗口一致判 WiFi、周期门控因含 WiFi 未激活，构成实质冲突，置信度定为 medium。",
+      "model_evidence": [
+        "三成员 Top1 不一致：member_1→DVB-T(0.889)、member_2→WiFi(0.622)、member_3→DVB-T(0.676)，触发 unanimous=false 的 review_required。",
+        "ensemble 平均概率：DVB-T 0.647 / WiFi 0.344 / LTE 0.009，Top1-Top2 margin 0.302，DVB-T 居首。",
+        "member_1 两个窗口均判 DVB-T（0.948、0.830），window_agreement ratio=1.0。",
+        "member_2 两个窗口均判 WiFi（0.627、0.617），window_agreement ratio=1.0。",
+        "member_3 窗口分裂：window0 WiFi(0.543)、window1 DVB-T(0.928)，ratio=0.5。"
+      ],
+      "periodicity_evidence": [
+        "period_896us（DVB-T 8K 候选）归一化相关 0.214，显著高于 LTE 候选(period_66p67us) 0.018 与 DVB-T 2K 候选(period_224us) 0.015。",
+        "scores：dvbt_score=0.214、lte_score=0.018，margin=0.196，prediction_label=DVB-T。",
+        "frozen_gate：eligible=false（成员 Top1 含 WiFi，不满足只含 LTE/DVB-T 的门控资格）、reliable=true、resolved=false、changed=false。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "member_2 两个窗口一致判 WiFi（约 0.62），与 ensemble 的 DVB-T 结论形成实质冲突。",
+        "member_3 的 window0 判 WiFi(0.543)，窗口层面 DVB-T/WiFi 各 3 票持平。",
+        "周期门控因成员 Top1 包含 WiFi 而 eligible=false，属于 outside_periodicity_gate_scope，无法在门控层正式解决 WiFi/DVB-T 分歧。"
+      ],
+      "limitations": [
+        "本 case 无 global_feature_evidence，无法用 64 维全局特征补充物理背景。",
+        "仅 1 MHz / 4.096 ms 局部视图、2 个 IQ 窗口，观测时间极短。",
+        "周期门控只覆盖 LTE/DVB-T 候选，不含 WiFi 候选，不能直接判定 WiFi。",
+        "归一化相关值是测量强度而非概率或置信度。"
+      ]
+    }

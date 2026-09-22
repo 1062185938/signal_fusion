@@ -1,0 +1,38 @@
+{
+      "analysis_id": "review_0037",
+      "recommendation_status": "recommend",
+      "recommended_label": "DVB-T",
+      "confidence_level": "medium",
+      "summary": "Region ensemble is coherently DVB-T: mean probability DVB-T 0.6493518253167471 vs WiFi 0.3368166039387385 vs LTE 0.013831571559421718 (top1-top2 margin 0.31253522137800854, normalized entropy 0.6427355644323047), and two of three members independently and stably top1 DVB-T with window agreement 1.0. Periodicity is not admissible corroboration here because the frozen gate is eligible=false (member top1 includes WiFi), so the large period_896us peak may neither support nor override the ensemble; the recommendation rests on the ensemble and member-level coherence alone and is therefore medium, not high.",
+      "model_evidence": [
+        "Ensemble (mean_probability_across_members): DVB-T 0.6493518253167471, WiFi 0.3368166039387385, LTE 0.013831571559421718; top1 DVB-T with margin 0.31253522137800854 and normalized_entropy 0.6427355644323047.",
+        "iq_member_1: region top1 DVB-T 0.7871336936950684 (WiFi 0.21141639351844788, LTE 0.001449907780624926); window_agreement ratio 1.0, windows DVB-T 0.9977352619171143 and DVB-T 0.5765321254730225.",
+        "iq_member_3: region top1 DVB-T 0.7275151014328003 (WiFi 0.2341851145029068, LTE 0.03829977288842201); window_agreement ratio 1.0, windows DVB-T 0.9559255242347717 and DVB-T 0.49910473823547363.",
+        "iq_member_2: region top1 WiFi 0.5648483037948608 vs DVB-T 0.43340668082237244 (LTE 0.001745034009218216); window_agreement ratio 0.5, windows DVB-T 0.7912237644195557 then WiFi 0.922903835773468 — the sole dissenting member, and its DVB-T alternative remains a close second (0.43340668082237244).",
+        "Window-level direction: window 0 is DVB-T for all three members (0.9977352619171143, 0.7912237644195557, 0.9559255242347717); window 1 remains DVB-T for two members but with weaker confidence (0.5765321254730225 and 0.49910473823547363) while iq_member_2 flips to WiFi 0.922903835773468, so the region label is stable but in-region confidence is not.",
+        "risk_gate: unanimous_member_region_top1 = false, unique_top1_labels = [WiFi, DVB-T], reason = member_region_top1_disagreement — one member dissent is present and is carried into conflicting_evidence rather than down-weighted.",
+        "LTE is not a live hypothesis in this region: no member places LTE above 0.03829977288842201 and the ensemble gives it 0.013831571559421718."
+      ],
+      "periodicity_evidence": [
+        "Energy-normalized complex autocorrelation over the complete continuous region (sample_rate 1000000.0 Hz, 4096 samples): period_66p67us lag 65 correlation 0.022954780608415604 (lte_score), period_224us lag 222 correlation 0.020038170740008354 (dvbt_2k_score), period_896us lag 896 correlation 0.21639098227024078 (dvbt_8k_score = dvbt_score), scores prediction_label DVB-T with margin 0.19343620538711548.",
+        "Frozen gate: reliability_margin 0.021475793793797496, eligible = false, reliable = true, resolved = false, changed = false.",
+        "eligible=false means the gate is out of scope for this case because a member region top1 includes WiFi (unique_top1_labels = [WiFi, DVB-T]); the 0.21639098227024078 peak at lag 896 (nominal period_896us) is therefore NOT admissible corroboration for DVB-T and is equally not usable to override the WiFi-containing member or to bypass class protection rules.",
+        "reliable=true additionally only attests that the correlation evidence is above the frozen reliability margin; it is not an independent class decision, so it does not convert the ensemble verdict into a gate-confirmed one.",
+        "Automatic resolution remained unresolved with review_reason = outside_periodicity_gate_scope, i.e. the gate neither resolved the conflict nor was applicable to it."
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "iq_member_2 top1 is WiFi 0.5648483037948608 against DVB-T 0.43340668082237244, contradicting the two DVB-T members; its window predictions split 0.5 with a clean flip DVB-T 0.7912237644195557 → WiFi 0.922903835773468.",
+        "risk_gate unanimous=false with reason member_region_top1_disagreement, so the ensemble mean is masking a genuine member-level label disagreement.",
+        "Window 1 DVB-T support is weak (0.5765321254730225 and 0.49910473823547363, the latter essentially at chance), meaning the DVB-T region label is carried mainly by window 0.",
+        "The strongest single piece of periodicity-like evidence in the file (period_896us 0.21639098227024078) points DVB-T but is inadmissible under eligible=false, so it can be neither used as confirmation nor counted as agreement."
+      ],
+      "limitations": [
+        "Single 1 MHz / 4.096 ms observation region — a local short-time snapshot with no frame-level or synchronization structure, so the recommendation cannot speak for other regions or times.",
+        "Correlation values and ensemble probabilities are model outputs, not calibrated probabilities or confidence estimates.",
+        "Window flips indicate in-region non-stationarity only; no synchronization or frame structure was detected or inferred.",
+        "iq_member_1/2/3 are same-type correlation models, so their agreement and disagreement are not calibrated independent evidence and one shared failure mode would move all three.",
+        "The periodicity gate is ineligible for this case, so no periodicity-based corroboration or correction is available; the DVB-T call rests on ensemble and member coherence alone.",
+        "This is a blind, non-operational experimental recommendation on an input already marked review_required with automatic_resolution unresolved, not a final decision."
+      ]
+    }

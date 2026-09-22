@@ -1,0 +1,569 @@
+{
+  "schema_version": 1,
+  "evaluation_type": "private_p6b_paired_llm_review_evaluation",
+  "pair_count": 19,
+  "response_count": 38,
+  "contract_validation": {
+    "strictly_valid_response_count": 37,
+    "recoverable_format_issue_count": 1,
+    "evaluated_response_count": 38,
+    "missing_response_count": 0,
+    "extra_response_count": 0,
+    "issues": [
+      {
+        "analysis_id": "review_0014",
+        "violations": [
+          "missing_feature_evidence_normalized_to_empty_list"
+        ]
+      }
+    ]
+  },
+  "selection_profile": {
+    "true_label_counts": {
+      "LTE": 7,
+      "WiFi": 0,
+      "DVB-T": 12
+    },
+    "provisional_error_count": 2,
+    "provisional_error_unique_source_count": 1
+  },
+  "variants": {
+    "A_iq_and_periodicity": {
+      "case_count": 19,
+      "provisional_baseline": {
+        "correct_count": 17,
+        "error_count": 2,
+        "accuracy_percent": 89.47368421052632
+      },
+      "recommendation": {
+        "recommend_count": 8,
+        "abstain_count": 11,
+        "coverage_percent": 42.10526315789474,
+        "correct_count": 8,
+        "error_count": 0,
+        "accuracy_when_recommended_percent": 100.0,
+        "same_as_provisional_count": 8,
+        "changed_from_provisional_count": 0,
+        "medium_count": 5,
+        "low_count": 14
+      },
+      "error_effect": {
+        "corrected_provisional_error_count": 0,
+        "uncorrected_provisional_error_count": 2,
+        "introduced_error_count": 0,
+        "net_correction_count": 0
+      },
+      "feature_evidence_nonempty_count": 0,
+      "language": {
+        "chinese_narrative_count": 17,
+        "non_chinese_narrative_count": 2,
+        "chinese_narrative_percent": 89.47368421052632
+      }
+    },
+    "B_iq_periodicity_and_global_features": {
+      "case_count": 19,
+      "provisional_baseline": {
+        "correct_count": 17,
+        "error_count": 2,
+        "accuracy_percent": 89.47368421052632
+      },
+      "recommendation": {
+        "recommend_count": 10,
+        "abstain_count": 9,
+        "coverage_percent": 52.63157894736842,
+        "correct_count": 10,
+        "error_count": 0,
+        "accuracy_when_recommended_percent": 100.0,
+        "same_as_provisional_count": 10,
+        "changed_from_provisional_count": 0,
+        "medium_count": 3,
+        "low_count": 16
+      },
+      "error_effect": {
+        "corrected_provisional_error_count": 0,
+        "uncorrected_provisional_error_count": 2,
+        "introduced_error_count": 0,
+        "net_correction_count": 0
+      },
+      "feature_evidence_nonempty_count": 19,
+      "language": {
+        "chinese_narrative_count": 18,
+        "non_chinese_narrative_count": 1,
+        "chinese_narrative_percent": 94.73684210526316
+      }
+    }
+  },
+  "paired_comparison": {
+    "outcome_counts": {
+      "a_abstain__b_abstain": 8,
+      "a_abstain__b_correct": 3,
+      "a_correct__b_abstain": 1,
+      "a_correct__b_correct": 7
+    },
+    "set_2_minus_set_1": {
+      "recommendation_coverage_percentage_points": 10.526315789473678,
+      "corrected_provisional_error_count": 0,
+      "introduced_error_count": 0,
+      "net_correction_count": 0
+    }
+  },
+  "language": {
+    "expected_narrative_language": "Chinese",
+    "chinese_narrative_count": 35,
+    "non_chinese_narrative_count": 3,
+    "chinese_narrative_percent": 92.10526315789474,
+    "non_chinese_analysis_ids": [
+      "review_0004",
+      "review_0016",
+      "review_0037"
+    ],
+    "classification_metrics_include_all_valid_responses": true
+  },
+  "interpretation": {
+    "baseline_error_count": 2,
+    "baseline_errors_corrected_by_set_1": 0,
+    "baseline_errors_corrected_by_set_2": 0,
+    "feature_branch_demonstrated_correction_value": false,
+    "feature_branch_demonstrated_safe_coverage_increase": true,
+    "conclusion": "The global-feature variant increased recommendation coverage without an observed error, but neither variant corrected either provisional error. This pilot does not establish LLM correction value."
+  },
+  "private_pair_results": [
+    {
+      "pair_index": 1,
+      "source_analysis_id": "case_0021",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0023",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0021",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 2,
+      "source_analysis_id": "case_0028",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0009",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0018",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_correct"
+    },
+    {
+      "pair_index": 3,
+      "source_analysis_id": "case_0029",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0029",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0005",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 4,
+      "source_analysis_id": "case_0037",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0030",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0019",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 5,
+      "source_analysis_id": "case_0045",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0002",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0004",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": false
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 6,
+      "source_analysis_id": "case_0056",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0036",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0027",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 7,
+      "source_analysis_id": "case_0058",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0006",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0011",
+        "recommendation_status": "recommend",
+        "recommended_label": "LTE",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 8,
+      "source_analysis_id": "case_0462",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0003",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0024",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 9,
+      "source_analysis_id": "case_0463",
+      "true_label": "DVB-T",
+      "provisional_label": "WiFi",
+      "set_1": {
+        "analysis_id": "review_0031",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0012",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 10,
+      "source_analysis_id": "case_0464",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0026",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0025",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 11,
+      "source_analysis_id": "case_0465",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0016",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": false
+      },
+      "set_2": {
+        "analysis_id": "review_0038",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_correct"
+    },
+    {
+      "pair_index": 12,
+      "source_analysis_id": "case_0466",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0001",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0035",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 13,
+      "source_analysis_id": "case_0467",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0013",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0028",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 14,
+      "source_analysis_id": "case_0468",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0017",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0022",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_correct"
+    },
+    {
+      "pair_index": 15,
+      "source_analysis_id": "case_0469",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0032",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0020",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_abstain"
+    },
+    {
+      "pair_index": 16,
+      "source_analysis_id": "case_0470",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0033",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0034",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 17,
+      "source_analysis_id": "case_0471",
+      "true_label": "DVB-T",
+      "provisional_label": "WiFi",
+      "set_1": {
+        "analysis_id": "review_0010",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0015",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    },
+    {
+      "pair_index": 18,
+      "source_analysis_id": "case_0472",
+      "true_label": "DVB-T",
+      "provisional_label": "DVB-T",
+      "set_1": {
+        "analysis_id": "review_0037",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "medium",
+        "contains_chinese_narrative": false
+      },
+      "set_2": {
+        "analysis_id": "review_0007",
+        "recommendation_status": "recommend",
+        "recommended_label": "DVB-T",
+        "recommendation_correct": true,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_correct__b_correct"
+    },
+    {
+      "pair_index": 19,
+      "source_analysis_id": "case_0482",
+      "true_label": "LTE",
+      "provisional_label": "LTE",
+      "set_1": {
+        "analysis_id": "review_0014",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "set_2": {
+        "analysis_id": "review_0008",
+        "recommendation_status": "abstain",
+        "recommended_label": null,
+        "recommendation_correct": null,
+        "confidence_level": "low",
+        "contains_chinese_narrative": true
+      },
+      "paired_outcome": "a_abstain__b_abstain"
+    }
+  ]
+}

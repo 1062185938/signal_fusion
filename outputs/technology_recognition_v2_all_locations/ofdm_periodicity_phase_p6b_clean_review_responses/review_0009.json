@@ -1,0 +1,36 @@
+    {
+      "analysis_id": "review_0009",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "证据不足以支持单一定论，故暂不推荐具体类别。region 级上 ensemble 平均概率以 LTE 0.7063 领先 DVB-T 0.2921，且 iq_member_2 以 0.9955 高置信判 LTE、两窗口一致率 1.0；但窗口级证据出现方向相反的实质性冲突：window 0 有两名成员判 DVB-T（iq_member_3 0.9886、iq_member_1 0.6420），window 1 三名成员则全部判 LTE（0.8847–0.9999），即同一 4.096 ms region 内部前后段给出相反类别，且 iq_member_1 与 iq_member_3 的窗口一致率均仅 0.5，成员级与窗口级结论不自洽。唯一的独立物理分支（周期门控）prediction_label 虽为 LTE，但 margin 0.0147 仅为冻结门限 0.0215 的约 68%，reliable=false、resolved=false，三个候选归一化相关值（0.0186–0.0407）均接近噪声水平，属明显证据不足而非反向支持。在模型证据内部相互冲突、独立物理证据无法判别的情况下，选择弃权。",
+      "model_evidence": [
+        "三成员 region Top1 不一致：iq_member_1 判 LTE 0.6757（DVB-T 0.3210），iq_member_2 判 LTE 0.9955（DVB-T 0.0041），iq_member_3 判 DVB-T 0.5513（LTE 0.4477，两者仅差 0.1036）；风险门控 unanimous=false，原因 member_region_top1_disagreement。",
+        "ensemble 平均概率为 LTE 0.7063、DVB-T 0.2921、WiFi 0.0016；Top1-Top2 margin 0.4142，归一化熵 0.5600，说明 region 级虽以 LTE 领先，但 DVB-T 仍保有约 0.29 的份额且分散度偏高。",
+        "窗口一致率分化：iq_member_2 为 1.0（窗口 0.9912 / 0.9999 均判 LTE），而 iq_member_1 与 iq_member_3 均为 0.5，区域级结论由两个内部不一致的成员共同拉低可信度。",
+        "窗口级方向矛盾：window 0 上两名成员给出 DVB-T（iq_member_3 0.9886、iq_member_1 0.6420），window 1 上三名成员全部给出 LTE（0.9999、0.9999、0.8847）；同一 region 的前后两个非重叠窗口指向相反类别。",
+        "WiFi 证据整体极低（ensemble 0.0016，各成员最高 0.0033），case 内无任何支持 WiFi 的模型证据。",
+        "成员级聚合掩盖了窗口级分歧：iq_member_1 region 判 LTE 0.6757，但其 window 0 实际判 DVB-T 0.6420；iq_member_3 region 判 DVB-T 0.5513，其 window 1 实际判 LTE 0.8847。"
+      ],
+      "periodicity_evidence": [
+        "归一化复自相关测量值：period_66p67us=0.0407（峰 lag 67）、period_896us=0.0260（峰 lag 897）、period_224us=0.0186（峰 lag 222）；三者均为弱相关、接近噪声水平，属于相关强度测量值而非类别概率或置信度。",
+        "积分 score：lte_score 0.0407（66.67 μs 候选），dvbt_score 0.0260（取 224 μs 与 896 μs 中较大者），prediction_label=LTE，margin=0.0147。",
+        "frozen_gate 状态：eligible=true（成员 Top1 仅含 LTE/DVB-T 且两类均出现），但 reliable=false（margin 0.0147 < 冻结 reliability_margin 0.0215，仅为门限的约 68%），resolved=false、changed=false，周期分支未解决成员分歧。",
+        "依据周期门控说明，reliable=false 只表示当前 margin 不足、证据不充分，不代表相反类别（DVB-T）成立；因此周期分支方向虽偏 LTE，但不构成独立物理确证，判别力实质不足。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "窗口级实质性冲突：window 0 的 DVB-T 判断（iq_member_3 0.9886 为高置信、iq_member_1 0.6420）与 window 1 三名成员一致的 LTE 判断（0.8847–0.9999）方向相反，说明 region 内物理内容非平稳、聚合后的 region 标签不足以代表整体。",
+        "成员级冲突：iq_member_3 的 region Top1=DVB-T 与 iq_member_1、iq_member_2 的 LTE Top1 直接对立；同时 iq_member_3 自身两窗口互相矛盾（DVB-T 0.9886 对 LTE 0.8847），其 region 判据仅差 0.1036。",
+        "iq_member_1 的 region 结论（LTE 0.6757）与其一个窗口结论（DVB-T 0.6420）不自洽，成员级聚合与窗口级测量之间存在张力。",
+        "周期证据仅方向偏向 LTE 而 margin 0.0147 远低于冻结门限，既不能确认 ensemble 的 LTE，也不能支持 DVB-T，导致本 case 的成员分歧无法由独立物理分支消解。"
+      ],
+      "limitations": [
+        "本 case 未提供 global_feature_evidence，无 64 维全局特征可用，因此 feature_evidence 为空；不得推测、补算或讨论缺失的特征数值。",
+        "观测合同为 1 MS/s、4096 点、4.096 ms 的单次 region，仅覆盖约 1 MHz 的局部短时视图，无法恢复完整帧结构，也不能据此反推协议标准带宽。",
+        "所有周期归一化相关值（0.0186–0.0407）均接近噪声水平，相关峰易受噪声、干扰、信道、频偏与有限样本影响，判别力弱；reliable=false 表示证据不足，不代表反向类别成立。",
+        "三成员来自高度相关的同类 IQ 模型，其投票不能视为校准后的独立证据；两个内部窗口不一致的成员进一步削弱了「多数票」的可信度。",
+        "window_predictions 的相反方向只能说明 region 内存在非平稳性或观测边界效应，现有证据不足以确认包边界、保护间隔或任何协议同步结构，也不得据此推断 WiFi 突发或 DVB-T 帧结构。",
+        "确定性系统已将该 case 判为 review_required、automatic_resolution=unresolved，本输出仅为盲实验判定，不是操作最终标签，且置信度不得高于 medium。"
+      ]
+    }

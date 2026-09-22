@@ -1,0 +1,36 @@
+    {
+      "analysis_id": "review_0026",
+      "recommendation_status": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "证据在 WiFi 与 DVB-T 之间相互冲突，不足以支持对整段 4.096 ms 观测给出单一标签。集成概率为 DVB-T 0.5411 对 WiFi 0.4497，第一名与第二名间隔仅 0.0914，归一化熵 0.6688，属于接近并列的分布。成员层面为 2 对 1：iq_member_1 整段 DVB-T 0.8829、iq_member_3 整段 DVB-T 0.6357（窗口内置信度仅 0.5420 / 0.7294，偏弱），而 iq_member_2 以 0.8942 的较高置信度稳定判为 WiFi，且其两个窗口一致（0.8066 / 0.9817），并非自相矛盾或近邻并列的反对票，因此不能像处理退化成员那样直接排除。本案例中 WiFi 与 DVB-T 正是需要区分的一组冲突，而唯一具备此类区分能力的冻结周期门因成员 Top1 含 WiFi 而判定不合格（eligible=false，resolved=false），无法提供合格裁决；周期性 896 us 相关值虽为三者最大（0.2152）且方向指向 DVB-T，但该门在设计上已将其排除在 WiFi 与 DVB-T 冲突的适用范围之外，若以不合格的测量结果强行定向，等同于把门限挪用到其被明确排除的场景。本案例的两个窗口内部标签结构一致、不存在区域非平稳，但也因此没有任何独立证据能够化解这一稳定的模型意见分歧。按“仅在证据自洽时推荐，否则弃权”的要求弃权。",
+      "model_evidence": [
+        "集成证据（mean_probability_across_members）：DVB-T 0.5411、WiFi 0.4497、LTE 0.0092；第一名与第二名间隔仅 0.0914；归一化熵 0.6688，分布明显不集中。",
+        "风险门（unanimous_member_region_top1）：unanimous=false，成员整段 Top1 标签集合为 [WiFi, DVB-T]，触发原因 member_region_top1_disagreement。",
+        "iq_member_1：整段 DVB-T 0.8829（WiFi 0.1159、LTE 0.0012）；窗口一致比率 1.0，窗口 0 为 DVB-T 0.9606、窗口 1 为 DVB-T 0.8052，内部自洽且置信度较高。",
+        "iq_member_2：整段 WiFi 0.8942（DVB-T 0.1047、LTE 0.0011）；窗口一致比率 1.0，窗口 0 为 WiFi 0.8066、窗口 1 为 WiFi 0.9817；反对票置信度高且内部完全自洽，是稳定的模型意见而非噪声。",
+        "iq_member_3：整段 DVB-T 0.6357 对 WiFi 0.3391（差 0.2966）；窗口一致比率 1.0，窗口 0 为 DVB-T 0.5420（弱）、窗口 1 为 DVB-T 0.7294。",
+        "窗口层面：两个 2048 点窗口的成员标签结构一致，未观察到区域内两段信号类别不同的证据；因此本案例的困难来自成员之间的稳定分歧，而非区域非平稳。",
+        "成员投票不作标定独立证据使用：三名成员为同族相关模型，2:1 的数量优势与集合中最高置信度成员（iq_member_2，0.8942）方向相反，数量优势不足以支撑定向结论。"
+      ],
+      "periodicity_evidence": [
+        "period_896us：峰值延迟 896（标称 896），归一化相关 0.2152，等于 dvbt_score，与 DVB-T 8K 标称延迟一致，是本案例中最大的周期相关值；period_224us 为 0.0295（dvbt_2k_score，峰值延迟 224）；period_66p67us 为 0.0136（lte_score，峰值延迟 69）；分数间隔 0.2015。",
+        "冻结门未改变：reliability_margin 0.02148，eligible=false，reliable=true，resolved=false，changed=false。间隔虽高于可靠性阈值（reliable=true），但不合格（eligible=false）是因为成员整段 Top1 标签超出 {LTE, DVB-T} 范围，即本案例的 WiFi 与 DVB-T 冲突不在该门作用范围内。",
+        "由于 eligible=false 且 resolved=false，周期分支不能覆盖集成结论、也不能充当合格裁决票；0.2152 是归一化自相关强度测量值而非类别概率，不能用于替本案例的 WiFi 与 DVB-T 之争定向。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "集成层面接近并列：DVB-T 0.5411 对 WiFi 0.4497，间隔仅 0.0914，远小于可支持定向判断所需的分离度。",
+        "成员整段 Top1 标签冲突（WiFi 与 DVB-T），且双方各自内部自洽：iq_member_1 与 iq_member_3 一致判 DVB-T，iq_member_2 以 0.8942 稳定判 WiFi；多数方中 iq_member_3 的窗口置信度偏弱（0.5420）。",
+        "唯一能区分 WiFi 与 DVB-T 的裁决通道（冻结周期门）在本案例不合格且未解决，冲突缺少合格裁决依据；不合格的测量结果不得用来定向。",
+        "WiFi 集成支持度 0.4497 与最高单成员置信度 0.8942 表明 WiFi 假设在本段观测中同样是强有力的候选，无法排除。"
+      ],
+      "limitations": [
+        "仅为盲评：ground_truth_available=false，recommendation_is_operational_final=false，本结论不是可用的最终标签。",
+        "单一 4096 点（4.096 ms）观测、1 MS/s 采样，仅提供两个 2048 点窗口，窗口一致性结论只建立在两个样本点上。",
+        "三个 IQ 成员为同族相关模型，其投票不是经过标定的独立证据，成员分歧也可能源于模型偏差而非信号物理差异。",
+        "周期性相关量级整体偏小（0.0136–0.2152）且接近噪声水平；可靠性间隔为冻结值，未新增阈值、未放宽或重新拟合任何门限，也未新增融合权重。",
+        "本案例未提供全局特征证据，feature_evidence 保持为空，未做任何反推或补齐。",
+        "证据处于集成接近并列且成员意见稳定对立的双重冲突状态，故置信度只能为 low。"
+      ]
+    }
