@@ -1,0 +1,67 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0164",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支以 0.9999 的极高置信度判定 LTE，而 64 维 feature-probe 分支以 0.8689 的置信度判定 DVB-T，两分支 Top1 方向相反且各自内部均具较强决定性；本窗口的 64 维物理特征（高 PAPR 12.51dB、高谱熵 0.9827、高谱平坦度 0.8538、占用带宽 0.8445）均为三类 OFDM 共享的宽带/类噪声/高 PAPR 现象，缺乏 LTE 与 DVB-T 之间的类别区分力，且两分支置信度未校准、数值不可直接比较，冲突无法消解，故弃权。",
+      "iq_evidence": [
+        "IQ 分支 Top1 为 LTE，概率 0.999919，Top1-Top2 间隔 0.999852，归一化熵 0.000799，分支内部置信度极高。",
+        "LTE 之外的 WiFi(1.37e-05) 与 DVB-T(6.7e-05) 概率几乎为零，分支内部无竞争类别。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe 分支 Top1 为 DVB-T，概率 0.868945，Top1-Top2 间隔 0.754209，归一化熵 0.398360，内部同样具有较强决定性。",
+        "该分支将 LTE 排在第二(0.114736)，与 IQ 分支方向完全相反。"
+      ],
+      "physical_feature_evidence": [
+        "time_papr_db=12.51、freq_global_spectral_entropy=0.9827、freq_global_spectral_flatness=0.8538、freq_normalized_occupied_bandwidth_90=0.8445，均为宽带、类噪声、高 PAPR 的共享 OFDM 现象，不能单独区分 LTE/DVB-T/WiFi。",
+        "freq_global_spectral_crest_factor=6.12，谱峰度温和，不足以据以主张 DVB-T 导频结构。",
+        "stft_active_frame_ratio=0.6452、stft_energy_transition_ratio=0.1000、stft_frame_energy_cv=0.7582，能量时域波动明显，既非稳定的连续广播占用，也未呈现明确的单包边界。",
+        "time_autocorrelation_peak_magnitude=0.1106 自相关峰较弱；freq_max_squared_bicoherence=0.4691 存在一定三阶结构，但同样缺乏对具体 OFDM 类别的区分力。"
+      ],
+      "conflicting_evidence": [
+        "IQ 分支（强烈 LTE）与 feature-probe 分支（较强 DVB-T）在 Top1 上方向相反，且两分支内部均具较强决定性，构成实质性冲突。",
+        "64 维物理特征对 LTE 与 DVB-T 无类别区分力，无法作为独立证据打破冲突；OFDM 共享现象不能作为改判依据。"
+      ],
+      "limitations": [
+        "IQ 分支与 64 维 feature-probe 分支置信度未校准，不可直接比较数值、做概率平均、发明权重或采用固定 if/else 阈值裁决。",
+        "样本窗口为 1 MHz、4096 样本、4.096 ms 的局部视图，归一化占用带宽无法反推协议标准带宽。",
+        "物理特征均为三类 OFDM 共享的宽带/类噪声/高 PAPR 现象，缺少 LTE 与 DVB-T 之间独有的判别特征。"
+      ]
+{
+  "analysis_id": "review_0164",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.9999 的极高置信度判定 LTE，而 64 维 feature-probe 分支以 0.8689 的置信度判定 DVB-T，两分支 Top1 方向相反且各自内部均具较强决定性；本窗口的 64 维物理特征（高 PAPR 12.51dB、高谱熵 0.9827、高谱平坦度 0.8538、占用带宽 0.8445）均为三类 OFDM 共享的宽带/类噪声/高 PAPR 现象，缺乏 LTE 与 DVB-T 之间的类别区分力，且两分支置信度未校准、数值不可直接比较，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 LTE，概率 0.999919，Top1-Top2 间隔 0.999852，归一化熵 0.000799，分支内部置信度极高。",
+    "LTE 之外的 WiFi(1.37e-05) 与 DVB-T(6.7e-05) 概率几乎为零，分支内部无竞争类别。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T，概率 0.868945，Top1-Top2 间隔 0.754209，归一化熵 0.398360，内部同样具有较强决定性。",
+    "该分支将 LTE 排在第二(0.114736)，与 IQ 分支方向完全相反。"
+  ],
+  "physical_feature_evidence": [
+    "time_papr_db=12.51、freq_global_spectral_entropy=0.9827、freq_global_spectral_flatness=0.8538、freq_normalized_occupied_bandwidth_90=0.8445，均为宽带、类噪声、高 PAPR 的共享 OFDM 现象，不能单独区分 LTE/DVB-T/WiFi。",
+    "freq_global_spectral_crest_factor=6.12，谱峰度温和，不足以据以主张 DVB-T 导频结构。",
+    "stft_active_frame_ratio=0.6452、stft_energy_transition_ratio=0.1000、stft_frame_energy_cv=0.7582，能量时域波动明显，既非稳定的连续广播占用，也未呈现明确的单包边界。",
+    "time_autocorrelation_peak_magnitude=0.1106 自相关峰较弱；freq_max_squared_bicoherence=0.4691 存在一定三阶结构，但同样缺乏对具体 OFDM 类别的区分力。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支（强烈 LTE）与 feature-probe 分支（较强 DVB-T）在 Top1 上方向相反，且两分支内部均具较强决定性，构成实质性冲突。",
+    "64 维物理特征对 LTE 与 DVB-T 无类别区分力，无法作为独立证据打破冲突；OFDM 共享现象不能作为改判依据。"
+  ],
+  "limitations": [
+    "IQ 分支与 64 维 feature-probe 分支置信度未校准，不可直接比较数值、做概率平均、发明权重或采用固定 if/else 阈值裁决。",
+    "样本窗口为 1 MHz、4096 样本、4.096 ms 的局部视图，归一化占用带宽无法反推协议标准带宽。",
+    "物理特征均为三类 OFDM 共享的宽带/类噪声/高 PAPR 现象，缺少 LTE 与 DVB-T 之间独有的判别特征。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

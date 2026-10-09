@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0022","decision":"keep","recommended_label":"LTE","confidence_level":"low","summary":"IQ 分支对 LTE 给出接近确定性输出（0.99996），64 维 feature-probe 分支呈方向明确但强度中等的 DVB-T 软性偏好（0.619，仍含 0.373 的 LTE 质量），且该偏好完全建立在 LTE/WiFi/DVB-T 共享的非结构性 64 维特征之上、无原始物理特征佐证。参考文档明确当前特征不测量 DVB-T 专有结构（导频、TPS、载波间隔、保护间隔），probe 的 DVB-T 输出缺乏类别区分力与结构支撑，不足以推翻近确定性的 IQ 结论，故维持 LTE，置信度为低。","iq_evidence":["IQ 分支对 LTE 概率为 0.99996，Top1-Top2 间距 0.9999，归一化熵仅 0.0004。","DVB-T 概率 2.9e-5、WiFi 概率 1.2e-5，几乎不存在可竞争的类别，属于近单峰、接近确定性的输出。"],"feature_probe_evidence":["64 维线性 probe 分支 Top1 为 DVB-T（0.619），但 LTE 仍占 0.373、WiFi 0.008，Top1-Top2 间距 0.245、归一化熵 0.641，是方向明确但强度中等的软性偏好，并非决定性偏好。","该 DVB-T 倾向完全建立在三类共享的非结构性特征之上；参考文档明确当前 64 维特征不检测 DVB-T 导频位置、TPS、载波间隔或保护间隔，因此该偏好缺乏可核验的 DVB-T 专有结构支撑，无法据此确认改判。"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支强烈指向 LTE，而 probe 分支 Top1 为 DVB-T，两分支在类别方向上存在名义冲突。","但 probe 的 DVB-T 仅为软性偏好（0.619，仍含 0.373 LTE 质量），且基于非判别性特征、无原始物理特征佐证，冲突强度有限，不构成成组、可消解的实质性物理冲突。"],"limitations":["两分支置信度均未校准，不得直接比较 0.99996 与 0.619 的数值大小，也不得对其做加权平均或设定固定阈值裁决。","本 case 未提供 64 维原始物理特征，无法独立核验 probe 的 DVB-T 倾向是否对应任何 DVB-T 特有的定性信号（如持续稳定占用）。","参考文档明确当前特征不测量 DVB-T 专有协议结构，probe 的 DVB-T 输出无法被结构证据确认或否定。","观测窗口仅 4.096 ms，无法恢复帧级或占空比结构，短时稳定或起伏均不足以区分 LTE 与 DVB-T。"]}
+
+session_id: 20260924_110925_ee7ed4

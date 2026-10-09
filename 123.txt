@@ -1,0 +1,61 @@
+cd /home/dianci/projects/signal_fusion
+
+mkdir -p \
+  data/external/processed/technology_recognition_lte_wifi_dvbt/v2/features/window_4096_64_v2
+
+for fold in fold1 fold2 fold3 fold4; do
+  PYTHONPATH=src \
+  /home/dianci/miniconda3/envs/radioml_amc_clean/bin/python \
+    -m signal_fusion.feature_extraction.cli \
+    --data_path \
+      "data/external/processed/technology_recognition_lte_wifi_dvbt/v2/folds/window_4096/${fold}/test.npz" \
+    --data_format npz \
+    --output_path \
+      "data/external/processed/technology_recognition_lte_wifi_dvbt/v2/features/window_4096_64_v2/${fold}_test_features.npz" \
+    --seq_len 4096 \
+    --sample_rate 1000000 \
+    --progress_every 100
+done
+
+PYTHONPATH=src python -m \
+  signal_fusion.benchmarks.technology_recognition_hermes_review_runner \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1/submission_order.json \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1_responses \
+  --project-root /home/dianci/projects/signal_fusion \
+  --max-turns 30 \
+  --timeout-seconds 900 \
+  --retries 1
+
+PYTHONPATH=src python -m \
+  signal_fusion.benchmarks.technology_recognition_hermes_review_runner \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1/submission_order.json \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1_responses \
+  --project-root /home/dianci/projects/signal_fusion \
+  --max-turns 30 \
+  --timeout-seconds 900 \
+  --retries 1
+
+  PYTHONPATH=src python -m \
+  signal_fusion.benchmarks.technology_recognition_hermes_review_runner \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1/submission_order.json \
+  outputs/technology_recognition_v2_location_validation/cross_location_llm_adjudication_v1_responses \
+  --project-root /home/dianci/projects/signal_fusion \
+  --max-turns 30 \
+  --timeout-seconds 900 \
+  --retries 1
+
+  Failed to initialize agent: Failed to initialize OpenAI client: Unknown scheme for proxy URL URL('socks://127.0.0.1:7897/')
+
+  env | grep -i proxy
+
+printf 'ALL_PROXY=%q\n' "$ALL_PROXY"
+printf 'all_proxy=%q\n' "$all_proxy"
+printf 'HTTP_PROXY=%q\n' "$HTTP_PROXY"
+printf 'HTTPS_PROXY=%q\n' "$HTTPS_PROXY"
+
+ALL_PROXY=socks5://127.0.0.1:7897 \
+all_proxy=socks5://127.0.0.1:7897 \
+hermes
+
+export ALL_PROXY=socks5://127.0.0.1:7897
+export all_proxy=socks5://127.0.0.1:7897

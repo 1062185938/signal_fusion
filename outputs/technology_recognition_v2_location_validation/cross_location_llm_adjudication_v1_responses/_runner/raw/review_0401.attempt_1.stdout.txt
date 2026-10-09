@@ -1,0 +1,69 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0401",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支中等偏弱地偏向 WiFi(0.6197，与 DVB-T margin 仅 0.2448，熵 0.6305)，64 维探针分支则强烈偏向 DVB-T(0.9678，margin 0.9371)。两分支方向对立且置信度未校准，无法用数值消解。物理特征呈现连续稳定占用(全帧激活、零能量跳变、帧能量 CV 0.075)，与 DVB-T 连续占用的定性描述相合，但参考文档明确该短窗可能完全落在单个 WiFi 包内而不出现突发边界，故稳定性不足以排除 WiFi；其余宽带、类噪声高谱熵、高 PAPR、高谱峰度均为三类 OFDM 共享现象，且 64 维特征并不测量 DVB-T 导频/TPS/子载波间隔/保护间隔或 WiFi 前导/包边界，缺乏真正类别区分力。证据冲突无法消解，选择 abstain。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 WiFi，概率 0.6197，次位 DVB-T 0.3749，top1_top2 margin 仅 0.2448，归一化熵 0.6305，分布较散，WiFi 为中等偏弱领先而非压倒性。",
+        "LTE 概率仅 0.0054，可基本排除，冲突集中在 WiFi 与 DVB-T 之间。"
+      ],
+      "feature_probe_evidence": [
+        "64 维线性探针 top1 为 DVB-T，概率 0.9678，margin 0.9371，熵 0.1348，内部高度一致、方向稳定指向 DVB-T。",
+        "该高置信度由 64 维物理特征直接驱动，而多数特征为 OFDM 共享量，其 DVB-T 倾向未必具备类别区分力。"
+      ],
+      "physical_feature_evidence": [
+        "时频占用连续稳定：stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.075，整段无明显突发边界。",
+        "该稳定性与 DVB-T 连续稳定占用的定性描述相合，但参考文档指出 4.096 ms 短窗可能完全落在单个 WiFi 包内、不出现突发边界，故稳定性不能单独排除 WiFi。",
+        "occupied bandwidth≈0.807、全局谱熵 0.9717、flatness 0.777、PAPR 9.30 dB、谱峰度≈8.05(时频峰度 8.43)等均为三类 OFDM 共享现象，不作改判依据。",
+        "较高谱峰度不能解释为导频检测；64 维特征不测量 DVB-T 导频/TPS/子载波间隔/保护间隔，也不测量 WiFi 前导/包边界，缺少具类别区分力的独立证据。"
+      ],
+      "conflicting_evidence": [
+        "IQ 分支中等偏向 WiFi，探针分支强烈偏向 DVB-T，两方向直接对立，且两分支置信度未校准，无法通过比较数值大小或加权平均消解。",
+        "唯一带时间结构的信息(连续稳定占用)对 DVB-T 有定性倾向，但存在参考文档明示的可信替代解释(短窗落入单个 WiFi 包内)，冲突无法消解。"
+      ],
+      "limitations": [
+        "两分支置信度未校准，不得比较数值大小、平均、发明权重或用固定阈值裁决。",
+        "64 维物理特征为探针输入而非独立第三票，需避免重复计数。",
+        "4.096 ms 短窗无法观测 DVB-T 帧结构/导频或 WiFi 包级边界，时间结构信息有限。",
+        "缺乏多项相干且具类别区分力的独立证据，按规则在证据不足/冲突无法消解时选择 abstain。"
+      ]
+{
+  "analysis_id": "review_0401",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支中等偏弱地偏向 WiFi(0.6197，与 DVB-T margin 仅 0.2448，熵 0.6305)，64 维探针分支则强烈偏向 DVB-T(0.9678，margin 0.9371)。两分支方向对立且置信度未校准，无法用数值消解。物理特征呈现连续稳定占用(全帧激活、零能量跳变、帧能量 CV 0.075)，与 DVB-T 连续占用的定性描述相合，但参考文档明确该短窗可能完全落在单个 WiFi 包内而不出现突发边界，故稳定性不足以排除 WiFi；其余宽带、类噪声高谱熵、高 PAPR、高谱峰度均为三类 OFDM 共享现象，且 64 维特征并不测量 DVB-T 导频/TPS/子载波间隔/保护间隔或 WiFi 前导/包边界，缺乏真正类别区分力。证据冲突无法消解，选择 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.6197，次位 DVB-T 0.3749，top1_top2 margin 仅 0.2448，归一化熵 0.6305，分布较散，WiFi 为中等偏弱领先而非压倒性。",
+    "LTE 概率仅 0.0054，可基本排除，冲突集中在 WiFi 与 DVB-T 之间。"
+  ],
+  "feature_probe_evidence": [
+    "64 维线性探针 top1 为 DVB-T，概率 0.9678，margin 0.9371，熵 0.1348，内部高度一致、方向稳定指向 DVB-T。",
+    "该高置信度由 64 维物理特征直接驱动，而多数特征为 OFDM 共享量，其 DVB-T 倾向未必具备类别区分力。"
+  ],
+  "physical_feature_evidence": [
+    "时频占用连续稳定：stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.075，整段无明显突发边界。",
+    "该稳定性与 DVB-T 连续稳定占用的定性描述相合，但参考文档指出 4.096 ms 短窗可能完全落在单个 WiFi 包内、不出现突发边界，故稳定性不能单独排除 WiFi。",
+    "occupied bandwidth≈0.807、全局谱熵 0.9717、flatness 0.777、PAPR 9.30 dB、谱峰度≈8.05(时频峰度 8.43)等均为三类 OFDM 共享现象，不作改判依据。",
+    "较高谱峰度不能解释为导频检测；64 维特征不测量 DVB-T 导频/TPS/子载波间隔/保护间隔，也不测量 WiFi 前导/包边界，缺少具类别区分力的独立证据。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支中等偏向 WiFi，探针分支强烈偏向 DVB-T，两方向直接对立，且两分支置信度未校准，无法通过比较数值大小或加权平均消解。",
+    "唯一带时间结构的信息(连续稳定占用)对 DVB-T 有定性倾向，但存在参考文档明示的可信替代解释(短窗落入单个 WiFi 包内)，冲突无法消解。"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不得比较数值大小、平均、发明权重或用固定阈值裁决。",
+    "64 维物理特征为探针输入而非独立第三票，需避免重复计数。",
+    "4.096 ms 短窗无法观测 DVB-T 帧结构/导频或 WiFi 包级边界，时间结构信息有限。",
+    "缺乏多项相干且具类别区分力的独立证据，按规则在证据不足/冲突无法消解时选择 abstain。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

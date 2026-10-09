@@ -1,0 +1,157 @@
+{
+  "schema_version": 2,
+  "bundle_type": "signal_fusion_cross_location_review_input",
+  "evidence_type": "blind_iq_feature_disagreement_adjudication",
+  "analysis_id": "review_0238",
+  "output_language": "zh-CN",
+  "signal_context": {
+    "effective_sample_rate_hz": 1000000.0,
+    "sample_count": 4096,
+    "duration_ms": 4.096
+  },
+  "iq_branch": {
+    "branch_name": "iq_model",
+    "probabilities": {
+      "LTE": 0.0060755349695682526,
+      "WiFi": 0.7406343221664429,
+      "DVB-T": 0.2532901465892792
+    },
+    "top3": [
+      {
+        "label": "WiFi",
+        "probability": 0.7406343221664429
+      },
+      {
+        "label": "DVB-T",
+        "probability": 0.2532901465892792
+      },
+      {
+        "label": "LTE",
+        "probability": 0.0060755349695682526
+      }
+    ],
+    "top1": {
+      "label": "WiFi",
+      "probability": 0.7406343221664429
+    },
+    "top1_top2_margin": 0.4873441755771637,
+    "normalized_entropy": 0.5472390770788448
+  },
+  "feature_probe_branch": {
+    "branch_name": "global_64_feature_linear_probe",
+    "probabilities": {
+      "LTE": 0.06358214951590369,
+      "WiFi": 0.002371196570987844,
+      "DVB-T": 0.9340466539131085
+    },
+    "top3": [
+      {
+        "label": "DVB-T",
+        "probability": 0.9340466539131085
+      },
+      {
+        "label": "LTE",
+        "probability": 0.06358214951590369
+      },
+      {
+        "label": "WiFi",
+        "probability": 0.002371196570987844
+      }
+    ],
+    "top1": {
+      "label": "DVB-T",
+      "probability": 0.9340466539131085
+    },
+    "top1_top2_margin": 0.8704645043972048,
+    "normalized_entropy": 0.23052447503152904
+  },
+  "reference_document_paths": {
+    "technology_reference_lte_wifi_dvbt.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/fusion/references/technology_reference_lte_wifi_dvbt.md",
+    "time_domain_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/time_domain_iq_features.md",
+    "frequency_domain_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/frequency_domain_iq_features.md",
+    "time_frequency_iq_features.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/feature_extraction/assets/time_frequency_iq_features.md"
+  },
+  "required_output": {
+    "analysis_id": "exactly this input analysis_id",
+    "decision": "keep, change, or abstain",
+    "recommended_label": "LTE, WiFi, DVB-T, or null",
+    "confidence_level": "medium or low",
+    "summary": "concise Chinese blind adjudication summary",
+    "iq_evidence": "list of IQ-branch observations",
+    "feature_probe_evidence": "list of feature-probe observations",
+    "physical_feature_evidence": "list of raw-feature observations; empty when raw features are absent",
+    "conflicting_evidence": "list of material conflicts",
+    "limitations": "list of limitations"
+  },
+  "physical_feature_evidence": {
+    "feature_schema_id": "matlab_iq_features_64_v2",
+    "feature_count": 64,
+    "scope": "complete_4096_sample_region",
+    "values": {
+      "time_rms_amplitude": 1.0000001192092896,
+      "time_papr_db": 8.765140533447266,
+      "time_amplitude_skewness": 0.5976200103759766,
+      "time_amplitude_kurtosis": 3.0870306491851807,
+      "time_envelope_cv": 0.522876501083374,
+      "time_amplitude_entropy": 0.82887202501297,
+      "time_c20": 0.04062381759285927,
+      "time_c40": 0.03335375711321831,
+      "time_c41": 0.04572280868887901,
+      "time_c42": 0.020471079275012016,
+      "time_differential_phase_std": 1.5829139947891235,
+      "time_autocorrelation_peak_magnitude": 0.29753315448760986,
+      "time_autocorrelation_peak_lag_ratio": 0.023193359375,
+      "time_mean_autocorrelation_magnitude": 0.019208084791898727,
+      "time_envelope_power_autocorrelation_peak": 0.09936928749084473,
+      "freq_normalized_mean_frequency": -0.023776095360517502,
+      "freq_normalized_median_frequency": -0.009277375414967537,
+      "freq_normalized_spectral_spread": 0.23965178430080414,
+      "freq_normalized_occupied_bandwidth_90": 0.8056641221046448,
+      "freq_normalized_peak_frequency": 0.000732421875,
+      "freq_log10_band_power": 0.015353364869952202,
+      "freq_global_spectral_entropy": 0.9695829749107361,
+      "freq_global_spectral_crest_factor": 9.752364158630371,
+      "freq_global_spectral_flatness": 0.7693643569946289,
+      "freq_normalized_spectral_skewness": 0.023374155163764954,
+      "freq_psd_standard_deviation": 8.330893024321995e-07,
+      "freq_log_mean_bispectrum_magnitude": -4.205636978149414,
+      "freq_log_max_bispectrum_magnitude": -3.318368434906006,
+      "freq_log_bispectral_energy": -3.8435487747192383,
+      "freq_normalized_bispectral_entropy": 0.9261630177497864,
+      "freq_normalized_bispectrum_peak_frequency_1": -0.04296875,
+      "freq_normalized_bispectrum_peak_frequency_2": 0.1171875,
+      "freq_mean_squared_bicoherence": 0.032445669174194336,
+      "freq_max_squared_bicoherence": 0.2919037640094757,
+      "freq_normalized_bicoherence_entropy": 0.9598665833473206,
+      "freq_bicoherence_weighted_biphase_concentration": 0.01759837381541729,
+      "time_frequency_spectral_kurtosis_mean": 2.237611770629883,
+      "time_frequency_spectral_kurtosis_std": 0.1569460928440094,
+      "time_frequency_spectral_skewness_mean": 0.023700429126620293,
+      "time_frequency_spectral_skewness_std": 0.1308458000421524,
+      "time_frequency_spectral_crest_mean": 9.37334156036377,
+      "time_frequency_spectral_crest_std": 3.3922274112701416,
+      "time_frequency_spectral_flatness_mean": 0.5158384442329407,
+      "time_frequency_spectral_flatness_std": 0.02984875626862049,
+      "time_frequency_spectral_entropy_mean": 0.9180311560630798,
+      "time_frequency_spectral_entropy_std": 0.009332679212093353,
+      "time_frequency_normalized_stft_ridge_frequency_std": 0.10194523632526398,
+      "time_frequency_normalized_stft_ridge_slope": -0.03139963746070862,
+      "time_frequency_normalized_spectral_centroid_std": 0.017989885061979294,
+      "time_frequency_normalized_spectral_spread_mean": 0.23997294902801514,
+      "time_frequency_normalized_spectral_spread_std": 0.009501125663518906,
+      "time_frequency_stft_frame_energy_cv": 0.1665116548538208,
+      "time_frequency_stft_active_frame_ratio": 1.0,
+      "time_frequency_stft_energy_transition_ratio": 0.0,
+      "time_frequency_normalized_fsst_ridge_frequency_std": 0.1486259251832962,
+      "time_frequency_normalized_fsst_ridge_slope": 0.03176535665988922,
+      "time_frequency_normalized_fsst_ridge_curvature_rms": 0.08671103417873383,
+      "time_frequency_fsst_ridge_energy_ratio": 0.07243461161851883,
+      "time_frequency_normalized_fsst_time_frequency_entropy": 0.9266260862350464,
+      "time_frequency_normalized_wsst_ridge_frequency_std": 0.12460807710886002,
+      "time_frequency_normalized_wsst_ridge_slope": 0.0009297036449424922,
+      "time_frequency_normalized_wsst_bandwidth_mean": 0.13023655116558075,
+      "time_frequency_normalized_wsst_bandwidth_std": 0.019259778782725334,
+      "time_frequency_wsst_ridge_energy_ratio": 0.2607581317424774
+    }
+  }
+}

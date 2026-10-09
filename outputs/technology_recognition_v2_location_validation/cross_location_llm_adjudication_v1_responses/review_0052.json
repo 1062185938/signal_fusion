@@ -1,0 +1,28 @@
+{
+  "analysis_id": "review_0052",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支对 LTE 极为确信（0.99991，top1-top2 间隔 0.9998，归一化熵 0.0009），而 64 维 feature-probe 分支对 DVB-T 同样极为确信（0.98460，间隔 0.9711，熵 0.0777），两者方向完全相反且各自都达到高置信低熵。由于两分支置信度未校准，不能直接比较数值、平均或加权；本 case 又无物理特征证据可用作类别区分力强的裁决依据，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 LTE，概率 0.999913",
+    "top1-top2 间隔 0.999846，归一化熵 0.000866，接近确定",
+    "第二名为 DVB-T 仅 6.7e-05，第三名 WiFi 2.1e-05"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T，概率 0.984600",
+    "top1-top2 间隔 0.971115，归一化熵 0.077670，同样高置信低熵",
+    "第二名为 LTE 仅 0.013486，第三名 WiFi 0.001914",
+    "两分支置信度未校准，其高概率与 IQ 分支的高概率不可直接比较大小"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支强支持 LTE 与 feature-probe 分支强支持 DVB-T 直接对立，且双方均为高置信低熵，形成无法消解的正面对立",
+    "无物理特征证据，无法引入独立的、具类别区分力的证据来打破平局"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能对概率做比较、平均或加权",
+    "本 case 未提供 64 维物理特征，physical_feature_evidence 为空",
+    "1 MHz、4096 样本、4.096 ms 局部视图，无法据此反推协议标准带宽或完整帧结构"
+  ]
+}

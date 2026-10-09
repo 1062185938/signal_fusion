@@ -1,0 +1,49 @@
+{
+  "analysis_id": "review_0038",
+  "recommendation_status": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "三个 IQ 成员的 region Top1 在 DVB-T 与 LTE 之间分裂，且其中两个成员的 region 级判定只是两窗口相抵后的残留：iq_member_1 为 DVB-T 0.4996 对 LTE 0.4988（差 0.0008），iq_member_2 为 LTE 0.5061 对 DVB-T 0.4917（差 0.0144），仅 iq_member_3 为稳定判读的 DVB-T（0.8263，两个窗口一致）。ensemble 以 DVB-T 0.6058 领先 LTE 0.3884（margin 0.2174），该领先主要来自 iq_member_3 的高置信度与 iq_member_1 的微弱边际。窗口层出现前后两段方向对立：窗口 0 有 2 个成员以约 0.98 的置信度判 LTE，窗口 1 三个成员一致判 DVB-T，说明 region 内跨越了性质不同的片段。周期门控 margin 为 0.0125，未达冻结门限 0.0215，reliable=false，且预测方向为 LTE，与 ensemble Top1 相反，无法确认也无法改判。附带的 64 维特征只显示宽带宽、近平坦、谱形稳定、无脊线主导的多载波/类噪声结构，属信息不足，不能消解分歧。证据不收敛于单一制式，故弃权。",
+  "model_evidence": [
+    "三成员 region Top1 不一致（iq_member_1 与 iq_member_3 判 DVB-T、iq_member_2 判 LTE），触发 member_region_top1_disagreement，风险门控未通过。",
+    "两个成员的 region 级判定接近于并列：iq_member_1 为 DVB-T 0.4996 对 LTE 0.4988（差 0.0008），iq_member_2 为 LTE 0.5061 对 DVB-T 0.4917（差 0.0144），这类 Top1 只是两个窗口均值相抵后的微小残留，不构成稳定判读。",
+    "iq_member_3 是唯一内部一致的成员：两个窗口均判 DVB-T（0.8287、0.8239，成员级一致性 2/2），其 region 级 DVB-T 为 0.8263，该意见稳定，不能按噪声忽略。",
+    "iq_member_1 与 iq_member_2 的成员级一致性均为 1/2，且方向一致地相反：窗口 0 均以约 0.98 的置信度判 LTE（0.9849、0.9776），窗口 1 均转判 DVB-T（0.9850、0.9621）。",
+    "窗口层前后两段方向对立：窗口 0 为 LTE 多数（2/3），窗口 1 为 DVB-T 全体一致（3/3，0.8239–0.9850），说明 region 内跨越了物理性质不同的片段，区域级均值不足以代表单一制式。",
+    "ensemble 平均概率为 DVB-T 0.6058、LTE 0.3884、WiFi 0.0057，Top1-Top2 margin 为 0.2174、归一化熵 0.6377；其 DVB-T 领先主要由 iq_member_3 的高置信度贡献，而非成员间的一致意见。",
+    "WiFi 在 ensemble 仅为 0.0057，三个成员分别为 0.0016、0.0023、0.0133，均极低，模型层没有 WiFi 方向的证据。"
+  ],
+  "periodicity_evidence": [
+    "66.67 μs（LTE 候选）归一化相关为 0.0379；224 μs 为 0.0255、896 μs 为 0.0238，dvbt_score 取两者较大的 0.0255。",
+    "margin = |0.0379 − 0.0255| = 0.0125，低于冻结 reliability_margin 0.0215，故 reliable=false、resolved=false、changed=false。",
+    "eligible=true（三成员 Top1 只含 LTE/DVB-T 且两类均出现），但 margin 未达门限，周期门控无法消解成员分歧；reliable=false 只表示证据不足，不代表 LTE 或 DVB-T 任一成立。",
+    "三个候选相关幅值处于 0.024–0.038 的弱相关量级，且两个 DVB-T 候选均偏低且彼此不一致（0.0255 对 0.0238），提示该侧周期证据在短观测下缺乏稳定结构。",
+    "周期预测方向为 LTE，与 ensemble Top1（DVB-T）相反，因此周期证据既不能确认 ensemble 的倾向，也不能用于改判。"
+  ],
+  "feature_evidence": [
+    "全局特征向量完整：64 个命名值（15 时域 + 21 频域 + 28 时频），抽取范围为完整连续 region，预处理为去直流加复 RMS 归一化；time_rms_amplitude=1.0 只反映该归一化，属质量控制值，不携带类别或绝对功率信息。",
+    "频谱呈宽而平坦、近噪声状：freq_normalized_occupied_bandwidth_90=0.8616（能量铺展到当前 1 MHz 视图约 86%）、freq_global_spectral_flatness=0.9032、freq_global_spectral_entropy=0.9887、freq_global_spectral_crest_factor=2.705、freq_normalized_spectral_skewness=0.0082；该表现与分散的多载波能量相容，也与宽带噪声相容，按参考文档不得据此反推协议标准带宽。",
+    "归一化峰值频率为 0.4075，明显偏离视图中心，而全局谱峰值因子仅 2.705、谱平坦度高达 0.9032；参考文档指出峰值频率可能由窄带干扰或残余频偏决定，且高平坦度下不存在主导窄峰，因此该值不构成任何协议结构的证据。",
+    "无单条脊线主导：FSSTRidgeEnergyRatio=0.0500、WSSTRidgeEnergyRatio=0.2970，而 normalized_fsst_ridge_frequency_std=0.2588、normalized_stft_ridge_frequency_std=0.2391；同时归一化谱质心标准差仅 0.0259、归一化频谱扩展标准差仅 0.0079，说明脊线位置波动大而整体谱形稳定，符合参考文档所述多载波下脊线只是逐帧最强 bin 的边界，不能据此声称扫频或 chirp。",
+    "时间维度为持续活动且无开关切换，但存在中等能量起伏：STFTActiveFrameRatio=1.0、STFTNormalizedEnergyTransitionCount=0.0、STFTFrameEnergyCV=0.3722，逐帧谱熵标准差 0.00931、谱平坦度标准差 0.03653；局部谱形高度稳定而帧能量起伏较明显，提示 region 内可能存在强弱变化，但参考文档明确该活动性特征只用 region 内部相对阈值，不能替代独立的突发检测或长期占空比测量。",
+    "幅度与累积量处于三类可共享范围：time_papr_db=10.73、time_envelope_cv=0.5717、time_amplitude_kurtosis=3.7337（未减 3）、time_amplitude_skewness=0.8586、time_amplitude_entropy=0.7490、time_c20=0.0326、time_c40=0.0569、time_c41=0.0684、time_c42=0.2718；当前无经验证的类别阈值，不得据单个统计量投类别票。",
+    "自相关未显示与候选符号周期对应的强重复：time_autocorrelation_peak_magnitude=0.0598，其峰值延迟比为 0.000244（对应延迟 1 个采样），time_mean_autocorrelation_magnitude=0.0154，time_envelope_power_autocorrelation_peak=0.1469；复自相关整体很弱，说明 64 维特征未提供独立于周期门控的周期性证据。",
+    "双谱与双相干未显示集中的非线性相位耦合：log_mean_bispectrum_magnitude=-4.139、log_max_bispectrum_magnitude=-3.419、mean_squared_bicoherence=0.0393、max_squared_bicoherence=0.3341、freq_normalized_bicoherence_entropy=0.9607、freq_bicoherence_weighted_biphase_concentration=0.0338；耦合一致性分散、双相位方向不集中，不能用于类别区分。",
+    "综合定性判断：上述各组只共同显示“宽带宽、近平坦、谱形稳定、无脊线主导、持续活动无切换的多载波/类噪声信号”这一三类共享性质，按参考文档属信息不足；它既不能独立确认 DVB-T 或 LTE，也未提供 WiFi 突发边界证据，因此不改变 IQ ensemble 的原有不确定性。"
+  ],
+  "conflicting_evidence": [
+    "成员层 Top1 在 DVB-T 与 LTE 之间分裂，且其中两个成员的 region 级差距仅 0.0008 与 0.0144，属并列级判读，成员层的“2/3 为 DVB-T”并不代表稳定的多数意见。",
+    "窗口层前后两段方向对立：窗口 0 有两个成员以约 0.98 置信度判 LTE，窗口 1 三个成员一致判 DVB-T，说明 region 跨越两段性质不同的片段，区域级 DVB-T 领先主要来自后半段与 iq_member_3。",
+    "周期门控 margin 未达冻结门限（reliable=false），却给出 LTE 预测，与 ensemble Top1（DVB-T）方向相反，模型层与周期层无法互相印证。",
+    "本 case 虽有 64 维特征，但各特征组只显示三类共享的宽带多载波稳定性，且无经验证阈值，无法在特征层确认 DVB-T、支持 LTE，也未提供 WiFi 的证据。",
+    "三个成员源自同一输入且高度相关，不能被当作三次独立投票；ensemble 的 DVB-T 领先（0.2174）主要由单个高置信度成员拉动，不足以形成一致证据。"
+  ],
+  "limitations": [
+    "4.096 ms / 1 MHz 只提供局部短时视图，且 64 维特征对整个 region 只抽取一次，无法分辨 region 内前后半段的结构差异。",
+    "周期候选仅对应 OFDM 有效符号时间尺度，不等同于循环前缀检测、同步序列匹配或导频检测；不得重选候选、修改门限或重算门控。",
+    "归一化相关值是测量值而非概率或置信度；reliable=false 表示证据不足，不代表相反类别成立。",
+    "不得由归一化 90% 占用带宽反推协议标准带宽，也不得据当前特征推断 WiFi 版本、LTE 链路方向、调制阶数或 DVB-T 模式。",
+    "特征与相关峰均受噪声、干扰、频偏、滤波和有限样本影响；STFT 活动性基于 region 内部相对阈值，不能替代独立的突发检测或长期占空比测量。",
+    "三个成员的判定不能当作独立校准证据；本输入已被确定性系统拒绝，置信度上限只为 low 或 medium，本次判为 low。"
+  ]
+}

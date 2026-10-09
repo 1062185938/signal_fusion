@@ -1,0 +1,27 @@
+{
+  "analysis_id": "review_0332",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维 feature-probe 分支各自给出高置信但方向相反的结论：IQ 强烈指向 WiFi（0.9395，margin 0.8806），而 feature-probe 强烈指向 DVB-T（0.9410，margin 0.8866）。两分支置信度未校准，不能比较数值大小或加权平均；且本 case 未提供任何 64 维物理特征，缺乏可消解这一头对头冲突的类别区分证据。三类的宽带、类噪声、高 PAPR 等共享 OFDM 现象不构成改判依据，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.9395，top1-top2 margin 0.8806，归一化熵 0.2148，内部高度集中。",
+    "次高为 DVB-T 0.0589，LTE 仅 0.0017，IQ 侧几乎没有 LTE 支持。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe top1 为 DVB-T，概率 0.9410，top1-top2 margin 0.8866，归一化熵 0.2191，内部高度集中。",
+    "次高为 LTE 0.0544，WiFi 仅 0.0047，probe 侧几乎没有 WiFi 支持，与 IQ 分支方向相反。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支均高置信但 top1 指向互斥类别：IQ→WiFi 与 feature-probe→DVB-T 形成正面冲突。",
+    "两分支置信度未经校准，不得比较概率大小、加权或设阈值裁决。",
+    "本 case 无物理特征输入，且 64 维特征本身是 probe 的输入而非第三个独立投票，无法提供独立的类别区分证据来打破平局。",
+    "宽带、类噪声包络、较高 PAPR/谱熵等属三类共享 OFDM 现象，不能单独支持 WiFi 或 DVB-T 任一方。"
+  ],
+  "limitations": [
+    "仅 1 MHz / 4096 点 / 4.096 ms 局部视图，不能反推协议带宽，也不足以恢复 WiFi 包边界、LTE 参考信号或 DVB-T 导频/TPS 等结构。",
+    "现有 64 维特征未显式检测上述协议结构，无法用其消解 WiFi 与 DVB-T 的冲突。",
+    "未提供原始物理特征，无法在时域/频域/时频上寻找成组的类别区分证据；在冲突无法消解时按规则选择弃权。"
+  ]
+}

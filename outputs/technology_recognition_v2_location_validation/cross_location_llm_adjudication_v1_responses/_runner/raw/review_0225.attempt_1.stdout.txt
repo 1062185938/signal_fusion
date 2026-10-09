@@ -1,0 +1,78 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0225",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支 top1 为 WiFi 但属弱判别（WiFi 0.552 对 DVB-T 0.443，间隔仅 0.109，熵 0.651），LTE 可基本排除；64 维线性探针则明确偏向 DVB-T（0.926，间隔 0.855）。物理特征呈连续稳定占用（活动帧 1.0、跃迁 0.0、能量 CV 0.108），定性略偏 DVB-T，但参考文档指出 4.096 ms 窗口可能完全落在单个 WiFi 报文内，故不构成决定性类别区分证据。其余宽带、类噪声、高 PAPR、高谱熵、高谱峰因子均为三类 OFDM 共享现象。两分支方向冲突且置信未校准，缺乏具备类别区分力的协议专属结构证据，无法消解，故 abstain。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 WiFi (0.5521)，top2 为 DVB-T (0.4428)，top1-top2 间隔仅 0.1093，归一化熵 0.6512，属于 WiFi 与 DVB-T 接近并列的弱判别状态，并未给出强 WiFi 结论",
+        "LTE 概率仅 0.0051，可基本排除 LTE",
+        "DVB-T 在 IQ 分支中为实质性次选（0.4428），并非可忽略的离群候选"
+      ],
+      "feature_probe_evidence": [
+        "线性探针 top1 为 DVB-T (0.9265)，top2 为 LTE (0.0719)，间隔 0.8546，归一化熵 0.2461，判向明确为 DVB-T",
+        "WiFi 概率仅 0.0016，探针强烈反对 WiFi，与 IQ 分支的 top1 方向相反",
+        "该探针以 64 维全局物理特征为输入，其高置信度部分建立在宽带、类噪声等 OFDM 共享特征上，且置信未校准，不宜以数值权重放大，也不可与 64 维特征叠加当作两次独立投票"
+      ],
+      "physical_feature_evidence": [
+        "stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.1077：全帧激活、无突发边界、帧间能量稳定，呈连续稳定占用，定性上略偏向 DVB-T 的连续广播倾向",
+        "但按技术参考，region 可能完全落在单个 WiFi 报文内而不呈现边界，短时稳定不能据此排除 WiFi，故该连续占用不具决定性，单独不能作为 DVB-T 的类别判据",
+        "freq_global_spectral_entropy=0.9700、freq_global_spectral_flatness=0.7658、freq_normalized_occupied_bandwidth_90=0.8076、time_papr_db=10.03、freq_global_spectral_crest_factor=9.39：均为宽带、类噪声、高 PAPR、高谱熵/平坦度等 OFDM 共享现象，LTE/WiFi/DVB-T 共有，不具类别区分力",
+        "谱峰因子 (spectral_crest_factor=9.39、spectral_crest_mean=8.38) 不得解释为 DVB-T 导频或稳定成分检测",
+        "归一化占用带宽 0.8076 仅为 1 MHz / 4.096 ms 接收局部视图，不能反推协议标准信道带宽"
+      ],
+      "conflicting_evidence": [
+        "两分支 top1 方向直接冲突：IQ 分支 top1 为 WiFi（虽弱），探针 top1 为 DVB-T（虽强但置信未校准）；由于两分支置信度未校准，不能以数值大小、平均或固定阈值消解该冲突",
+        "物理特征的连续稳定占用定性偏向 DVB-T，与探针方向一致，但按参考文档属非决定性的短时现象，不足以将 IQ 分支的 WiFi 判读确证为 DVB-T",
+        "64 维物理特征是探针的输入而非独立第三票，不能与探针输出叠加计数来强化 DVB-T 结论"
+      ],
+      "limitations": [
+        "IQ 与 64 维探针置信度均未校准，禁止直接比较数值、做平均、发明权重或用固定 if/else 阈值裁决",
+        "观测窗口仅 4.096 ms、1 MHz 局部视图，WiFi 长时占空比与包边界、LTE 同步/参考信号/资源栅格、DVB-T 导频位置/TPS/载波间隔/保护间隔均未被 64 维特征显式测量",
+        "宽带、类噪声、高 PAPR、高谱熵/平坦度、高谱峰因子等为三类 OFDM 共享现象，不能单独作为改判依据",
+        "缺乏具备类别区分力的协议专属结构证据，WiFi 与 DVB-T 之间的方向冲突无法消解，因此选择 abstain"
+      ]
+{
+  "analysis_id": "review_0225",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支 top1 为 WiFi 但属弱判别（WiFi 0.552 对 DVB-T 0.443，间隔仅 0.109，熵 0.651），LTE 可基本排除；64 维线性探针则明确偏向 DVB-T（0.926，间隔 0.855）。物理特征呈连续稳定占用（活动帧 1.0、跃迁 0.0、能量 CV 0.108），定性略偏 DVB-T，但参考文档指出 4.096 ms 窗口可能完全落在单个 WiFi 报文内，故不构成决定性类别区分证据。其余宽带、类噪声、高 PAPR、高谱熵、高谱峰因子均为三类 OFDM 共享现象。两分支方向冲突且置信未校准，缺乏具备类别区分力的协议专属结构证据，无法消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi (0.5521)，top2 为 DVB-T (0.4428)，top1-top2 间隔仅 0.1093，归一化熵 0.6512，属于 WiFi 与 DVB-T 接近并列的弱判别状态，并未给出强 WiFi 结论",
+    "LTE 概率仅 0.0051，可基本排除 LTE",
+    "DVB-T 在 IQ 分支中为实质性次选（0.4428），并非可忽略的离群候选"
+  ],
+  "feature_probe_evidence": [
+    "线性探针 top1 为 DVB-T (0.9265)，top2 为 LTE (0.0719)，间隔 0.8546，归一化熵 0.2461，判向明确为 DVB-T",
+    "WiFi 概率仅 0.0016，探针强烈反对 WiFi，与 IQ 分支的 top1 方向相反",
+    "该探针以 64 维全局物理特征为输入，其高置信度部分建立在宽带、类噪声等 OFDM 共享特征上，且置信未校准，不宜以数值权重放大，也不可与 64 维特征叠加当作两次独立投票"
+  ],
+  "physical_feature_evidence": [
+    "stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.1077：全帧激活、无突发边界、帧间能量稳定，呈连续稳定占用，定性上略偏向 DVB-T 的连续广播倾向",
+    "但按技术参考，region 可能完全落在单个 WiFi 报文内而不呈现边界，短时稳定不能据此排除 WiFi，故该连续占用不具决定性，单独不能作为 DVB-T 的类别判据",
+    "freq_global_spectral_entropy=0.9700、freq_global_spectral_flatness=0.7658、freq_normalized_occupied_bandwidth_90=0.8076、time_papr_db=10.03、freq_global_spectral_crest_factor=9.39：均为宽带、类噪声、高 PAPR、高谱熵/平坦度等 OFDM 共享现象，LTE/WiFi/DVB-T 共有，不具类别区分力",
+    "谱峰因子 (spectral_crest_factor=9.39、spectral_crest_mean=8.38) 不得解释为 DVB-T 导频或稳定成分检测",
+    "归一化占用带宽 0.8076 仅为 1 MHz / 4.096 ms 接收局部视图，不能反推协议标准信道带宽"
+  ],
+  "conflicting_evidence": [
+    "两分支 top1 方向直接冲突：IQ 分支 top1 为 WiFi（虽弱），探针 top1 为 DVB-T（虽强但置信未校准）；由于两分支置信度未校准，不能以数值大小、平均或固定阈值消解该冲突",
+    "物理特征的连续稳定占用定性偏向 DVB-T，与探针方向一致，但按参考文档属非决定性的短时现象，不足以将 IQ 分支的 WiFi 判读确证为 DVB-T",
+    "64 维物理特征是探针的输入而非独立第三票，不能与探针输出叠加计数来强化 DVB-T 结论"
+  ],
+  "limitations": [
+    "IQ 与 64 维探针置信度均未校准，禁止直接比较数值、做平均、发明权重或用固定 if/else 阈值裁决",
+    "观测窗口仅 4.096 ms、1 MHz 局部视图，WiFi 长时占空比与包边界、LTE 同步/参考信号/资源栅格、DVB-T 导频位置/TPS/载波间隔/保护间隔均未被 64 维特征显式测量",
+    "宽带、类噪声、高 PAPR、高谱熵/平坦度、高谱峰因子等为三类 OFDM 共享现象，不能单独作为改判依据",
+    "缺乏具备类别区分力的协议专属结构证据，WiFi 与 DVB-T 之间的方向冲突无法消解，因此选择 abstain"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

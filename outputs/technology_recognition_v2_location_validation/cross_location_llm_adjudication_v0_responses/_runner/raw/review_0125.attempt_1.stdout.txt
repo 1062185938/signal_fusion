@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0125", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "IQ 分支与 64 维 feature-probe 分支各自都给出高度集中且彼此直接对立的判定：IQ 分支以 0.9951 的绝对优势判为 WiFi，feature-probe 分支以 0.9957 的绝对优势判为 LTE，两者的次优类别概率都很低。两分支置信度未经校准，不能比较 0.9951 与 0.9957 的大小，也不能做平均或加权；由于缺少任何可作类别区分用的独立证据，这一对立无法消解，故不改变也不改判，选择 abstain。", "iq_evidence": ["IQ 分支 top1 为 WiFi，概率 0.99506，top1-top2 margin 0.99091，normalized_entropy 0.03030，属于高度集中、近乎单峰的判定。", "IQ 分支对 LTE 仅给 0.00416、对 DVB-T 仅给 0.00078，即其自身的备选类别是 LTE，但该备选概率极低，IQ 分支没有任何向 LTE 让步的迹象。", "IQ 分支的熵极低，说明在其自身特征空间内该样本与 WiFi 原型高度吻合，但其输出置信度未经校准，不能据此直接认定优于另一分支。"], "feature_probe_evidence": ["feature-probe 分支 top1 为 LTE，概率 0.99565，top1-top2 margin 0.99153，normalized_entropy 0.02629，同样是高度集中、近乎单峰的判定。", "feature-probe 分支对 WiFi 仅给 0.00412、对 DVB-T 仅给 0.00023，表明 64 维线性探针内部对该样本的线性可分性很确信，但其置信度同样未经校准。", "两个分支虽然都属于高集中度输出，但指向的类别互斥（WiFi 对 LTE），不存在任何一个分支同时支持某一类别的交叉一致。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支（WiFi，0.99506）与 feature-probe 分支（LTE，0.99565）给出直接对立且各自高度集中的结论，构成本 case 的核心冲突。", "两分支的备选类别彼此不构成支持关系：IQ 的备选是 LTE 但概率仅 0.00416，feature-probe 的备选是 WiFi 但概率仅 0.00412，不存在“某分支动摇并指向对方”的相干链条。", "本 case 未提供 64 维物理特征，缺少可对 WiFi 的突发/分组结构或 LTE 的连续占用结构作独立判断的观测量，冲突无法由证据层面打破。"], "limitations": ["两分支输出概率未经校准，无法比较其数值大小，也不能通过平均、加权或固定阈值进行裁决。", "本 case 的 reference_document_paths 仅包含技术参考文档，未包含 64 维物理特征，physical_feature_evidence 为空，无法对任一分支的结论作特征层面的独立校验。", "观测上下文仅为 1 MHz 采样率、4096 点、约 4.096 ms 的局部基带切片，无法恢复协议帧结构或据此区分宽带 OFDM 三类的具体制式。", "基于以上限制，本 case 的证据不足以支持改判，也不足以确认原判，故给出 abstain 与低置信度。"]}
+
+session_id: 20260924_153939_e7a81a

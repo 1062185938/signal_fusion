@@ -1,0 +1,29 @@
+{
+  "analysis_id": "review_0136",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支给出中等置信的 WiFi（0.598，熵 0.632），DVB-T 以 0.399 成为明显的次优项；feature-probe 分支则给出高置信的 DVB-T（0.952，边际 0.904）。两分支指向不同类别，IQ 的 WiFi 既非接近确定，其自身又保留约 0.40 的 DVB-T 支持；而本 case 未提供 64 维原始物理特征，无法用独立物理证据消解 WiFi 与 DVB-T 的分歧，冲突不可消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.5975，属中等置信而非接近确定",
+    "normalized_entropy 为 0.6324，说明分布较为分散",
+    "DVB-T 以 0.3988 构成实质性次优项，top1_top2_margin 仅 0.1987，IQ 分支内部对 WiFi 与 DVB-T 区分并不强",
+    "LTE 概率极低（0.0037），基本被两分支共同排除"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9516，边际 0.9043，熵 0.1814，方向性较强",
+    "该高置信建立在 64 维线性 probe 之上，其输入物理特征在本 case 中未提供，无法核验其类别区分依据",
+    "该置信度与 IQ 分支未校准，不能直接用于压过 IQ 的 WiFi"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支 top1 为 WiFi（0.598），feature-probe 分支 top1 为 DVB-T（0.952），两分支指向不同类别且都达到一定置信",
+    "IQ 分支自身在 WiFi 与 DVB-T 之间区分有限（margin 0.199），无法在两者间给出决定性倾向",
+    "缺少 64 维原始物理特征，无法用共享 OFDM 之外的类别区分性证据（如突发边界 vs 持续占用、导频/周期结构）来消解分歧"
+  ],
+  "limitations": [
+    "本 case 未提供 64 维原始物理特征，物理层面证据为空，无法判断持续/突发占用、包络或谱峰等是否有类别区分力",
+    "IQ 与 feature-probe 两分支置信度未校准，不得直接比较数值大小、做平均或加权，亦不得用固定阈值裁决",
+    "OFDM 三类共享的宽带、类噪声、高 PAPR 等现象不能单独作为改判依据，当前亦无具体数值可用于区分 WiFi 与 DVB-T"
+  ]
+}

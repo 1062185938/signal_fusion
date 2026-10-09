@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0251", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "两条分支各自都给出高度集中的判断，但方向完全相反：IQ 模型几乎全部概率给 LTE，feature-probe 几乎全部概率给 DVB-T，且双方都把对方的 Top1 压到接近零。这是一种强对强的直接对立，缺少任何第三类证据来消解；本 case 未提供原始 64 维物理特征，无法用物理观测打破僵局。两个分支的概率尺度未经相互校准，不得比较数值大小、不得平均或加权，因此无法判定孰者更可信，只能选择 abstain。", "iq_evidence": ["IQ 分支 Top1 为 LTE，概率约 0.99987，top1-top2 margin 约 0.99976，normalized_entropy 约 0.00127，属于高度集中、几乎无内部不确定性的判断。", "IQ 分支对 DVB-T 仅约 0.00011、对 WiFi 仅约 0.000027，即它并不认为 DVB-T 是可观的替代假设。"], "feature_probe_evidence": ["feature-probe 分支 Top1 为 DVB-T，概率约 0.99591，top1-top2 margin 约 0.99276，normalized_entropy 约 0.02617，同样是高度集中的判断。", "feature-probe 对 LTE 仅约 0.00315、对 WiFi 仅约 0.00093，即它同样不认为 LTE 是可观的替代假设。", "两个分支的 Top1 互不相同，且各自把对方 Top1 的概率压至极低，属于方向对立而非程度差异。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支高度自信地指向 LTE，feature-probe 分支高度自信地指向 DVB-T，两者直接对立。", "两个分支内部都几乎没有残余不确定性（各自归一化熵都很低），因此不存在“一方自身动摇”可用来解释分歧的线索。", "本 case 未提供原始 64 维物理特征，缺少可独立检验两类定性背景的时序/频谱/时频观测，无法判断哪一方向与物理性质相容。"], "limitations": ["IQ 分支与 64 维 feature-probe 分支的置信度未经相互校准，本裁决未比较二者概率数值大小，也未做平均、加权或使用固定 if/else 阈值。", "两个分支都只给出离散标签概率，未提供 IQ 分支的局部窗口一致性、成员分歧程度或退化信息。", "64 维物理特征正是 feature-probe 的输入，即使存在也不构成第三个独立投票；本 case 更未提供原始特征，故 physical_feature_evidence 为空。", "缺少原始特征，无法评估是否存在窗内突发结构、能量跃迁或频谱变化等可用于区分“持续广播型占用”与“突发帧型占用”的定性迹象。", "即使有原始特征，现有 64 维向量也不检测 LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/保护间隔，故不能宣称检测到任何协议结构。", "1 MS/s、4096 点、4.096 ms 的观测只覆盖约 1 MHz 的局部视图且时间过短，无法恢复帧级结构或长期占空比，地点与传播条件差异也可能造成分布变化。"]}
+
+session_id: 20260924_153939_e7a81a

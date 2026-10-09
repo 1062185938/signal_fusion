@@ -1,0 +1,32 @@
+{
+  "analysis_id": "review_0383",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支中等偏强指向 WiFi（0.759，margin 0.522），feature-probe 分支强指向 DVB-T（0.951，margin 0.902），两者方向相反且都有一定把握。64 维物理特征只显示三类 OFDM 共享的宽带、类噪声、较高 PAPR 与平坦频谱（不足区分类别），同时呈现持续稳定占用（活动帧比例 1.0、能量状态跃迁 0.0、帧能量 CV 0.079），该稳定性虽与 DVB-T 广播型持续占用定性相容，但参考文档明确：region 可能整体落在单个 WiFi 包内而不呈现边界，不能仅凭短时稳定排除 WiFi。可用非校准、非结构证据无法在 WiFi 与 DVB-T 之间形成多项相干且具类别区分力的裁决，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi（0.759），DVB-T 为实质第二选择（0.237），LTE 极低（0.0037）。",
+    "top1 与 top2 margin 约 0.522、归一化熵约 0.520，属中等偏强而非极高置信，存在真实的次选竞争。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T（0.951），LTE 约 0.048，WiFi 极低（约 0.001）。",
+    "margin 约 0.902、归一化熵约 0.183，分支内部对 DVB-T 把握较强。",
+    "该分支置信度未经校准，不能与 IQ 分支数值直接比较或加权平均。"
+  ],
+  "physical_feature_evidence": [
+    "freq_normalized_occupied_bandwidth_90≈0.803、频谱熵≈0.970、频谱平坦度≈0.769，能量铺满当前 1 MHz 视图，属三类 OFDM 共享的宽带/类噪声表现，不足以区分类别。",
+    "time_papr_db≈9.83、幅度峰度≈3.25 接近高斯，与多载波叠加的噪声状包络相容，属共享性质而非某类专有。",
+    "stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv≈0.079，region 内持续稳定占用且无能量状态跃迁，与 DVB-T 广播型持续占用定性相容，但参考文档指出 region 可能整体位于单个 WiFi 包内，不能据此排除 WiFi。",
+    "freq_global_spectral_crest_factor≈10.35 偏高，依参考文档不得据此宣称检测到 DVB-T 导频，不能作为类别判据。"
+  ],
+  "conflicting_evidence": [
+    "两分支方向相反：IQ 分支中等偏强支持 WiFi，feature-probe 分支强支持 DVB-T，且都具有一定把握。",
+    "物理稳定占用仅弱而单侧地倾向 DVB-T，被参考文档明示为不可排除 WiFi 的替代解释，不足以独立消解分支冲突。"
+  ],
+  "limitations": [
+    "仅 1 MS/s、4096 样本、4.096 ms 的局部视图，占用带宽不能反推协议标准带宽。",
+    "两分支置信度未校准，不能数值比较、平均或加权；64 维物理特征是 feature-probe 的输入，不构成第三个独立投票。",
+    "现有 64 维特征不显式检测 WiFi 前导/包边界、LTE 同步与参考信号、DVB-T 导频/TPS/载波间隔/保护间隔，无法在协议结构层面裁决。",
+    "宽带、高熵、高平坦度、较高 PAPR 等共享 OFDM 现象无类别区分力；crest factor 不得当作导频证据。"
+  ]
+}

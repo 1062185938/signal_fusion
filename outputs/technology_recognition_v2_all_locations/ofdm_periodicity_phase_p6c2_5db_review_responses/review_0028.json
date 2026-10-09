@@ -1,0 +1,36 @@
+{
+  "analysis_id": "review_0028",
+  "recommendation_status": "recommend",
+  "recommended_label": "DVB-T",
+  "confidence_level": "low",
+  "summary": "三个 IQ 成员的 region Top1 在 DVB-T 与 LTE 之间分裂，但分裂形式是成员级稳定对立而非 region 内混合：三个成员的成员级窗口一致性均为 2/2，两个窗口的多数方向一致，说明该 region 在时间上同质。iq_member_1（0.8738）与 iq_member_2（0.8526）在两个窗口内均稳定判 DVB-T 且置信度较高，ensemble 也以 DVB-T 0.6023 领先 LTE 0.3924（margin 0.2099），方向与成员多数一致；周期门控同样预测 DVB-T（margin 0.0138 未达冻结门限 0.0215，只能视为方向一致而不构成独立确认）。唯一异议成员 iq_member_3 虽稳定判 LTE，但 LTE 与 DVB-T 同属多载波 OFDM，是本门控预设的易混类别对，且 WiFi 在模型层基本被排除（0.0054）。综合判断证据方向一致地偏向 DVB-T，但受稳定异议成员与周期证据不足限制，仅给出低置信度建议。",
+  "model_evidence": [
+    "三成员 region Top1 不一致：iq_member_1 为 DVB-T（0.8738），iq_member_2 为 DVB-T（0.8526），iq_member_3 为 LTE（0.9132），触发 member_region_top1_disagreement，风险门控未通过。",
+    "分歧属于成员级稳定对立而非 region 内混合：三个成员的成员级窗口一致性均为 2/2（iq_member_1 窗口 0.8737 与 0.8739 均判 DVB-T，iq_member_2 窗口 0.8731 与 0.8321 均判 DVB-T，iq_member_3 窗口 0.9360 与 0.8904 均判 LTE），两个窗口的成员多数方向一致，未出现前后半段反向。",
+    "ensemble 平均概率为 DVB-T 0.6023、LTE 0.3924、WiFi 0.0054，Top1-Top2 margin 为 0.2099，归一化熵 0.6377；其方向与成员多数（2/3 判 DVB-T）一致，并保留了与 provisional_label 相同的 DVB-T 方向。",
+    "两个支持 DVB-T 的成员置信度高且彼此接近（0.8738 与 0.8526），不属于临界判读；唯一异议成员 iq_member_3 同样高置信（0.9132）且跨窗口稳定。",
+    "WiFi 在 ensemble 仅为 0.0054，三个成员分别为 0.0043、0.0054、0.0064，均极低，模型层没有任何 WiFi 方向的证据。"
+  ],
+  "periodicity_evidence": [
+    "66.67 μs（LTE 候选）归一化相关为 0.0269；224 μs 为 0.0407、896 μs 为 0.0253，dvbt_score 取两者较大的 0.0407。",
+    "周期预测为 DVB-T，margin = |0.0269 − 0.0407| = 0.0138，低于冻结 reliability_margin 0.0215，故 reliable=false、resolved=false、changed=false。",
+    "eligible=true（三成员 Top1 只含 LTE/DVB-T 且两类均出现），但 margin 未达门限，周期门控无法消解成员分歧；按门控口径该证据不足，不能作为独立确认。",
+    "该周期预测的方向与 ensemble Top1 一致，不与模型层相矛盾，因此只是一条方向一致的弱证据，不构成对 DVB-T 的独立物理确认。",
+    "三个候选相关值处于 0.025–0.041 的弱相关量级，且 224 μs 明显高于 896 μs（0.0407 对 0.0253），说明 DVB-T 侧两个候选本身不一致，需保守解读。"
+  ],
+  "feature_evidence": [],
+  "conflicting_evidence": [
+    "唯一异议成员 iq_member_3 以高置信度（region 0.9132，窗口 0.9360 与 0.8904）判 LTE，与 ensemble 及另两个成员直接对立；LTE 与 DVB-T 同属多载波 OFDM，是本门控预设的易混类别对，该异议不能按随机噪声忽略。",
+    "周期门控 margin 为 0.0138，未达冻结门限，故本 case 缺少达标的独立物理确认，确定性系统已判 reliable=false，即按系统口径证据不足。",
+    "三个成员源自同一输入且高度相关，成员层的 2/3 多数不能被当作三次独立校准投票来加强 DVB-T。",
+    "本 case 不含 global_feature_evidence，无法从时域、频域或时频特征获得独立的物理背景或消解上述模型层冲突。"
+  ],
+  "limitations": [
+    "4.096 ms / 1 MHz 只提供局部短时视图，region 内仅 2 个非重叠窗口，不足以刻画更长时间尺度的占空比或帧级结构。",
+    "周期候选仅对应 OFDM 有效符号时间尺度，不等同于循环前缀检测、同步序列匹配或导频检测；不得重选候选、修改门限或重算门控。",
+    "归一化相关值是测量值而非概率或置信度；reliable=false 表示证据不足，不代表相反类别成立。",
+    "不得由 1 MHz 归一化占用带宽反推协议标准带宽，也不得据当前证据推断 WiFi 版本、LTE 链路方向或 DVB-T 模式。",
+    "本推荐依据成员多数的跨窗口稳定性与周期方向的一致性，但存在稳定且高置信的异议成员，且周期证据未达门限，故置信度仅为 low。",
+    "三个成员的判定不能当作独立校准证据；本输入已被确定性系统拒绝，置信度上限只为 low 或 medium。"
+  ]
+}

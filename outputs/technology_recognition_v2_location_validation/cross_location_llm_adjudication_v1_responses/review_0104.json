@@ -1,0 +1,30 @@
+{
+  "analysis_id": "review_0104",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维 feature-probe 分支给出相反且各自都较为明确的 Top1 标签：IQ 分支以 0.9979 的极高概率判为 WiFi（Top1-Top2 间隔 0.9961，归一化熵仅 0.0148），而 feature-probe 分支以 0.7349 判为 LTE（间隔 0.4698，归一化熵 0.5264）。两分支概率未校准，不能直接比较数值大小或做加权平均；本 case 也没有提供任何 64 维物理原始特征可供交叉印证，因此无法在 WiFi 与 LTE 之间消解这一实质性冲突，只能弃权。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.9979，几乎独占分布",
+    "Top1-Top2 间隔 0.9961，归一化熵 0.0148，说明 IQ 分支对 WiFi 的输出高度确定、接近单点分布",
+    "其余类 DVB-T 0.0018、LTE 0.0004，可忽略"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 LTE，概率 0.7349，是明确且非接近平局的领先（间隔 0.4698）",
+    "第二名为 WiFi 0.2651，归一化熵 0.5264，说明该分支对 LTE 的置信度中等但方向清晰",
+    "DVB-T 概率 6.5e-08，可忽略",
+    "该分支构成对 IQ 分支 WiFi 结论的一次实质、单分支反向意见，而非近似平局的弱投票"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 Top1 标签相反：IQ 判 WiFi（极高置信），feature-probe 判 LTE（中等且明确置信）",
+    "两分支置信度未校准，无法用概率大小、平均或固定阈值裁决谁对谁错",
+    "缺失 64 维物理原始特征，无法用具有类别区分力的独立物理证据消解 WiFi 与 LTE 之争"
+  ],
+  "limitations": [
+    "本 case 未提供 physical_feature_evidence 原始特征字段，无法对时域/频域/时频物理量做交叉验证，只能依据两支模型输出",
+    "无法判断 region 是否落在单个 WiFi 包内部（若如此则不应呈现包边界），也无法排除 LTE 低负载占用等替代解释",
+    "feature-probe 的 LTE 结论仅来自单一分支，且现有 64 维特征并不显式检测 LTE 同步信号、参考信号或资源栅格，不足以单独作为改判依据",
+    "IQ 分支的 WiFi 高置信同样受盲测约束，不能据此排除 feature-probe 指出的 LTE 可能"
+  ]
+}

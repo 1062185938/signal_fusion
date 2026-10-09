@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0318", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "IQ 分支与 feature-probe 分支各自以接近单点的方式分别指向 LTE 与 DVB-T，二者互相排斥且都没有让出实质性概率质量；本 case 又未提供 64 维原始物理特征，缺少可用于检验突发/持续占用等替代解释的独立观察。两分支置信度未校准，不能以数值大小、平均、加权或固定阈值判定孰优，冲突无法消解，故弃权。", "iq_evidence": ["IQ 分支 top1 为 LTE，概率约 0.99985，top2 为 DVB-T 约 1.15e-4，top3 为 WiFi 约 3.83e-5，分布近似单点。", "IQ 分支 top1-top2 margin 约 0.99973，normalized_entropy 约 0.00144，内部高度集中且对备选类别几乎不分配概率质量。", "IQ 分支结果为同一 4096 点连续 region 内全部非重叠局部窗口的聚合输出，具备内部一致性。"], "feature_probe_evidence": ["feature-probe 分支 top1 为 DVB-T，概率约 0.99732；top2 为 LTE 约 1.85e-3，WiFi 约 8.31e-4，同样高度集中。", "该分支 margin 约 0.99547、normalized_entropy 约 0.0184，说明其结论在自身输入上几乎没有不确定性。", "该分支以完整 region 的 64 维全局特征为唯一输入，只给出一次整体判断，不提供 region 内的局部时间或频率变化信息。"], "physical_feature_evidence": [], "conflicting_evidence": ["两个分支各自高度集中却互不相容：IQ 指向 LTE（约 0.9998），feature-probe 指向 DVB-T（约 0.9973），双方均未给对方的 top1 留下实质概率质量。", "两分支置信度未校准，无法通过比较数值大小、求平均、加权或固定 if/else 阈值来判断哪一方更可靠，因而缺少可操作的仲裁依据。", "本 case 未提供 64 维原始物理特征，无法借助时域包络、频谱形状或时频活动性等观察来检验截取边界、低负载调度或突发结构等替代解释。"], "limitations": ["缺少 64 维原始特征，无法判断是否存在突发边界、活动帧比例变化或帧能量波动等可用于区分突发与持续占用的现象。", "64 维特征不显式检测循环前缀、OFDM 同步、WiFi 前导/包边界、LTE PSS/SSS 与参考信号、DVB-T 导频/TPS/载波间隔/保护间隔等协议结构，任何一方都不能宣称已测到制式专有结构。", "观测仅为 1 MS/s、4096 点、4.096 ms，覆盖约 1 MHz 局部基带视图，不能反推协议标准带宽，也不能给出长时占空比或帧周期。", "OFDM 三类共享的宽带、类噪声、高 PAPR 等表现不具类别区分力，本 case 也没有此类可用来消解冲突的证据；本裁决为盲判，未使用中心频率、地点、增益或任何真值信息。"]}
+
+session_id: 20260924_153939_e7a81a

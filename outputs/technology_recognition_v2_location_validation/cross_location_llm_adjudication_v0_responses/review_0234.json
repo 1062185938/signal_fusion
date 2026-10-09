@@ -1,0 +1,37 @@
+{
+  "analysis_id": "review_0234",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 feature-probe 分支各自都高度集中，但分别指向 LTE 与 DVB-T，形成直接对立且两者都不含糊；64 维物理特征只显示三类共享的多载波宽带、近噪声状与短时稳定结构，没有任何具备 LTE/DVB-T 区分力的协议级证据（无循环前缀、导频、载波间隔等专用检测），无法消解该冲突，故不作出改判或维持的裁决。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 LTE，概率约 0.99998，Top1-Top2 间隔约 0.99996，归一化熵约 0.00027，分布极度集中",
+    "IQ 分支内部次优类别为 DVB-T（约 1.8e-5）与 WiFi（约 6.7e-6），二者量级都极低，IQ 分支自身未给出任何有意义的替代假设",
+    "IQ 的集中度只说明该分支在自身尺度上判定明确，不能作为对另一未校准分支的数值优势"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T，概率约 0.99623，Top2 为 LTE 约 0.00251、WiFi 约 0.00126，Top1-Top2 间隔约 0.99372，归一化熵约 0.02474，同样是高度集中的确定性输出",
+    "该分支并非近并列或高熵的不稳定输出，因此不符合“probe 摇摆不足以推翻 IQ”的处理前提",
+    "两个分支的集中度不可直接比较数值大小，只能确认双方各自都给出了强而相反的类别指向"
+  ],
+  "physical_feature_evidence": [
+    "time_papr_db 约 9.84 dB、time_amplitude_kurtosis 约 3.34、time_envelope_cv 约 0.625：属多载波叠加常见的包络起伏与近高斯幅度统计，三类共享",
+    "freq_global_spectral_entropy 约 0.987、freq_global_spectral_flatness 约 0.891、freq_normalized_occupied_bandwidth_90 约 0.850：能量在当前 1 MHz 视图内近乎铺满且接近噪声状，属三类共享结构，且归一化占用带宽不能反推协议标准带宽",
+    "time_frequency_stft_active_frame_ratio 约 0.968、time_frequency_stft_frame_energy_cv 约 0.333、time_frequency_stft_energy_transition_ratio 约 0.0667：region 内以持续占用为主、仅伴轻度能量起伏，无明确突发边界",
+    "time_autocorrelation_peak_magnitude 约 0.0905、time_mean_autocorrelation_magnitude 约 0.0159、time_envelope_power_autocorrelation_peak 约 0.139：候选重复性弱且分散，不足以指认任何符号周期或循环前缀",
+    "time_frequency_normalized_spectral_centroid_std 约 0.0156、time_frequency_spectral_kurtosis_std 约 0.0989、time_frequency_spectral_skewness_std 约 0.0992：频谱形状随时间基本稳定，未见明显状态切换",
+    "freq_mean_squared_bicoherence 约 0.037、freq_max_squared_bicoherence 约 0.298、freq_bicoherence_weighted_biphase_concentration 约 0.0086：三阶相位耦合整体偏弱，且文档明确禁止用未验证阈值据此判类"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支与 feature-probe 分支均为高度集中输出，却分别指向 LTE 与 DVB-T，构成两个明确结论之间的正面冲突",
+    "IQ 分支给出的两个极低替代类别无法说明它是否把 DVB-T 结构吸收进 LTE 判定，因此不能借“IQ 自身次优类等于 probe 首类”来形成跨分支共识",
+    "64 维物理特征中未出现任何区分性证据（无可确认的突发边界、无可确认的周期性协议结构），无法支持冲突任一方"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 的置信度未校准，不能比较数值、不能平均、不能设定权重或固定阈值",
+    "64 维物理特征是 feature-probe 的输入，不构成第三个独立投票",
+    "仅有 4.096 ms、1 MHz 的局部基带视图，未测量 LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/载波间隔/保护间隔等协议级结构",
+    "持续占用与突发性都是相对概念，截取位置、接收门限与业务负载均可改变所见结果，故无法据此排除任一类别",
+    "场景可能落在单个数据包或稳定调度区间内部，短时稳定性不能作为排除依据"
+  ]
+}

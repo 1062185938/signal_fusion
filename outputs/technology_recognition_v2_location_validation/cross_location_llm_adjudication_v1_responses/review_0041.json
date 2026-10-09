@@ -1,0 +1,28 @@
+{
+  "analysis_id": "review_0041",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "两分支在 WiFi 与 LTE 之间给出方向相反且各自具有一定置信度的结论，无法消解：IQ 分支判 WiFi（0.8824，Top1-Top2 差距 0.769，归一化熵 0.347），feature-probe 分支判 LTE（0.6461，差距 0.296，归一化熵 0.609）。两分支一致把 DVB-T 排除（均约 0.003–0.004），因此分歧集中在 WiFi 与 LTE 之间。本 case 未提供 64 维原始物理特征，缺乏能区分 WiFi 突发/帧结构与 LTE 调度占用的类别区分证据；且两分支置信度未校准，不能比较数值大小或用固定阈值裁决。参考文档明确：现有特征不执行 WiFi 前导相关、不检测 LTE 参考信号/资源栅格，仅凭短时统计无法在 WiFi 与 LTE 间可靠区分。证据冲突无法消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.8824，Top1-Top2 差距 0.7691，归一化熵 0.3466，属中等偏高的单峰置信",
+    "LTE 次之（0.1133），DVB-T 极低（0.0043），IQ 分支基本把 DVB-T 排除"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 LTE，概率 0.6461，Top1-Top2 差距 0.2957，归一化熵 0.6092，置信度中等且接近近并列",
+    "WiFi 次之（0.3504），DVB-T 极低（0.0035），probe 分支同样把 DVB-T 排除",
+    "probe 与 IQ 的 Top1 方向相反（LTE vs WiFi），且置信度未校准，不能比较两者数值大小"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支对主类别方向相反：IQ 支持 WiFi，feature-probe 支持 LTE",
+    "两分支一致排除 DVB-T，将分歧收敛为 WiFi vs LTE 的二元冲突，但缺少可区分这两类的物理证据"
+  ],
+  "limitations": [
+    "本 case 未提供 64 维原始物理特征，无法用共享 OFDM 或突发/稳定占用等特征进一步裁决，physical_feature_evidence 为空",
+    "IQ 与 feature-probe 分支置信度未校准，禁止比较概率数值、求平均、发明权重或用固定 if/else 阈值裁决",
+    "64 维物理特征是 feature-probe 的输入而非第三个独立投票，且宽带、类噪声、高 PAPR 等 OFDM 共享现象不能单独作为改判依据",
+    "参考文档指出现有特征不执行 WiFi 前导相关、不检测 LTE PSS/SSS、参考信号或资源栅格，4.096 ms/1 MHz 视图不足以恢复帧级或资源栅格结构，因此无法在 WiFi 与 LTE 间可靠区分",
+    "无类别区分力证据且冲突无法消解，故选择 abstain"
+  ]
+}

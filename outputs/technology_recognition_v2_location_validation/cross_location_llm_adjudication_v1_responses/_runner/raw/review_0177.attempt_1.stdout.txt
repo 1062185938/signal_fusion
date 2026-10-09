@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0177","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支中等倾向 WiFi（0.641，熵 0.617，且 DVB-T 以 0.354 为实质第二），feature-probe 分支强倾向 DVB-T（0.947，margin 0.896）。两分支在 WiFi 与 DVB-T 之间直接对立，且本 case 无原始 64 维物理特征可作独立消解；两分支置信度未校准，不能凭 probe 数值更高或 margin 更大直接裁决。冲突无法用类别区分力证据消解，故弃权。","iq_evidence":["top1 为 WiFi，概率 0.6415，但 top1_top2_margin 仅 0.2876，normalized_entropy 0.6166，属于中等而非决定性置信","DVB-T 在 IQ 分支中为实质第二（0.3539），说明 IQ 分支本身在 WiFi 与 DVB-T 间并不清晰","LTE 概率极低（0.0047），基本可排除","WiFi 与 DVB-T 在 1 MHz/4.096 ms 局部视图下共享宽带、多载波、类噪声等表现，IQ 概率本身不能单独区分二者"],"feature_probe_evidence":["top1 为 DVB-T，概率 0.9474，margin 0.8959，normalized_entropy 0.1921，分支内部较确定","WiFi 在 probe 分支概率极低（0.0010），与 IQ 分支的 WiFi top1 方向相反","probe 的强确定性来自其对 64 维输入的拟合，但 64 维特征本 case 未随附，无法核对其是否测量到 DVB-T 特有结构","confidence 未校准，不能仅因 0.947 高于 IQ 的 0.641 就认为 probe 更可信"],"physical_feature_evidence":[],"conflicting_evidence":["两分支类别方向直接冲突：IQ 判 WiFi，probe 判 DVB-T，且二者概率都非可忽略","IQ 分支自身对 WiFi 只是中等把握（DVB-T 0.354 为强第二），无法作为锚定 WiFi 的独立强证据","缺少原始 64 维特征，无法验证 probe 所依据的物理结构是否真实区分 DVB-T，也无法用物理证据偏袒 IQ 的 WiFi","OFDM 三类共享的宽带/类噪声/高 PAPR 现象不能单独偏向任一类"],"limitations":["本 case 未提供 64 维原始物理特征，物理层面无法独立仲裁，只能依赖两个未校准的分支概率","4.096 ms、1 MHz 局部视图不足以恢复 WiFi 包边界或 DVB-T 导频/TPS/载波间隔等协议结构","IQ 与 probe 置信度未校准，禁止直接比较数值、平均或加权","WiFi 为多 PHY 协议族，DVB-T 为广播 OFDM，二者在短时局部视图下的可区分结构有限","无原始特征且冲突无法消解，只能弃权，不能给出 recommended_label"]}
+
+session_id: 20260924_110925_ee7ed4

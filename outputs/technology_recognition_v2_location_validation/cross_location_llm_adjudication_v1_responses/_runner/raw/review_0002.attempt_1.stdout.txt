@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0002","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以极高置信度指向 LTE（0.99988，top1-top2 间隔 0.99979，归一化熵 0.00115），而 64 维 feature-probe 分支以较高置信度指向 DVB-T（0.8974，间隔 0.814，熵 0.346）。两支方向相反且各自都相当确定，构成实质性头对头冲突。本案未提供任何原始 64 维物理特征，无法用独立的、具类别区分力的物理证据来消解冲突；且两分支置信度未校准，不能比较数值大小、不能加权平均或套用固定阈值。LTE 与 DVB-T 均为 OFDM 多载波体制，共享宽带、类噪声、高 PAPR 等结构，缺少能真正区分二者的证据（如 LTE 参考信号/资源栅格、DVB-T 导频/TPS/载波间隔，均不在 64 维特征测量范围内）。冲突无法消解，故弃权。","iq_evidence":["IQ 分支 top1 为 LTE，概率 0.99988，top1-top2 间隔 0.99979，归一化熵 0.00115，属高度集中、近乎单类的输出。","IQ 分支在全部非重叠局部窗口上的集成结论强烈倾向 LTE，但对 WiFi、DVB-T 的分量概率可忽略（约 1e-4 量级）。","该置信度未校准，其绝对数值不能直接作为裁决权重，也不能与 feature-probe 分支比较。"],"feature_probe_evidence":["feature-probe 分支 top1 为 DVB-T，概率 0.8974，top1-top2 间隔 0.814，归一化熵 0.346，属较明确但非极端的输出，指向与 IQ 分支相反的类别。","该分支以 64 维全局物理特征为输入，其高置信度建立在共享 OFDM 特征之上，对 DVB-T 与 LTE 的区分能力有限，且置信度未校准。","本 case 未提供构成该 probe 输入的原始 64 维特征，故无法独立核验其结论的物理依据。"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支强烈支持 LTE，而 feature-probe 分支较强烈地支持 DVB-T，二者方向相反且各自置信度都不低，形成无法用现有证据消解的头对头冲突。","两支置信度均未经校准，无法合法比较大小或加权；又无原始 64 维物理特征可作为独立的第三方判别证据。"],"limitations":["两分支置信度未校准，禁止直接比较数值、加权平均或套用固定 if/else 阈值。","本 case 未提供原始 64 维物理特征，缺少可用于类别区分的独立物理证据。","LTE 与 DVB-T 均为 OFDM 多载波，共享宽带、类噪声包络、高 PAPR 等结构，这些共享现象本身不能支持任一改判。","现有 64 维特征并不显式测量 LTE 的 PSS/SSS/参考信号/资源栅格，也不测量 DVB-T 的连续/散布导频、TPS、载波间隔或保护间隔，因此缺少可真正区分二者的直接证据。","仅 4.096 ms / 1 MHz 的局部视图不足以恢复帧级或协议级结构，无法据此裁决冲突。"]}
+
+session_id: 20260924_110925_ee7ed4

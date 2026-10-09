@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0309","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以较高置信度指向 WiFi（top1=0.8117，与次位 DVB-T 的 margin=0.6830，归一化熵 0.5473），而 64 维 feature-probe 分支以明显优势指向 LTE（top1=0.7253，margin=0.5486，归一化熵 0.6981）。两分支各自都具备方向性且并非近随机，但投票指向不同类别（WiFi 对 LTE），构成无法用现有证据消解的正面对立。本 case 未提供 64 维原始物理特征，无法补充类别区分证据；两分支置信度未校准，不能比较数值或加权平均，故只能弃权。","iq_evidence":["IQ 分支 top1 为 WiFi，概率 0.8117，领先次位 DVB-T（0.1287）达 margin 0.6830","IQ 分支归一化熵 0.5473，方向性较强，指向 WiFi","IQ 分支三类排序为 WiFi(0.8117) > DVB-T(0.1287) > LTE(0.0595)"],"feature_probe_evidence":["feature-probe 分支 top1 为 LTE，概率 0.7253，领先次位 WiFi（0.1767）达 margin 0.5486","feature-probe 分支归一化熵 0.6981，仍属有方向的投票，并非近随机","feature-probe 三类排序为 LTE(0.7253) > WiFi(0.1767) > DVB-T(0.0981)"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支指向 WiFi 而 feature-probe 分支指向 LTE，两分支方向性均较强但类别互斥，构成核心冲突","两分支置信度未校准，无法通过概率大小、平均或固定阈值裁决该冲突","缺少 64 维原始物理特征，无独立证据可打破 WiFi 与 LTE 之间的平局"],"limitations":["本 case 未提供 64 维原始物理特征，无法依据协议相关结构（如 LTE 同步/参考信号、WiFi 前导/包边界、DVB-T 导频/保护间隔）进一步区分","IQ 分支与 feature-probe 分支置信度未校准，禁止直接比较数值、加权平均或使用固定 if/else 阈值","共享的 OFDM 宽带、类噪声包络、高 PAPR 等现象不具备类别区分力，不能单独作为改判依据","仅 4.096 ms / 1 MHz 局部观测，时间尺度受限，不足以确认协议级结构"]}
+
+session_id: 20260924_110925_ee7ed4

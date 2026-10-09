@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "analysis_type": "cross_location_64_feature_complementarity_pilot",
+  "feature_schema_id": "matlab_iq_features_64_v2",
+  "configuration": {
+    "regions_per_source": 8,
+    "seed": 44,
+    "device": "cuda",
+    "feature_probe": "standardized_linear_64_to_3",
+    "feature_extraction_condition": "clean",
+    "control_matching": "same_test_fold_same_source_same_true_class"
+  },
+  "scope": {
+    "full_iq_prediction_region_count": 32160,
+    "full_iq_error_count": 127,
+    "uniform_feature_probe_region_count": 960,
+    "iq_error_feature_region_count": 127,
+    "matched_control_feature_region_count": 127,
+    "unique_extracted_feature_region_count": 1211
+  },
+  "folds": {
+    "fold1": {
+      "uniform_cross_location": {
+        "iq": {
+          "count": 240,
+          "correct_count": 240,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        },
+        "feature_probe": {
+          "count": 240,
+          "correct_count": 240,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "iq_error_diagnostic": {
+        "error_count": 2,
+        "feature_rescued_count": 0,
+        "feature_rescue_rate_percent": 0.0,
+        "feature_predictions": {
+          "count": 2,
+          "correct_count": 0,
+          "error_count": 2,
+          "accuracy_percent": 0.0,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": 0.0
+          }
+        }
+      },
+      "matched_correct_control": {
+        "control_count": 2,
+        "feature_correct_count": 2,
+        "feature_wrong_count": 0,
+        "feature_wrong_rate_percent": 0.0,
+        "feature_predictions": {
+          "count": 2,
+          "correct_count": 2,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "test_location": "reep",
+      "test_region_count": 8040,
+      "iq_error_count": 2,
+      "matched_control_count": 2,
+      "uniform_probe_count": 240,
+      "unique_extracted_count": 244,
+      "feature_probe_training": {
+        "train_count": 480,
+        "validation_count": 240,
+        "test_count": 240,
+        "best_epoch": 60,
+        "model_type": "linear_64_to_classes"
+      }
+    },
+    "fold2": {
+      "uniform_cross_location": {
+        "iq": {
+          "count": 240,
+          "correct_count": 240,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        },
+        "feature_probe": {
+          "count": 240,
+          "correct_count": 238,
+          "error_count": 2,
+          "accuracy_percent": 99.16666666666667,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 97.5,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "iq_error_diagnostic": {
+        "error_count": 14,
+        "feature_rescued_count": 2,
+        "feature_rescue_rate_percent": 14.285714285714286,
+        "feature_predictions": {
+          "count": 14,
+          "correct_count": 2,
+          "error_count": 12,
+          "accuracy_percent": 14.285714285714286,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": 66.66666666666666,
+            "DVB-T": 0.0
+          }
+        }
+      },
+      "matched_correct_control": {
+        "control_count": 14,
+        "feature_correct_count": 14,
+        "feature_wrong_count": 0,
+        "feature_wrong_rate_percent": 0.0,
+        "feature_predictions": {
+          "count": 14,
+          "correct_count": 14,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "test_location": "rabot",
+      "test_region_count": 8040,
+      "iq_error_count": 14,
+      "matched_control_count": 14,
+      "uniform_probe_count": 240,
+      "unique_extracted_count": 268,
+      "feature_probe_training": {
+        "train_count": 480,
+        "validation_count": 240,
+        "test_count": 240,
+        "best_epoch": 101,
+        "model_type": "linear_64_to_classes"
+      }
+    },
+    "fold3": {
+      "uniform_cross_location": {
+        "iq": {
+          "count": 240,
+          "correct_count": 239,
+          "error_count": 1,
+          "accuracy_percent": 99.58333333333333,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 100.0,
+            "DVB-T": 98.75
+          }
+        },
+        "feature_probe": {
+          "count": 240,
+          "correct_count": 238,
+          "error_count": 2,
+          "accuracy_percent": 99.16666666666667,
+          "per_class_accuracy_percent": {
+            "LTE": 97.5,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "iq_error_diagnostic": {
+        "error_count": 111,
+        "feature_rescued_count": 111,
+        "feature_rescue_rate_percent": 100.0,
+        "feature_predictions": {
+          "count": 111,
+          "correct_count": 111,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "matched_correct_control": {
+        "control_count": 111,
+        "feature_correct_count": 111,
+        "feature_wrong_count": 0,
+        "feature_wrong_rate_percent": 0.0,
+        "feature_predictions": {
+          "count": 111,
+          "correct_count": 111,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": 100.0
+          }
+        }
+      },
+      "test_location": "merelbeke",
+      "test_region_count": 8040,
+      "iq_error_count": 111,
+      "matched_control_count": 111,
+      "uniform_probe_count": 240,
+      "unique_extracted_count": 459,
+      "feature_probe_training": {
+        "train_count": 480,
+        "validation_count": 240,
+        "test_count": 240,
+        "best_epoch": 13,
+        "model_type": "linear_64_to_classes"
+      }
+    },
+    "fold4": {
+      "uniform_cross_location": {
+        "iq": {
+          "count": 240,
+          "correct_count": 240,
+          "error_count": 0,
+          "accuracy_percent": 100.0,
+          "per_class_accuracy_percent": {
+            "LTE": 100.0,
+            "WiFi": 100.0,
+            "DVB-T": 100.0
+          }
+        },
+        "feature_probe": {
+          "count": 240,
+          "correct_count": 238,
+          "error_count": 2,
+          "accuracy_percent": 99.16666666666667,
+          "per_class_accuracy_percent": {
+            "LTE": 98.75,
+            "WiFi": 100.0,
+            "DVB-T": 98.75
+          }
+        }
+      },
+      "iq_error_diagnostic": {
+        "error_count": 0,
+        "feature_rescued_count": 0,
+        "feature_rescue_rate_percent": null,
+        "feature_predictions": {
+          "count": 0,
+          "correct_count": 0,
+          "error_count": 0,
+          "accuracy_percent": null,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": null
+          }
+        }
+      },
+      "matched_correct_control": {
+        "control_count": 0,
+        "feature_correct_count": 0,
+        "feature_wrong_count": 0,
+        "feature_wrong_rate_percent": null,
+        "feature_predictions": {
+          "count": 0,
+          "correct_count": 0,
+          "error_count": 0,
+          "accuracy_percent": null,
+          "per_class_accuracy_percent": {
+            "LTE": null,
+            "WiFi": null,
+            "DVB-T": null
+          }
+        }
+      },
+      "test_location": "gentbrugge",
+      "test_region_count": 8040,
+      "iq_error_count": 0,
+      "matched_control_count": 0,
+      "uniform_probe_count": 240,
+      "unique_extracted_count": 240,
+      "feature_probe_training": {
+        "train_count": 480,
+        "validation_count": 240,
+        "test_count": 240,
+        "best_epoch": 31,
+        "model_type": "linear_64_to_classes"
+      }
+    }
+  },
+  "aggregate": {
+    "uniform_cross_location": {
+      "iq": {
+        "count": 960,
+        "correct_count": 959,
+        "error_count": 1,
+        "accuracy_percent": 99.89583333333333,
+        "per_class_accuracy_percent": {
+          "LTE": 100.0,
+          "WiFi": 100.0,
+          "DVB-T": 99.6875
+        }
+      },
+      "feature_probe": {
+        "count": 960,
+        "correct_count": 954,
+        "error_count": 6,
+        "accuracy_percent": 99.375,
+        "per_class_accuracy_percent": {
+          "LTE": 99.0625,
+          "WiFi": 99.375,
+          "DVB-T": 99.6875
+        }
+      }
+    },
+    "iq_error_diagnostic": {
+      "error_count": 127,
+      "feature_rescued_count": 113,
+      "feature_rescue_rate_percent": 88.97637795275591,
+      "feature_predictions": {
+        "count": 127,
+        "correct_count": 113,
+        "error_count": 14,
+        "accuracy_percent": 88.97637795275591,
+        "per_class_accuracy_percent": {
+          "LTE": null,
+          "WiFi": 66.66666666666666,
+          "DVB-T": 89.51612903225806
+        }
+      }
+    },
+    "matched_correct_control": {
+      "control_count": 127,
+      "feature_correct_count": 127,
+      "feature_wrong_count": 0,
+      "feature_wrong_rate_percent": 0.0,
+      "feature_predictions": {
+        "count": 127,
+        "correct_count": 127,
+        "error_count": 0,
+        "accuracy_percent": 100.0,
+        "per_class_accuracy_percent": {
+          "LTE": null,
+          "WiFi": 100.0,
+          "DVB-T": 100.0
+        }
+      }
+    },
+    "oracle_upper_bound": {
+      "definition": "IQ prediction plus a hypothetical perfect selector that uses the feature probe only when the feature probe is correct",
+      "base_iq_correct_count": 32033,
+      "additional_correct_count": 113,
+      "oracle_correct_count": 32146,
+      "oracle_accuracy_percent": 99.95646766169155,
+      "gain_over_iq_percent_points": 0.3513681592039801
+    }
+  },
+  "interpretation_limits": [
+    "The error/control subset is outcome-selected and is only a diagnostic; its accuracy is not population accuracy.",
+    "The oracle upper bound assumes a perfect selector and is not an implemented fusion rule.",
+    "The linear probe measures whether the 64 features retain cross-location class information; it is not a proposed final model."
+  ],
+  "outputs": {
+    "iq_predictions": "outputs/technology_recognition_v2_location_validation/feature_complementarity_64_v2_pilot/iq_predictions.npz",
+    "feature_bank": "outputs/technology_recognition_v2_location_validation/feature_complementarity_64_v2_pilot/feature_bank.npz",
+    "feature_predictions": "outputs/technology_recognition_v2_location_validation/feature_complementarity_64_v2_pilot/feature_predictions.npz",
+    "case_audit_csv": "outputs/technology_recognition_v2_location_validation/feature_complementarity_64_v2_pilot/case_audit.csv",
+    "result": "outputs/technology_recognition_v2_location_validation/feature_complementarity_64_v2_pilot/result.json"
+  }
+}

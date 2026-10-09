@@ -1,0 +1,33 @@
+{
+  "analysis_id": "review_0185",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支对 LTE 呈压倒性判断（top1 0.99971，top1-top2 margin 0.99953，归一化熵 0.0026）；feature-probe 分支偏向 DVB-T（0.608 对 LTE 0.378，margin 0.230，熵 0.667），相比近平手情形该偏差更明确、但仍属中等不确定，且建立在共享 OFDM 特征之上。64 维物理特征仅呈现三类共享的宽带、高 PAPR、高谱熵与近连续占用（活动帧比 0.968、跃迁比 0.067），既未测量到 DVB-T 特有的导频/TPS/保护间隔结构，也未提供 LTE 特有结构，判为 insufficient，无法在 LTE 与 DVB-T 之间消解冲突。两分支 top1 直接对立且物理证据不可裁决，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.99971，top1-top2 margin 0.99953，归一化熵 0.0026，内部一致性极高。",
+    "DVB-T 0.00017、WiFi 0.00012 均接近 0，分支对 LTE 呈压倒性判断。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T（0.608），LTE 0.378，WiFi 0.015，top1-top2 margin 0.230。",
+    "归一化熵 0.667，表明该分支自身仍有较大不确定性，DVB-T 偏好为中等强度而非高置信。",
+    "该 DVB-T 偏好建立在 64 维共享 OFDM 特征之上，未体现 DVB-T 特有协议结构，不应据此推翻 IQ 分支。"
+  ],
+  "physical_feature_evidence": [
+    "time_papr_db 14.23、freq_global_spectral_entropy 0.965、freq_global_spectral_flatness 0.733、occupied_bandwidth_90 0.835：宽带、类噪声、高分散谱，为 LTE/WiFi/DVB-T 三类共享 OFDM 表现，不具类别区分力。",
+    "time_frequency_stft_active_frame_ratio 0.968、energy_transition_ratio 0.067：region 内近连续稳定占用；参考文档明确『持续 vs 突发』非判据，低负载 LTE 或落在单包内的 WiFi 亦可呈现，不能据此单独支持 DVB-T。",
+    "time_autocorrelation_peak_magnitude 0.278、envelope_power_autocorrelation_peak 0.413：仅提示中等候选周期性，未确认循环前缀、符号周期或协议结构。",
+    "双相干（mean 0.050、max 0.573、biphase concentration 0.052）较弱且分散，参考文档指出三类均可能减弱该迹象，不能区分类别。",
+    "现有 64 维特征未测量 DVB-T 导频/TPS/载波间隔/保护间隔，也未测量 LTE PSS/SSS/参考信号，故无法在 LTE 与 DVB-T 之间提供类别区分证据。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支以极高内部一致性判 LTE，而 feature-probe 分支以比近平手情形更明确的 margin（0.230）偏 DVB-T，两分支 top1 直接对立。",
+    "64 维物理特征仅呈共享 OFDM 结构且属 insufficient，既不能确认 LTE 也不能确认 DVB-T，冲突无法由物理证据消解。"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不得比较数值大小或做加权平均；此处仅按各自内部一致性与类别区分力定性判断。",
+    "1 MS/s、4096 点、4.096 ms 局部视图，不能反推协议带宽或恢复帧级结构。",
+    "64 维特征未显式测量 DVB-T/LTE 的同步、导频、参考信号等协议结构，类别区分能力有限。",
+    "『连续稳定占用』受截取位置与业务负载影响，不能据此排除 LTE 或确认 DVB-T。"
+  ]
+}

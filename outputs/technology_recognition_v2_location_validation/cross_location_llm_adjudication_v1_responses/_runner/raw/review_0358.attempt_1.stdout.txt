@@ -1,0 +1,71 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+  ┊ 📖 preparing read_file…
+  ┊ 📖 preparing read_file…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0358",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支判 WiFi（top1 概率 0.9339、间隔 0.8703、熵 0.2315），feature-probe 分支判 DVB-T（0.9275、间隔 0.8633、熵 0.2600），两者置信度相近但标签完全相反，构成实质性冲突。64 维物理特征主要呈 OFDM/宽带/类噪声的共享性质（高谱熵 0.967、平坦度 0.759、占用带宽 0.809、PAPR 8.61 dB），不具类别区分力；唯一相干的连续稳定占用（active_frame_ratio=1.0、transition_ratio=0.0、frame_energy_cv=0.0946）虽与 DVB-T 广播持续占用相容，但参考文档明确短时稳定性不能排除 WiFi（region 可能落在单个 WiFi 包内），且未显式测到 DVB-T 导频/TPS/保护间隔。冲突无法消解，故 abstain。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 WiFi，概率 0.9339，top1-top2 间隔 0.8703，归一化熵 0.2315，属较有把握的判断。",
+        "IQ 分支其次为 DVB-T（0.0636）与 LTE（0.0026）。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe 分支 top1 为 DVB-T，概率 0.9275，top1-top2 间隔 0.8633，归一化熵 0.2600，同样属较有把握的判断。",
+        "该分支其次为 LTE（0.0642）与 WiFi（0.0082）。"
+      ],
+      "physical_feature_evidence": [
+        "时频活动特征 stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.0946，显示 region 内连续且相对稳定的占用，与 DVB-T 广播型持续占用的定性背景相容，但按参考不能据此排除 WiFi。",
+        "频域 freq_global_spectral_entropy=0.9673、flatness=0.7586、occupied_bandwidth_90=0.8088，以及 time_papr_db=8.61，属 LTE/WiFi/DVB-T 共享的宽带、类噪声、多载波性质，不具类别区分力。",
+        "freq_global_spectral_crest_factor=14.19，按参考文档不能解释为已检测到 LTE/WiFi/DVB-T 导频。",
+        "双谱/双相干弱（mean squared bicoherence 0.0305、max 0.3264），无显著非线性相位耦合结构。"
+      ],
+      "conflicting_evidence": [
+        "两分支置信度相近（间隔 0.8703 vs 0.8633）但标签完全相反：IQ 判 WiFi，feature-probe 判 DVB-T，构成实质性冲突。",
+        "连续稳定占用（active=1.0、transition=0.0、低帧能量 CV）在定性上更贴近 DVB-T 而非 IQ 所暗示的 WiFi 突发，但参考文档指出短时稳定性不能排除 WiFi，因此不足以消解冲突，也无法支撑改判。"
+      ],
+      "limitations": [
+        "64 维特征未显式检测 DVB-T 导频、TPS、载波间隔或保护间隔，也未做 WiFi 前导/包边界检测，无法从特征直接确认任一制式的协议结构。",
+        "仅观察 4.096 ms / 1 MHz 局部视图，'持续'与'突发'为相对概念，不能据此单独区分 DVB-T 与 WiFi。",
+        "两分支置信度未校准，不能比较数值大小、加权平均或用固定阈值裁决。"
+      ]
+{
+  "analysis_id": "review_0358",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支判 WiFi（top1 概率 0.9339、间隔 0.8703、熵 0.2315），feature-probe 分支判 DVB-T（0.9275、间隔 0.8633、熵 0.2600），两者置信度相近但标签完全相反，构成实质性冲突。64 维物理特征主要呈 OFDM/宽带/类噪声的共享性质（高谱熵 0.967、平坦度 0.759、占用带宽 0.809、PAPR 8.61 dB），不具类别区分力；唯一相干的连续稳定占用（active_frame_ratio=1.0、transition_ratio=0.0、frame_energy_cv=0.0946）虽与 DVB-T 广播持续占用相容，但参考文档明确短时稳定性不能排除 WiFi（region 可能落在单个 WiFi 包内），且未显式测到 DVB-T 导频/TPS/保护间隔。冲突无法消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.9339，top1-top2 间隔 0.8703，归一化熵 0.2315，属较有把握的判断。",
+    "IQ 分支其次为 DVB-T（0.0636）与 LTE（0.0026）。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9275，top1-top2 间隔 0.8633，归一化熵 0.2600，同样属较有把握的判断。",
+    "该分支其次为 LTE（0.0642）与 WiFi（0.0082）。"
+  ],
+  "physical_feature_evidence": [
+    "时频活动特征 stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.0946，显示 region 内连续且相对稳定的占用，与 DVB-T 广播型持续占用的定性背景相容，但按参考不能据此排除 WiFi。",
+    "频域 freq_global_spectral_entropy=0.9673、flatness=0.7586、occupied_bandwidth_90=0.8088，以及 time_papr_db=8.61，属 LTE/WiFi/DVB-T 共享的宽带、类噪声、多载波性质，不具类别区分力。",
+    "freq_global_spectral_crest_factor=14.19，按参考文档不能解释为已检测到 LTE/WiFi/DVB-T 导频。",
+    "双谱/双相干弱（mean squared bicoherence 0.0305、max 0.3264），无显著非线性相位耦合结构。"
+  ],
+  "conflicting_evidence": [
+    "两分支置信度相近（间隔 0.8703 vs 0.8633）但标签完全相反：IQ 判 WiFi，feature-probe 判 DVB-T，构成实质性冲突。",
+    "连续稳定占用（active=1.0、transition=0.0、低帧能量 CV）在定性上更贴近 DVB-T 而非 IQ 所暗示的 WiFi 突发，但参考文档指出短时稳定性不能排除 WiFi，因此不足以消解冲突，也无法支撑改判。"
+  ],
+  "limitations": [
+    "64 维特征未显式检测 DVB-T 导频、TPS、载波间隔或保护间隔，也未做 WiFi 前导/包边界检测，无法从特征直接确认任一制式的协议结构。",
+    "仅观察 4.096 ms / 1 MHz 局部视图，'持续'与'突发'为相对概念，不能据此单独区分 DVB-T 与 WiFi。",
+    "两分支置信度未校准，不能比较数值大小、加权平均或用固定阈值裁决。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0432",
+  "decision": "keep",
+  "recommended_label": "LTE",
+  "confidence_level": "low",
+  "summary": "IQ 分支对 LTE 高度确信（概率 0.999937、margin≈0.9999、归一化熵 0.0006），而特征探针仅弱偏 DVB-T（0.5374、margin 仅 0.086、熵 0.677，接近 DVB-T/LTE 平局），属弱且高不确定的信号；其底层 64 维物理特征只呈现三类共享的宽带、高谱熵、噪声状 OFDM 性质，未测量到任何 DVB-T 专属协议结构（导频/TPS/载波间隔/保护间隔），无法提供对 DVB-T 的相干、具类别区分力的支持。反证弱且物理证据非区分性，IQ 的 LTE 标签仍获得更好支持，故 keep LTE；因存在名义分支冲突且物理证据非区分，置信度取低。",
+  "iq_evidence": [
+    "IQ 分支 Top1=LTE，概率 0.999937，Top1-Top2 margin 0.999896，归一化熵 0.000647，分支内高度确信且几乎无竞争。",
+    "DVB-T(4.08e-05) 与 WiFi(2.21e-05) 概率极低，分支内部无实质性竞争类别。"
+  ],
+  "feature_probe_evidence": [
+    "特征探针 Top1=DVB-T 仅 0.5374，Top2=LTE 0.4513，margin 仅 0.086，归一化熵 0.677，接近 DVB-T/LTE 平局，分支自身高度不确定。",
+    "该弱偏好未构成多个相干观察对 DVB-T 的强支持，不足以构成推翻 IQ 标签的相干反证。"
+  ],
+  "physical_feature_evidence": [
+    "频谱高度平坦且铺满当前 1 MHz 视图：freq_global_spectral_entropy 0.9756、freq_global_spectral_flatness 0.8076、freq_normalized_occupied_bandwidth_90 0.8584，属宽带多载波共享性质，LTE/WiFi/DVB-T 均可出现。",
+    "幅度呈噪声状、中等 PAPR(time_papr_db 12.64)、time_envelope_cv 0.8347、time_amplitude_entropy 0.6792，为多载波共享结构，非 DVB-T 专属。",
+    "自相关峰值 time_autocorrelation_peak_magnitude 0.2063、峰值延迟比 0.00537，未测量到 DVB-T 导频/TPS/载波间隔/保护间隔等协议结构；当前 64 维特征不显式测量这些结构。",
+    "综合看物理特征呈三类共享 OFDM 性质（insufficient），未提供 DVB-T 相对 LTE 的类别区分证据。"
+  ],
+  "conflicting_evidence": [
+    "分支间名义冲突：IQ Top1=LTE 极确信，而特征探针 Top1=DVB-T；但探针 margin 仅 0.086、熵 0.677，属弱且高不确定信号，非强反证。",
+    "64 维物理特征为共享 OFDM 性质（宽带、高谱熵、平坦、噪声状），未能在 DVB-T 与 LTE 之间打破平局，亦无法独立确认 LTE 专属结构。"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不得比较原始概率大小或对其做平均/加权；本裁决不依赖两分支概率数值大小的直接比较或固定阈值。",
+    "仅为 1 MHz、4.096 ms 局部视图，不能用归一化占用带宽反推协议标准带宽，也不代表完整频道。",
+    "64 维特征不测量 DVB-T 导频、TPS、载波间隔、保护间隔或 LTE 同步/参考信号，无法从物理特征确认或否定具体制式结构。",
+    "共享 OFDM 现象（高 PAPR、宽带占用、高谱熵、噪声状包络）不能单独区分 LTE/WiFi/DVB-T，不能作为改判依据。"
+  ]
+}

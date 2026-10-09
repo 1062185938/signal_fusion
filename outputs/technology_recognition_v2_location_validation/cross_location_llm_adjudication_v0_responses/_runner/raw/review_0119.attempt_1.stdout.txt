@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0119", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支最高票为 WiFi（0.620），但其 Top1-Top2 间隔仅 0.245、归一化熵 0.629，DVB-T 获得 0.375 的实质次高概率，说明该分支自身并未形成稳定判决，只是在 WiFi 与 DVB-T 之间摇摆；feature-probe 分支则以 0.924 的 Top1 概率、0.850 的间隔和 0.253 的低归一化熵集中指向 DVB-T，且其 Top2（LTE 0.074）弱于 IQ 分支的次优候选。两条分支在"候选类别"层面相互吻合：IQ 分支自身无法排除的替代类别正是 feature-probe 内部高度一致的 Top1，构成相干且非偶然的交叉证据。本案无 64 维物理特征可读，缺少独立的物理侧确认，故不给高置信度，但方向上支持将原判 WiFi 改为 DVB-T。", "iq_evidence": ["Top1 为 WiFi，概率 0.6199881434440613；Top2 为 DVB-T，概率 0.37490418553352356；LTE 仅 0.005107644014060497", "Top1-Top2 间隔 0.24508395791053772，判决强度有限，WiFi 与 DVB-T 概率接近同一量级", "归一化熵 0.6291157592556804，概率分布明显分散，表明 IQ 分支内部对 WiFi 与 DVB-T 的区分不稳定", "IQ 分支自身的实质替代类别为 DVB-T，而非 LTE（LTE 概率可忽略），说明该分支未给出与 DVB-T 相斥的证据"], "feature_probe_evidence": ["Top1 为 DVB-T，概率 0.9238366841832314，内部高度集中", "Top1-Top2 间隔 0.8496356684861808，判决强度充足", "归一化熵 0.25342311862491673，概率分布集中，非近似平局", "次优候选为 LTE 0.0742010156970506，WiFi 仅 0.001962300119718001，最可能被改判的 WiFi 在原判决所依赖的类别上得不到任何支持"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支 Top1 为 WiFi，与 feature-probe 分支 Top1（DVB-T）表面不一致；但 IQ 分支间隔小、熵高，其 WiFi 领先并未形成实质排他性结论", "两分支置信度未校准，不能以 0.924 与 0.620 的数值差直接判定 feature-probe 更可信，只能依据各自内部集中度与候选类别是否互相吻合来判断", "本案未随附 64 维物理特征，无法用包络突发性/持续性、活动帧比例等物理证据独立区分 WiFi 的突发结构与 DVB-T 的广播型持续占用，改判缺少物理侧闭环"], "limitations": ["观测仅 4.096 ms、1 MS/s、4096 个复数 IQ 点，只能看到当前接收基带内约 1 MHz 的局部频谱视图，无法映射到任何协议标准带宽", "64 维特征未显式测量 DVB-T 导频/TPS/载波间隔/保护间隔，也未检测 WiFi 前导与包边界、LTE 同步与参考信号，因此不能宣称已确认任何协议结构", "本案无物理特征可读，改判依赖两条分支在候选类别上的一致性，无法排除截取窗口位置、低业务负载 LTE 或落在单个 WiFi 包内部等替代解释", "时长与粒度不足以恢复帧级结构或长时尺度占空比，活动性类特征本身也只覆盖单个 region"], }
+
+session_id: 20260924_153939_e7a81a

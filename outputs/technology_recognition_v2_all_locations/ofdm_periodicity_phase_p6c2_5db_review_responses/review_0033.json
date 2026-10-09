@@ -1,0 +1,34 @@
+{
+  "analysis_id": "review_0033",
+  "recommendation_status": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "三个 IQ 成员的 region Top1 在 LTE 与 DVB-T 之间分裂，ensemble 平均概率 LTE 0.5056 与 DVB-T 0.4915 几乎持平（margin 仅 0.0141），模型层无法形成一致方向；更关键的是三个成员在两个局部窗口上一致表现为窗口 0 高置信度判 LTE、窗口 1 高置信度判 DVB-T，说明当前 region 由两段物理性质相反的片段组成，区域级均值不具代表性。唯一可用的独立物理证据（周期门控）margin 为 0.0111，低于冻结门限 0.0215，reliable=false，不能确认 ensemble 的 LTE 倾向，也不能支持 DVB-T，且三个候选相关幅值本身仅 0.02–0.04 量级。证据相互冲突且缺乏类别判别力，故弃权。",
+  "model_evidence": [
+    "成员 region Top1 不一致：iq_member_1 为 DVB-T（0.5107），iq_member_2 与 iq_member_3 为 LTE（0.5091、0.5195），触发 member_region_top1_disagreement，风险门控未通过。",
+    "ensemble 平均概率为 LTE 0.5056、DVB-T 0.4915、WiFi 0.0029，Top1-Top2 margin 只有 0.0141，归一化熵 0.6471，属于高度不确定的前两名并列状态。",
+    "三个成员的 WiFi 概率均极低（0.0012、0.0018、0.0057），ensemble 中 WiFi 亦仅 0.0029，模型层没有任何 WiFi 方向的证据。",
+    "三个成员的两个局部窗口预测方向完全一致地相反：窗口 0 均判 LTE（置信度 0.976–0.996），窗口 1 均判 DVB-T（置信度 0.942–0.999），成员级 window_agreement 均为 1/2。",
+    "成员之间 region Top1 的分歧并非来自独立的一致倾向，而是两个窗口均值之差被反向片段的高置信度拉开所致，差异幅度在 0.02 以内，不具备稳定性。"
+  ],
+  "periodicity_evidence": [
+    "LTE 候选 66.67 μs 的归一化相关为 0.0391；DVB-T 候选 224 μs 为 0.0217、896 μs 为 0.0280，dvbt_score 取 896 μs 的 0.0280。",
+    "周期预测为 LTE，margin = |0.0391 − 0.0280| = 0.0111，低于冻结 reliability_margin 0.0215，故 reliable=false、resolved=false、changed=false。",
+    "eligible=true（三成员 Top1 只含 LTE/DVB-T 且两类均出现），但 margin 未达门限，周期门控无法消解成员分歧；reliable=false 只表示证据不足，不代表相反类别 DVB-T 成立。",
+    "三个候选的相关幅值均在 0.02–0.04 量级，接近噪声水平，相关峰易受噪声、干扰、频偏与有限样本影响，不应作为类别判据使用。"
+  ],
+  "feature_evidence": [],
+  "conflicting_evidence": [
+    "ensemble 前两名概率几乎相同（margin 0.0141），同时成员 Top1 在 LTE 与 DVB-T 之间分裂，模型层没有形成可复现的类别方向。",
+    "同一成员内部两个窗口给出相反类别且各自置信度很高（>0.94），表明 region 跨越了两段性质不同的片段，区域级平均概率掩盖了这一混合结构。",
+    "唯一可用的独立物理证据（周期门控）margin 低于冻结门限，既不能确认 ensemble 的 LTE 倾向，也不能支持 DVB-T 方向，模型与周期分支无法互相印证。",
+    "本 case 不含 global_feature_evidence，缺少可提供物理背景的 64 维特征，无法在特征层消解上述模型层冲突。"
+  ],
+  "limitations": [
+    "4.096 ms / 1 MHz 观测只提供局部短时视图，region 内仅 2 个非重叠窗口，不足以刻画更长时间尺度的占空比、帧级结构或突发周期。",
+    "周期候选只对应 OFDM 有效符号时间尺度，不等同于循环前缀检测、同步序列匹配、导频检测或协议解码，且不得重选候选、修改门限或重算门控。",
+    "归一化相关值是测量值而非概率或置信度，不能按类别概率解读。",
+    "不得由 1 MHz 归一化占用带宽反推协议标准带宽，也不得从 region 时长推断协议版本、LTE 链路方向或 DVB-T 模式。",
+    "三个成员由同一输入派生、彼此高度相关，其投票不能当作三次独立校准证据；且本输入已被确定性系统拒绝，置信度上限只能为 low 或 medium。"
+  ]
+}

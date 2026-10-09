@@ -1,0 +1,33 @@
+{
+  "analysis_id": "review_0370",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支几乎完全锁定 LTE（0.999944，熵 0.000578），feature-probe 分支几乎完全锁定 DVB-T（0.9965，熵 0.0226），两支均为低熵强置信且方向完全相反，构成强对强正面冲突。64 维物理特征以三类共享的 OFDM 现象为主（高 PAPR 9.5 dB、高频谱熵 0.9875、高平坦度 0.89、宽带 0.8547、类噪声幅度统计），自相关偏弱（峰值 0.0899）未显示可确认的周期/导频结构，也不检测 LTE 或 DVB-T 的协议结构。时频连续稳定占用（活动帧比 1.0、跃迁比 0.0）方向上略偏 DVB-T，但属非验证的共享倾向，且正是 feature-probe 的输入而非独立证据，不足以单独改判。缺少多项相干且具有类别区分力的证据来消解冲突，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.999944，top1-top2 间隔 0.9999，归一化熵 0.000578，几乎完全确定地指向 LTE。",
+    "DVB-T 概率仅 4.17e-05、WiFi 仅 1.42e-05，IQ 分支对其它两类几乎无支持。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9965，top1-top2 间隔 0.9937，归一化熵 0.0226，强置信指向 DVB-T。",
+    "该分支与 IQ 分支方向完全相反（DVB-T 对 LTE），且同为低熵强置信，属于真正的正面冲突而非近平局。",
+    "两分支置信度未校准，不能直接比较 0.9999 与 0.9965 的数值大小，也不能对概率做平均、加权或用固定阈值裁决。"
+  ],
+  "physical_feature_evidence": [
+    "time_papr_db 9.50、time_amplitude_kurtosis 3.148、time_envelope_cv 0.580、time_amplitude_entropy 0.819：高 PAPR 与类噪声幅度统计，属 LTE/WiFi/DVB-T 共享的多载波 OFDM 现象，无类别区分力。",
+    "freq_global_spectral_entropy 0.9875、freq_global_spectral_flatness 0.8907、freq_normalized_occupied_bandwidth_90 0.8547：能量铺满当前 1 MHz 视图、高熵高平坦，三类共享，且 90% 占用带宽不能反推协议标准带宽。",
+    "time_autocorrelation_peak_magnitude 0.0899、time_mean_autocorrelation_magnitude 0.0154：周期/重复结构偏弱，未显示可用于确认循环前缀、符号周期或任何协议周期的强相关。",
+    "time_frequency_stft_active_frame_ratio 1.0、time_frequency_stft_energy_transition_ratio 0.0、time_frequency_stft_frame_energy_cv 0.2778：region 内连续稳定占用、无活动状态跃迁，方向上略偏 DVB-T 广播式持续占用，但 LTE 稳定负载下同样成立，且该占用特征正是 feature-probe 的输入，非独立第三方证据。",
+    "64 维特征不检测 DVB-T 导频/TPS/载波间隔/保护间隔，也不检测 LTE PSS/SSS/参考信号，故未测量到任何可确认的类别特有结构。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支强置信 LTE 与 feature-probe 分支强置信 DVB-T 完全对立，是实质性冲突。",
+    "唯一略偏 DVB-T 的物理信号（连续稳定占用）与偏 LTE 的 IQ 结论相抵，但该项属三类共享、非验证、且与 probe 同源，不足以作为改判的独立判别证据。"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 两分支置信度未校准，无法据数值大小裁决，也不能平均或加权。",
+    "4.096 ms / 1 MHz 局部视图下，短时连续稳定占用不能单独作为 DVB-T 判据，且受截取位置与接收门限影响。",
+    "64 维特征未测量 DVB-T 或 LTE 的协议特有结构，物理特征整体为三类共享的 OFDM 现象，无法在 LTE 与 DVB-T 之间提供成组、相干、具有类别区分力的证据。",
+    "冲突在两强对强分支间，可用证据无法消解，故不满足 change 所需的“多项相干且具类别区分力”的标准。"
+  ]
+}

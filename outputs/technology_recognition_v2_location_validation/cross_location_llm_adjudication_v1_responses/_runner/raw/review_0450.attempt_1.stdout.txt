@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0450","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支极自信判 LTE（0.99945，熵 0.0045），64 维 feature-probe 分支则高置信判 DVB-T（0.9828，熵 0.0856），两者指向互斥的类别且均高度自信，构成无法消解的正面对撞。本 case 未提供原始 64 维物理特征向量，无法用具有类别区分力的物理结构去裁决或改判，两分支置信度又未校准、不能比较数值或加权，故只能弃权。","iq_evidence":["iq_model 给出 LTE 概率 0.99945，top1-top2 margin 0.9990，normalized_entropy 0.0045，属极高置信、几乎零熵的 LTE 判断。","第二、三位 DVB-T(0.00043)、WiFi(0.00012) 概率可忽略，IQ 分支内部方向高度一致，无明显分裂。"],"feature_probe_evidence":["global_64_feature_linear_probe 给出 DVB-T 概率 0.9828，top1-top2 margin 0.9682，normalized_entropy 0.0856，属高置信的 DVB-T 判断。","该分支与 IQ 分支指向完全相反的类别（DVB-T 对 LTE），且自身置信同样很强，不是可被忽略的近似并列（near-tie）。","两分支概率均未校准，不能据此直接比较数值大小、做平均或加权，也不应因某分支熵更低就判定其更可信。"],"physical_feature_evidence":[],"conflicting_evidence":["核心冲突：IQ 分支以近零熵判 LTE，feature-probe 分支以高置信判 DVB-T，两个独立分支给出互斥且各自强置信的结论。","本 case 未提供原始 64 维物理特征，无法用导频、TPS、子载波间隔、保护间隔、LTE 同步/参考信号或 WiFi 前导等具有类别区分力的结构来消解冲突。","reference 文档明确 64 维特征不显式测量 DVB-T 导频/TPS/载波间隔/保护间隔，也不测量 LTE 同步/参考信号，故 feature-probe 的高置信 DVB-T 只能视为基于共享多载波特征的推断，不能当作独立的协议结构证据。"],"limitations":["两分支置信度未校准，禁止直接比较概率数值、平均或加权裁决。","无原始物理特征可用，无法提供成组、相干且具类别区分力的证据来支持任一方向的 change。","4.096 ms / 1 MHz 仅为局部视图，不能反推协议带宽，也不能据此恢复帧级/导频结构。","在无法消解的强对撞且缺乏物理证据时，按规则选择 abstain，不建议改判任何一侧。"]}
+
+session_id: 20260924_110925_ee7ed4

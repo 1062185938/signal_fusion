@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0279","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支高置信投 WiFi（0.962，margin 0.926，熵 0.153），64 维 feature-probe 分支高置信投 DVB-T（0.942，margin 0.887，熵 0.216），两者方向相反且各自内部都相当确定，构成实质性头部冲突。本案仅列出了技术参考文档，未附带 64 维原始物理特征，缺乏可独立区分 WiFi 与 DVB-T 的类别级证据；且两分支置信度未经校准，不得直接比较概率大小或据此改判。冲突无法消解，判 abstain。","iq_evidence":["IQ 分支 Top1 为 WiFi，概率 0.962，Top1-Top2 margin 0.926，归一化熵 0.153，内部确定度高","WiFi 为明显主导，DVB-T 仅 0.036、LTE 0.0016，IQ 侧基本无歧义","IQ 分支单独看强烈支持 WiFi，但无法据此压制方向相反的高置信 probe 分支"],"feature_probe_evidence":["feature-probe 分支 Top1 为 DVB-T，概率 0.942，margin 0.887，归一化熵 0.216，内部确定度同样较高","WiFi 仅 0.0041、LTE 0.0542，probe 侧基本无 WiFi 支持","两分支置信度未校准，DVB-T 与 WiFi 的概率数值大小不可直接比较，不能作为改判或保留的独立依据"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支高置信指向 WiFi，而 feature-probe 分支高置信指向 DVB-T，二者类别方向直接对立且各自确定度高","64 维物理特征正是 feature-probe 的输入，不能当作第三个独立投票；本案又未提供原始 64 维特征，缺少可单独区分 WiFi 与 DVB-T 的类别级互补证据","宽带、类噪声包络、较高 PAPR 等为 OFDM 三类共享性质，不足以在 WiFi 与 DVB-T 之间作出区分"],"limitations":["观测受限于 1 MS/s、4096 采样、4.096 ms 的局部视图，仅覆盖接收基带内约 1 MHz，无法反推协议标准带宽或恢复完整帧/导频结构","未附带 64 维原始物理特征，无法用成组、互补且类别区分力的物理证据消解两分支冲突","技术参考文档明确：现有 64 维特征不显式检测 WiFi 前导/包边界，也不检测 DVB-T 导频、TPS、载波间隔或保护间隔，故无法据特征独立确认任一方","IQ 分支与 feature-probe 分支置信度未校准，禁止比较概率大小、求平均或用固定阈值裁决"]}
+
+session_id: 20260924_110925_ee7ed4

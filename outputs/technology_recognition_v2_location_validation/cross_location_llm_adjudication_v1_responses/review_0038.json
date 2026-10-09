@@ -1,0 +1,32 @@
+{
+  "analysis_id": "review_0038",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "两分支在相反标签上各自给出高置信：IQ 分支近乎确定判为 LTE（0.9999），64 维 feature-probe 分支高置信判为 DVB-T（0.9138，margin 0.836），属头对头冲突。两分支置信度未校准，无法比较数值大小或做平均/阈值裁决；64 维物理特征是 probe 的输入而非独立第三票，其中既不含可确认 DVB-T 的类别区分结构（呈突发/不连续活动，与连续广播不符），也不含可独立确认 LTE 的结构。冲突无法消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.9999，top1-top2 margin 0.9999，normalized entropy 0.0006，几乎完全确定。",
+    "WiFi（9.5e-06）与 DVB-T（5.5e-05）概率均极低，IQ 分支对 DVB-T 几乎无支持。"
+  ],
+  "feature_probe_evidence": [
+    "Probe 分支 top1 为 DVB-T，概率 0.9138，top1-top2 margin 0.8363，normalized entropy 0.2929，为内部一致的强投票，非近并列。",
+    "Probe 分支 LTE 0.0775、WiFi 0.0087，方向与 IQ 分支相反，构成实质冲突。",
+    "该 DVB-T 高置信建立在共享 OFDM 的宽带/类噪声物理特征之上，本身不具 DVB-T 类别区分力，不能据此改判。"
+  ],
+  "physical_feature_evidence": [
+    "频谱呈宽带类噪声特征：occupied_bandwidth_90=0.854、global_spectral_flatness=0.881、global_spectral_entropy=0.986、spectral_crest_factor=3.398（偏低），为三类 OFDM 共享现象，不具区分力。",
+    "活动呈突发/不连续：envelope_cv=0.778、stft_frame_energy_cv=0.665、stft_energy_transition_ratio=0.233、stft_active_frame_ratio=0.774，与 DVB-T 连续稳定广播特征不一致。",
+    "无明显周期结构：autocorrelation_peak_magnitude=0.071、mean_autocorrelation_magnitude=0.017；schema 未测到 DVB-T 导频/保护间隔，也未测到 LTE 同步/参考信号。",
+    "上述 64 维特征为 probe 的输入，不作为独立第三票使用。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支近乎确定 LTE（0.9999）与 probe 分支高置信 DVB-T（0.9138）标签相反且均高置信，构成头对头冲突。",
+    "两分支置信度未校准，禁止以数值大小、平均或固定 if/else 阈值裁决，无法据此分出胜负。",
+    "物理特征既不含可确认 DVB-T 的类别区分结构，也不含可独立确认 LTE 的结构，无法作为独立裁决依据消解冲突。"
+  ],
+  "limitations": [
+    "4.096 ms / 4096 采样窗口较短；64 维 schema 未测量 DVB-T 导频、TPS、子载波间隔、保护间隔，也未测量 LTE 同步/参考信号与 WiFi 前导/包边界。",
+    "两分支置信度未校准，无法直接比较；64 维物理特征为 probe 输入，不能作为独立第三票。",
+    "宽带、类噪声、低 crest、突发活动等为 OFDM 共享或不足以区分三类的现象，不能单独作为改判或保持依据。"
+  ]
+}

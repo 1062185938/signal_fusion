@@ -1,0 +1,25 @@
+{
+  "analysis_id": "review_0197",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 feature-probe 分支给出方向相反且各自内部一致性都不弱的结论：IQ 分支强烈偏向 WiFi（0.951，top1-top2 margin 0.904，归一化熵 0.186），feature-probe 分支强烈偏向 DVB-T（0.915，margin 0.836，熵 0.285）。本 case 未提供 64 维原始物理特征，缺少可用于打破两者冲突的独立类别区分证据；两分支置信度未校准，不得做数值大小比较、平均或加权，也无法用固定阈值裁决。冲突无法消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.951，top1-top2 margin 0.904，归一化熵 0.186，分支内部一致性较强。",
+    "IQ 分支次高为 DVB-T（0.047），LTE 极低（0.002），与 feature-probe 的 DVB-T 倾向在方向上不一致。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.915，top1-top2 margin 0.836，归一化熵 0.285，分支内部一致性也不弱。",
+    "feature-probe 分支对 WiFi 仅给出 0.006，与 IQ 分支的 WiFi 高置信直接对立。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 top1 完全相反：IQ 分支 WiFi 对 feature-probe 分支 DVB-T，且两者各自 margin 均较高、熵均较低，属实质性头对头冲突。",
+    "两分支置信度未校准，不能比较 0.951 与 0.915 的数值大小，也不能对两分支概率做平均、加权或用固定阈值裁决。"
+  ],
+  "limitations": [
+    "本 case 未提供 64 维原始物理特征，缺少独立于两模型的、具有类别区分力的原始证据来消解 WiFi 与 DVB-T 的冲突。",
+    "WiFi（突发、region 可能落在单包内）与 DVB-T（连续广播、稳定占用）在 4.096 ms/1 MHz 局部视图下存在多种相互替代的物理解释，单分支无法可靠区分。",
+    "不得基于共享的宽带、类噪声、高 PAPR 等 OFDM 共性现象单独改判；change 需多项相干且具有类别区分力的证据支持，本 case 不满足。"
+  ]
+}

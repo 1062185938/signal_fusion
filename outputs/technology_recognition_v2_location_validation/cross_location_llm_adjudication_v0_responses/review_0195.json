@@ -1,0 +1,33 @@
+{
+  "analysis_id": "review_0195",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支以 WiFi 为 Top1（0.8423），但其唯一实质竞争类为 DVB-T（0.1544），LTE 仅 0.0034，说明该分支对 WiFi 的判定并不饱和，且其自身把备择质量放在 DVB-T 上；64 维 feature-probe 分支以高集中度给出 DVB-T（0.9534），并把 WiFi 压到 0.0096。两分支的争议对为同一个 WiFi↔DVB-T 对，且 probe 对 WiFi 的排除是集中而非近似并列，属于跨分支在主竞争假设上的一致指向，故将标签改为 DVB-T。因缺少原始 64 维特征、且 IQ 分支仍保有 0.84 的 WiFi 质量，仅给中等置信度。",
+  "iq_evidence": [
+    "iq_model Top1 为 WiFi，概率 0.8423，非饱和判定",
+    "iq_model 的次高类为 DVB-T（0.1544），LTE 仅 0.0034，备择质量集中在 DVB-T 上",
+    "iq_model Top1与Top2 间隔 0.6879、归一化熵 0.4116，表明该分支在 WiFi 与 DVB-T 之间存在可观的概率分配，而非绝对排他",
+    "iq_model 与 feature-probe 均认为 LTE 可忽略，争议实质为 WiFi 与 DVB-T 的二元对立"
+  ],
+  "feature_probe_evidence": [
+    "global_64_feature_linear_probe Top1 为 DVB-T，概率 0.9534，集中度高",
+    "probe 对 WiFi 的支持仅 0.0096，属近乎完全排除而非近似并列",
+    "probe Top1与Top2 间隔 0.9164、归一化熵 0.1930，说明其 DVB-T 判定不是扰动敏感的临界结果",
+    "probe 的次高类为 LTE（0.0370），但量级很小，未构成与 DVB-T 并列的备择解释"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两个分支的 Top1 直接对立：IQ 分支为 WiFi（0.8423），feature-probe 分支为 DVB-T（0.9534）",
+    "IQ 分支仍保留 0.8423 的 WiFi 质量，其结论并未让步于 DVB-T，故冲突不能由单一分支内部消解",
+    "本 case 未提供原始 64 维特征，无法用包络起伏、STFT 活动帧比例或能量跃迁比例等物理观测判断 region 是否跨越突发边界，缺少可打破僵局的第三方线索"
+  ],
+  "limitations": [
+    "观测仅覆盖 1 MS/s、4096 点、4.096 ms 的局部基带视图，无法据此推断协议标准带宽或帧级结构",
+    "现有 64 维特征不检测 DVB-T 导频、TPS、载波间隔或保护间隔，也不检测 WiFi 前导与包边界、LTE 同步信号与参考信号，故改判建议不基于任何协议结构确认",
+    "IQ 分支与 feature-probe 分支的置信度未校准，本裁决未对二者概率做数值比较、平均、加权或阈值判定，仅依据分布结构与跨分支指向关系",
+    "本 case 缺少原始物理特征证据，无法将判定与波形的持续/突发等定性背景相互印证，置信度因此受限",
+    "“持续占用”与“突发”在 4.096 ms 内是相对概念，截取位置、接收门限与 region 是否覆盖信号边界均可改变观察结果",
+    "仅凭 WiFi 与 DVB-T 的分支对立无法排除低负载 LTE 或截取偏差等替代解释"
+  ]
+}

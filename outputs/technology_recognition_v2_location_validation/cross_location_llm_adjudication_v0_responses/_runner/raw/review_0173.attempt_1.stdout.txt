@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0173", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支自身并未形成决定性结论：其 Top1 为 WiFi（0.5859），但 DVB-T 紧随其后（0.4105），两者差距很小，归一化熵 0.6362 偏高，说明该分支在 WiFi 与 DVB-T 之间明显犹豫，而 LTE 仅为 0.0036。feature-probe 分支则高度集中在 DVB-T（0.9468，margin 0.8951，归一化熵 0.1959），对 IQ 的 Top1 WiFi 仅给出 0.0016 的近乎零支持。即 IQ 分支的主要竞争假设与 feature-probe 的集中结论指向同一类别，形成跨分支一致的相干证据链，故改判为 DVB-T，置信度 medium。", "iq_evidence": ["IQ 分支 Top1 为 WiFi，概率 0.5859，但优势有限", "DVB-T 概率 0.4105，与 Top1 差距仅 0.1754，属于同一量级的竞争假设", "归一化熵 0.6362，表明该分支内部并不集中，未形成决定性裁决", "LTE 仅 0.0036，可排除", "IQ 分支的主要竞争类别恰为 DVB-T，而非 LTE 或第三个类别"], "feature_probe_evidence": ["feature-probe Top1 为 DVB-T，概率 0.9468，高度集中", "Top1-Top2 margin 0.8951，归一化熵 0.1959，内部一致性强", "对 IQ 分支 Top1 WiFi 仅给 0.0016，近乎完全不支持 IQ 的原始结论", "次高为 LTE 0.0516，量级有限，未构成对 DVB-T 的实质竞争"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支 Top1（WiFi）与 feature-probe Top1（DVB-T）标签不一致，构成直接分歧", "IQ 分支未给出明确结论（margin 小、熵高），其 Top1 的可靠性本身较弱", "两个分支的置信度未经校准，不能以其数值大小直接比较，只能依据分支内部的结构性关系判断"], "limitations": ["本 case 未提供 64 维物理特征，无法用原始特征检查占用连续性或突发性等方向性证据", "两个分支的概率未做校准，判断仅依赖分支内部集中度与其指向关系，不能做跨分支数值比较或加权", "observation 仅有 1 MS/s、4096 点、4.096 ms 的局部基带视图，无法恢复帧级结构或协议标准带宽", "现有特征不检测 DVB-T 导频、TPS、载波间隔或保护间隔，也不检测 LTE 同步信号或 WiFi 前导，因此不能宣称已确认任何协议结构", "WiFi 帧为突发发送，若 region 完全落在单个包内也可能不呈现边界，DVB-T 的广播型稳定占用结论同样受截取位置影响"]}
+
+session_id: 20260924_153939_e7a81a

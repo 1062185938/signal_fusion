@@ -1,0 +1,30 @@
+{
+  "analysis_id": "review_0247",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支虽然给出 WiFi 为 Top1，但其内部在该标签上并不稳定：WiFi 与 DVB-T 的差距很小，DVB-T 作为唯一实质性替代假设几乎与 WiFi 持平，且对 LTE 的支持可忽略。feature-probe 分支则给出高度集中的 DVB-T 结论，并显著压低 WiFi。也就是说，唯一被两个分支同时保留为可行的假设是 DVB-T，而 WiFi 只在 IQ 分支中以微弱优势出现、在 feature-probe 分支中几乎被排除。两者方向一致、互相印证，构成对 DVB-T 的多项相干证据，因此不建议维持 IQ 的 WiFi 标签，改判为 DVB-T。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi（约 0.559），Top2 为 DVB-T（约 0.435），两者差距约 0.124，归一化熵约 0.651，属于接近平局的分布，Top1 标签本身缺乏稳定优势。",
+    "IQ 分支对 LTE 的支持极低（约 0.005），说明该 region 的多载波归属只可能在 WiFi 与 DVB-T 之间。",
+    "IQ 分支并未排除 DVB-T：其对该类保留了接近半数的概率质量，DVB-T 正是该分支自身最强的替代假设。",
+    "由于 IQ 在 WiFi 上的优势微弱，其 WiFi 判定不足以单独作为保留原标签的依据。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T（约 0.927），与 Top2（LTE，约 0.071）差距约 0.856，归一化熵约 0.247，属于集中而非平局的输出。",
+    "feature-probe 分支对 WiFi 的支持极低（约 0.002），相当于在该分支证据下基本排除 WiFi。",
+    "feature-probe 分支的 Top1 与 IQ 分支自身最强替代假设同为 DVB-T，两条支路在同一竞争假设上出现交叉一致。",
+    "两个分支对 LTE 的支持都很低，LTE 不是有竞争力的解释。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支的 Top1 是 WiFi，而 feature-probe 分支的 Top1 是 DVB-T，两分支标签不一致。",
+    "该冲突的可消解之处在于：IQ 分支内部 WiFi 与 DVB-T 几近持平，其 Top1 只是微弱偏好，并非稳定判定；同时 feature-probe 强烈压制 WiFi 而支持 DVB-T，因此分歧并未形成两分支同等强度的对立。"
+  ],
+  "limitations": [
+    "两分支置信度未校准，未对概率数值做跨分支比较，也未做加权、平均或阈值裁决，判断仅基于各自分布的内部结构（是否集中、是否有同向的替代假设）。",
+    "本 case 未提供 64 维物理特征，无法给出包络、频谱或时频层面的独立物理佐证，DVB-T 的结论缺少物理机制层面的直接支持。",
+    "现有 64 维特征与分支输出均不检测 DVB-T 导频、TPS、载波间隔、保护间隔，也不检测 WiFi 前导或包边界，因此不能宣称已测量到任何协议专有结构。",
+    "仅 4096 点（4.096 ms、1 MS/s）的局部视图，无法恢复完整帧级结构或长期占空比，WiFi 突发未出现与 DVB-T 持续占用之间的区分在此观测窗口内本就受限。"
+  ]
+}

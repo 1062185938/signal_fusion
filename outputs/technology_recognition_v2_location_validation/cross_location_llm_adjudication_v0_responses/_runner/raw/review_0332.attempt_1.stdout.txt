@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0332", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "IQ 分支与 64 维 feature-probe 分支各自内部高度集中，却指向不同类别：IQ 分支以 WiFi 为 Top1（0.9395，领先幅度 0.8806，归一化熵 0.2148），feature-probe 以 DVB-T 为 Top1（0.9410，领先幅度 0.8866，归一化熵 0.2191）。两支均未向对方结论让出实质概率质量：feature-probe 中的 WiFi 仅 0.0047，其备选类别是 LTE；IQ 分支中的 DVB-T 仅 0.0589。两支自持立场、方向相反，彼此不构成相互印证，也缺少第三类独立且具类别区分力的物理证据。本 case 未提供 64 维原始特征，OFDM 三类共享的宽带、类噪声、高 PAPR 等现象即使存在也不能单独作为改判依据。依据规则“证据不足或冲突无法消解时 abstain”，此处选择 abstain，不给出推荐标签。", "iq_evidence": ["IQ 分支 Top1 为 WiFi，概率 0.9395，属于该分支内部高度集中的结论。", "Top2 为 DVB-T，概率 0.0589；Top3 为 LTE，概率 0.0017；Top1-Top2 领先幅度 0.8806，归一化熵 0.2148，说明该分支没有明显的类间摇摆。", "该分支把 94% 以上的概率交给 WiFi，且其备选类别是 DVB-T，而非 feature-probe 的结论 DVB-T 之外的其他假设；即 IQ 分支自身并未对 DVB-T 给出有分量的支持。"], "feature_probe_evidence": ["feature-probe 分支 Top1 为 DVB-T，概率 0.9410，领先幅度 0.8866，归一化熵 0.2191，同样表现为内部高度集中。", "Top2 为 LTE，概率 0.0544；WiFi 仅 0.0047，几乎没有质量交给 IQ 分支的 Top1。", "该分支的备选类别为 LTE，而非 IQ 分支的 Top1 WiFi，说明两支不是在同一竞争假设上收敛，而是各指向不同类别。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支以 0.9395 支持 WiFi，feature-probe 分支以 0.9410 支持 DVB-T，两支均为内部高集中度结论且方向直接对立。", "两支之间不存在可识别的收敛结构：IQ 分支的备选类别 DVB-T 仅占 0.0589，而 feature-probe 的备选类别是 LTE；任何一支都未向对方的 Top1 让出实质概率质量。", "本 case 未附带 64 维原始物理特征，无法用时间、频谱或时频结构证据对该对立做出方向性检验或消解。", "两分支置信度未校准，其数值大小、领先幅度与熵值不能直接比较，也不能用于平均、加权或阈值裁决，因此无法据此判定哪一方更可信。"], "limitations": ["IQ 分支与 64 维 feature-probe 分支的概率未经校准，只能各自解读内部结构，不能跨分支比较数值或合成。", "64 维物理特征正是 feature-probe 的输入，不构成第三个独立投票；本 case 亦未提供原始特征数组。", "观测合同仅为 1 MS/s、4096 点、4.096 ms，无法反推协议标准带宽，也难以可靠恢复帧级或包级结构。", "现有特征不检测 LTE PSS/SSS 与参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/载波间隔/保护间隔，故无法确证任何协议专有结构。", "OFDM 三类共享的宽带、类噪声、高 PAPR、分散频谱等现象不具备类别区分力，不能单独支撑改判。"]}
+
+session_id: 20260924_153939_e7a81a

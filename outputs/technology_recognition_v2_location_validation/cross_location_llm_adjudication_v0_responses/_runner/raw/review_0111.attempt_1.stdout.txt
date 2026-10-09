@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0111", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支虽以 WiFi 为 Top1，但其判定并不决定性，且自身将显著支持分配给 DVB-T；feature-probe 分支则以高度集中的形式指向 DVB-T，对 WiFi 几乎不留支持。两个分支在 DVB-T 上形成交叉一致，而 IQ 首选标签在特征分支中近乎无支撑，构成可消解的冲突，故将标签由 WiFi 改为 DVB-T。因缺少 64 维原始特征作为物理机制旁证，且 IQ 仍保留对 WiFi 的较高支持，置信度定为 medium。", "iq_evidence": ["IQ 分支 Top1 为 WiFi，概率 0.6318，但 Top1-Top2 margin 仅 0.2675、归一化熵 0.6188，属中等分散状态，并非决定性判定。", "IQ 分支自身给 DVB-T 分配 0.3643 的显著概率，即其第二候选恰为 DVB-T，表明该分支对 WiFi 与 DVB-T 存在实质内部歧义。", "IQ 分支对 LTE 仅 0.0039，可排除 LTE 参与本次冲突。"], "feature_probe_evidence": ["feature-probe 分支 Top1 为 DVB-T，概率 0.9487，Top1-Top2 margin 0.8995、归一化熵 0.1924，判定高度集中且稳定，不是近似平局。", "该分支对 WiFi 仅 0.0022、对 LTE 0.0491，几乎不为 IQ 所推荐的 WiFi 标签保留支持。", "两个分支在 DVB-T 上形成交叉一致：IQ 分支的第二候选与 feature-probe 的集中 Top1 同为 DVB-T，构成对竞争假设的共同指向。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支 Top1 为 WiFi，与 feature-probe 高度集中的 DVB-T 判定方向直接对立。", "IQ 分支自身未给出决定性结论（WiFi 0.6318 对 DVB-T 0.3643），其首选标签在 feature-probe 中几乎无支持，该对立可通过两分支在 DVB-T 上的一致性予以消解。", "IQ 分支对 DVB-T 的显著让步与 feature-probe 的集中 DVB-T 结论方向相同，使冲突收敛于 DVB-T，而非维持原 WiFi 标签。"], "limitations": ["观测合同仅为 1 MS/s、4096 点、4.096 ms 的局部基带视图，无法恢复协议标准带宽、帧级结构或载波间隔。", "本 case 未提供 64 维原始物理特征，feature-probe 所依赖的特征不可作为第三独立投票，也缺少可核查的物理机制旁证。", "LTE、WiFi、DVB-T 共享的 OFDM 宽带、类噪声、高 PAPR 等现象不具类别区分力，且现有特征未检测 WiFi 前导、LTE 参考信号或 DVB-T 导频等协议结构。", "两分支置信度未经校准，本次裁决仅依据各分支内部集中度与跨分支结构一致性，未做数值大小比较、概率平均或加权。", "IQ 分支仍保留对 WiFi 的较高支持，改判存在残余不确定性，故置信度取 medium 而非更高等级。"]}
+
+session_id: 20260924_153939_e7a81a

@@ -1,0 +1,29 @@
+{
+  "analysis_id": "review_0220",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支高度集中于 WiFi（0.9716，margin 0.9447，归一化熵 0.1231），feature-probe 分支高度集中于 DVB-T（0.9395，margin 0.8809，归一化熵 0.2157），两者均为高置信的集中分布且直接对立：IQ 对 DVB-T 仅给 0.0269、对 LTE 仅 0.0015，feature-probe 对 WiFi 仅给 0.0019、对 LTE 仅 0.0586，任一方都未给对方的首选类别留出可解释的支持空间。本 case 未提供 64 维原始物理特征，缺少可打破该对立的独立物理证据。两条未校准分支的数值不可直接比较，在没有第三方判据的情况下无法判定谁更可信，属于冲突不可消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.9716，Top1–Top2 margin 0.9447，归一化熵 0.1231，分布高度集中，模型内部无实质分歧。",
+    "IQ 分支次优为 DVB-T 0.0269，第三为 LTE 0.0015；对 DVB-T 的支持幅度很小，尚不构成对其自身结论的实质让步。",
+    "IQ 分支对 feature-probe 的首选类别 DVB-T 仅保留约 2.7% 概率，方向上是明确反对而非相容。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T，概率 0.9395，Top1–Top2 margin 0.8809，归一化熵 0.2157，分布同样高度集中。",
+    "feature-probe 分支次优为 LTE 0.0586，第三为 WiFi 0.0019；对 IQ 的首选类别 WiFi 几乎完全排斥。",
+    "该分支的集中程度与 IQ 分支相当，二者构成对同一 region 的两套相互排斥的判定，而非一方让步、另一方补强的结构。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支（WiFi 0.9716）与 feature-probe 分支（DVB-T 0.9395）在首选类别上直接对立，且两者均为高集中分布，任一方都未为对方的首选类别提供支持概率。",
+    "两分支都未出现“自身次优即对方首选”的让步结构，缺少可交叉验证的一致链路。",
+    "IQ 分支的次优类别（DVB-T）虽与 feature-probe 首选相同，但其概率仅 0.0269 且该分支对 WiFi 仍近乎确定，不能据此解读为 IQ 支持 DVB-T。"
+  ],
+  "limitations": [
+    "IQ 分支与 64 维 feature-probe 分支的置信度均未校准，不得直接比较概率数值、取平均或设置固定阈值裁决，因此无法判定哪一支更可信。",
+    "本 case 未提供 64 维原始物理特征，physical_feature_evidence 为空，无法用包络/时频活动性等物理证据检验任一方结论。",
+    "两类信号同为多载波 OFDM，共享宽带、类噪声、较高 PAPR 等性质，这些共享现象不具类别区分力，不能用于改判。",
+    "仅依据当前 4.096 ms / 1 MHz 局部视图与单一匿名 region，无法恢复帧级结构、包边界或长期占空比，也不得使用中心频率、地点或文件名等捷径信息。"
+  ]
+}

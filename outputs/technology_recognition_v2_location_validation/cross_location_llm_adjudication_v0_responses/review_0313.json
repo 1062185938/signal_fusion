@@ -1,0 +1,30 @@
+{
+  "analysis_id": "review_0313",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 feature-probe 分支各自内部高度集中，但指向相反类别：IQ 分支以 0.99994 指向 LTE（margin 0.99988，normalized_entropy 0.00065），feature-probe 分支以 0.91381 指向 DVB-T（margin 0.83632，normalized_entropy 0.29292）。IQ 分支的第二候选 DVB-T 仅 5.49e-05，不构成实质竞争者，因此不存在“两分支对同一替代类别形成共识”的情形；本 case 也未提供 64 维原始物理特征，没有任何可独立仲裁的第三条证据链。两分支置信度未校准，既不能比较其数值大小，也不能做平均、赋权或套用固定阈值；LTE 与 DVB-T 同为 OFDM 体制，宽带、类噪声、高 PAPR 等共享现象不具备类别区分力。冲突无法消解，故选择 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.99994，top1_top2_margin 0.99988，normalized_entropy 0.00065，内部高度集中且无有效竞争者",
+    "IQ 分支第二候选为 DVB-T（5.49e-05），第三为 WiFi（9.48e-06），两者与 top1 相差数个数量级，说明 IQ 分支内部不存在实质性的替代假设",
+    "IQ 分支在 region 内全部非重叠局部窗口上投票，其对 LTE 的判断在本 case 内高度一致"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.91381，top1_top2_margin 0.83632，normalized_entropy 0.29292，内部亦较为集中",
+    "feature-probe 分支第二候选为 LTE（0.07749），第三为 WiFi（0.00870）",
+    "feature-probe 的 64 维特征对整个 region 只提取一次，其输出是全局线性探针在该子空间上的单次判断，与 IQ 分支的窗口级投票粒度不同"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支决定性指向 LTE，而 feature-probe 分支决定性指向 DVB-T，两者均为内部集中判断且方向相反",
+    "IQ 分支的替代候选（DVB-T 5.49e-05）与 feature-probe 的 top1 虽同为 DVB-T，但该候选在 IQ 分支内几乎为零，无法构成跨分支的共识性替代假设",
+    "本 case 未提供 64 维原始物理特征，缺少可用于检验时频活动性、包络统计等结构的独立观测，冲突无第三方证据可消解"
+  ],
+  "limitations": [
+    "IQ 分支与 feature-probe 分支的置信度未校准，不能直接比较数值大小，也不能对两分支概率平均、赋权或使用固定阈值裁决",
+    "64 维物理特征正是 feature-probe 的输入，不构成第三个独立投票",
+    "LTE、WiFi、DVB-T 共享 OFDM 多载波结构，较高 PAPR、较高幅度熵、分散频谱与类噪声包络均可与三类相容，不能单独作为改判依据",
+    "现有 64 维特征不显式检测 LTE PSS/SSS 与参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/载波间隔/保护间隔，因此即使存在原始特征也不能宣称检测到这些协议结构",
+    "1 MHz / 4.096 ms 的观测仅为局部带宽与短时窗口视图，无法恢复完整协议帧级结构，也无法给出长时间尺度的占空比"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "analysis_id": "review_0270",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.859 投 WiFi（DVB-T 次选 0.137，margin 0.722，归一化熵 0.388），feature-probe 分支以 0.912 投 DVB-T（LTE 次选 0.086，margin 0.826，归一化熵 0.281）。两分支各自在内部高置信、方向完全相反，构成本质性冲突；本 case 未提供 64 维原始物理特征，无法引入任何具有类别区分力的独立证据来消解该冲突，因此不能改判到任一侧，判定为 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.859，次选 DVB-T 0.137，top1-top2 margin 0.722",
+    "IQ 分支归一化熵 0.388，分布较集中于 WiFi，但未达到近确定性水平",
+    "LTE 概率仅 0.004，IQ 分支基本排除 LTE"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe top1 为 DVB-T，概率 0.912，次选 LTE 0.086，top1-top2 margin 0.826",
+    "feature-probe 归一化熵 0.281，分布较集中于 DVB-T，未支持 WiFi 或 LTE",
+    "两分支置信度未校准，上述概率数值不得与 IQ 分支概率直接比较大小或平均加权"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支高置信指向 WiFi，feature-probe 分支高置信指向 DVB-T，二者方向完全相反且各自 margin 都较大，构成无法用现有证据消解的实质性冲突",
+    "两分支均未支持同一类别，也都没有把对方类别作为次选，不存在可用来折中或交叉验证的中间信号"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不得比较原始概率大小、做平均/加权或用固定阈值裁决",
+    "本 case 未提供 64 维原始物理特征，physical_feature_evidence 为空，无法提供独立的类别区分证据",
+    "仅 1 MHz、4096 点、4.096 ms 局部视图，且盲输入不提供中心频率、地点、增益与真实标签",
+    "现有特征不测量 DVB-T 导频/TPS/载波间隔/保护间隔，也不测量 WiFi 前导/包边界或 LTE 同步/参考信号，宽带、类噪声、高 PAPR 等共享 OFDM 现象不能单独作为改判依据"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0327",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 feature-probe 分支各自内部都高度集中，但方向完全相反：IQ 以接近饱和的概率指向 LTE，feature-probe 以接近饱和的概率指向 WiFi。IQ 自身对其余类别的让步极小（DVB-T 约 7e-4、WiFi 约 3.6e-5），feature-probe 对 LTE 的让步同样小（约 4.4e-3）、对 DVB-T 几乎为零，两个分支都没有出现指向对方的实质性次级假设，也没有任何可稳定消解冲突的机制性证据。本 case 未提供 64 维物理特征，无法用时域/频域/时频行为对两种假设做可区分性检验，跨分支冲突不可消解，故不作改判。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 LTE，概率约 0.99927",
+    "IQ 分支 top1_top2_margin 约 0.99857，normalized_entropy 约 0.00562，分布高度集中",
+    "IQ 分支 Top2 为 DVB-T，概率约 6.98e-4；Top3 为 WiFi，概率约 3.61e-5，对 WiFi 的让步可忽略",
+    "IQ 分支未给出任何指向 WiFi 的实质性次级假设"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 WiFi，概率约 0.99563",
+    "分支 top1_top2_margin 约 0.99126，normalized_entropy 约 0.02559，同样高度集中",
+    "Top2 为 LTE，概率约 4.37e-3；Top3 为 DVB-T，概率约 8.9e-9",
+    "该分支以近乎排他方式支持 WiFi，对 IQ 分支的 LTE 假设让步有限"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支高度集中支持 LTE，feature-probe 分支高度集中支持 WiFi，两者方向直接对立且各自对该结论的置信都很高",
+    "两个分支的置信度未经校准，不能通过数值大小比较来判定谁更可信",
+    "IQ 分支内部不存在指向 WiFi 的次级质量（WiFi 约 3.6e-5），因此缺少“IQ 自身让步 + probe 集中指向”这一类可采信的跨分支链条"
+  ],
+  "limitations": [
+    "本 case 未提供 64 维物理特征，无法用时域包络、频谱占用、STFT 帧能量等行为特征对 LTE 的持续性占用与 WiFi 的突发性帧结构做可区分性检验",
+    "观测窗口仅 4.096 ms、带宽仅约 1 MHz，短窗内可能完全落入单个 WiFi 帧或 LTE 调度区间内部，导致两类假设在短窗统计上难以区分",
+    "OFDM 三类共享的宽带、类噪声、高 PAPR 等共性现象不具类别区分力，且本 case 亦无原始特征可供核对",
+    "在缺少可消解冲突的独立机制性证据时，无法在 keep 与 change 之间做出可靠取舍"
+  ]
+}

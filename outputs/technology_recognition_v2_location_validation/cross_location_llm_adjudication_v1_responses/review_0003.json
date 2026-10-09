@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0003",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支中等置信判 WiFi（0.6318，领先 0.2675，熵 0.6188），feature-probe 分支高置信判 DVB-T（0.9487，领先 0.8995，熵 0.1924），两分支方向相反且置信度未校准，不能以数值大小裁决。64 维物理特征中唯一与 DVB-T 一致的是连续稳定占据（active_frame_ratio=1.0、transition_ratio=0.0、frame_energy_cv≈0.090），但参考文档明确该模式为倾向性而非结构性证据，不能排除 WiFi（region 可能落在单个 WiFi 包内）；其余宽带/高熵/高平坦度/中 PAPR 特征为三类 OFDM 共享，且这些物理特征本身就是 feature-probe 的输入，不能作为第三个独立投票。冲突无法消解，判 abstain。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi（0.6318），Top2 为 DVB-T（0.3643），领先幅度 0.2675，归一化熵 0.6188，属中等置信而非压倒性判 WiFi",
+    "IQ 分支对 DVB-T 仍保留约 36% 概率，内部对 WiFi 的偏向并不明确，不构成强有力的单一方向证据"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T（0.9487），领先幅度 0.8995，归一化熵 0.1924，对 DVB-T 呈高置信",
+    "该分支方向与 IQ 分支相反，且两分支置信度未经校准，不能以概率数值直接比较或裁决"
+  ],
+  "physical_feature_evidence": [
+    "时频域 stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv≈0.090，呈连续稳定占据，与 DVB-T 广播倾向相符，但参考文档明确该模式不能排除 WiFi，属倾向性而非结构性区分证据",
+    "freq_global_spectral_entropy≈0.969、freq_global_spectral_flatness≈0.760、freq_normalized_occupied_bandwidth_90≈0.808、time_papr_db≈8.94 为 LTE/WiFi/DVB-T 三类 OFDM 共享特征，无类别区分力",
+    "freq_global_spectral_crest_factor≈11.93 按参考文档规则不得解释为导频证据",
+    "上述 64 维物理特征正是 feature-probe 的输入，不能当作第三个独立投票，否则重复计数"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支指向 WiFi（0.6318，中等置信），feature-probe 分支指向 DVB-T（0.9487，高置信），方向相反，构成实质性冲突",
+    "唯一与 DVB-T 相一致的物理证据（连续稳定占据）被参考文档明确限制为不可排除 WiFi，无法作为消解冲突的区分性依据"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能数值比较、平均、加权或用固定阈值裁决",
+    "时窗仅 4.096 ms、4096 样本，无法推断完整信道带宽与协议结构",
+    "现有物理特征均为 OFDM 共享或倾向性证据，缺乏可唯一区分 DVB-T 与 WiFi 的结构性测量",
+    "两分支冲突无法消解，故 abstain"
+  ]
+}

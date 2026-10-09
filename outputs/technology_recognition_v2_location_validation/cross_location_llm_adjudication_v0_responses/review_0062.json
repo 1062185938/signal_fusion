@@ -1,0 +1,36 @@
+{
+  "analysis_id": "review_0062",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "两个分支各自内部高度集中却直接对立：IQ 分支判 WiFi（约 0.996，归一化熵约 0.024），feature-probe 分支判 LTE（约 0.995，归一化熵约 0.028）。IQ 的主要次选 LTE 仅约 0.003，既不足以说明 IQ 内部分歧，也不构成「IQ 次选与 feature-probe Top1 一致」的交叉印证结构，因此不满足 change 所需证据链。物理特征显示 region 强非平稳、活动占空低、频谱近噪声状，这类突发性与宽带/高 PAPR 现象既可解释为 WiFi 突发帧，也可解释为 LTE 低负载或截取边界，且多属三类 OFDM 共享性质，无法在 WiFi 与 LTE 之间定向；包络自相关的周期性成分同样被参考文档列为 LTE 参考信号/时隙结构或 DVB-T 导频的可能表现。没有实测到任何协议级结构可供裁决，冲突无法消解，选择 abstain。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率约 0.99618，Top1-Top2 margin 约 0.9929，归一化熵约 0.0243，分布高度集中，branch 内部不存在实质竞争类别。",
+    "IQ 分支的主要次选为 LTE（约 0.00328），幅度极小，不构成对 WiFi 的实质竞争，也不能作为与 feature-probe Top1 相互印证的实质候选。",
+    "IQ 分支由 region 内全部非重叠局部窗口汇总得到，其高集中度说明该分支自身结论稳定，可作为被复核方，但本身不提供与另一分支的仲裁信息。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 LTE，概率约 0.99527，Top1-Top2 margin 约 0.9908，归一化熵约 0.0283，同样是高度集中而非近似平局或内部歧义。",
+    "feature-probe 的次选为 DVB-T（约 0.00444）与 WiFi（约 0.00029），均极小，未提供任何可用于调和两个分支的中间态。",
+    "两分支集中程度接近但 Top1 标签相反，且 IQ 次选类别与 feature-probe Top1 不一致，缺少可形成连贯证据链的结构性联系。"
+  ],
+  "physical_feature_evidence": [
+    "时域幅度/包络统计（time_envelope_cv≈1.066、time_amplitude_kurtosis≈14.04、time_amplitude_skewness≈3.15、time_papr_db≈15.17 dB）共同描述一个强非平稳、幅度起伏剧烈的 region，属同一物理现象，只计为一个证据模式。",
+    "STFT 活动性（time_frequency_stft_active_frame_ratio≈0.161、stft_frame_energy_cv≈1.670、energy_transition_ratio≈0.10）说明 4.096 ms 内大部分帧几乎无能量、仅少数帧活跃，且帧间能量波动很大。",
+    "time_envelope_power_autocorrelation_peak≈0.446 与 time_autocorrelation_peak_lag_ratio≈0.018（约 74 个采样，峰幅度仅约 0.134）提示存在某种重复/周期性包络结构，但相关峰偏弱，且 64 维特征不测量任何协议同步、导频、TPS 或保护间隔。",
+    "频域统计（occupied_bandwidth_90≈0.843、global_spectral_entropy≈0.975、global_spectral_flatness≈0.800、spectral_crest_factor≈4.46）显示能量铺满当前约 1 MHz 视图且近似噪声状，这是三类 OFDM 的共享性质，对 LTE/WiFi/DVB-T 不具类别区分力。",
+    "时频主脊线统计（stft_ridge_frequency_std≈0.214、ridge_slope≈-0.077、fsst/wsst_ridge_energy_ratio≈0.052/0.355）对三类多载波信号都不构成类别判据，只能反映当前区域内最强频率 bin 的波动。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支集中指向 WiFi、feature-probe 分支集中指向 LTE，两个分支在同一 region 上方向相反且各自内部自洽，且没有被实测到的协议级结构可用于打破对立。",
+    "物理特征显示强突发、低活动占空（活动帧比例约 0.16、帧能量 CV 约 1.67），按特征定义与参考文档既可对应 WiFi 突发帧，也可对应 LTE 低负载或截取边界造成的能量起伏，突发性不能自动等价为 WiFi。",
+    "包络功率自相关峰约 0.446 所反映的周期性成分，参考文档同时将其列为 LTE 参考信号/时隙结构以及 DVB-T 导频等结构的可能表现，无法据此向任一类别定向。"
+  ],
+  "limitations": [
+    "IQ 分支与 feature-probe 分支的概率未经互相校准，两者集中程度接近，任何跨分支数值大小比较都不构成裁决依据，本判定未使用概率平均、权重或固定阈值。",
+    "64 维物理特征正是 feature-probe 的输入，只能用于检验其结论是否有自洽物理解释，不能作为第三个独立投票或额外一票。",
+    "1 MS/s、4096 点、4.096 ms 只覆盖约 1 MHz 的局部基带视图，无法恢复标准信道带宽、完整帧结构或更长时尺度的占空比。",
+    "region 是否跨越包边界、接收门限、地点与传播环境差异都可能改变「突发/持续」的观感，参考文档明确提示不能仅凭短时能量起伏排除 WiFi 或 LTE。",
+    "现有 64 维特征未显式测量 LTE PSS/SSS 与参考信号、WiFi 前导、DVB-T 导频/TPS/保护间隔等结构，因此本案例缺少可用于定向的协议级证据。"
+  ]
+}

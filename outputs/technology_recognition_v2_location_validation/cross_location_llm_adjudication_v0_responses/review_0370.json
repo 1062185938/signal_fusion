@@ -1,0 +1,35 @@
+{
+  "analysis_id": "review_0370",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维 feature-probe 分支各自内部都高度集中，但分别指向互斥的 LTE 与 DVB-T，双方均未出现让步迹象；可用的 64 维物理特征主要落在三类 OFDM 共享的宽带、类噪声、高 PAPR 范围，唯一具方向性的全程占用现象又同时与 LTE 调度和 DVB-T 广播相容，属非排他证据。据此无法在两支之间形成具有类别区分力的裁断，冲突不可消解，选择 abstain。",
+  "iq_evidence": [
+    "iq_model 的 Top1 为 LTE，概率 0.999944，Top1-Top2 间隔 0.999902，归一化熵 0.000578，分支内部极度集中。",
+    "次优类为 DVB-T 4.17e-05、WiFi 1.42e-05，与 Top1 相差多个数量级，该分支未给出任何具有实质竞争意义的第二假设。",
+    "该分支的判据边界在本片段上表现得非常确定，说明其内部不存在待消解的分歧。"
+  ],
+  "feature_probe_evidence": [
+    "global_64_feature_linear_probe 的 Top1 为 DVB-T，概率 0.996517，Top1-Top2 间隔 0.993674，归一化熵 0.022622，分支内部同样高度集中。",
+    "次优类为 LTE 0.002842、WiFi 0.000641，与 Top1 差距明显，该分支未呈现近似并列的敏感性，不属于可忽略的不稳定输出。",
+    "两支均处于极端集中状态且指向不同类别，因此不能用任一支的概率数值去覆盖另一支，也不能对二者做比较、平均或加权。"
+  ],
+  "physical_feature_evidence": [
+    "时域包络形态一组（time_envelope_cv 0.580、time_amplitude_kurtosis 3.148、time_amplitude_skewness 0.659、time_amplitude_entropy 0.819）：包络存在中等起伏，既非明显突发也非完全恒包络，对 LTE 与 DVB-T 之争不具区分力。",
+    "带宽与频谱平坦度一组（freq_normalized_occupied_bandwidth_90 0.855、freq_global_spectral_flatness 0.891、freq_global_spectral_entropy 0.988、freq_global_spectral_crest_factor 2.986）：呈宽带、类噪声形态，为三类 OFDM 共享，无类别区分力。",
+    "时频活动一组（time_frequency_stft_active_frame_ratio 1.0、time_frequency_stft_energy_transition_ratio 0.0、time_frequency_stft_frame_energy_cv 0.278）：区域全程被占用且无通断跳变，与广播型连续发射相容，但同样可由 LTE 高负载调度或截取落在单个 WiFi 包内产生，属非排他证据。",
+    "PAPR 9.50 dB 及高阶统计量（time_c40 0.043、time_c42 0.177、time_autocorrelation_peak_magnitude 0.090、time_envelope_power_autocorrelation_peak 0.112）均处于三类 OFDM 的共同范围内，不能作为改判依据。",
+    "以上 64 维特征即 feature-probe 分支的输入，不构成独立于该分支的第三票。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支高度集中于 LTE（0.999944），feature-probe 分支高度集中于 DVB-T（0.996517），两者结论直接互斥且各自内部都极为确定，没有任何一方让度。",
+    "64 维特征中唯一具方向性的持续占用证据同时与 DVB-T 广播连续发射和 LTE 调度相容，无法据此判定哪一支的假设成立。",
+    "两个分支的概率未经校准，禁止直接比较大小或加权融合，因此不存在可用来打破该僵局的元判据。"
+  ],
+  "limitations": [
+    "仅有 4.096 ms、1 MS/s 的本地基带片段，无法恢复协议帧结构，也无法反推标准带宽。",
+    "64 维特征不测量协议级结构（WiFi 前导与包边界、LTE 同步与参考信号、DVB-T 导频/TPS/载波间隔/保护间隔），故本裁决未主张检出任何协议结构。",
+    "两分支概率未校准，本裁决未对二者进行数值比较、平均、加权或阈值化处理。",
+    "时频活动类特征采用区域内部相对阈值，仅覆盖单一 4096 采样区域，不能代表更长时间尺度上的占用模式。"
+  ]
+}

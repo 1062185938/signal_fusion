@@ -1,0 +1,30 @@
+{
+  "analysis_id": "review_0360",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.767 倾向 WiFi（DVB-T 0.229 为明显次席，熵 0.512，本身不确定度较高），64 维 feature-probe 分支则以 0.957 强烈指向 DVB-T（margin 0.916）。两分支 top1 分别落在 WiFi 与 DVB-T，方向相反且各自置信度未校准，无法直接比较概率大小或加权平均。本 case 未提供原始 64 维特征，缺少任何类别区分性的物理结构证据来消解 WiFi 与 DVB-T 之间的冲突，证据冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.7667",
+    "DVB-T 为明显次席，概率 0.2294，二者差距不大且非压倒性",
+    "LTE 概率仅 0.0038，基本可排除",
+    "top1-top2 margin 0.537，normalized_entropy 0.512，表明 IQ 分支自身仍有约一半不确定度"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9572，margin 0.916，熵 0.168，方向集中",
+    "WiFi 概率仅 0.0021，LTE 0.0408",
+    "该分支基于 64 维全局特征，其高置信度建立在多载波/宽带等共享物理量上，而非已测量的 DVB-T 专有结构（导频、TPS、载波间隔、保护间隔均未被现有 64 维特征测量）"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支 top1 为 WiFi，而 feature-probe 分支 top1 为 DVB-T，两个来源的结论方向直接对立",
+    "两分支置信度未经校准，不能以概率大小或加权平均裁决，也无法证明任一分支更可信",
+    "本 case 不含原始 64 维特征向量，缺少可用于区分 WiFi（突发/前导）与 DVB-T（广播持续占用/导频）的独立物理证据，冲突无法消解"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 分支置信度未校准，禁止比较概率数值、平均或施加固定阈值",
+    "64 维物理特征恰为 feature-probe 的输入，不构成第三个独立投票；OFDM 三类共享的宽带、类噪声、高 PAPR 等现象不能单独作为改判依据",
+    "当前 4.096 ms / 1 MHz 局部视图且未提供原始 64 维特征，无法测量 WiFi 前导、包边界或 DVB-T 导频等协议级结构，难以区分 WiFi 与 DVB-T",
+    "本 case 未提供 physical_feature_evidence，physical_feature_evidence 字段保持为空"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "analysis_id": "review_0146",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支虽以 WiFi 为 Top1，但该结论并不高度集中（归一化熵约 0.40），且其自身保留的实质性次优假设为 DVB-T（约 0.15）；64 维特征探针以集中形态指向 DVB-T，并把 IQ 的 Top1（WiFi）压至近乎排除。两分支在 DVB-T 上形成结构性一致（IQ 次优与探针 Top1 同为 DVB-T），据此改判为 DVB-T。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.8470，Top1-Top2 间隔 0.6973，归一化熵 0.4041，结论明确但并非高度集中。",
+    "IQ 分支次优为 DVB-T，概率 0.1497，说明 IQ 侧自身并未排除 DVB-T，而是保留了可观的替代质量。",
+    "IQ 分支对 LTE 仅 0.0033，LTE 在 IQ 侧基本被排除。"
+  ],
+  "feature_probe_evidence": [
+    "探针 Top1 为 DVB-T，概率 0.9158，Top1-Top2 间隔 0.8344，归一化熵 0.2744，属集中形态。",
+    "探针将 IQ 的 Top1 类别 WiFi 压至 0.0029，即探针近乎排除 WiFi。",
+    "探针次优为 LTE 0.0814，表明除 DVB-T 外仅 LTE 保留少量质量。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 Top1 直接对立（IQ 为 WiFi，探针为 DVB-T），且两分支置信度未经校准，不能以数值大小裁决。",
+    "两分支仅在 DVB-T 上一致：探针次优为 LTE 而 IQ 次优为 DVB-T，替代假设并未完全对齐。",
+    "本案未提供原始 64 维特征，无法用持续占用或突发等类别区分性倾向独立佐证改判。"
+  ],
+  "limitations": [
+    "未提供 physical_feature_evidence，无法以时频活动性（活动帧比例、帧能量 CV、能量跃迁比例等）独立验证 DVB-T 的持续占用倾向。",
+    "观测仅覆盖 1 MS/s、4096 点、4.096 ms，无法恢复帧级结构、导频或包边界，也不能由归一化 90% 占用带宽反推协议带宽。",
+    "探针分支未经校准，只能按结构关系（集中程度、次优类别一致性）解读，不得与 IQ 概率比较数值或做加权平均。",
+    "仅有单个 region，占空比与突发周期不可观测，且地点与接收条件造成的分布变化不能视作制式固有特征。"
+  ]
+}

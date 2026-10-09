@@ -1,0 +1,28 @@
+{
+  "analysis_id": "review_0083",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维 feature-probe 分支各自高度自信但方向相反：IQ 几乎确定为 LTE（0.9994），probe 几乎确定为 DVB-T（0.9973）。两分支置信度未校准，不能比较概率数值，也不能据此择一。本 case 未提供原始 64 维物理特征，缺少能区分 LTE 与 DVB-T 的协议级结构证据（如参考信号/资源栅格或 DVB-T 导频/TPS/载波间隔/保护间隔），冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.99943，top1_top2 间隔 0.9990，归一化熵仅 0.00466，几乎全部置信度集中于 LTE。",
+    "DVB-T 与 WiFi 在 IQ 分支中概率均低于 0.0005，可忽略。",
+    "该置信度属未校准输出，仅说明该分支内部自洽，不能与 probe 概率直接比大小或作平均/加权。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.99734，top1_top2 间隔 0.9952，归一化熵 0.0180，几乎全部置信度集中于 DVB-T。",
+    "LTE 与 WiFi 在该分支中概率均低于 0.0022，可忽略。",
+    "该置信度同样未校准，且 64 维特征是其输入，不能当作独立于两分支的第三票。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两个分支在 LTE 与 DVB-T 之间给出几乎满置信度且完全对立的结论，构成直接头对头冲突。",
+    "无原始 64 维物理特征可供引入类别区分证据；而参考文档明确指出现有 64 维特征不显式检测 LTE 参考信号/资源栅格或 DVB-T 导频/TPS/载波间隔/保护间隔。",
+    "PAPR、宽带、类噪声等高阶统计在三类 OFDM 中共享，不能单独支持任一方向。"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 置信度未校准，不能数值比较、平均或加权。",
+    "本 case 不含原始 64 维物理特征，缺少可区分类别的协议级结构测量。",
+    "1 MHz / 4.096 ms 局部视图不足以恢复完整资源栅格或 DVB-T 帧级结构，任何单一倾向都非类别判据。"
+  ]
+}

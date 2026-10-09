@@ -1,0 +1,85 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0405",
+      "decision": "keep",
+      "recommended_label": "LTE",
+      "confidence_level": "medium",
+      "summary": "复核结论：维持 LTE。IQ 分支对 LTE 高度集中（Top1≈0.9997，margin≈0.9995，归一化熵≈0.0026），对 DVB-T/WiFi 的残余质量可忽略，且不存在朝向 DVB-T 的分支内保留意见。feature-probe 虽以 DVB-T 为 Top1（≈0.6998），但 LTE 仍居第二位（≈0.2925），margin≈0.407、归一化熵≈0.589，说明该分支并未在 DVB-T 上形成决定性共识，其第二支持方向恰与 IQ 的判定一致。64 维物理特征只呈现三类 OFDM 共享的宽带、类噪声、高 PAPR 与中等能量起伏，缺少可区分 LTE 与 DVB-T 的方向性证据，不构成改判依据；同时证据强度也未达到两分支强-强对立、无法消解的程度。故不支持 change，维持原判。",
+      "iq_evidence": [
+        "IQ 分支 Top1 为 LTE（概率约 0.99971），Top2 为 DVB-T（约 0.00018），Top3 为 WiFi（约 0.00011）。",
+        "Top1-Top2 margin 约 0.99953，归一化熵约 0.00263，分布高度集中、无实质歧义。",
+        "IQ 对 feature-probe 的 Top1 类别 DVB-T 几乎无残余支持，即 IQ 自身并未对 DVB-T 保留意见。",
+        "IQ 与 feature-probe 的置信度未经校准，此处仅描述 IQ 内部分布形态，未与另一分支做数值比较。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe Top1 为 DVB-T（概率约 0.6998），Top2 为 LTE（约 0.2925），WiFi 仅约 0.0077。",
+        "其 margin 约 0.4073、归一化熵约 0.5887，偏向 DVB-T 但内部仍保留可观（近三成）的 LTE 质量。",
+        "该分支的第二支持类别正是 IQ 的判定类 LTE，两分支并非简单对立，probe 自身对结论存在分歧。",
+        "WiFi 概率在两分支中均极低，无任何指向 WiFi 的支持。"
+      ],
+      "physical_feature_evidence": [
+        "存在 64 维物理特征（matlab_iq_features_64_v2，覆盖完整 4096 采样区间）。",
+        "宽带/类噪声：归一化 90% 占用带宽约 0.844，全局谱熵约 0.971，谱平坦度约 0.773——属 LTE/WiFi/DVB-T 共有的 OFDM 现象，无类别区分力。",
+        "高 PAPR 与幅度非高斯：PAPR 约 12.18 dB，幅度偏度约 1.62、峰度约 5.62，包络 CV 约 0.831。",
+        "占用连续性：STFT 活跃帧比例约 0.935、帧能量转移比约 0.133、帧能量 CV 约 0.688，占用基本持续而非典型突发。",
+        "时频结构弥散：STFT/FSST 脊频率 std 约 0.242，WSST 带宽均值约 0.133，脊能量比偏低（FSST 约 0.055、WSST 约 0.284），谱峭度均值约 1.87（std 约 0.069）。",
+        "以上均为 feature-probe 的输入量，未提供可区分 LTE 与 DVB-T 的方向性证据。"
+      ],
+      "conflicting_evidence": [
+        "两分支 Top1 类别不同（feature-probe 为 DVB-T，IQ 为 LTE），存在方向性分歧。",
+        "feature-probe 内部亦未统一：DVB-T 与 LTE 分居前二，缺乏单一类别的决定性共识。",
+        "64 维特征中能量起伏（包络 CV 0.83、帧能量 CV 0.69）与持续占用（活跃帧比 0.935、转移比 0.133）方向不完全一致，无法据此单独指向 WiFi 突发或任一类别。",
+        "不存在独立于两分支的类别区分性证据可消解该分歧（宽带、类噪声、高 PAPR 为三类共享）。"
+      ],
+      "limitations": [
+        "IQ 分支与 feature-probe 分支置信度未联合校准，未做数值大小比较、加权平均或固定阈值裁决。",
+        "64 维物理特征即 feature-probe 的输入，不作为第三个独立投票，故不能为 DVB-T 提供额外独立支持。",
+        "观测窗仅 4096 采样（约 4.096 ms），短于 LTE 帧与 DVB-T 超帧等宏观结构，难以用时长特征区分调度型与广播型 OFDM。",
+        "LTE 低负载/静默子帧、DVB-T 连续广播与 WiFi 在包内截获等情形可在上述特征上互相伪装，判读存在残余不确定性。"
+      ]
+{
+  "analysis_id": "review_0405",
+  "decision": "keep",
+  "recommended_label": "LTE",
+  "confidence_level": "medium",
+  "summary": "复核结论：维持 LTE。IQ 分支对 LTE 高度集中（Top1≈0.9997，margin≈0.9995，归一化熵≈0.0026），对 DVB-T/WiFi 的残余质量可忽略，且不存在朝向 DVB-T 的分支内保留意见。feature-probe 虽以 DVB-T 为 Top1（≈0.6998），但 LTE 仍居第二位（≈0.2925），margin≈0.407、归一化熵≈0.589，说明该分支并未在 DVB-T 上形成决定性共识，其第二支持方向恰与 IQ 的判定一致。64 维物理特征只呈现三类 OFDM 共享的宽带、类噪声、高 PAPR 与中等能量起伏，缺少可区分 LTE 与 DVB-T 的方向性证据，不构成改判依据；同时证据强度也未达到两分支强-强对立、无法消解的程度。故不支持 change，维持原判。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 LTE（概率约 0.99971），Top2 为 DVB-T（约 0.00018），Top3 为 WiFi（约 0.00011）。",
+    "Top1-Top2 margin 约 0.99953，归一化熵约 0.00263，分布高度集中、无实质歧义。",
+    "IQ 对 feature-probe 的 Top1 类别 DVB-T 几乎无残余支持，即 IQ 自身并未对 DVB-T 保留意见。",
+    "IQ 与 feature-probe 的置信度未经校准，此处仅描述 IQ 内部分布形态，未与另一分支做数值比较。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe Top1 为 DVB-T（概率约 0.6998），Top2 为 LTE（约 0.2925），WiFi 仅约 0.0077。",
+    "其 margin 约 0.4073、归一化熵约 0.5887，偏向 DVB-T 但内部仍保留可观（近三成）的 LTE 质量。",
+    "该分支的第二支持类别正是 IQ 的判定类 LTE，两分支并非简单对立，probe 自身对结论存在分歧。",
+    "WiFi 概率在两分支中均极低，无任何指向 WiFi 的支持。"
+  ],
+  "physical_feature_evidence": [
+    "存在 64 维物理特征（matlab_iq_features_64_v2，覆盖完整 4096 采样区间）。",
+    "宽带/类噪声：归一化 90% 占用带宽约 0.844，全局谱熵约 0.971，谱平坦度约 0.773——属 LTE/WiFi/DVB-T 共有的 OFDM 现象，无类别区分力。",
+    "高 PAPR 与幅度非高斯：PAPR 约 12.18 dB，幅度偏度约 1.62、峰度约 5.62，包络 CV 约 0.831。",
+    "占用连续性：STFT 活跃帧比例约 0.935、帧能量转移比约 0.133、帧能量 CV 约 0.688，占用基本持续而非典型突发。",
+    "时频结构弥散：STFT/FSST 脊频率 std 约 0.242，WSST 带宽均值约 0.133，脊能量比偏低（FSST 约 0.055、WSST 约 0.284），谱峭度均值约 1.87（std 约 0.069）。",
+    "以上均为 feature-probe 的输入量，未提供可区分 LTE 与 DVB-T 的方向性证据。"
+  ],
+  "conflicting_evidence": [
+    "两分支 Top1 类别不同（feature-probe 为 DVB-T，IQ 为 LTE），存在方向性分歧。",
+    "feature-probe 内部亦未统一：DVB-T 与 LTE 分居前二，缺乏单一类别的决定性共识。",
+    "64 维特征中能量起伏（包络 CV 0.83、帧能量 CV 0.69）与持续占用（活跃帧比 0.935、转移比 0.133）方向不完全一致，无法据此单独指向 WiFi 突发或任一类别。",
+    "不存在独立于两分支的类别区分性证据可消解该分歧（宽带、类噪声、高 PAPR 为三类共享）。"
+  ],
+  "limitations": [
+    "IQ 分支与 feature-probe 分支置信度未联合校准，未做数值大小比较、加权平均或固定阈值裁决。",
+    "64 维物理特征即 feature-probe 的输入，不作为第三个独立投票，故不能为 DVB-T 提供额外独立支持。",
+    "观测窗仅 4096 采样（约 4.096 ms），短于 LTE 帧与 DVB-T 超帧等宏观结构，难以用时长特征区分调度型与广播型 OFDM。",
+    "LTE 低负载/静默子帧、DVB-T 连续广播与 WiFi 在包内截获等情形可在上述特征上互相伪装，判读存在残余不确定性。"
+  ]
+}
+
+session_id: 20260924_153939_e7a81a

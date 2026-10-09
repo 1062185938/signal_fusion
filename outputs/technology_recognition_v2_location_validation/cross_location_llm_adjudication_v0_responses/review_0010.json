@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0010",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支以 WiFi 为 Top1（0.9430），但其唯一有实质残留的竞争类是 DVB-T（0.0548），LTE 仅 0.0021；feature-probe 分支高度集中地指向 DVB-T（0.9223，margin 0.848），并把 WiFi 压到 0.0035，几乎排除 WiFi。两支在“LTE 不是候选”上一致，且 IQ 自身承认的替代类别恰是 probe 的 Top1，构成同向的 DVB-T 链条；probe 对 WiFi 的近乎否决又直接削弱了 IQ 的 WiFi 判断。故在 IQ 高置信的情况下仍判定改判为 DVB-T，但考虑到 IQ 对 WiFi 的集中度较高、DVB-T 让步幅度有限，且无原始物理特征佐证，置信度取中等。",
+  "iq_evidence": [
+    "Top1 为 WiFi，概率 0.9430，Top1-Top2 margin 0.8882，归一化熵 0.2073，分布高度集中",
+    "第二候选为 DVB-T（0.0548），是 IQ 分支唯一保留有意义概率的替代类别",
+    "LTE 仅 0.0021，可视为基本排除",
+    "IQ 未给出原始物理特征，无法从特征层面交叉验证其 WiFi 判断"
+  ],
+  "feature_probe_evidence": [
+    "Top1 为 DVB-T，概率 0.9223，Top1-Top2 margin 0.8481，归一化熵 0.2615，分布集中而非近似平局",
+    "WiFi 概率仅 0.0035，在被明确区分的三分类中几乎被否决",
+    "第二候选为 LTE（0.0742），与 Top1 存在明显间隔，说明 probe 的集中并非“OFDM 类无法区分”导致的塌缩"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支以 0.9430 支持 WiFi，而 feature-probe 分支把 WiFi 压到 0.0035，两支对 WiFi 的结论方向相反",
+    "IQ 对 WiFi 的集中度高于其历史上让步型样本，DVB-T 让步仅约 5.5%，链接证据强度有限",
+    "两分支置信度未经校准，不能按概率数值大小直接判定谁更可信，也不能做加权平均"
+  ],
+  "limitations": [
+    "本 case 未提供 64 维原始物理特征，无法用包络/突发性、PAPR、谱形等可区分现象交叉检验 DVB-T 与 WiFi 的判断",
+    "OFDM 三类共享宽带、类噪声、高 PAPR 等性质，该类现象本身不具类别区分力，不能作为改判依据",
+    "仅依据单条“IQ 第二候选 = probe Top1”的同向链条作出改判，缺少独立的第二类相干证据",
+    "LTE 低负载或采集窗口落在单个 WiFi 帧内部时，也可能产生与 DVB-T 类似的持续占用外观，因此持续占用类观察不外推",
+    "1 MS/s、4096 点、4.096 ms 的短窗本地观测限制了周期性结构（如 DVB-T 的 CP/导频、WiFi 的帧间隔）的可观测性"
+  ]
+}

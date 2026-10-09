@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0177", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支与 feature-probe 分支在 WiFi 与 DVB-T 之间冲突。IQ 分支虽以 WiFi 为 Top1，但仅约 0.64，Top1-Top2 间隔约 0.29、归一化熵约 0.62，属于内部并不决断的分布，且其全部实质质量都落在 WiFi 与 DVB-T 两类上，第二假设恰为 DVB-T。feature-probe 分支则高度集中于 DVB-T（约 0.95，间隔约 0.90、归一化熵约 0.19），对 WiFi 几乎为零，且其次优类别为 LTE 而非 WiFi，未对 IQ 的 Top1 提供任何重量。两分支虽不可直接比较数值，但结构上共同指向 DVB-T 为唯一被两侧同时赋予实质支持的类别，而 WiFi 仅在 IQ 一侧获得并不稳固的优势，因此改判为 DVB-T，置信度为 medium。", "iq_evidence": ["IQ 分支 Top1 为 WiFi（约 0.6415），DVB-T 约 0.3539，LTE 约 0.0047。", "IQ 分支 Top1-Top2 间隔约 0.2876、归一化熵约 0.6166，说明该分支内部在 WiFi 与 DVB-T 之间并不决断，只是略偏向 WiFi。", "IQ 分支中 WiFi 与 DVB-T 合计占几乎全部质量（约 0.995），即其唯一有意义的竞争类别就是 DVB-T，LTE 可忽略。", "IQ 分支并未把 DVB-T 排除在外，而是赋予了约 0.35 的实质质量作为第二假设。"], "feature_probe_evidence": ["feature-probe Top1 为 DVB-T（约 0.9474），LTE 约 0.0515，WiFi 约 0.0010。", "feature-probe 分布高度集中：Top1-Top2 间隔约 0.8959、归一化熵约 0.1921，内部一致性明显。", "feature-probe 对 IQ 的 Top1（WiFi）几乎不分配质量，未对 WiFi 提供任何实质支持。", "feature-probe 的次优类别是 LTE 而非 WiFi，说明其认为的主要替代假设与 IQ 分支的偏好方向不同。", "feature-probe 与 IQ 分支的共识点是 DVB-T 具有跨分支的实质支持。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支 Top1 为 WiFi，feature-probe Top1 为 DVB-T，两分支的最终指向不一致。", "两分支置信度未校准，不能直接比较 0.6415 与 0.9474 的大小，也不能做平均、加权或阈值裁决，只能依据分布结构与类别间关系判断。", "IQ 分支虽未决断，但仍对 WiFi 给出相对更高的概率，是本次改判的主要反向证据。"], "limitations": ["本 case 未提供 64 维原始物理特征，无法对两分支的分歧做任何物理层面的方向性佐证，物理证据列表为空。", "观测合同为 1 MS/s、4096 点、4.096 ms，仅覆盖当前基带内约 1 MHz 的局部视图，无法据此推断协议标准带宽或帧级结构。", "现有特征不检测 WiFi 前导/包边界、LTE 同步与参考信号、DVB-T 导频与保护间隔，因此不能声称已测量到任何制式专有结构。", "IQ 分支存在近半的质量落在 DVB-T 上，但也保留了不可忽视的 WiFi 优势，故不能完全排除 WiFi，仅能给出方向性改判。", "本次判断依赖两分支的分布结构（Top1 身份、Top1-Top2 间隔、归一化熵、次优类别归属）而非概率数值比较，属于结构性推断。"}
+
+session_id: 20260924_153939_e7a81a

@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0002","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支对 LTE 高度集中（LTE=0.99988，DVB-T=9.27e-5，WiFi=2.66e-5；top1-top2 间隔=0.99979，归一化熵=0.00115），其内部几乎不保留任何替代假设；64 维 feature-probe 分支则以 DVB-T 为 Top1（DVB-T=0.89740，LTE=0.08331，WiFi=0.01929；间隔=0.81410，归一化熵=0.34620）。两分支各自有单一主导类别且方向相反，彼此给对方类别的质量都很低，不构成“IQ 自身保留的次优类别 = probe Top1”这种相干链。本 case 未提供任何原始物理特征，缺少可打破僵局的第三方证据。由于两分支置信度未校准，不允许比较数值大小或加权折中，故该冲突无法在规则内消解，选择 abstain。","iq_evidence":["IQ 分支预测 Top1 为 LTE，概率 0.99988，DVB-T 0.00009、WiFi 0.00003，分布近乎退化","top1_top2_margin=0.99979，normalized_entropy=0.00115，说明 IQ 分支内部对 LTE 之外的类别几乎没有保留任何概率质量","IQ 分支对 probe 所选 DVB-T 的残余质量极小（约 9.3e-5），因此不存在“IQ 自身也指向 DVB-T”的内部歧义证据"],"feature_probe_evidence":["feature-probe 分支 Top1 为 DVB-T，概率 0.89740；LTE 0.08331、WiFi 0.01929","top1_top2_margin=0.81410，normalized_entropy=0.34620，属于“有明显主导类别但并非趋近退化”的分布，且次要类别恰为 IQ 的 Top1（LTE）","probe 分支未给 WiFi 任何显著支持（0.01929），但也未对 IQ 的 LTE 结论给出可与自身 DVB-T 主张相当的支持"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支以 0.99988 判定 LTE，而 feature-probe 分支以 0.89740 判定 DVB-T，两分支 Top1 直接对立且各自内部均有明确主导类别","两分支置信度未经校准，规则禁止直接比较其概率数值、禁止加权平均或用固定阈值裁定，因此无法判断哪一支更可信","probe 对 LTE 保留 0.08331、对 WiFi 保留 0.01929，IQ 对 DVB-T/WiFi 分别仅 9.27e-5/2.66e-5，冲突方向明确但缺乏可消解冲突的物理侧证据"],"limitations":["本 case 未提供 physical_feature_evidence（原始 64 维特征缺失），无法从时域/频域/时频特征侧对两分支冲突作独立核验","观测合同仅为 1 MS/s、4096 点、4.096 ms，无法据此推断协议标准带宽、帧结构或占空比","无物理特征可用，也就没有对 LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/保护间隔等协议结构做过任何显式测量","64 维物理特征即使可用，也只是 feature-probe 的输入，不能作为第三个独立投票；三类共享的宽带、类噪声、高 PAPR 现象单独不能支持改判","未使用中心频率、地点、增益、来源路径或案例编号等任何采集捷径信息"]}
+
+session_id: 20260924_153939_e7a81a

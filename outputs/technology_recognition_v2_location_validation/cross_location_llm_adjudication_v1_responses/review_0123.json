@@ -1,0 +1,35 @@
+{
+  "analysis_id": "review_0123",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支对 WiFi 与 DVB-T 几乎完全无区分（0.5004 对 0.4933，top1-top2 margin 仅 0.007，接近抛硬币），自身即处于准弃权状态；feature-probe 分支倾向 DVB-T（0.889），但其高置信度建立在三类 OFDM 共享的非区分特征之上。64 维物理特征呈典型共享 OFDM 形态（宽带、高谱熵、平坦、高 PAPR/波峰），其中唯一偏向 DVB-T 的连续稳定占空特征又存在“单帧 WiFi 包”这一已记录的等价解释，无法与 WiFi 区分。两分支在 WiFi/DVB-T 这一最难区分对上的冲突无法被物理特征消解，证据不足以支持 keep 或 change，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi 0.5004，但 top2 DVB-T 0.4933，top1-top2 margin 仅 0.0071，LTE 仅 0.0063。",
+    "归一化熵 0.6616，概率质量几乎全部集中在 WiFi 与 DVB-T 之间，IQ 分支自身对二者无实质区分力，接近准弃权。",
+    "IQ 的 WiFi 领先幅度极小，不足以作为可靠 keep 依据。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe top1 为 DVB-T 0.8887，margin 0.7839，熵 0.3403，数值上较确定。",
+    "但 probe 与 IQ 置信度均未校准，不能以 0.889 对 0.500 的数值大小作为改判依据。",
+    "probe 的输入正是这 64 维物理特征，而这些特征主要是三类 OFDM 共享量，probe 对 WiFi 的低概率（0.0065）反映的是共享形态下的弱区分，而非针对 DVB-T 的类别特异性证据。"
+  ],
+  "physical_feature_evidence": [
+    "freq_normalized_occupied_bandwidth_90=0.8147、freq_global_spectral_entropy=0.9698、freq_global_spectral_flatness=0.7698：宽带、高熵、平坦，属 LTE/WiFi/DVB-T 共享 OFDM 形态，非区分性。",
+    "time_papr_db=11.32、time_frequency_spectral_crest_mean=9.01：高 PAPR/高波峰，为 OFDM 共享现象，不能单独作为改判依据。",
+    "freq_global_spectral_crest_factor=9.73 较高，但技术参考明确禁止据此推断 DVB-T 导频梳，故不作为导频证据。",
+    "stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.1159：连续稳定占空，定性上偏向广播连续性，但技术参考明确记录了 4.096ms 窗口可能完全落在单个 WiFi 包内的等价解释，故不构成对 WiFi 的区分。",
+    "time_autocorrelation_peak_magnitude=0.2662、lag_ratio=0.0232：周期性结构弱，未见可区分的强周期/导频证据。",
+    "freq_max_squared_bicoherence=0.2681、mean=0.0310：二阶非线性结构存在但幅度温和，不足以区分 WiFi 与 DVB-T。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支在 WiFi 与 DVB-T 间无区分（margin 0.007），无法提供可靠的 keep 依据；feature-probe 则倾向 DVB-T 并压低 WiFi，二者方向不一致且都落在最难区分的 WiFi/DVB-T 对上。",
+    "唯一偏向 DVB-T 的物理特征（连续稳定占空）存在单帧 WiFi 包的等价解释，无法消解 WiFi 与 DVB-T 的冲突。"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能比较概率数值大小或加权平均，只能作定性方向判断。",
+    "64 维物理特征是 feature-probe 的输入而非独立第三票，不能重复计入；其中大部分为三类 OFDM 共享量，对 WiFi/DVB-T 区分力有限。",
+    "单窗口 4.096ms、1MHz 有效采样率，缺乏可用于区分 WiFi 与 DVB-T 的强结构（导频梳、保护间隔、特定帧时序）证据。",
+    "WiFi 与 DVB-T 同为 OFDM，是本任务中最难区分的一对，现有证据不足以支持任一改判方向。"
+  ]
+}

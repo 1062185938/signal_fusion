@@ -1,0 +1,33 @@
+{
+  "analysis_id": "review_0223",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支并不坚决：其 Top1 为 WiFi（0.658），但 DVB-T 仍保留 0.337 的实质支持，Top1-Top2 margin 仅 0.321、归一化熵 0.606，属于高不确定度输出；而 feature-probe 分支高度集中于 DVB-T（0.942，margin 0.887，熵 0.209），并把 WiFi 压到 0.002。两条分支并非互不相干的对立：IQ 分支留给的主要竞争假设（DVB-T）与 feature-probe 的 Top1 恰好一致，而 feature-probe 几乎否定了 IQ 的 Top1（WiFi）。因此两种不同特征视角在“DVB-T 是真实主要假设、WiFi 证据不足”这一点上形成相干链条，支持将原判 WiFi 改为 DVB-T。本 case 未提供 64 维原始物理特征，缺少可独立复核的时域/频域/时频量值，故置信度取 medium 而非更高。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.6584，但未达到决断水平；归一化熵 0.6063，分布明显分散。",
+    "Top1-Top2 margin 仅 0.3214，第二类 DVB-T 概率 0.3371，与 WiFi 处于同一量级，属于实质竞争而非尾部残余。",
+    "在 IQ 分支中 DVB-T 并非被排除的类别：它与 WiFi 合计占据约 0.996 的概率质量，其余仅剩 LTE 0.0045。",
+    "IQ 分支对 DVB-T 的实质支持说明其 WiFi 结论本身是低裕度、易受扰动影响的判断。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T，概率 0.9425，Top1-Top2 margin 0.8871，归一化熵仅 0.2087，输出高度集中。",
+    "同一分支将 WiFi 压至 0.0021，即 IQ 分支的 Top1 类别在该视角下几乎得不到支持。",
+    "该分支的第二类为 LTE（0.0554），而非 WiFi，说明其残余不确定性并不指向 WiFi。",
+    "分支输出本身不携带物理单位或置信度校准，仅作假设排序使用，未与 IQ 概率做任何数值比较或加权。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 Top1 直接对立：IQ 为 WiFi，feature-probe 为 DVB-T。",
+    "该对立已被部分消解：IQ 分支自身对 DVB-T 保留 0.337 的实质支持，与其 Top1（WiFi）差距有限，说明 IQ 结论脆弱；同时 feature-probe 对 WiFi 的支持近乎为零。",
+    "本 case 未附带 64 维原始物理特征，无法用独立量值检验“持续占用/突发边界”等类别区分性现象，冲突只能依靠两分支的结构关系消解。"
+  ],
+  "limitations": [
+    "IQ 分支与 64 维 feature-probe 分支的概率未经过相互校准，本裁决未比较二者数值大小，也未做概率平均、权重设计或固定阈值判定。",
+    "本 case 的 reference_document_paths 只列出 technology_reference_lte_wifi_dvbt.md，且输入未提供 physical_feature_evidence，故 physical_feature_evidence 为空，缺少原始特征层面的可复核证据。",
+    "观测合同为 1 MS/s、4096 点、4.096 ms：该视图无法恢复帧级结构，也不能由归一化 90% 占用带宽反推协议标准带宽。",
+    "现有证据未测量任何可区分类别的协议结构：WiFi 前导与包边界、LTE 同步信号/参考信号与资源栅格、DVB-T 连续/散布导频、TPS、载波间隔与保护间隔均未检测，长期占空比与突发周期同样不可得。",
+    "OFDM 三类共享的宽带、类噪声、高 PAPR 等性质不能单独用于改判；本裁决的改判依据是两分支假设排序的相干关系，而非共享物理现象。",
+    "由于缺少原始物理特征，无法排除截取位置、接收门限、业务负载等替代解释对“持续/突发”判读的影响，故置信度不超过 medium。"
+  ]
+}

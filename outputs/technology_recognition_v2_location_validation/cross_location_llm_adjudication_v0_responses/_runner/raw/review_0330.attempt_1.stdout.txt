@@ -1,0 +1,88 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0330",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支内部极端集中且几乎唯一地支持 LTE（Top1 概率 0.99992，Top1-Top2 margin 约 0.99987，归一化熵约 0.0008），其名义次高类 DVB-T 仅 5.53e-5，不构成实质竞争类，因此不存在“IQ 分支自身对替代类的有意义竞争”。feature-probe 分支则以 0.8927 稳定指向 DVB-T（margin 约 0.801，归一化熵约 0.351），属于内部集中而非近似平局，与 IQ Top1 直接对立。物理特征仅呈现“宽带类噪声 OFDM + 持续占用”这一大类模式，对 LTE 与 DVB-T 同等兼容，缺少可判别方向，无法打破两支的强对强僵局，故依规则abstain。",
+      "iq_evidence": [
+        "IQ Top1 为 LTE，概率 0.9999203681945801；Top2 为 DVB-T（5.53e-5），Top3 为 WiFi（2.43e-5）。",
+        "Top1-Top2 margin 约 0.99987，归一化熵约 0.0008，说明该分支内部高度集中、无实质内部竞争。",
+        "IQ 分支的次级标签名义上与 feature-probe Top1 同为 DVB-T，但其质量相对 Top1 可忽略，不足以构成“跨分支就主要竞争假设达成一致”。",
+        "因此不满足 change 所需的“IQ 分支本身存在涉及替代类的有意义竞争”这一前提；同时也不能仅凭“次高类与探测 Top1 同名”就把 IQ 标签改为 DVB-T。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe Top1 为 DVB-T，概率 0.8926932212119212；Top2 为 LTE（0.0915），Top3 为 WiFi（0.0158）。",
+        "Top1-Top2 margin 约 0.80118，归一化熵约 0.35106，属内部集中而非近似平局或内部矛盾，不能以“弱或近似平局”为由直接驳回其方向。",
+        "该分支虽保留约 9% 的 LTE 质量，但其主要指向是 DVB-T，与 IQ Top1（LTE）方向直接冲突。",
+        "其原始概率数值未与 IQ 分支做比较、平均或加权，仅用于刻画本分支内部结构。"
+      ],
+      "physical_feature_evidence": [
+        "物理模式一（持续占用、无突发结构）：time_frequency_stft_active_frame_ratio 为 1.0，time_frequency_stft_energy_transition_ratio 为 0.0，time_frequency_stft_frame_energy_cv 约 0.433。",
+        "物理模式二（宽带类噪声 OFDM）：freq_normalized_occupied_bandwidth_90 约 0.857，freq_global_spectral_flatness 约 0.846，freq_global_spectral_entropy 约 0.980，time_frequency_spectral_flatness_mean 约 0.520，time_frequency_spectral_entropy_mean 约 0.922。",
+        "包络与高阶统计：time_papr_db 约 12.99，time_envelope_cv 约 0.655，time_amplitude_kurtosis 约 6.71，time_amplitude_skewness 约 1.55，time_c42 约 1.21。",
+        "周期性线索：time_envelope_power_autocorrelation_peak 约 0.308，time_autocorrelation_peak_magnitude 约 0.181，time_autocorrelation_peak_lag_ratio 约 0.00537（约 22 个采样点）。",
+        "上述各特征描述的仅是两个相关物理现象（持续占用、宽带类噪声），按规则各计为一个物理证据模式，不重复计数、不构成额外投票。",
+        "该现象为 LTE/WiFi/DVB-T 共享的 OFDM 共性；“持续占用”对 DVB-T 连续广播与 LTE 连续调度（或观测窗落在单个活跃段内）同等成立，因此对当前 LTE 与 DVB-T 之争为非判别性。"
+      ],
+      "conflicting_evidence": [
+        "IQ 分支近乎唯一地支持 LTE，而 feature-probe 分支以约 0.893 集中于 DVB-T，两支各自内部一致且方向直接对立。",
+        "物理观测只支持“宽带类噪声 OFDM + 持续占用”这一类描述，对 LTE 与 DVB-T 同等兼容，无法偏向任一方，缺少可判别证据打破僵局。",
+        "没有任何被实际测量的协议级结构（同步、导频、前导、载波间隔、保护间隔等）可用于区分 LTE 与 DVB-T。",
+        "因此既不足以支撑改判 DVB-T（缺少 IQ 分支对替代类的实质竞争与可判别物理支持），也难以单凭 IQ 的集中输出驳回探测分支的一致方向，冲突无法消解。"
+      ],
+      "limitations": [
+        "两支分支的置信度未相互校准，未做跨分支概率比较、平均或权重融合，也未设置任何固定阈值型 if/else 规则。",
+        "观测窗口仅 4096 采样点 / 1 MS/s（约 4.096 ms），无法将归一化占用带宽换算为标准信道带宽，也难以覆盖完整帧或调度周期。",
+        "64 维特征未测量 LTE 同步/参考信号、WiFi 前导与帧边沿、DVB-T 导频/TPS/载波间隔/保护间隔等协议判别结构；STFT 活动性基于区域内部相对阈值且仅覆盖单一区域。",
+        "窗内可能只包含单个活跃段，导致“持续占用”无法反映真实的帧或调度结构，该替代解释无法排除。",
+        "本次仅依据该 case 及其声明的参考文档，未使用任何真值、审计或其他 case 信息。"
+      ]
+{
+  "analysis_id": "review_0330",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支内部极端集中且几乎唯一地支持 LTE（Top1 概率 0.99992，Top1-Top2 margin 约 0.99987，归一化熵约 0.0008），其名义次高类 DVB-T 仅 5.53e-5，不构成实质竞争类，因此不存在“IQ 分支自身对替代类的有意义竞争”。feature-probe 分支则以 0.8927 稳定指向 DVB-T（margin 约 0.801，归一化熵约 0.351），属于内部集中而非近似平局，与 IQ Top1 直接对立。物理特征仅呈现“宽带类噪声 OFDM + 持续占用”这一大类模式，对 LTE 与 DVB-T 同等兼容，缺少可判别方向，无法打破两支的强对强僵局，故依规则abstain。",
+  "iq_evidence": [
+    "IQ Top1 为 LTE，概率 0.9999203681945801；Top2 为 DVB-T（5.53e-5），Top3 为 WiFi（2.43e-5）。",
+    "Top1-Top2 margin 约 0.99987，归一化熵约 0.0008，说明该分支内部高度集中、无实质内部竞争。",
+    "IQ 分支的次级标签名义上与 feature-probe Top1 同为 DVB-T，但其质量相对 Top1 可忽略，不足以构成“跨分支就主要竞争假设达成一致”。",
+    "因此不满足 change 所需的“IQ 分支本身存在涉及替代类的有意义竞争”这一前提；同时也不能仅凭“次高类与探测 Top1 同名”就把 IQ 标签改为 DVB-T。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe Top1 为 DVB-T，概率 0.8926932212119212；Top2 为 LTE（0.0915），Top3 为 WiFi（0.0158）。",
+    "Top1-Top2 margin 约 0.80118，归一化熵约 0.35106，属内部集中而非近似平局或内部矛盾，不能以“弱或近似平局”为由直接驳回其方向。",
+    "该分支虽保留约 9% 的 LTE 质量，但其主要指向是 DVB-T，与 IQ Top1（LTE）方向直接冲突。",
+    "其原始概率数值未与 IQ 分支做比较、平均或加权，仅用于刻画本分支内部结构。"
+  ],
+  "physical_feature_evidence": [
+    "物理模式一（持续占用、无突发结构）：time_frequency_stft_active_frame_ratio 为 1.0，time_frequency_stft_energy_transition_ratio 为 0.0，time_frequency_stft_frame_energy_cv 约 0.433。",
+    "物理模式二（宽带类噪声 OFDM）：freq_normalized_occupied_bandwidth_90 约 0.857，freq_global_spectral_flatness 约 0.846，freq_global_spectral_entropy 约 0.980，time_frequency_spectral_flatness_mean 约 0.520，time_frequency_spectral_entropy_mean 约 0.922。",
+    "包络与高阶统计：time_papr_db 约 12.99，time_envelope_cv 约 0.655，time_amplitude_kurtosis 约 6.71，time_amplitude_skewness 约 1.55，time_c42 约 1.21。",
+    "周期性线索：time_envelope_power_autocorrelation_peak 约 0.308，time_autocorrelation_peak_magnitude 约 0.181，time_autocorrelation_peak_lag_ratio 约 0.00537（约 22 个采样点）。",
+    "上述各特征描述的仅是两个相关物理现象（持续占用、宽带类噪声），按规则各计为一个物理证据模式，不重复计数、不构成额外投票。",
+    "该现象为 LTE/WiFi/DVB-T 共享的 OFDM 共性；“持续占用”对 DVB-T 连续广播与 LTE 连续调度（或观测窗落在单个活跃段内）同等成立，因此对当前 LTE 与 DVB-T 之争为非判别性。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支近乎唯一地支持 LTE，而 feature-probe 分支以约 0.893 集中于 DVB-T，两支各自内部一致且方向直接对立。",
+    "物理观测只支持“宽带类噪声 OFDM + 持续占用”这一类描述，对 LTE 与 DVB-T 同等兼容，无法偏向任一方，缺少可判别证据打破僵局。",
+    "没有任何被实际测量的协议级结构（同步、导频、前导、载波间隔、保护间隔等）可用于区分 LTE 与 DVB-T。",
+    "因此既不足以支撑改判 DVB-T（缺少 IQ 分支对替代类的实质竞争与可判别物理支持），也难以单凭 IQ 的集中输出驳回探测分支的一致方向，冲突无法消解。"
+  ],
+  "limitations": [
+    "两支分支的置信度未相互校准，未做跨分支概率比较、平均或权重融合，也未设置任何固定阈值型 if/else 规则。",
+    "观测窗口仅 4096 采样点 / 1 MS/s（约 4.096 ms），无法将归一化占用带宽换算为标准信道带宽，也难以覆盖完整帧或调度周期。",
+    "64 维特征未测量 LTE 同步/参考信号、WiFi 前导与帧边沿、DVB-T 导频/TPS/载波间隔/保护间隔等协议判别结构；STFT 活动性基于区域内部相对阈值且仅覆盖单一区域。",
+    "窗内可能只包含单个活跃段，导致“持续占用”无法反映真实的帧或调度结构，该替代解释无法排除。",
+    "本次仅依据该 case 及其声明的参考文档，未使用任何真值、审计或其他 case 信息。"
+  ]
+}
+
+session_id: 20260924_153939_e7a81a

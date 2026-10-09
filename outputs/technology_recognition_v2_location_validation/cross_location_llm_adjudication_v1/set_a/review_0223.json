@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "bundle_type": "signal_fusion_cross_location_review_input",
+  "evidence_type": "blind_iq_feature_disagreement_adjudication",
+  "analysis_id": "review_0223",
+  "output_language": "zh-CN",
+  "signal_context": {
+    "effective_sample_rate_hz": 1000000.0,
+    "sample_count": 4096,
+    "duration_ms": 4.096
+  },
+  "iq_branch": {
+    "branch_name": "iq_model",
+    "probabilities": {
+      "LTE": 0.0045179333537817,
+      "WiFi": 0.6584233045578003,
+      "DVB-T": 0.3370587229728699
+    },
+    "top3": [
+      {
+        "label": "WiFi",
+        "probability": 0.6584233045578003
+      },
+      {
+        "label": "DVB-T",
+        "probability": 0.3370587229728699
+      },
+      {
+        "label": "LTE",
+        "probability": 0.0045179333537817
+      }
+    ],
+    "top1": {
+      "label": "WiFi",
+      "probability": 0.6584233045578003
+    },
+    "top1_top2_margin": 0.3213645815849304,
+    "normalized_entropy": 0.6063158781855468
+  },
+  "feature_probe_branch": {
+    "branch_name": "global_64_feature_linear_probe",
+    "probabilities": {
+      "LTE": 0.05539473970808852,
+      "WiFi": 0.002148768648625073,
+      "DVB-T": 0.9424564916432863
+    },
+    "top3": [
+      {
+        "label": "DVB-T",
+        "probability": 0.9424564916432863
+      },
+      {
+        "label": "LTE",
+        "probability": 0.05539473970808852
+      },
+      {
+        "label": "WiFi",
+        "probability": 0.002148768648625073
+      }
+    ],
+    "top1": {
+      "label": "DVB-T",
+      "probability": 0.9424564916432863
+    },
+    "top1_top2_margin": 0.8870617519351978,
+    "normalized_entropy": 0.2087421917535695
+  },
+  "reference_document_paths": {
+    "technology_reference_lte_wifi_dvbt.md": "/home/dianci/projects/signal_fusion/src/signal_fusion/fusion/references/technology_reference_lte_wifi_dvbt.md"
+  },
+  "required_output": {
+    "analysis_id": "exactly this input analysis_id",
+    "decision": "keep, change, or abstain",
+    "recommended_label": "LTE, WiFi, DVB-T, or null",
+    "confidence_level": "medium or low",
+    "summary": "concise Chinese blind adjudication summary",
+    "iq_evidence": "list of IQ-branch observations",
+    "feature_probe_evidence": "list of feature-probe observations",
+    "physical_feature_evidence": "list of raw-feature observations; empty when raw features are absent",
+    "conflicting_evidence": "list of material conflicts",
+    "limitations": "list of limitations"
+  }
+}

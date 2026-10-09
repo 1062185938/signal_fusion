@@ -1,0 +1,99 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+  ┊ ✍️ preparing write_file…
+  ┊ review diff
+a//tmp/review_0154_out.json → b//tmp/review_0154_out.json
+@@ -0,0 +1,29 @@
++{
++  "analysis_id": "review_0154",
++  "decision": "abstain",
++  "recommended_label": null,
++  "confidence_level": "low",
++  "summary": "IQ 分支以 0.99965 的接近确定概率判定 LTE，而 feature-probe 分支以中等置信偏向 DVB-T（0.5856，top1-top2 边际 0.1825，归一化熵 0.6648）。两分支 top1 相反，且 probe 边际 0.1825 明显大于接近平局，构成一次实质性投票而非弃权，因此不能当作非投票分支直接 keep。但本 case 未提供 64 维原始物理特征，无法独立核验 DVB-T 特有的导频、TPS、载波间隔或保护间隔等类别区分结构，probe 的 DVB-T 偏好强度又不足以构成多项相干且有区分力的证据来推翻 IQ 的接近确定 LTE。IQ 的接近确定也无法消解 probe 的中等强度 DVB-T 倾向。证据不足以改判，冲突无法消解，判 abstain。",
++  "iq_evidence": [
++    "IQ 分支 top1 为 LTE，概率 0.999654，top1-top2 边际 0.999446，归一化熵 0.003032，接近确定。",
++    "DVB-T 概率 0.000209、WiFi 概率 0.000137，均接近 0，IQ 分支对 LTE 几乎没有犹豫。"
++  ],
++  "feature_probe_evidence": [
++    "feature-probe 分支 top1 为 DVB-T，概率 0.585601，top1-top2 边际 0.182518，归一化熵 0.664768。",
++    "LTE 0.403083，WiFi 0.011315；DVB-T 对 LTE 领先约 0.1825，为中等强度、非接近平局的 DVB-T 倾向。",
++    "probe 的 DVB-T 概率仅 0.5856、熵 0.6648，置信中等，未达高置信，属有效但有限的投票。"
++  ],
++  "physical_feature_evidence": [],
++  "conflicting_evidence": [
++    "IQ 分支接近确定为 LTE（0.99965），而 feature-probe 分支以中等置信偏向 DVB-T（0.5856），两分支 top1 相反，构成实质性冲突。",
++    "probe 边际 0.1825 明显非接近平局，不能作为弃权忽略；但其强度又不构成可推翻 IQ 的强证据。",
++    "本 case 无 64 维原始物理特征，无法独立确认是否存在 DVB-T 特有的导频/TPS/载波间隔/保护间隔结构来裁决冲突。"
++  ],
++  "limitations": [
++    "IQ 分支与 feature-probe 分支置信度未校准，不能比较数值大小、做概率平均、发明权重或用固定 if/else 阈值裁决。",
++    "本 case 未提供 64 维原始物理特征，无法用独立物理结构证据支持或削弱任一分支。",
++    "feature-probe 的 DVB-T 偏好仅为中等强度（0.5856），不足以单独推翻 IQ 的接近确定 LTE。",
++    "1 MS/s、4.096 ms、1 MHz 局部视图下，无法用归一化占用带宽反推协议标准带宽，也不存在显式的 DVB-T/LTE 协议结构检测。",
++    "OFDM 三类共享的宽带、类噪声、高 PAPR、高频谱熵等现象不能单独作为改判依据。"
++  ]
++}
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0154",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支以 0.99965 的接近确定概率判定 LTE，而 feature-probe 分支以中等置信偏向 DVB-T（0.5856，top1-top2 边际 0.1825，归一化熵 0.6648）。两分支 top1 相反，且 probe 边际 0.1825 明显大于接近平局，构成一次实质性投票而非弃权，因此不能当作非投票分支直接 keep。但本 case 未提供 64 维原始物理特征，无法独立核验 DVB-T 特有的导频、TPS、载波间隔或保护间隔等类别区分结构，probe 的 DVB-T 偏好强度又不足以构成多项相干且有区分力的证据来推翻 IQ 的接近确定 LTE。IQ 的接近确定也无法消解 probe 的中等强度 DVB-T 倾向。证据不足以改判，冲突无法消解，判 abstain。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 LTE，概率 0.999654，top1-top2 边际 0.999446，归一化熵 0.003032，接近确定。",
+        "DVB-T 概率 0.000209、WiFi 概率 0.000137，均接近 0，IQ 分支对 LTE 几乎没有犹豫。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe 分支 top1 为 DVB-T，概率 0.585601，top1-top2 边际 0.182518，归一化熵 0.664768。",
+        "LTE 0.403083，WiFi 0.011315；DVB-T 对 LTE 领先约 0.1825，为中等强度、非接近平局的 DVB-T 倾向。",
+        "probe 的 DVB-T 概率仅 0.5856、熵 0.6648，置信中等，未达高置信，属有效但有限的投票。"
+      ],
+      "physical_feature_evidence": [],
+      "conflicting_evidence": [
+        "IQ 分支接近确定为 LTE（0.99965），而 feature-probe 分支以中等置信偏向 DVB-T（0.5856），两分支 top1 相反，构成实质性冲突。",
+        "probe 边际 0.1825 明显非接近平局，不能作为弃权忽略；但其强度又不构成可推翻 IQ 的强证据。",
+        "本 case 无 64 维原始物理特征，无法独立确认是否存在 DVB-T 特有的导频/TPS/载波间隔/保护间隔结构来裁决冲突。"
+      ],
+      "limitations": [
+        "IQ 分支与 feature-probe 分支置信度未校准，不能比较数值大小、做概率平均、发明权重或用固定 if/else 阈值裁决。",
+        "本 case 未提供 64 维原始物理特征，无法用独立物理结构证据支持或削弱任一分支。",
+        "feature-probe 的 DVB-T 偏好仅为中等强度（0.5856），不足以单独推翻 IQ 的接近确定 LTE。",
+        "1 MS/s、4.096 ms、1 MHz 局部视图下，无法用归一化占用带宽反推协议标准带宽，也不存在显式的 DVB-T/LTE 协议结构检测。",
+        "OFDM 三类共享的宽带、类噪声、高 PAPR、高频谱熵等现象不能单独作为改判依据。"
+      ]
+{
+  "analysis_id": "review_0154",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.99965 的接近确定概率判定 LTE，而 feature-probe 分支以中等置信偏向 DVB-T（0.5856，top1-top2 边际 0.1825，归一化熵 0.6648）。两分支 top1 相反，且 probe 边际 0.1825 明显大于接近平局，构成一次实质性投票而非弃权，因此不能当作非投票分支直接 keep。但本 case 未提供 64 维原始物理特征，无法独立核验 DVB-T 特有的导频、TPS、载波间隔或保护间隔等类别区分结构，probe 的 DVB-T 偏好强度又不足以构成多项相干且有区分力的证据来推翻 IQ 的接近确定 LTE。IQ 的接近确定也无法消解 probe 的中等强度 DVB-T 倾向。证据不足以改判，冲突无法消解，判 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.999654，top1-top2 边际 0.999446，归一化熵 0.003032，接近确定。",
+    "DVB-T 概率 0.000209、WiFi 概率 0.000137，均接近 0，IQ 分支对 LTE 几乎没有犹豫。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.585601，top1-top2 边际 0.182518，归一化熵 0.664768。",
+    "LTE 0.403083，WiFi 0.011315；DVB-T 对 LTE 领先约 0.1825，为中等强度、非接近平局的 DVB-T 倾向。",
+    "probe 的 DVB-T 概率仅 0.5856、熵 0.6648，置信中等，未达高置信，属有效但有限的投票。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支接近确定为 LTE（0.99965），而 feature-probe 分支以中等置信偏向 DVB-T（0.5856），两分支 top1 相反，构成实质性冲突。",
+    "probe 边际 0.1825 明显非接近平局，不能作为弃权忽略；但其强度又不构成可推翻 IQ 的强证据。",
+    "本 case 无 64 维原始物理特征，无法独立确认是否存在 DVB-T 特有的导频/TPS/载波间隔/保护间隔结构来裁决冲突。"
+  ],
+  "limitations": [
+    "IQ 分支与 feature-probe 分支置信度未校准，不能比较数值大小、做概率平均、发明权重或用固定 if/else 阈值裁决。",
+    "本 case 未提供 64 维原始物理特征，无法用独立物理结构证据支持或削弱任一分支。",
+    "feature-probe 的 DVB-T 偏好仅为中等强度（0.5856），不足以单独推翻 IQ 的接近确定 LTE。",
+    "1 MS/s、4.096 ms、1 MHz 局部视图下，无法用归一化占用带宽反推协议标准带宽，也不存在显式的 DVB-T/LTE 协议结构检测。",
+    "OFDM 三类共享的宽带、类噪声、高 PAPR、高频谱熵等现象不能单独作为改判依据。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

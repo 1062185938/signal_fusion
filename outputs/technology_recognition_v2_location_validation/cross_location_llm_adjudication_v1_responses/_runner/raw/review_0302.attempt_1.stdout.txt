@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0302","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支与 feature-probe 分支出现方向相反的实质冲突：IQ 分支以中等强度支持 WiFi（top1 0.8388，margin 0.6803，归一化熵 0.4143），feature-probe 分支以较强强度支持 DVB-T（top1 0.9229，margin 0.8488，归一化熵 0.2584）。当前 case 未提供 64 维物理特征，无法用物理证据对两分支做类别区分。两分支置信度未校准，不得比较数值大小或加权平均，且缺少具有类别区分力的独立物理结构证据，冲突无法消解，故弃权。","iq_evidence":["IQ 分支 top1 为 WiFi，概率 0.8388","IQ 分支 top1_top2 margin 0.6803，属中等强度支持 WiFi","IQ 分支归一化熵 0.4143，分布未完全集中于单一类别","DVB-T 在 IQ 分支中仍保留可观的次级概率 0.1585，说明 WiFi 并非压倒性唯一解释"],"feature_probe_evidence":["feature-probe 分支 top1 为 DVB-T，概率 0.9229","feature-probe 分支 top1_top2 margin 0.8488，表面强度较高","feature-probe 分支归一化熵 0.2584，集中于 DVB-T","该分支的 DVB-T 结论建立在 64 维特征之上，但本 case 未提供这些原始特征，无法独立核验其类别区分力"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支指向 WiFi，feature-probe 分支指向 DVB-T，两分支 top1 方向相反且各自都不弱","两分支置信度未校准，无法用数值大小、加权或固定阈值裁决孰对孰错","缺少 64 维物理特征，无法用物理结构（占用形态、突发边界、导频/周期性等）区分 WiFi 与 DVB-T"],"limitations":["本 case 未包含 64 维物理特征，physical_feature_evidence 为空，无法进行独立的物理解读","仅凭 1 MS/s、4096 点、4.096 ms 的局部视图，无法可靠恢复 DVB-T 帧/导频结构，也无法确认 WiFi 包边界","两分支概率未校准，不能直接比较 magnitude，也不能平均或加权","OFDM 三类共享的宽带、类噪声、高 PAPR 等现象不构成类别区分依据；本 case 无此类可核验的具体物理量"]}
+
+session_id: 20260924_110925_ee7ed4

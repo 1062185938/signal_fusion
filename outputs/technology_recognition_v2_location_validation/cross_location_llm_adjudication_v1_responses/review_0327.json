@@ -1,0 +1,28 @@
+{
+  "analysis_id": "review_0327",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支对 LTE 极端自信（0.999266，margin≈0.9986，熵 0.0056），而 64 维 feature-probe 分支对 WiFi 同样极端自信（0.995629，margin≈0.9913，熵 0.0256），两分支方向相反且均近乎饱和。本 case 未提供原始物理特征向量，无法用类别区分力的物理结构消解冲突；两分支置信度未校准、数值不可直接比较。冲突无法消解，判 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.999266，top1-top2 margin 0.998568，归一化熵 0.0056，方向与置信度均极端偏向 LTE",
+    "WiFi 与 DVB-T 概率均在 1e-3 以下，IQ 分支内部几乎无内部歧义"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 WiFi，概率 0.995629，margin 0.991257，熵 0.0256，方向与置信度均极端偏向 WiFi",
+    "LTE 与 DVB-T 概率分别仅 0.0044 与近 0，分支内部几乎无歧义",
+    "两分支置信度未校准，不得将 0.999 与 0.996 作数值大小比较或加权平均"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支强烈指向 LTE，feature-probe 分支强烈指向 WiFi，二者标签相反且各自置信度均接近饱和，构成无法消解的实质冲突",
+    "缺少原始 64 维物理特征，无法引入任何具有 LTE/WiFi 类别区分力的独立物理结构（如 LTE 参考信号/资源栅格、WiFi 前导或包边界）来裁决",
+    "在 1 MHz、4.096 ms 视图下，LTE 与常见 OFDM WiFi 共享宽带、多载波、类噪声等结构，无法仅凭共享性质偏向任一类"
+  ],
+  "limitations": [
+    "原始物理特征向量缺失，physical_feature_evidence 只能为空，不能据缺失值臆测",
+    "两分支置信度未校准，禁止数值比较、平均或固定阈值裁决",
+    "现有 64 维特征不显式检测 LTE 同步/参考信号、WiFi 前导/包边界，无法提供协议级结构证据",
+    "region 可能只覆盖局部视图，短时稳定性不能单独排除 WiFi 或 LTE"
+  ]
+}

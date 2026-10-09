@@ -1,0 +1,45 @@
+{
+  "analysis_id": "review_0139",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支把该 region 判为 WiFi，但其自身对 DVB-T 保留了很大的次优质量（WiFi 0.6153 对 DVB-T 0.3786，top1-top2 间隔仅 0.2367，归一化熵 0.6353），说明 IQ 分支内部并未形成对 WiFi 的一致确信，且其自身首选的竞争假设正是 DVB-T。64 维 feature-probe 分支以 0.9653 高度集中于 DVB-T（间隔 0.9320，归一化熵 0.1423），与 IQ 的次优方向一致，构成本 case 唯一被两个分支共同指向的候选类别。原始 64 维特征进一步给出方向相容的机制：STFT 活动帧比例 1.0、帧能量变异系数仅 0.0832、能量状态跃迁比例 0.0，配合归一化谱质心标准差 0.0177、包络功率自相关峰 0.0908 等，显示该 4.096 ms 片段内部为持续且平稳的占用，没有可分辨的突发边界或状态切换。三组证据（IQ 对 DVB-T 的实质让步、feature-probe 对 DVB-T 的集中指向、原始特征的持续占用机制）方向相干，而 WiFi 的典型突发发送在该片段内没有任何对应的时频证据，故将结论由 WiFi 改为 DVB-T。LTE 在两个分支中质量均极小（0.0062 / 0.0333），不作为竞争假设。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.6153；但 DVB-T 获得 0.3786，LTE 仅 0.0062",
+    "top1-top2 间隔仅 0.2367，归一化熵 0.6353，说明 IQ 分支在该 region 上分布明显分散，未对 WiFi 形成集中确信",
+    "IQ 分支内部让出的质量恰好集中在 DVB-T 上，即 IQ 自身的首选竞争假设与 feature-probe 的 top1 为同一类别",
+    "IQ 分支未对 LTE 保留任何可观质量，可将本 case 的分歧范围限定在 WiFi 与 DVB-T 之间"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe top1 为 DVB-T，概率 0.9653，明显高度集中",
+    "top1-top2 间隔 0.9320，归一化熵 0.1423，说明该分支内部对 DVB-T 的判断稳定而非临界",
+    "feature-probe 对 LTE 仅 0.0333、对 WiFi 仅 0.0013，与 IQ 分支的 WiFi 首选明显对立",
+    "feature-probe 的 top1（DVB-T）与 IQ 分支的次优类别（DVB-T）一致，构成跨分支在同一竞争假设上的交汇",
+    "两个分支的置信度未经校准，此处仅使用其各自内部的相对结构与指向方向，不比较概率数值大小、不做平均或加权"
+  ],
+  "physical_feature_evidence": [
+    "time_frequency_stft_active_frame_ratio = 1.0，该 4.096 ms 片段内全部 STFT 帧均处于活动状态",
+    "time_frequency_stft_frame_energy_cv = 0.0832，帧能量相对起伏很低，显示片内能量基本平稳",
+    "time_frequency_stft_energy_transition_ratio = 0.0，片内没有活动/非活动状态切换，未观察到可分辨的突发边界或占空比跳变",
+    "time_frequency_normalized_spectral_centroid_std = 0.0177，归一化谱质心随时间变化很小，频谱重心保持稳定",
+    "time_envelope_power_autocorrelation_peak = 0.0908，包络功率自相关峰很低，没有明显的包络周期性或重复突发结构",
+    "time_papr_db = 8.95、time_envelope_cv = 0.515、time_amplitude_kurtosis = 3.107、time_amplitude_skewness = 0.567，符合多载波叠加导致的近噪声状包络统计，但此类现象为三类共有，不能单独用于区分",
+    "freq_normalized_occupied_bandwidth_90 = 0.8093、freq_global_spectral_entropy = 0.9714、freq_global_spectral_flatness = 0.7750，能量在当前约 1 MHz 视图中较为分散且平坦；按参考文档，这只能说明能量铺展，不能反推标准带宽，也不能据此区分三类",
+    "time_frequency_spectral_kurtosis_std = 0.1721、time_frequency_spectral_skewness_std = 0.1129、time_frequency_normalized_stft_ridge_frequency_std = 0.1074，逐帧谱形状波动有限，进一步支持片内占用平稳"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支的首选类别是 WiFi，而 feature-probe 分支以 0.9653 集中指向 DVB-T，两个分支的 top1 直接对立",
+    "IQ 分支虽首选 WiFi，但对 DVB-T 保留 0.3786 的大额次优质量，其自身判断并不统一；这与 feature-probe 的 DVB-T 集中指向方向一致，而与其名称上的 WiFi 首选相冲突",
+    "原始特征中的持续占用迹象（活动帧比例 1.0、能量跃迁比例 0.0、帧能量变异系数 0.0832）与 WiFi 常见的突发发送倾向不相合，但与 DVB-T 广播型持续占用相容；然而按参考文档，WiFi 的 region 完全落在单个数据包内部时同样可能不呈现边界，故该迹象属于倾向性而非排他性证据"
+  ],
+  "limitations": [
+    "观测合同为 1 MS/s、4096 点、4.096 ms，只能看到当前接收基带内约 1 MHz 的局部视图，无法据此恢复协议带宽，也无法在片内恢复帧级协议结构",
+    "当前 64 维特征不执行 DVB-T 导频、TPS、载波间隔或保护间隔检测，也不执行 WiFi 前导相关或包边界检测，因此本 case 未声称检测到任何标准专有结构",
+    "STFT 活动性特征基于片段内部的相对阈值，只反映该 region 内的相对能量变化，不能替代原始连续 IQ 上的独立突发检测，也不能给出更长时间尺度上的占空比",
+    "参考文档明确指出 region 可能完全落在单个 WiFi 包内部而不呈现边界，且 LTE 低负载时也可能表现为稳定占用，因此“持续占用、无跃迁”不能单独排除 WiFi，只能作为倾向性证据之一；本 case 中 LTE 分支质量极小，主要竞争仅在 WiFi 与 DVB-T 之间",
+    "包络变异系数 0.515、PAPR 8.95 dB、较高频谱熵与平坦度等属于三类多载波信号共享的宽带、类噪声现象，按规则不得单独作为改判依据，本 case 仅将其作为相容性背景",
+    "IQ 分支与 feature-probe 分支的置信度未经校准，任何跨分支的概率数值比较、平均或加权均不成立；结论依据的是分支内部的分布结构、两分支指向的一致性与原始特征的方向相容性",
+    "谱熵、平坦度、峰值因子及其时间统计量彼此相关，本 case 未将其重复计为多次独立证据",
+    "两个分支的 top1 实际对立，改判依据是 IQ 自身对 DVB-T 的实质让步叠加 feature-probe 的集中指向与平稳占用机制，故置信度定为 medium 而非更高"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "analysis_id": "review_0238",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支给出 WiFi 0.7406 / DVB-T 0.2533（margin 0.4873，归一化熵 0.5472），属于“有明确 Top1 但并非决定性、且对 DVB-T 保留了实质概率质量”的形态；feature-probe 分支则高度集中于 DVB-T 0.9340、margin 0.8705、归一化熵 0.2305，并把 WiFi 压到 0.0024，等于对 WiFi 假说基本否定。两条分支在“DVB-T 是唯一站得住脚的竞争假说”这一点上方向一致，而 64 维证据中 STFT 活动帧比例 1.0、能量状态跃迁比例 0.0、帧能量 CV 0.1665 表明整个 region 处于持续活动状态、内部没有可辨识的突发边界或静默间隙，与 WiFi 的分组突发发送方式方向相悖，而与广播型持续占用相容。三者构成相干且具类别区分力的链条，故改判为 DVB-T。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi 0.7406，但未达决定性：Top1-Top2 margin 仅 0.4873，归一化熵 0.5472 显示分布并非高度集中。",
+    "IQ 分支自身给 DVB-T 保留 0.2533 的实质概率质量，即 IQ 模型本身并未排除 DVB-T 假说；LTE 仅 0.0061，几乎可忽略。",
+    "因此 IQ 分支的结论可归纳为“WiFi 与 DVB-T 竞争、WiFi 领先但不确定”，而不是对 WiFi 的强判定。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe Top1 为 DVB-T 0.9340，Top1-Top2 margin 0.8705，归一化熵 0.2305，属于高度集中的判断。",
+    "feature-probe 对 WiFi 仅给 0.0024、对 LTE 给 0.0636，即在特征空间中 WiFi 假说几乎被否定。",
+    "feature-probe 的集中 Top1（DVB-T）与 IQ 分支保留的第二假说（DVB-T 0.2533）指向同一类别，形成跨分支同向的结构性共识，而非两分支对撞。"
+  ],
+  "physical_feature_evidence": [
+    "time_frequency_stft_active_frame_ratio = 1.0，说明当前 4.096 ms region 内每一帧都被判为活动，没有静默片段。",
+    "time_frequency_stft_energy_transition_ratio = 0.0，且 time_frequency_stft_frame_energy_cv = 0.1665 偏低，说明 region 内没有能量状态切换、也没有明显的包络起伏，缺少 WiFi 突发发送应有的边界特征。",
+    "time_envelope_cv = 0.5229、time_papr_db = 8.7651 处于多载波信号常见范围，未呈现强突发或强削波结构；单独不具类别区分力。",
+    "freq_normalized_occupied_bandwidth_90 = 0.8057、freq_global_spectral_flatness = 0.7694、freq_global_spectral_entropy = 0.9696 显示宽带、类噪声、能量铺满当前 1 MHz 视图，这是 LTE/WiFi/DVB-T 共有性质，不作为改判依据。",
+    "综合解释：缺失突发边界与完全活动占空这一组时频特征，方向性地与广播型持续占用相容、与 WiFi 分组突发不相容，构成对 DVB-T 的有限独立支持。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支 Top1 明确为 WiFi，与 feature-probe 的 DVB-T Top1 直接对立，两者未校准，无法用数值大小裁决。",
+    "“持续、无过渡”的占用并非 DVB-T 专属：LTE 在高负载时段同样可表现为短 region 内相对稳定的占用，且参考文档明确指出截取/接收门限会改变所见结果。",
+    "region 完全落在一个 WiFi 包内部时同样可能不呈现包边界，因此“未观察到突发边界”不能单独排除 WiFi。",
+    "宽带、类噪声、高平坦度、较高 PAPR 等现象为三类共享，不能作为改判依据。"
+  ],
+  "limitations": [
+    "1 MS/s、4096 点、4.096 ms 的单 region 只是接收基带内的局部视图，无法反推协议标准带宽，也不足以恢复帧级结构。",
+    "没有任何协议专属结构被真正测量到：未检测 DVB-T 导频/TPS/载波间隔/保护间隔，未做 WiFi 前导相关或包边界检测，未做 LTE 同步/参考信号匹配。",
+    "STFT 活动性特征只覆盖单个 region，使用 region 内部相对能量口径，不能给出更长时尺度的占空比或突发周期。",
+    "IQ 分支与 64 维 feature-probe 分支的置信度未校准，本判断未对其概率做平均、加权或阈值比较，仅使用分布形态与特征方向。",
+    "本判断无法排除地点、传播环境、频偏、滤波与截取位置等替代解释带来的影响。"
+  ]
+}

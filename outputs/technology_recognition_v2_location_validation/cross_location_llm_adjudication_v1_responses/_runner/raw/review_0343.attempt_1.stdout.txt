@@ -1,0 +1,67 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0343",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支以极高置信度判 LTE（0.9999，与第二名 margin≈0.9999，熵 0.0008），64 维 feature-probe 分支同样以极高置信度判 DVB-T（0.9934，margin≈0.9886，熵 0.0396），两支方向完全相反且各自内部高度自洽。64 维物理特征整体呈共享 OFDM 形态（高谱熵、高平坦度、高占用带宽、PAPR 约 9.3 dB），无 DVB-T 或 LTE 特有的类别区分结构，无法消解两分支的强冲突，故 abstain。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 LTE，概率 0.99992，top1_top2_margin≈0.99986，normalized_entropy≈0.00080，属强自洽高置信判定。",
+        "IQ 分支其余两类概率极低（DVB-T 6.3e-05、WiFi 1.7e-05），方向上明确倾向 LTE。"
+      ],
+      "feature_probe_evidence": [
+        "feature-probe 分支 top1 为 DVB-T，概率 0.99340，top1_top2_margin≈0.98856，normalized_entropy≈0.0396，同样属高置信判定。",
+        "两支置信度未校准，数值大小不可直接比较；本 case 为两支各自高置信但方向直接对立（LTE 对 DVB-T）。"
+      ],
+      "physical_feature_evidence": [
+        "freq_global_spectral_entropy=0.9885、freq_global_spectral_flatness=0.8984、freq_normalized_occupied_bandwidth_90=0.8562，呈宽带、近平坦、类噪声形态，为 LTE/WiFi/DVB-T 三类 OFDM 信号共享现象，无类别区分力。",
+        "time_papr_db=9.265、time_frequency_spectral_crest_mean=6.591，属 OFDM 类高 PAPR 共性，不能单独作为任一类的判据。",
+        "time_frequency_stft_active_frame_ratio=1.0、time_frequency_stft_energy_transition_ratio=0.0、time_frequency_stft_frame_energy_cv=0.2396，反映连续稳定占用；该形态与 DVB-T 相容，但参考文档明确其不足以排除短窗内单一包/连续传输情形，对 LTE 与 DVB-T 的区分并不具备唯一性。",
+        "freq_global_spectral_crest_factor=3.085、freq_max_squared_bicoherence=0.340，未见可作为 DVB-T 导频或 TPS/循环前缀证据的显著结构。"
+      ],
+      "conflicting_evidence": [
+        "IQ 分支（LTE，高置信）与 feature-probe 分支（DVB-T，高置信）方向完全相反，且两者均为强置信判定，构成最强的一类头对头冲突。",
+        "64 维物理特征为 feature-probe 的输入而非独立第三票，且当前数值均为共享 OFDM 形态，无法提供可裁决 LTE 与 DVB-T 的类别区分证据。"
+      ],
+      "limitations": [
+        "两支置信度未校准，无法用概率数值直接仲裁，也未采用平均、加权或固定阈值。",
+        "case 中不含 LTE/DVB-T 特有结构（如子载波间隔、CP、导频/TPS、调制星座）的可测证据，现有 64 维特征不足以消解两支强冲突。",
+        "连续稳定占用（stft_active_frame_ratio=1.0、transition=0.0）存在 DVB-T 之外（含短窗内连续/单包）的替代解释，不能据此单独改判。"
+      ]
+{
+  "analysis_id": "review_0343",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以极高置信度判 LTE（0.9999，与第二名 margin≈0.9999，熵 0.0008），64 维 feature-probe 分支同样以极高置信度判 DVB-T（0.9934，margin≈0.9886，熵 0.0396），两支方向完全相反且各自内部高度自洽。64 维物理特征整体呈共享 OFDM 形态（高谱熵、高平坦度、高占用带宽、PAPR 约 9.3 dB），无 DVB-T 或 LTE 特有的类别区分结构，无法消解两分支的强冲突，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.99992，top1_top2_margin≈0.99986，normalized_entropy≈0.00080，属强自洽高置信判定。",
+    "IQ 分支其余两类概率极低（DVB-T 6.3e-05、WiFi 1.7e-05），方向上明确倾向 LTE。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.99340，top1_top2_margin≈0.98856，normalized_entropy≈0.0396，同样属高置信判定。",
+    "两支置信度未校准，数值大小不可直接比较；本 case 为两支各自高置信但方向直接对立（LTE 对 DVB-T）。"
+  ],
+  "physical_feature_evidence": [
+    "freq_global_spectral_entropy=0.9885、freq_global_spectral_flatness=0.8984、freq_normalized_occupied_bandwidth_90=0.8562，呈宽带、近平坦、类噪声形态，为 LTE/WiFi/DVB-T 三类 OFDM 信号共享现象，无类别区分力。",
+    "time_papr_db=9.265、time_frequency_spectral_crest_mean=6.591，属 OFDM 类高 PAPR 共性，不能单独作为任一类的判据。",
+    "time_frequency_stft_active_frame_ratio=1.0、time_frequency_stft_energy_transition_ratio=0.0、time_frequency_stft_frame_energy_cv=0.2396，反映连续稳定占用；该形态与 DVB-T 相容，但参考文档明确其不足以排除短窗内单一包/连续传输情形，对 LTE 与 DVB-T 的区分并不具备唯一性。",
+    "freq_global_spectral_crest_factor=3.085、freq_max_squared_bicoherence=0.340，未见可作为 DVB-T 导频或 TPS/循环前缀证据的显著结构。"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支（LTE，高置信）与 feature-probe 分支（DVB-T，高置信）方向完全相反，且两者均为强置信判定，构成最强的一类头对头冲突。",
+    "64 维物理特征为 feature-probe 的输入而非独立第三票，且当前数值均为共享 OFDM 形态，无法提供可裁决 LTE 与 DVB-T 的类别区分证据。"
+  ],
+  "limitations": [
+    "两支置信度未校准，无法用概率数值直接仲裁，也未采用平均、加权或固定阈值。",
+    "case 中不含 LTE/DVB-T 特有结构（如子载波间隔、CP、导频/TPS、调制星座）的可测证据，现有 64 维特征不足以消解两支强冲突。",
+    "连续稳定占用（stft_active_frame_ratio=1.0、transition=0.0）存在 DVB-T 之外（含短窗内连续/单包）的替代解释，不能据此单独改判。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

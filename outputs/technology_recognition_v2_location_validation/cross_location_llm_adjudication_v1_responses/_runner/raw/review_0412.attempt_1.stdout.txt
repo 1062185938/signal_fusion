@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0412","decision":"keep","recommended_label":"LTE","confidence_level":"low","summary":"IQ 分支对 LTE 几乎确定（0.9993，top1-top2 间隔 0.9988，归一化熵 0.0059），是全场唯一强信号。64 维 feature-probe 的 DVB-T 偏好极弱（0.5344 vs LTE 0.4569，间隔仅 0.0775，归一化熵 0.668），本质上接近平局、信息量很低，不足以推翻 IQ 分支。64 维物理特征仅呈现 LTE/WiFi/DVB-T 三类共享的 OFDM 现象（宽带、类噪声包络、高 PAPR、高谱熵/平坦度），未测量到任何 DVB-T 特有结构（导频、TPS、循环前缀、子载波间隔），且 STFT 帧能量变化大、占用不完全连续，既非稳定 DVB-T 广播也非决定性证据。因缺乏多项相干且具类别区分力的证据，保持 IQ 分支的 LTE 判定。","iq_evidence":["LTE 概率 0.9993，top1-top2 间隔 0.9988，归一化熵 0.0059，属近确定状态","DVB-T 0.00044、WiFi 0.00029，几乎无竞争"],"feature_probe_evidence":["DVB-T 0.5344 仅以 0.0775 的微弱间隔领先 LTE 0.4569，归一化熵 0.668，接近平局","该分支输出信息量低，不构成对 IQ 分支 LTE 判定的有力反证"],"physical_feature_evidence":["time_papr_db=15.02、freq_global_spectral_entropy=0.980、freq_global_spectral_flatness=0.824、occupied_bandwidth_90=0.835，均为三类 OFDM 共享的宽带类噪声现象，不具类别区分力","time_autocorrelation_peak_magnitude=0.191、mean_autocorrelation_magnitude=0.0155，未检测到强周期结构，不能支持 DVB-T 导频/TPS","freq_global_spectral_crest_factor=3.33、time_frequency_spectral_crest_mean=6.54 高，不得解释为导频检测","time_frequency_stft_active_frame_ratio=0.839、energy_transition_ratio=0.333、frame_energy_cv=0.813，占用不完全连续且帧能量波动大，属局部 4.096ms 视图，既不能确证 DVB-T 稳定广播，也非决定性"],"conflicting_evidence":["feature-probe 弱偏好 DVB-T 与 IQ 分支近确定 LTE 方向相反，但 probe 间隔过小、属近平局，冲突强度不足以消解 IQ 的强信号"],"limitations":["两分支置信度未校准，未做数值比较、平均、加权或固定阈值裁决","4.096ms 局部视图无法用归一化占用带宽反推标准协议带宽，STFT 帧能量特征非类别决定性的唯一证据","未观测到 DVB-T 特有结构，无法形成支持改判的多项相干类别证据"]}
+
+session_id: 20260924_110925_ee7ed4

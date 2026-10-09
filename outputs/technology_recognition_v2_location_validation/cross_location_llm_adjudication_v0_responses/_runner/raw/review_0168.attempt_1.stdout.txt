@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0168", "decision": "keep", "recommended_label": "LTE", "confidence_level": "medium", "summary": "IQ 分支对 LTE 呈高度集中且未分裂的判决（归一化熵约 0.005、Top1-Top2 间隔约 0.999），并明确将 WiFi 与 DVB-T 同时压低，说明模型在 region 内全部局部窗口上一致。feature-probe 分支虽然名义 Top1 为 DVB-T，但其 DVB-T 与 LTE 接近平局（间隔约 0.117、归一化熵约 0.705），且其 Top2 恰为 IQ 的 Top1 LTE，属于同一假设下的内部摇摆而非指向第三类的独立证据；两分支在候选集合层面实际上收敛于 LTE 与 DVB-T 的取舍，并未产生 IQ 之外的新类别信息。本 case 未提供 64 维原始物理特征，无法获得独立于 feature-probe 的物理层佐证。综合判断：IQ 判决集中稳定，probe 的 DVB-T 优势幅度小、自身不自信，不足以构成多项相干且具类别区分力的改判证据，故维持 LTE。", "iq_evidence": ["Top1 = LTE，概率约 0.9994，显著高于其余两类", "Top1-Top2 间隔约 0.9990，为三候选间近乎完全分离的分布", "归一化熵约 0.0051，模型在 region 内各局部窗口上高度一致，未出现类别分歧", "WiFi（约 0.00026）与 DVB-T（约 0.00035）同时被压低，未见任何实质竞争候选"], "feature_probe_evidence": ["Top1 = DVB-T（约 0.5477），Top2 = LTE（约 0.4308），两者接近平局", "Top1-Top2 间隔仅约 0.1169，远小于 IQ 分支的分离度，属于典型的两类摇摆", "归一化熵约 0.7053，分布接近均匀，probe 自身置信度低", "probe 的 Top2 与 IQ 的 Top1 同为 LTE，说明分歧集中在 LTE/DVB-T 之间而非存在第三类新证据", "WiFi 概率约 0.0214，两分支均予以排除，无 WiFi 方向证据"], "physical_feature_evidence": [], "conflicting_evidence": ["feature-probe 名义 Top1 为 DVB-T，与 IQ 的 Top1 LTE 方向相反；但其与 LTE 的间隔极小（约 0.117），属未决摇摆，且其 Top2 即 LTE，冲突实质上是同一候选集合内的排序差异"], "limitations": ["IQ 分支与 feature-probe 分支的置信度未经校准，二者数值不可直接比较，本判定仅依据各自分布的结构形态（集中度与候选关系）", "本 case 未提供 64 维原始物理特征，physical_feature_evidence 为空，缺少可独立校验的物理层观测；因此无法对 LTE 的持续占用或多载波行为作独立佐证", "观测合同仅为 1 MS/s、4096 点、4.096 ms，无法恢复协议帧级结构，也不能由归一化占用带宽反推标准带宽", "现有 64 维特征不检测 LTE 同步/参考信号，也不检测 WiFi 前导或 DVB-T 导频与保护间隔；三类共享的宽带、类噪声、高 PAPR 表现不具类别区分力", "probe 的 DVB-T 领先幅度较小且自身不稳定，无法排除其标签边界效应；在缺少物理特征支撑时不应据此改判"]}
+
+session_id: 20260924_153939_e7a81a

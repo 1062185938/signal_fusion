@@ -1,0 +1,32 @@
+{
+  "analysis_id": "review_0262",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "IQ 分支将样本判为 WiFi，但置信不集中（归一化熵 0.557），其次优类别恰为 DVB-T 且概率达 0.274；feature-probe 分支在该样本上高度集中于 DVB-T（0.916，间隔 0.836，归一化熵 0.280），其 Top1 与 IQ 分支的主要备选类别方向一致，同时把 WiFi 压低到 0.080。两分支并非各持一个相互对立的强结论，而是“IQ 犹豫 + feature-probe 稳定指向其备选类别”的相干结构，因此支持改判为 DVB-T。",
+  "iq_evidence": [
+    "IQ Top1 为 WiFi，概率 0.7224；Top2 为 DVB-T，概率 0.2735，仅次于 WiFi。",
+    "Top1-Top2 间隔仅 0.4489，归一化熵 0.5568，说明 IQ 分布明显不集中，判决勉强，DVB-T 仍属实质竞争类别。",
+    "LTE 概率仅 0.0040，可视为基本排除；冲突集中在 WiFi 与 DVB-T 之间。",
+    "IQ 的主要备选类别（DVB-T）与 feature-probe 的 Top1 一致，为跨分支方向吻合提供了结构性依据。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe Top1 为 DVB-T，概率 0.9157，远高于其余类别。",
+    "Top1-Top2 间隔 0.8360，归一化熵 0.2799，表明该分支在该样本上内部高度集中、非近似并列。",
+    "其 Top2 为 WiFi（0.0796），并未构成可与 DVB-T 竞争的备选；LTE 仅 0.0047。",
+    "该分支结论单一且明确，不存在需要与其他类别并列权衡的内部冲突。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 的 Top1（WiFi）与 feature-probe 的 Top1（DVB-T）在类别方向上不一致，若仅看两个 Top1 属于直接冲突。",
+    "该冲突并未由任何原始 64 维物理特征证据消解，目前只能依赖“IQ 自身不集中且备选类别与 feature-probe 一致”的结构性论证。",
+    "两分支置信度未经校准，不能以 0.7224 与 0.9157 等数值大小直接比较或加权，改判依据是方向一致性与内部分布结构，而非概率高低。"
+  ],
+  "limitations": [
+    "仅有 1 MS/s、4096 样本（4.096 ms）单区域观测，无法据此推断标准带宽、帧结构或周期性。",
+    "未提供原始 64 维物理特征，无法从物理机制层面独立佐证 DVB-T 或 WiFi，改判仅基于两分支的结构关系。",
+    "IQ 分支与 feature-probe 分支置信度未校准，本次未做任何概率平均、赋权或固定阈值裁决。",
+    "64 维特征本身即 feature-probe 的输入，不构成第三个独立投票；OFDM 三类共有的宽带、类噪声、高 PAPR 等现象在本案中未被用作改判依据。",
+    "缺乏能测度协议专属结构（LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/保护间隔）的证据，故不宣称任何协议特征被“检出”。"
+  ]
+}

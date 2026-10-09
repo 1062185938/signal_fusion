@@ -1,0 +1,26 @@
+{
+  "analysis_id": "review_0119",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支倾向 WiFi（0.6200，中等置信），feature-probe 分支强烈倾向 DVB-T（0.9238），两分支 Top1 方向对立构成实质冲突。本案不含 64 维原始物理特征，缺乏可区分 WiFi 与 DVB-T 的独立物理证据；且两分支置信度均未校准，不能用数值大小、平均或固定阈值消解。证据不足且冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi（0.6200），top2 为 DVB-T（0.3749），top1-top2 间隔 0.2451，归一化熵 0.6291，属中等置信而非高置信。",
+    "WiFi 与 DVB-T 差距不算悬殊，DVB-T 为显著次选项，说明该分支自身对 WiFi 与 DVB-T 的区分并不确定。"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T（0.9238），top2 为 LTE（0.0742），间隔 0.8496，归一化熵 0.2534，内部较确定地指向 DVB-T。",
+    "该分支概率未经校准，不能与 IQ 分支概率直接比较数值大小，也不能作为独立于 64 维物理特征的第三票。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支 Top1 指向 WiFi，feature-probe 分支 Top1 指向 DVB-T，两分支方向直接对立，构成实质冲突。",
+    "两分支置信度均未校准，无法通过概率比较、加权平均或固定 if/else 阈值裁决。"
+  ],
+  "limitations": [
+    "本案未提供 64 维原始物理特征，缺乏可独立区分 WiFi 与 DVB-T 的物理证据，无法为改判提供相干支撑。",
+    "64 维特征本身不显式检测 DVB-T 导频、TPS、载波间隔或保护间隔，也不检测 WiFi 包边界，故无法据此确认任一制式。",
+    "观测限于 1 MHz / 4.096 ms 局部视图，且不同采集地点信号强度与噪声特性不同，分布差异不能当作制式固有特征。",
+    "OFDM 三类共享的宽带、类噪声、高 PAPR 等性质不构成类别区分力，不能单独作为改判依据；当前证据不足以消解 WiFi 与 DVB-T 之间的冲突。"
+  ]
+}

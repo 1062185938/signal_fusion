@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0010","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支强烈指向 WiFi（0.943，top1-top2 间隔 0.888，熵 0.207），而 64 维 feature-probe 分支强烈指向 DVB-T（0.922，间隔 0.848，熵 0.262）。两分支各自高度自信但方向相反，构成实质且无法消解的冲突。本 case 未提供 64 维物理特征原始值，没有任何可独立核验、具有类别区分力的原始物理证据能打破 WiFi 与 DVB-T 的对立。两分支置信度未校准，不得直接比数值、做平均或用固定阈值裁决，也不能仅凭单分支的高置信度改判。因此证据冲突无法消解，选择弃权。","iq_evidence":["IQ 分支 top1 为 WiFi，概率 0.9430，top1-top2 间隔 0.888，归一化熵 0.207，对 WiFi 高度自信","IQ 分支次高为 DVB-T 0.0548，LTE 0.0021，几乎不具竞争性","IQ 分支的高置信度未经校准，不能直接用于压过另一分支"],"feature_probe_evidence":["feature-probe top1 为 DVB-T，概率 0.9223，top1-top2 间隔 0.848，归一化熵 0.262，对 DVB-T 高度自信","feature-probe 次高为 LTE 0.0742，WiFi 仅 0.0035","feature-probe 的高置信度同样未校准，且其结论与 IQ 分支方向相反，无法据此单方面改判"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支强烈支持 WiFi，feature-probe 强烈支持 DVB-T，两分支置信度均高但方向相反，属实质性冲突","缺少 64 维物理特征原始值，无法核验是否存在支持任一侧的成组、具类别区分力的原始物理证据","参考文档明确：短时稳定/宽带/高 PAPR 等结构为 LTE、WiFi、DVB-T 共享，不能单独作为改判依据，也不能用单特征投票"],"limitations":["本 case 未提供 physical_feature_evidence，无法对 64 维原始特征做独立物理解释","两分支置信度均未校准，数值大小不可直接比较，不得做平均、加权或固定 if/else 阈值裁决","观测窗口为 1 MS/s、4096 点、4.096 ms 的局部视图，不足以恢复 WiFi 前导/包边界或 DVB-T 导频/帧级等协议结构","在冲突无法消解且缺乏具区分力证据时，按规则应选择弃权而非强行改判"]}
+
+session_id: 20260924_110925_ee7ed4

@@ -1,0 +1,25 @@
+{
+  "analysis_id": "review_0226",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支极强地指向 LTE（top1 概率 0.9986，与次名差距 0.9977，归一化熵 0.0102），而 64 维 feature-probe 分支则明显偏向 DVB-T（0.6652 对 LTE 0.3130，差距 0.3522，归一化熵 0.6536）。两分支给出方向相反且都具有一定明确度的结论，构成实质性的头部冲突；本 case 未提供原始 64 维物理特征，缺少可用来消解该冲突的独立类别区分证据。两分支置信度未校准、不得比较数值大小或加权，因此冲突无法消解，选择弃权。",
+  "iq_evidence": [
+    "IQ 模型 top1 为 LTE，概率 0.9986，top1_top2_margin 0.9977，归一化熵 0.0102，属于对该类高度明确、几乎无不确定度的输出",
+    "IQ 分支次名 DVB-T 0.0009、WiFi 0.0004，可忽略，说明 IQ 分支内部高度一致地投给 LTE"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe top1 为 DVB-T，概率 0.6652，top1_top2_margin 0.3522，归一化熵 0.6536",
+    "probe 对 LTE 给出 0.3130，仍是不容忽视的第二名，说明其结论并非压倒性的 DVB-T，而是 LTE/DVB-T 之间的偏斜分布"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支几乎确定地为 LTE，而 feature-probe 分支明显偏向 DVB-T，两者方向相反且各自具有一定明确度，构成无法用单一分支覆盖的头部冲突",
+    "probe 的 DVB-T 领先幅度（0.3522）虽大于近平局水平，但远未达到可单独推翻 IQ 强结论的强度，且其置信度与 IQ 分支不可直接比较"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能比较原始概率大小、做平均、发明权重或用固定阈值裁决，因此无法在数值上裁定哪一支更可信",
+    "本 case 的 reference_document_paths 仅列出技术物理解释参考，未提供 64 维原始物理特征，无法用原始特征独立检验 LTE 或 DVB-T 特有的结构（参考文档明确 64 维特征不显式测量 LTE 参考信号/资源栅格，也不测量 DVB-T 导频、TPS、载波间隔、保护间隔）",
+    "参考文档强调三类共享宽带、类噪声、高 PAPR 等性质，即使存在原始特征也不能仅凭这些共享现象改判；当前既无特征也无类别区分力证据，故只能弃权"
+  ]
+}

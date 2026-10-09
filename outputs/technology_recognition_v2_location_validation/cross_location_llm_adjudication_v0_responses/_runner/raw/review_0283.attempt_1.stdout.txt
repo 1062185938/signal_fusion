@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0283", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "IQ 分支与 feature-probe 分支各自高度集中却指向相反类别：IQ 几乎完全判为 LTE（0.99990），而 feature-probe 几乎完全判为 DVB-T（0.99238），且双方对对方 Top1 的支持都接近零，未出现任何一方对另一假设让步。本 case 未提供 64 维物理特征，也没有可用的第三类证据来消解这一直接对立；两条分支的置信度又未校准，不能比较数值大小、不能平均或加权。因此证据冲突无法消解，选择 abstain，不推荐改判。", "iq_evidence": ["IQ 分支 Top1 为 LTE，概率 0.9998999834060669，占绝对主导。", "Top2 为 DVB-T 0.00007617472147103399，Top3 为 WiFi 0.00002389678957115393，两者均接近零。", "top1_top2_margin 为 0.9998238086845959，normalized_entropy 为 0.0009800008583592868，输出极度集中。", "IQ 分支没有给出任何对 DVB-T 或 WiFi 的实质性让步，未表现为可推翻的软判决。"], "feature_probe_evidence": ["feature-probe 分支 Top1 为 DVB-T，概率 0.9923819642477715。", "Top2 为 LTE 0.0063865487698070485，Top3 为 WiFi 0.001231486982421455，对 IQ 的 Top1 类别支持极低。", "top1_top2_margin 为 0.9859954154779644，normalized_entropy 为 0.04379538444327529，输出同样高度集中。", "该分支未呈现 near-tie 的内部摇摆，而是稳定地指向与 IQ 相反的类别，因此不能按“不稳定输出”处理为可忽略。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支高度集中判为 LTE，feature-probe 分支高度集中判为 DVB-T，两分支在同一 region 上给出方向相反的强结论。", "两分支互为 Top1 的支持都接近于零（IQ 给 DVB-T 约 7.6e-5，feature-probe 给 LTE 约 6.4e-3），不存在“一方让步、另一方接续”的可合成证据链。", "本 case 未提供 64 维物理特征，缺少第三组可独立检验的物理观测，冲突无法从物理侧判定归属。"], "limitations": ["两分支概率未校准，不能直接比较数值大小，也不能做平均、加权或使用固定阈值裁决。", "64 维物理特征正是 feature-probe 的输入，不是第三个独立投票；本 case 更未提供物理特征，因此无额外独立证据。", "观测仅为 1 MS/s、4096 点、4.096 ms 的局部基带视图，无法推断标准带宽或帧级结构。", "现有特征与文档均未测量 LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/载波间隔/保护间隔等类别专有结构，宽带、类噪声、高 PAPR 等为三类共享现象，不能单独作为改判依据。", "结论仅基于本 case 与其列出的技术参考文档，未使用其他 case、真值或审计信息。"]}
+
+session_id: 20260924_153939_e7a81a

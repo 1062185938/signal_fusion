@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "model_id": "feature_probe",
+  "model_type": "linear_64_to_classes",
+  "device": "cuda",
+  "feature_count": 64,
+  "class_count": 3,
+  "label_map": {
+    "0": "LTE",
+    "1": "WiFi",
+    "2": "DVB-T"
+  },
+  "dataset_dir": "/home/dianci/projects/signal_fusion/outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_dataset",
+  "dataset_id": "technology_recognition_cross_location_64_v2_fold4",
+  "configuration": {
+    "batch_size": 256,
+    "learning_rate": 0.01,
+    "max_epochs": 300,
+    "patience": 30,
+    "seed": 44,
+    "standardization": "train_split_mean_std"
+  },
+  "best_epoch": 1,
+  "best_validation_loss": 0.060510631650686264,
+  "epochs_completed": 31,
+  "elapsed_sec": 2.4136316776275635,
+  "constant_feature_count": 0,
+  "metrics": {
+    "train": {
+      "sample_count": 16080,
+      "correct_count": 15989,
+      "accuracy_percent": 99.43407960199005,
+      "confusion_matrix": [
+        [
+          5311,
+          1,
+          48
+        ],
+        [
+          28,
+          5329,
+          3
+        ],
+        [
+          11,
+          0,
+          5349
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LTE": 99.08582089552239,
+        "WiFi": 99.42164179104478,
+        "DVB-T": 99.79477611940298
+      }
+    },
+    "validation": {
+      "sample_count": 8040,
+      "correct_count": 8030,
+      "accuracy_percent": 99.87562189054727,
+      "confusion_matrix": [
+        [
+          2674,
+          6,
+          0
+        ],
+        [
+          0,
+          2680,
+          0
+        ],
+        [
+          3,
+          1,
+          2676
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LTE": 99.77611940298507,
+        "WiFi": 100.0,
+        "DVB-T": 99.85074626865672
+      }
+    },
+    "test": {
+      "sample_count": 8040,
+      "correct_count": 8020,
+      "accuracy_percent": 99.75124378109453,
+      "confusion_matrix": [
+        [
+          2664,
+          12,
+          4
+        ],
+        [
+          4,
+          2676,
+          0
+        ],
+        [
+          0,
+          0,
+          2680
+        ]
+      ],
+      "per_class_accuracy_percent": {
+        "LTE": 99.40298507462687,
+        "WiFi": 99.85074626865672,
+        "DVB-T": 100.0
+      },
+      "conditions": {
+        "clean": {
+          "sample_count": 8040,
+          "correct_count": 8020,
+          "accuracy_percent": 99.75124378109453,
+          "confusion_matrix": [
+            [
+              2664,
+              12,
+              4
+            ],
+            [
+              4,
+              2676,
+              0
+            ],
+            [
+              0,
+              0,
+              2680
+            ]
+          ],
+          "per_class_accuracy_percent": {
+            "LTE": 99.40298507462687,
+            "WiFi": 99.85074626865672,
+            "DVB-T": 100.0
+          }
+        }
+      }
+    }
+  },
+  "outputs": {
+    "checkpoint": "outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_probe/best_model.pth",
+    "onnx": "outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_probe/feature_classifier.onnx",
+    "scaler": "outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_probe/feature_scaler.npz",
+    "manifest": "outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_probe/feature_classifier_manifest.json",
+    "result": "outputs/technology_recognition_v2_location_validation/cross_location_fusion_64_v2_full/fold4/feature_probe/training_result.json"
+  }
+}

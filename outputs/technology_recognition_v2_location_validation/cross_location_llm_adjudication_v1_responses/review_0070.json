@@ -1,0 +1,32 @@
+{
+  "analysis_id": "review_0070",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.9999 的高置信度、极低熵稳定指向 LTE；feature-probe 分支以 0.735（与 LTE 0.237 之差 0.498）中等置信度指向 DVB-T，两分支方向相反且均非微弱。64 维物理特征（宽带占用 0.855、高谱熵 0.985、高平坦度 0.873、PAPR 10.32dB、低谱峰因子 3.47）均为 LTE/WiFi/DVB-T 三类 OFDM 共享的宽带、类噪声现象，且 STFT 活动帧占比仅 0.677、能量跳变比 0.233 呈间歇性而非连续广播占用，无法提供 LTE 与 DVB-T 之间的类别区分力。两分支冲突无法用现有特征消解，故 abstain。",
+  "iq_evidence": [
+    "top1=LTE，概率 0.9999409，top1_top2_margin=0.9999，normalized_entropy=0.00061，高度集中于 LTE",
+    "DVB-T 仅 4.54e-05、WiFi 仅 1.37e-05，几乎可忽略"
+  ],
+  "feature_probe_evidence": [
+    "top1=DVB-T，概率 0.7350969，top1_top2_margin=0.4982，normalized_entropy=0.6076，属中等置信度",
+    "LTE 0.2368864、WiFi 0.0280166，DVB-T 相对 LTE 有实际领先但并非压倒性，非近平局"
+  ],
+  "physical_feature_evidence": [
+    "freq_normalized_occupied_bandwidth_90=0.8552，宽带占用",
+    "freq_global_spectral_entropy=0.9852、freq_global_spectral_flatness=0.8730、freq_global_spectral_crest_factor=3.4714，谱平坦且类噪声，属 OFDM 共享特征",
+    "time_papr_db=10.324、time_amplitude_kurtosis=3.5887，高 PAPR 为 OFDM 共享现象",
+    "time_frequency_stft_active_frame_ratio=0.6774、time_frequency_stft_energy_transition_ratio=0.2333，呈间歇活动而非连续广播占用，不支持 DVB-T 连续发射",
+    "time_frequency_stft_frame_energy_cv=0.7337，帧能量波动较大，未见连续稳定占用"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支强置信度指向 LTE，feature-probe 分支中等置信度指向 DVB-T，方向相反",
+    "物理特征为三类 OFDM 共享的宽带/类噪声/高 PAPR，且间歇活动与 DVB-T 连续广播不一致，无法在 LTE 与 DVB-T 之间裁决"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 两分支置信度未校准，不可直接比较数值或做平均/加权",
+    "64 维物理特征是 feature-probe 的输入而非独立投票，且未测量导频、TPS、保护间隔、WiFi 前导码等协议级结构，无法区分 LTE 与 DVB-T",
+    "高谱平坦、高熵、低谱峰因子均为 OFDM 共享现象，单独不能支持改判 DVB-T",
+    "STFT 间歇活动不能排除 WiFi 单包或信号边缘情形，亦不能确证 DVB-T"
+  ]
+}

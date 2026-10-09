@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0136", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支虽以 WiFi 为 Top1（0.5975），但其对 DVB-T 保留了近乎相当的 0.3988 概率，Top1-Top2 差值仅约 0.1987、归一化熵约 0.6324，说明该分支在 WiFi 与 DVB-T 之间基本分裂、并未真正排除 DVB-T；feature-probe 分支则以约 0.9516 高度集中地指向 DVB-T（差值约 0.9043、归一化熵约 0.1814）。feature-probe 的集中 Top1 恰好等于 IQ 分支自身的次优类别，两分支在“DVB-T”上形成跨分支一致链，而 IQ 的 WiFi Top1 仅获得弱相对优势。由于本 case 未提供 64 维原始物理特征，无法用突发/持续结构作独立佐证，故在分支结构一致的基础上改判为 DVB-T，置信度定为中等。", "iq_evidence": ["iq_model 输出 Top1 为 WiFi，概率 0.5975424647331238", "Top2 为 DVB-T，概率 0.3988029360771179，与 Top1 接近；LTE 仅 0.0036546371411532164", "top1_top2_margin 约 0.1987，归一化熵约 0.6324，属于高熵、非集中的分裂型输出，说明 IQ 分支并未稳定排除 DVB-T", "IQ 分支自身把可观质量分配给 DVB-T，使其次优假设与另一分支的结论方向一致"], "feature_probe_evidence": ["global_64_feature_linear_probe 输出 Top1 为 DVB-T，概率 0.9515643447539841", "Top2 为 LTE 仅 0.04730861463411876，WiFi 仅 0.0011270406118971577", "top1_top2_margin 约 0.9043，归一化熵约 0.1814，属于高度集中、低熵的输出", "该分支的集中 Top1（DVB-T）与 IQ 分支的次优类别完全一致，构成跨分支一致的假设链，而非彼此对立的两个结论"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支的 Top1 是 WiFi，与建议标签 DVB-T 不一致，这是本 case 的主要冲突来源", "两分支概率未经校准，不能直接比较 0.5975 与 0.9516 的大小，也不能做平均、加权或按固定阈值裁决，只能依据各自内部的相对结构与分裂/集中程度判断", "feature-probe 的输入正是那 64 维物理特征，因此其高集中度不能被当作独立于特征之外的第三方投票"], "limitations": ["IQ 分支与 feature-probe 分支置信度未校准，结论基于各自输出的相对结构与一致性，不基于数值大小比较", "本 case 未提供 64 维原始物理特征，无法检查 region 内是否存在突发边界、能量跃迁或持续时间特征，因而无法对 DVB-T 的“持续/稳定占用”倾向或 WiFi 的“突发”倾向作独立的物理佐证", "观测合同为 1 MS/s、4096 点、4.096 ms 的单一连续 region，只覆盖接收基带约 1 MHz 的局部视图，无法恢复帧级结构、占空比或长期突发周期，也不能把归一化占用带宽反推为协议标准带宽", "64 维特征不显式测量 DVB-T 导频/TPS/载波间隔/保护间隔、WiFi 前导与包边界、LTE 同步与参考信号，因此本结论属于方向性、非排他性判断，不是基于协议结构的确认", "IQ 分支的高熵也可由地点、传播环境、截取位置或接收条件造成的分布变化引起，无法在盲条件下排除此类替代解释"]}
+
+session_id: 20260924_153939_e7a81a

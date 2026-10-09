@@ -1,0 +1,26 @@
+{
+  "analysis_id": "review_0420",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维 feature-probe 分支方向相反且置信度均未校准，无法消解。IQ 分支 Top1 为 WiFi（0.6792，margin 0.3627，熵 0.5921），置信度中等且 DVB-T 以 0.3165 作为相当强的次位，说明 IQ 本身对 WiFi 并不坚定；probe 分支 Top1 为 DVB-T（0.9506，margin 0.9018，熵 0.1823），置信度很高。两者分别指向不同类别，且本案未提供 64 维原始物理特征字段，缺少任何具有类别区分力的成组证据来打破平局。按规则不得对两分支概率做数值比较、平均或加权，冲突无法消解，判 abstain。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi，概率 0.6792，Top1-Top2 margin 0.3627，归一化熵 0.5921，属中等置信而非高置信",
+    "DVB-T 以 0.3165 居次位，与 WiFi 差距有限，IQ 分支并未明确偏向 WiFi，LTE 仅 0.0043"
+  ],
+  "feature_probe_evidence": [
+    "probe 分支 Top1 为 DVB-T，概率 0.9506，Top1-Top2 margin 0.9018，归一化熵 0.1823，置信度很高",
+    "次位为 LTE（0.0487），WiFi 仅 0.0007，与 IQ 分支的 WiFi 首选直接对立"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支首选 WiFi 而 probe 分支首选 DVB-T，两分支 Top1 类别相反且均有一定置信度",
+    "两分支置信度未校准，禁止直接比较数值大小、平均、加权或用固定阈值裁决，冲突无法在分支层面消解",
+    "IQ 分支自身 DVB-T 次位较强，进一步削弱了将其 Top1 WiFi 作为可采纳结论的依据"
+  ],
+  "limitations": [
+    "本案未包含 64 维原始物理特征字段，无法用成组的时域/频域/时频特征做类别区分或打破平局",
+    "观测边界为 1 MS/s、4096 点、4.096 ms 的局部视图，归一化占用带宽与短时稳定性均不能反推协议带宽或确认帧/包边界",
+    "IQ 与 probe 概率均未校准，二者方向对立时缺乏独立、类别区分力的第三方证据，只能判 abstain"
+  ]
+}

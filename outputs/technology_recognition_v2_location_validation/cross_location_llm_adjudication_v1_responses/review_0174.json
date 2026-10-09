@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0174",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以中等置信度判 WiFi（0.782，top1-top2 间隔 0.567，归一化熵 0.494），DVB-T 为实质性次优（0.215）；feature-probe 分支以高置信度判 DVB-T（0.966，间隔 0.933，熵 0.138）。两分支在 WiFi 与 DVB-T 之间方向相反且各自内部均有一定置信度。64 维物理特征呈现连续稳定占用（STFT 活跃帧比 1.0、能量跳变比 0.0、帧能量 CV 0.070），定性上偏向 DVB-T，但参考文档明确指出 4.096 ms 窗口可能完整落在单个 WiFi 报文内，短时稳定性不足以排除 WiFi；其余物理特征（宽带、类噪声高谱熵、高 PAPR、低二次相位相干性）为 OFDM 三类共享、无类别区分力。改判所需的多项相干且具类别区分力的证据不足，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.7818，top1-top2 间隔 0.5672，归一化熵 0.4943，属中等置信度而非强置信",
+    "DVB-T 概率 0.2146 为实质性次优，LTE 概率 0.0036 可忽略，说明 IQ 分支自身在 WiFi 与 DVB-T 之间存在明显不确定性"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9661，top1-top2 间隔 0.9330，归一化熵 0.1383，内部置信度高",
+    "该高置信度建立在 64 维物理特征之上，而这些特征多为 OFDM 共享量，其判别力受限，不能直接等同于独立第二投票"
+  ],
+  "physical_feature_evidence": [
+    "time_frequency_stft_active_frame_ratio=1.0、time_frequency_stft_energy_transition_ratio=0.0、time_frequency_stft_frame_energy_cv=0.0702：全窗口连续稳定占用，定性偏向 DVB-T 连续载波，但参考文档说明单个 WiFi 报文在 4.096 ms 内同样可表现为连续稳定，无法据此排除 WiFi",
+    "freq_global_spectral_entropy=0.9707、freq_global_spectral_flatness=0.7738、time_papr_db=9.52、freq_global_spectral_crest_factor=14.24：宽带、类噪声、高 PAPR、高谱峰因子，属 OFDM 三类共享现象，无类别区分力",
+    "freq_mean_squared_bicoherence=0.0316、freq_max_squared_bicoherence=0.3486、freq_bicoherence_weighted_biphase_concentration=0.0042：二次相位相干性低且集中，LTE 保护规则禁止用此类谱峰/峰因子证据单独主张导频或类别归属",
+    "time_frequency_normalized_fsst_time_frequency_entropy=0.9304、fsst_ridge_energy_ratio=0.0667：时频结构分散，未见明确的导频/同步字类离散结构"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支判 WiFi（中等置信）而 feature-probe 分支判 DVB-T（高置信），两分支方向相反且均未达到可单独定案的程度",
+    "物理特征的连续稳定占用定性偏向 DVB-T，但参考文档明确其不能排除单个 WiFi 报文，构成无法消解的方向性冲突"
+  ],
+  "limitations": [
+    "IQ 与 feature-probe 两分支概率未校准，不能比较数值大小、平均或加权，只能判断各自内部置信度",
+    "64 维物理特征即 feature-probe 的输入，不是独立第三投票，不能与 probe 概率重复计数",
+    "4.096 ms、1 MHz 归一化占用带宽不能推断协议标准带宽；短时稳定占用不能可靠区分 DVB-T 连续载波与单个 WiFi 报文",
+    "未见可单独用于类别归属的导频/同步字等离散结构证据"
+  ]
+}

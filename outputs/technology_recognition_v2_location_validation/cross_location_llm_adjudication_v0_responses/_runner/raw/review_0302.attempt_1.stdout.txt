@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0302", "decision": "change", "recommended_label": "DVB-T", "confidence_level": "medium", "summary": "IQ 分支最高票为 WiFi（0.839），但其唯一实质性次选正是 DVB-T（0.159），且归一化熵为 0.414，说明该 region 在 IQ 侧并非干净可判。feature-probe 分支则以 0.923 集中指向 DVB-T、并把 WiFi 压到 0.003，属于对 WiFi 的明确否定而非与 WiFi 的平局。IQ 的次选方向与 feature-probe 的集中方向指向同一类别，两者构成一致的 DVB-T 链路，而非相互抵消的对立证据，因此将标签改为 DVB-T。由于本 case 未提供 64 维原始物理特征，缺少可独立核对的时频行为证据，故置信度保持 medium。", "iq_evidence": ["IQ 分支 top1 为 WiFi，概率 0.8388，top1-top2 margin 为 0.6803，归一化熵 0.4143，属于有明确倾向但并非高度集中的结果。", "IQ 分支中 DVB-T 为唯一实质性次选（0.1585），LTE 仅 0.0027，说明 IQ 侧的分歧面只在 WiFi 与 DVB-T 之间。", "IQ 分支给出的第二候选类别与其 top1 在制式上同属多载波 OFDM 家族，其自身并未排除 DVB-T 解释。"], "feature_probe_evidence": ["feature-probe 分支 top1 为 DVB-T，概率 0.9229，top1-top2 margin 0.8488，归一化熵 0.2584，判别结果集中且稳定。", "feature-probe 分支将 WiFi 压至 0.0029，对 WiFi 构成明确否定，而非 WiFi 与 DVB-T 之间的近似平局。", "feature-probe 分支的次选为 LTE（0.0742）而非 WiFi，其内部排序与 IQ 分支的 WiFi 优先排序存在实质分歧。", "两支的候选集合交叉后，唯一同时被一支列为 top1、另一支列为实质性次选的类别是 DVB-T。"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支 top1 为 WiFi（0.8388）而 feature-probe 分支 top1 为 DVB-T（0.9229），两支的首选类别直接对立。", "feature-probe 分支几乎排除 WiFi（0.0029），与 IQ 分支对 WiFi 的较强倾向相互冲突。", "两分支置信度未经校准，无法用概率数值大小直接判定胜负，冲突只能依靠分支结构与候选交叉来消解。", "本 case 未附 64 维物理特征，无法通过时频行为（持续性或突发性）对该冲突作独立核对。"], "limitations": ["本 case 未提供 physical_feature_evidence，无法核对该 region 是否表现为持续占用或突发边界，缺失的物理证据使结论只能建立在分支结构之上。", "观测仅为 1 MS/s、4096 点、4.096 ms 的局部视图，且不存在协议级结构检测，无法确认 DVB-T 导频、保护间隔或载波间隔等任何标准结构。", "两分支概率未经校准，未对二者做平均、加权或阈值化处理，结论基于候选集合交叉与集中度结构。", "参考文档指出，若 region 完全落在一个 WiFi 包内部，也不必然呈现突发边界；同理若 DVB-T 侧只截取到信号的一部分，其表现也可能偏离广播型特征，上述替代解释无法在本 case 中排除。", "置信度仅给到 medium，因为支撑改判的是一支集中结果与另一支次选方向的吻合，而缺少可独立验证的物理或协议层证据。"]}
+
+session_id: 20260924_153939_e7a81a

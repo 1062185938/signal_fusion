@@ -1,0 +1,31 @@
+{
+  "analysis_id": "review_0094",
+  "decision": "change",
+  "recommended_label": "DVB-T",
+  "confidence_level": "medium",
+  "summary": "两个分支在 DVB-T 上形成一致指向：IQ 分支自身并未收敛，WiFi 0.5977 与 DVB-T 0.3980 近似并立（margin 0.1996、归一化熵 0.6351），其 Top1 属于弱结构性选择；而 64 维 feature-probe 分支内部高度集中，DVB-T 0.9165、归一化熵 0.2720、margin 0.8356，并把 WiFi 压到 0.0026。即 IQ 分支自己保留的次优假设恰是 feature-probe 的主要假设，且 feature-probe 几乎抹去了 IQ 的 Top1。两分支未直接冲突，而是共同把可分辨的类别指向 DVB-T，故支持将标签由 WiFi 改为 DVB-T。本案无原始 64 维特征，B 分支的注意力无法用独立物理证据复核，因此置信度定为 medium 而非更高。",
+  "iq_evidence": [
+    "IQ 分支 Top1 为 WiFi 0.5976527333259583，Top2 为 DVB-T 0.39804959297180176，LTE 仅 0.004297718405723572",
+    "top1_top2_margin 仅 0.1996031403541565，normalized_entropy 0.6351057194478216，明显高于收敛状态，说明 IQ 分支在 WiFi 与 DVB-T 之间未做出有区分力的决断",
+    "IQ 分支对 DVB-T 的 0.3980 支持度为可裁决保留了明确的第二假设，而非可忽略的尾部分量",
+    "IQ 分支对 LTE 的支持极低，可将 LTE 排除在主要争议之外"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 Top1 为 DVB-T 0.9165096707624342，Top2 为 LTE 0.08089333052651912，WiFi 仅 0.002596998711046658",
+    "top1_top2_margin 0.835616340235915，normalized_entropy 0.27196220666102655，表明该分支内部高度集中、对自身选择存在明确倾向",
+    "该分支对 WiFi 赋以近似零的分数，直接否定了 IQ 分支的 Top1 假设",
+    "该分支的首选类别与 IQ 分支的第二假设一致，构成跨分支对同一替代假设的指向"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支 Top1 为 WiFi，与 feature-probe 分支 Top1 为 DVB-T 在表面上方向相反；但 IQ 分支本身 margin 很低、熵偏高，其 WiFi 选择不具排他性，而 DVB-T 在其分布中仍有 0.3980 的实质支持，因此该分歧并非两个均已收敛结论的对立",
+    "本案未提供 64 维原始物理特征，无法独立核查 feature-probe 高置信度所依赖的特征组合是否包含类别区分力，也无法判断其是否只反映三类共享的宽带、类噪声、高 PAPR 结构"
+  ],
+  "limitations": [
+    "未提供 64 维原始特征，physical_feature_evidence 为空，无法用物理观测独立验证两分支的倾向",
+    "IQ 与 feature-probe 的置信度未经校准，本案只依据各分支内部的相对分布形态与两分支指向是否一致进行裁决，未对概率做平均、加权或阈值比较",
+    "两分支均未检测协议级结构（LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/保护间隔），因此无法给出机制层面的类别确证",
+    "当前仅有 4.096 ms、约 1 MHz 的局部视图，DVB-T 的持续性倾向与 LTE 低负载下的稳定占用在观测上可能重合，属非排他性判断",
+    "结论依赖 feature-probe 分支自身的高集中性；若该分支对输入扰动敏感，则改判依据会减弱"
+  ]
+}

@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0217","decision":"keep","recommended_label":"LTE","confidence_level":"low","summary":"IQ 分支以极高置信度判定 LTE，feature-probe 分支在 DVB-T 与 LTE 之间几乎平局、判别力极弱，本案无原始 64 维物理特征可作独立佐证。两分支不构成可消解的实质性冲突，维持 IQ 分支的 LTE 结论。","iq_evidence":["IQ 分支 top1 为 LTE，概率 0.999265，远高于 DVB-T(0.000443) 与 WiFi(0.000291)","top1-top2 margin 达 0.998822，normalized_entropy 仅 0.00594，表明 IQ 分支内部高度确定、无竞争性次选","三类中 WiFi 概率最低，排除 WiFi 无争议"],"feature_probe_evidence":["feature-probe top1 为 DVB-T(0.5344)，top2 为 LTE(0.4569)，margin 仅 0.0775，属近似平局","normalized_entropy 0.668，接近均匀分布，说明 probe 对 LTE 与 DVB-T 缺乏判别力，实质上接近弃权而非有效反向投票","probe 与 IQ 的方向差异源于 probe 自身未形成明确倾向，不构成推翻 IQ 的高置信冲突证据"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支强判 LTE 与 feature-probe 微弱偏向 DVB-T 存在方向性分歧，但 probe 的 DVB-T 领先幅度极小且熵高，判别力不足以构成实质性冲突"],"limitations":["本案未提供原始 64 维物理特征，无法用类别区分力特征独立佐证任一分支","feature-probe 的 DVB-T 概率仅为近平局下的微弱领先，不能解释为对 DVB-T 的可靠支持","两分支置信度未校准，未比较概率数值大小、未做平均或加权，仅按判别强度判断","4.096 ms / 1 MHz 局部视图不足以显式检测 LTE 同步/参考信号或 DVB-T 导频/TPS 等协议结构，维持结论的置信度限制为 low"]}
+
+session_id: 20260924_110925_ee7ed4

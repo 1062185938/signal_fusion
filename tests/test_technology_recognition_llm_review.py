@@ -1,111 +1,138 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
+import numpy as np
+
+from signal_fusion.benchmarks.technology_recognition_hermes_review_runner import (
+    load_submission_cases,
+)
 from signal_fusion.benchmarks.technology_recognition_llm_review import (
-    FEATURE_REFERENCE_DOCUMENTS,
-    PERIODICITY_REFERENCE_DOCUMENT,
-    TECHNOLOGY_REFERENCE_DOCUMENT,
-    build_review_experiment_case,
+    build_adjudication_case,
+    build_review_experiment_files,
+    select_adjudication_rows,
 )
-from signal_fusion.feature_extraction import asset_path
-from signal_fusion.fusion.references import (
-    periodicity_reference_path,
-    technology_reference_path,
-)
+from signal_fusion.feature_extraction import feature_code_names, load_feature_map
 
 
-def _source_case():
-    feature_paths = {
-        name: str(asset_path(name).resolve())
-        for name in FEATURE_REFERENCE_DOCUMENTS
-    }
-    feature_paths[TECHNOLOGY_REFERENCE_DOCUMENT] = str(
-        technology_reference_path().resolve()
+def _probabilities():
+    iq = np.asarray(
+        [
+            [0.60, 0.40, 0.00],
+            [0.80, 0.20, 0.00],
+        ],
+        dtype=np.float64,
     )
-    return {
-        "schema_version": 3,
-        "bundle_type": "hermes_signal_fusion_input",
-        "signal_context": {"effective_sample_rate_hz": 1_000_000.0},
-        "iq_ensemble_evidence": {
-            "risk_gate": {"unanimous": False},
-            "members": [{}, {}, {}],
-        },
-        "periodicity_evidence": {
-            "frozen_gate": {"resolved": False, "changed": False},
-            "reference_document": PERIODICITY_REFERENCE_DOCUMENT,
-            "reference_document_path": str(periodicity_reference_path().resolve()),
-        },
-        "deterministic_fusion_result": {
-            "decision_status": "review_required",
-            "resolution": "unresolved_review",
-            "final_label": None,
-            "provisional_label": "LTE",
-            "review_reason": "periodicity_below_threshold",
-        },
-        "global_feature_evidence": {
-            "feature_count": 64,
-            "values": {f"feature_{index}": float(index) for index in range(64)},
-            "reference_documents": [
-                *FEATURE_REFERENCE_DOCUMENTS,
-                TECHNOLOGY_REFERENCE_DOCUMENT,
-            ],
-            "reference_document_paths": feature_paths,
-        },
-    }
+    feature = np.asarray(
+        [
+            [0.20, 0.80, 0.00],
+            [0.30, 0.70, 0.00],
+        ],
+        dtype=np.float64,
+    )
+    return iq, feature
 
 
-class LlmReviewExperimentTests(unittest.TestCase):
-    def test_paired_cases_differ_only_by_optional_feature_evidence(self):
-        source = _source_case()
-
-        without_features = build_review_experiment_case(
-            source,
-            "review_0001",
-            include_global_features=False,
+class LlmReviewCaseBuilderTests(unittest.TestCase):
+    def test_selection_uses_only_predictions_and_balances_roles(self):
+        iq, feature = _probabilities()
+        selected = select_adjudication_rows(
+            iq,
+            feature,
+            np.asarray(["fold1", "fold1"]),
+            random_seed=44,
         )
-        with_features = build_review_experiment_case(
-            source,
+
+        np.testing.assert_array_equal(selected["proposal_indices"], [0])
+        np.testing.assert_array_equal(selected["shadow_indices"], [1])
+        self.assertEqual(selected["same_fold"].tolist(), [True])
+
+    def test_public_variants_have_no_private_metadata(self):
+        iq, feature = _probabilities()
+        names = feature_code_names(load_feature_map())
+        set_a = build_adjudication_case(
+            "review_0001", iq[0], feature[0], include_physical_features=False
+        )
+        set_b = build_adjudication_case(
             "review_0002",
-            include_global_features=True,
+            iq[0],
+            feature[0],
+            include_physical_features=True,
+            physical_features=np.arange(64, dtype=np.float32),
+            feature_names=names,
         )
 
-        self.assertNotIn("global_feature_evidence", without_features)
-        self.assertIn("global_feature_evidence", with_features)
-        self.assertEqual(
-            set(without_features["reference_document_paths"]),
-            {TECHNOLOGY_REFERENCE_DOCUMENT, PERIODICITY_REFERENCE_DOCUMENT},
-        )
-        self.assertEqual(len(with_features["reference_document_paths"]), 5)
-        self.assertNotIn("deterministic_fusion_result", without_features)
-        self.assertNotIn("final_label", str(without_features))
-        self.assertEqual(
-            without_features["review_context"]["provisional_label"], "LTE"
-        )
-        left = dict(without_features)
-        right = dict(with_features)
-        left.pop("analysis_id")
-        right.pop("analysis_id")
-        right.pop("global_feature_evidence")
-        left["reference_document_paths"] = {
-            name: path
-            for name, path in left["reference_document_paths"].items()
+        forbidden = {
+            "true_label",
+            "selection_role",
+            "fold",
+            "location",
+            "sample_source_id",
+            "source_region_id",
+            "global_group_id",
+            "equal_fusion_label",
         }
-        right["reference_document_paths"] = {
-            name: path
-            for name, path in right["reference_document_paths"].items()
-            if name in left["reference_document_paths"]
-        }
-        self.assertEqual(left, right)
+        self.assertFalse(forbidden & set_a.keys())
+        self.assertFalse(forbidden & set_b.keys())
+        self.assertNotIn("physical_feature_evidence", set_a)
+        self.assertEqual(set_b["physical_feature_evidence"]["feature_count"], 64)
+        self.assertEqual(set_a["output_language"], "zh-CN")
+        self.assertEqual(set_a["iq_branch"]["branch_name"], "iq_model")
 
-    def test_rejects_a_resolved_source_case(self):
-        source = _source_case()
-        source["periodicity_evidence"]["frozen_gate"]["resolved"] = True
-
-        with self.assertRaisesRegex(ValueError, "unresolved"):
-            build_review_experiment_case(
-                source,
-                "review_0001",
-                include_global_features=False,
+    def test_writes_paired_cases_manifest_and_private_audit(self):
+        iq, feature = _probabilities()
+        names = np.asarray(feature_code_names(load_feature_map()))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            prediction_path = root / "predictions.npz"
+            np.savez_compressed(
+                prediction_path,
+                fold=np.asarray(["fold1", "fold1"]),
+                location=np.asarray(["UZ", "UZ"]),
+                sample_source_id=np.asarray(["source-a", "source-b"]),
+                source_region_id=np.asarray([10, 20]),
+                global_group_id=np.asarray([0, 1]),
+                y=np.asarray([1, 0]),
+                iq_model_probabilities=iq,
+                feature_probe_probabilities=feature,
+                equal_weight_fusion_probabilities=(iq + feature) * 0.5,
             )
+            feature_bank = {
+                "features": np.arange(128, dtype=np.float32).reshape(2, 64),
+                "feature_names": names,
+                "sample_rate": np.asarray([1_000_000.0, 1_000_000.0]),
+                "row_lookup": {("source-a", 10): 0, ("source-b", 20): 1},
+            }
+            public = root / "public"
+            audit_path = root / "private" / "audit.json"
+            with patch(
+                "signal_fusion.benchmarks.technology_recognition_llm_review."
+                "load_full_feature_bank",
+                return_value=feature_bank,
+            ):
+                result = build_review_experiment_files(
+                    prediction_path,
+                    root / "datasets",
+                    root / "features",
+                    public,
+                    audit_path,
+                )
+
+            self.assertEqual(result["signal_case_count"], 2)
+            self.assertEqual(result["public_case_count"], 4)
+            cases = load_submission_cases(public / "submission_order.json")
+            self.assertEqual(len(cases), 4)
+            audit = json.loads(audit_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                {case["selection_role"] for case in audit["cases"]},
+                {"candidate", "shadow"},
+            )
+            self.assertTrue(audit["selection"]["selection_uses_ground_truth"] is False)
+            for _, public_case in cases:
+                self.assertNotIn("true_label", public_case)
+                self.assertNotIn("selection_role", public_case)
 
 
 if __name__ == "__main__":

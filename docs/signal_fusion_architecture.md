@@ -11,9 +11,10 @@
 - MATLAB/C ABI 64 维特征提取；
 - ONNX 小模型推理；
 - PyTorch 模型定义、训练与 ONNX 导出；
-- 面向后续融合分析的统一数据契约。
+- 面向融合分析的统一数据契约；
+- 隔离真值的 Hermes 盲裁决实验工具。
 
-当前尚未实现真正的 LLM 融合编排模块。现阶段的重点是让特征提取和小模型推理都能产生结构化、可组合的 `Evidence`，为后续 `signal_fusion` 推理层提供稳定输入。
+生产主路径仍由代码生成冻结结果，Hermes 负责解释；`benchmarks` 中另有可自动运行和评分的 LLM 盲裁决实验，但它尚不是生产推理依赖。
 
 ## 2. 总体流程
 
@@ -31,7 +32,7 @@ PreparedDataset [N, 2, L]
     └──► model_inference    ──► ModelInferenceResult ──► Evidence
                                                         │
                                                         ▼
-                                             后续 LLM / 融合分析
+                                             代码融合 / Hermes 实验
 ```
 
 原始信号准备是一条独立、可选的离线流程，不属于主分析必经步骤：
@@ -397,6 +398,14 @@ ensemble + 周期门控
 
 项目内 Skill 位于 `skills/signal-fusion-analysis/SKILL.md`。业务侧证据合同为“三模型 IQ ensemble + 冻结周期门控 + 全局 64 维原始特征”，不再包含特征分类器或概率权重融合。Skill 会完整读取三篇特征定义、三类别物理解释参考和周期门控参考。分类与 review 状态由代码冻结：`accept` 才有 `final_label`；`review_required` 只有 `provisional_label`。Hermes 只能解释证据、异常和限制，不能重算门控、修改标签或将 review 私自转为 accept。真值和来源信息只保留在独立私有 audit 中。
 
+### 10.4 跨地点 LLM 盲裁决实验
+
+`benchmarks/technology_recognition_llm_review.py` 提供一条独立的研究实验路径，用于检验 LLM 能否处理 IQ 模型与 64 维特征探针的冲突。它不替代 10.2 和 10.3 的生产解释合同，也不把特征探针提升为正式运行时依赖。
+
+实验只从 IQ Top1 与特征探针 Top1 不一致的 region 中选例。公开输入隐藏真值、地点、fold、来源标识、候选/对照身份和已有融合结论；私有 audit 在回答冻结后才参与评分。每个底层 region 形成两个盲输入：A 组只含两个分支的 Top3 和不确定性摘要，B 组在完全相同的分支证据上额外提供完整 64 维 region 特征及三篇特征说明。第一轮不加入周期门控和三成员 ensemble，避免无法判断改进究竟来自哪类证据。
+
+`skills/signal-fusion-review-experiment/SKILL.md` 约束 LLM 只返回三种动作：`keep` 保留 IQ 标签、`change` 改为另一候选类别、`abstain` 表示证据不足。两条概率分支不假定已经互相校准，LLM 不得自行平均概率、创造权重或编写类别阈值规则。运行评估时同时报告两套结果：选择性裁决指标，以及将 `abstain` 回退到 IQ 标签后的端到端指标；A/B 差异用于回答原始 64 维物理特征是否带来可重复增益。
+
 ## 11. 模块间依赖原则
 
 | 上层模块 | 允许依赖 | 不应承担的职责 |
@@ -412,6 +421,7 @@ ensemble + 周期门控
 | `evaluation` | `io`、`modeling`、PyTorch；绘图时使用 Matplotlib | 重新训练、重新划分或修改源数据集 |
 | `fusion` | `feature_extraction`、`model_inference`、`io` | 训练新模型或生成自然语言结论 |
 | `skills/signal-fusion-analysis` | 读取 `fusion` 生成的公开盲输入 | 证据生成、特征提取、模型推理、训练、评估或数据准备业务代码 |
+| `skills/signal-fusion-review-experiment` | 读取跨地点实验生成的单个公开冲突 case | 访问真值、选择样本、生成证据或执行实验评分 |
 
 几个关键边界：
 

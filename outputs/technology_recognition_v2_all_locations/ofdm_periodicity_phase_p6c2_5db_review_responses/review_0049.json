@@ -1,0 +1,36 @@
+{
+  "analysis_id": "review_0049",
+  "recommendation_status": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "三个 IQ 成员的 region Top1 在 LTE 与 DVB-T 之间分裂：iq_member_1 稳定且强烈地判 DVB-T（0.9108），iq_member_2 与 iq_member_3 稳定判 LTE（0.6552、0.6757），ensemble 平均概率 DVB-T 0.4718 与 LTE 0.4711 实质持平（margin 仅 0.0008），聚合层没有方向。成员内部两个窗口均为 2/2 一致，说明分歧不是窗口抽样波动，而是成员间稳定可复现的判读对立；唯一强而稳定的异议成员不能被当作噪声，而 2/3 多数因成员高度相关也不能当作独立票裁决。周期门控 margin 仅 0.0031，约为冻结门限 0.0215 的七分之一，reliable=false，且候选相关幅值处于 0.026–0.043 的弱相关量级，无法为任何一类提供独立确认。证据相互冲突且无判别力，故弃权。",
+  "model_evidence": [
+    "三成员 region Top1 不一致：iq_member_1 为 DVB-T（0.9108），iq_member_2 与 iq_member_3 为 LTE（0.6552、0.6757），触发 member_region_top1_disagreement，风险门控未通过。",
+    "ensemble 平均概率为 DVB-T 0.4718、LTE 0.4711、WiFi 0.0571，Top1-Top2 margin 仅 0.0008，归一化熵 0.7942，属高度不确定的并列状态，聚合结果不具备类别方向。",
+    "三个成员的窗口一致性均为 2/2（窗口内判定稳定），表明成员间分歧并非窗口抽样或短时波动造成，而是稳定的成员间判读差异。",
+    "iq_member_1 的 DVB-T 判定强且内部一致（region 0.9108，窗口 0.9270/0.8945），是一个可复现的反对意见，不能按随机误差忽略。",
+    "iq_member_2（LTE 0.6552 对 DVB-T 0.3361）给出中等强度 LTE 多数；iq_member_3（LTE 0.6757 对 DVB-T 0.1686）亦倾向 LTE，但其第二个窗口置信度仅 0.5144，接近随机边界，成员内部强度不一致。",
+    "WiFi 在 ensemble 中仅 0.0571，单成员最高为 iq_member_3 的 0.1557，均明显低于该成员 Top1，模型层没有 WiFi 方向的实质证据。"
+  ],
+  "periodicity_evidence": [
+    "66.67 μs（LTE 候选）归一化相关为 0.0430；224 μs 为 0.0398、896 μs 为 0.0260，dvbt_score 取两者较大的 0.0398。",
+    "周期预测为 LTE，margin = |0.0430 − 0.0398| = 0.0031，约为冻结 reliability_margin 0.0215 的七分之一，故 reliable=false、resolved=false、changed=false。",
+    "eligible=true（三成员 Top1 只含 LTE/DVB-T 且两类均出现），但 margin 远低于门限，周期门控无法消解成员分歧；reliable=false 只表示证据不足，不代表 LTE 或 DVB-T 任一成立。",
+    "三个候选的相关幅值均处于 0.026–0.043 的弱相关量级，且两个 DVB-T 候选彼此不一致（224 μs 的 0.0398 对 896 μs 的 0.0260），提示峰形未反映稳定的周期结构。"
+  ],
+  "feature_evidence": [],
+  "conflicting_evidence": [
+    "ensemble 的 Top1 为 DVB-T，与成员多数方向（3 个成员中 2 个为 LTE）相反，且两者概率仅差 0.0008，聚合层与成员层互相抵消，无法形成方向。",
+    "唯一内部强而稳定的成员（iq_member_1，DVB-T 0.9108）与另两个内部一致的 LTE 成员直接对立；成员高度相关、不能按独立票数处理，故 2/3 多数不足以裁决该冲突。",
+    "周期门控虽预测 LTE，但 margin 远低于冻结门限且相关幅值接近噪声水平，不能作为独立物理证据确认 LTE，同时其方向也与 ensemble Top1（DVB-T）不一致。",
+    "本 case 不含 global_feature_evidence，缺少可提供物理背景的 64 维特征，无法在特征层消解上述模型层与周期层的冲突。"
+  ],
+  "limitations": [
+    "4.096 ms / 1 MHz 只提供局部短时视图，region 内仅 2 个非重叠窗口，不足以刻画更长时间尺度的占空比、帧级结构或突发周期。",
+    "周期候选仅对应 OFDM 有效符号时间尺度，不等同于循环前缀检测、同步序列匹配或导频检测；不得重选候选、修改门限或重算门控。",
+    "归一化相关值是测量值而非概率或置信度，不能按类别概率解读。",
+    "不得由 1 MHz 归一化占用带宽反推协议标准带宽，也不得据当前证据推断 WiFi 版本、LTE 链路方向或 DVB-T 模式。",
+    "三个成员源自同一输入且高度相关，其判定不能当作独立校准证据；本输入已被确定性系统拒绝，置信度上限只为 low 或 medium，本次判为 low。",
+    "弱相关量级下的相关峰易受噪声、干扰、信道与频偏影响；DVB-T 的两个候选周期彼此不一致也说明短观测下该类证据本身不稳定。"
+  ]
+}

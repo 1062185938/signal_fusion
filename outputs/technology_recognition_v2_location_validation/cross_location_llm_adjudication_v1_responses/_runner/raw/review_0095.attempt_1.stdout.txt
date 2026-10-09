@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0095","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以 0.812 支持 WiFi（margin 0.683、熵 0.547），64 维线性探针以 0.725（margin 0.549、熵 0.698）支持 LTE，两分支方向直接冲突且均未处于近弃权水平。物理时频特征呈明显突发/开-关占用（活跃帧比 0.581、能量跳变比 0.367、帧能量 CV 1.225），定性上更偏向 WiFi 的分组突发传输，但这些 64 维特征正是探针的输入、并非独立第三票，且探针在观察到这些特征后仍投给 LTE，因此该软性倾向不足以消解两分支冲突。WiFi 与 LTE 的矛盾在现有局部证据下无法消解，选择弃权。","iq_evidence":["IQ 分支 top1 为 WiFi（概率 0.8117，领先第二名 margin 0.683，归一化熵 0.547），对 WiFi 有中等偏高的置信度。","IQ 分支 top3 为 WiFi 0.8117、DVB-T 0.1287、LTE 0.0595，LTE 在 IQ 分支中几乎不被支持。"],"feature_probe_evidence":["64 维线性探针 top1 为 LTE（概率 0.7253，margin 0.549，归一化熵 0.698），对 LTE 仅为中等置信，且熵偏高、判断不具决定性。","探针 top3 为 LTE 0.7253、WiFi 0.1767、DVB-T 0.0981，与 IQ 分支的 WiFi 首选方向相反。"],"physical_feature_evidence":["时频域呈突发/开-关特征：stft_active_frame_ratio=0.581（仅约 58% 帧活跃）、stft_energy_transition_ratio=0.367（帧间能量跳变占比高）、stft_frame_energy_cv=1.225（帧能量波动大），这种不连续时频占用在定性上更偏向 WiFi 的分组突发，而非 LTE/DVB-T 的连续占用。","宽带占用带宽 0.841、高谱熵 0.984、高谱平坦度 0.866、高 PAPR 12.76dB、高振幅峰度 7.82、包络 CV 0.845 等均为三类 OFDM 共享现象，不具备单独区分类别的能力，不能据此单独改判。"],"conflicting_evidence":["两模型分支方向相反：IQ 分支支持 WiFi（0.812），64 维探针支持 LTE（0.725），构成 WiFi 对 LTE 的直接冲突，且两者均未处于近弃权水平。","物理时频突发特征在定性上偏向 WiFi（与 IQ 分支同向），但这些 64 维特征正是探针的输入、并非独立第三票，且探针在观察到该特征后仍投给 LTE，故此软性倾向不能独立消解冲突。"],"limitations":["仅 1 MHz、4096 样本、4.096 ms 局部视图，无法观察完整信道带宽或协议结构（导频、TPS、子载波间隔、循环前缀）。","IQ 分支与 64 维探针置信度未校准，不能比较数值大小、加权平均或用固定阈值裁决。","OFDM 三类共享的宽带、类噪声、高 PAPR、高谱熵现象不能作为改判依据。","时频突发性仅为软性、非确定性区分证据，无法据此断言 WiFi，也无法据此否定 LTE。","两分支在 WiFi 与 LTE 上的冲突无法在现有证据下消解，故弃权。"]}
+
+session_id: 20260924_110925_ee7ed4

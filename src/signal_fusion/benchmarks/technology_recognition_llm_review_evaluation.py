@@ -1,32 +1,27 @@
-"""Evaluate paired P6-B blind LLM review responses."""
+"""Evaluate paired blind IQ/feature disagreement adjudication responses."""
 
 from __future__ import annotations
 
 import argparse
 import csv
 import json
-import re
 from collections import Counter
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
+from signal_fusion.benchmarks.technology_recognition_hermes_review_runner import (
+    validate_response,
+)
 from signal_fusion.io.writers import json_safe
 
 
 LABELS = ("LTE", "WiFi", "DVB-T")
-RESPONSE_LIST_FIELDS = (
-    "model_evidence",
-    "periodicity_evidence",
-    "feature_evidence",
-    "conflicting_evidence",
-    "limitations",
-)
 VARIANTS = {
-    "set_1": "A_iq_and_periodicity",
-    "set_2": "B_iq_periodicity_and_global_features",
+    "set_a": "A_branch_outputs_only",
+    "set_b": "B_branch_outputs_and_64_features",
 }
-_CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff]")
+SELECTION_ROLES = ("candidate", "shadow")
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -36,130 +31,246 @@ def _load_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _validate_response(response: dict[str, Any], analysis_id: str) -> list[str]:
-    core_required = {
-        "analysis_id",
-        "recommendation_status",
-        "recommended_label",
-        "confidence_level",
-        "summary",
-    }
-    missing = sorted(core_required - set(response))
-    if missing:
-        raise ValueError(f"{analysis_id} is missing response fields: {missing}")
-    violations = []
-    for name in RESPONSE_LIST_FIELDS:
-        if name not in response:
-            response[name] = []
-            violations.append(f"missing_{name}_normalized_to_empty_list")
-    if response["analysis_id"] != analysis_id:
-        raise ValueError(f"response ID does not match its filename: {analysis_id}")
-    status = response["recommendation_status"]
-    label = response["recommended_label"]
-    confidence = response["confidence_level"]
-    if status not in {"recommend", "abstain"}:
-        raise ValueError(f"{analysis_id} has an invalid recommendation_status")
-    if confidence not in {"medium", "low"}:
-        raise ValueError(f"{analysis_id} has an invalid confidence_level")
-    if status == "recommend" and label not in LABELS:
-        raise ValueError(f"{analysis_id} has an invalid recommended_label")
-    if status == "abstain" and (label is not None or confidence != "low"):
-        raise ValueError(f"{analysis_id} violates the abstention contract")
-    if not isinstance(response["summary"], str):
-        raise ValueError(f"{analysis_id} summary must be a string")
-    for name in RESPONSE_LIST_FIELDS:
-        values = response[name]
-        if not isinstance(values, list) or not all(
-            isinstance(value, str) for value in values
-        ):
-            raise ValueError(f"{analysis_id} {name} must be a list of strings")
-    return violations
-
-
-def _uses_chinese(response: Mapping[str, Any]) -> bool:
-    narrative = [str(response["summary"])]
-    for field in RESPONSE_LIST_FIELDS:
-        narrative.extend(str(value) for value in response[field])
-    return _CJK_RE.search(" ".join(narrative)) is not None
-
-
 def _percent(numerator: int, denominator: int) -> float | None:
     if denominator == 0:
         return None
     return 100.0 * numerator / denominator
 
 
+def _accuracy(correct_count: int, case_count: int) -> dict[str, Any]:
+    return {
+        "correct_count": int(correct_count),
+        "error_count": int(case_count - correct_count),
+        "accuracy_percent": _percent(correct_count, case_count),
+    }
+
+
+def _validate_audit(audit: Mapping[str, Any]) -> list[dict[str, Any]]:
+    if audit.get("schema_version") != 2:
+        raise ValueError("private audit must use schema_version 2")
+    if audit.get("audit_type") != "private_cross_location_llm_adjudication_audit":
+        raise ValueError("private audit has an unexpected audit_type")
+
+    population = audit.get("population_summary")
+    if not isinstance(population, dict):
+        raise ValueError("private audit has no population_summary")
+    required_population = {
+        "region_count",
+        "iq_correct_count",
+        "iq_error_count",
+        "candidate_count",
+        "shadow_count",
+    }
+    if set(population) != required_population:
+        missing = sorted(required_population - set(population))
+        extra = sorted(set(population) - required_population)
+        raise ValueError(
+            f"population_summary field mismatch; missing={missing}, extra={extra}"
+        )
+    for name in required_population:
+        value = population[name]
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+            raise ValueError(f"population_summary.{name} must be a non-negative int")
+    if population["iq_correct_count"] + population["iq_error_count"] != population[
+        "region_count"
+    ]:
+        raise ValueError("population IQ counts do not sum to region_count")
+
+    cases = audit.get("cases")
+    if not isinstance(cases, list) or not cases:
+        raise ValueError("private audit contains no cases")
+    required_case = {
+        "pair_index",
+        "signal_case_id",
+        "selection_role",
+        "set_a_analysis_id",
+        "set_b_analysis_id",
+        "true_label",
+        "iq_label",
+        "feature_label",
+        "equal_fusion_label",
+    }
+    analysis_ids: set[str] = set()
+    signal_ids: set[str] = set()
+    pair_indices: set[int] = set()
+    role_counts: Counter[str] = Counter()
+    normalized: list[dict[str, Any]] = []
+    for raw_case in cases:
+        if not isinstance(raw_case, dict):
+            raise ValueError("every private audit case must be an object")
+        missing = sorted(required_case - set(raw_case))
+        if missing:
+            raise ValueError(f"private audit case is missing fields: {missing}")
+        pair_index = raw_case["pair_index"]
+        if not isinstance(pair_index, int) or isinstance(pair_index, bool) or pair_index < 1:
+            raise ValueError("pair_index must be a positive integer")
+        if pair_index in pair_indices:
+            raise ValueError(f"duplicate pair_index: {pair_index}")
+        pair_indices.add(pair_index)
+        signal_case_id = raw_case["signal_case_id"]
+        if not isinstance(signal_case_id, str) or not signal_case_id:
+            raise ValueError("signal_case_id must be a non-empty string")
+        if signal_case_id in signal_ids:
+            raise ValueError(f"duplicate signal_case_id: {signal_case_id}")
+        signal_ids.add(signal_case_id)
+        role = raw_case["selection_role"]
+        if role not in SELECTION_ROLES:
+            raise ValueError(f"invalid selection_role: {role}")
+        role_counts[role] += 1
+        for label_field in (
+            "true_label",
+            "iq_label",
+            "feature_label",
+            "equal_fusion_label",
+        ):
+            if raw_case[label_field] not in LABELS:
+                raise ValueError(f"invalid {label_field}: {raw_case[label_field]}")
+        for variant in VARIANTS:
+            analysis_id = raw_case[f"{variant}_analysis_id"]
+            if not isinstance(analysis_id, str) or not analysis_id:
+                raise ValueError(f"{variant}_analysis_id must be a non-empty string")
+            if analysis_id in analysis_ids:
+                raise ValueError(f"duplicate analysis_id: {analysis_id}")
+            analysis_ids.add(analysis_id)
+        normalized.append(dict(raw_case))
+
+    if role_counts["candidate"] != population["candidate_count"]:
+        raise ValueError("candidate_count does not match private audit cases")
+    if role_counts["shadow"] != population["shadow_count"]:
+        raise ValueError("shadow_count does not match private audit cases")
+    normalized.sort(key=lambda row: int(row["pair_index"]))
+    return normalized
+
+
+def _operational_label(
+    decision: str,
+    recommended_label: str | None,
+    iq_label: str,
+) -> str:
+    if decision in {"keep", "abstain"}:
+        return iq_label
+    if recommended_label is None:
+        raise ValueError("change decision has no recommended label")
+    return recommended_label
+
+
+def _branch_accuracy(records: Sequence[Mapping[str, Any]], field: str) -> dict[str, Any]:
+    correct = sum(row[field] == row["true_label"] for row in records)
+    return _accuracy(correct, len(records))
+
+
 def _variant_metrics(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     count = len(records)
-    recommended = [row for row in records if row["recommendation_status"] == "recommend"]
-    baseline_errors = [row for row in records if not row["provisional_correct"]]
-    baseline_correct = count - len(baseline_errors)
-    recommended_correct = sum(bool(row["recommendation_correct"]) for row in recommended)
+    decisions = Counter(str(row["decision"]) for row in records)
+    iq_correct = sum(row["iq_label"] == row["true_label"] for row in records)
+    operational_correct = sum(
+        row["operational_label"] == row["true_label"] for row in records
+    )
     corrected = sum(
-        not row["provisional_correct"]
-        and row["recommendation_status"] == "recommend"
-        and row["recommendation_correct"] is True
+        row["iq_label"] != row["true_label"]
+        and row["operational_label"] == row["true_label"]
         for row in records
     )
-    introduced = sum(
-        row["provisional_correct"]
-        and row["recommendation_status"] == "recommend"
-        and row["recommendation_correct"] is False
+    harmed = sum(
+        row["iq_label"] == row["true_label"]
+        and row["operational_label"] != row["true_label"]
         for row in records
     )
-    changed = sum(
-        row["recommendation_status"] == "recommend"
-        and row["recommended_label"] != row["provisional_label"]
-        for row in records
+    changed = [row for row in records if row["decision"] == "change"]
+    correct_changes = sum(
+        row["operational_label"] == row["true_label"] for row in changed
     )
-    chinese = sum(bool(row["contains_chinese_narrative"]) for row in records)
+    abstained = [row for row in records if row["decision"] == "abstain"]
+    adjudicated = [row for row in records if row["decision"] != "abstain"]
+    adjudicated_correct = sum(
+        row["operational_label"] == row["true_label"] for row in adjudicated
+    )
     return {
         "case_count": count,
-        "provisional_baseline": {
-            "correct_count": baseline_correct,
-            "error_count": len(baseline_errors),
-            "accuracy_percent": _percent(baseline_correct, count),
-        },
-        "recommendation": {
-            "recommend_count": len(recommended),
-            "abstain_count": count - len(recommended),
-            "coverage_percent": _percent(len(recommended), count),
-            "correct_count": recommended_correct,
-            "error_count": len(recommended) - recommended_correct,
-            "accuracy_when_recommended_percent": _percent(
-                recommended_correct, len(recommended)
+        "branch_accuracy": {
+            "iq_baseline": _accuracy(iq_correct, count),
+            "feature_probe": _branch_accuracy(records, "feature_label"),
+            "equal_fusion": _branch_accuracy(records, "equal_fusion_label"),
+            "llm_operational_with_abstain_fallback": _accuracy(
+                operational_correct, count
             ),
-            "same_as_provisional_count": len(recommended) - changed,
-            "changed_from_provisional_count": changed,
-            "medium_count": sum(
-                row["confidence_level"] == "medium" for row in records
+        },
+        "decisions": {
+            "keep_count": int(decisions["keep"]),
+            "change_count": int(decisions["change"]),
+            "abstain_count": int(decisions["abstain"]),
+            "keep_percent": _percent(decisions["keep"], count),
+            "change_percent": _percent(decisions["change"], count),
+            "abstain_percent": _percent(decisions["abstain"], count),
+        },
+        "effect_vs_iq": {
+            "corrected_iq_error_count": int(corrected),
+            "harmed_iq_correct_count": int(harmed),
+            "net_correction_count": int(corrected - harmed),
+            "accuracy_delta_percentage_points": (
+                None if count == 0 else 100.0 * (operational_correct - iq_correct) / count
             ),
-            "low_count": sum(row["confidence_level"] == "low" for row in records),
         },
-        "error_effect": {
-            "corrected_provisional_error_count": corrected,
-            "uncorrected_provisional_error_count": len(baseline_errors) - corrected,
-            "introduced_error_count": introduced,
-            "net_correction_count": corrected - introduced,
+        "change_quality": {
+            "change_count": len(changed),
+            "correct_change_count": int(correct_changes),
+            "incorrect_change_count": int(len(changed) - correct_changes),
+            "change_precision_percent": _percent(correct_changes, len(changed)),
         },
-        "feature_evidence_nonempty_count": sum(
-            bool(row["feature_evidence_nonempty"]) for row in records
-        ),
-        "language": {
-            "chinese_narrative_count": chinese,
-            "non_chinese_narrative_count": count - chinese,
-            "chinese_narrative_percent": _percent(chinese, count),
+        "abstention": {
+            "abstain_count": len(abstained),
+            "abstained_iq_error_count": sum(
+                row["iq_label"] != row["true_label"] for row in abstained
+            ),
+            "fallback_policy": "use_iq_label",
+        },
+        "selective_adjudication": {
+            "covered_count": len(adjudicated),
+            "coverage_percent": _percent(len(adjudicated), count),
+            "correct_count": int(adjudicated_correct),
+            "error_count": int(len(adjudicated) - adjudicated_correct),
+            "accuracy_percent": _percent(adjudicated_correct, len(adjudicated)),
         },
     }
 
 
-def _paired_outcome(a: Mapping[str, Any], b: Mapping[str, Any]) -> str:
-    def result(row: Mapping[str, Any]) -> str:
-        if row["recommendation_status"] == "abstain":
-            return "abstain"
-        return "correct" if row["recommendation_correct"] else "wrong"
+def _candidate_projection(
+    records: Sequence[Mapping[str, Any]], population: Mapping[str, int]
+) -> dict[str, Any]:
+    candidate_records = [
+        row for row in records if row["selection_role"] == "candidate"
+    ]
+    candidate_metrics = _variant_metrics(candidate_records)
+    effect = candidate_metrics["effect_vs_iq"]
+    projected_correct = (
+        population["iq_correct_count"]
+        + effect["corrected_iq_error_count"]
+        - effect["harmed_iq_correct_count"]
+    )
+    return {
+        "population_region_count": population["region_count"],
+        "population_iq_correct_count": population["iq_correct_count"],
+        "evaluated_candidate_count": len(candidate_records),
+        "noncandidate_policy": "retain_iq_label",
+        "shadow_cases_included": False,
+        "projected_correct_count": int(projected_correct),
+        "projected_error_count": int(population["region_count"] - projected_correct),
+        "projected_accuracy_percent": _percent(
+            projected_correct, population["region_count"]
+        ),
+        "projected_delta_percentage_points_vs_iq": (
+            100.0
+            * (
+                effect["corrected_iq_error_count"]
+                - effect["harmed_iq_correct_count"]
+            )
+            / population["region_count"]
+        ),
+    }
 
-    return f"a_{result(a)}__b_{result(b)}"
+
+def _paired_result_name(row: Mapping[str, Any]) -> str:
+    return "correct" if row["operational_label"] == row["true_label"] else "wrong"
 
 
 def evaluate_review_responses(
@@ -167,28 +278,19 @@ def evaluate_review_responses(
     public_case_dir: str | Path,
     private_audit_path: str | Path,
 ) -> dict[str, Any]:
-    """Validate and score the paired blind responses against private audit data."""
+    """Validate and score paired blind adjudication responses."""
 
     response_root = Path(response_dir)
     public_root = Path(public_case_dir)
     audit = _load_json(Path(private_audit_path))
-    if audit.get("audit_type") != "private_p6b_clean_review_pairing_audit":
-        raise ValueError("private audit has an unexpected audit_type")
-    pairs = audit.get("pairs")
-    if not isinstance(pairs, list) or not pairs:
-        raise ValueError("private audit contains no pairs")
+    audit_cases = _validate_audit(audit)
+    population = audit["population_summary"]
 
-    expected: dict[str, tuple[str, Mapping[str, Any], int]] = {}
-    for pair in pairs:
-        for set_name in VARIANTS:
-            analysis_id = str(pair[f"{set_name}_analysis_id"])
-            if analysis_id in expected:
-                raise ValueError(f"duplicate analysis ID in audit: {analysis_id}")
-            expected[analysis_id] = (
-                set_name,
-                pair["private_source_audit"],
-                int(pair["pair_index"]),
-            )
+    expected: dict[str, tuple[str, Mapping[str, Any]]] = {}
+    for audit_case in audit_cases:
+        for variant in VARIANTS:
+            analysis_id = str(audit_case[f"{variant}_analysis_id"])
+            expected[analysis_id] = (variant, audit_case)
 
     response_paths = sorted(response_root.glob("*.json"))
     actual_ids = {path.stem for path in response_paths}
@@ -198,199 +300,169 @@ def evaluate_review_responses(
         raise ValueError(f"response set mismatch; missing={missing}, extra={extra}")
 
     records: dict[str, dict[str, Any]] = {}
-    for path in response_paths:
-        analysis_id = path.stem
-        response = _load_json(path)
-        contract_violations = _validate_response(response, analysis_id)
-        set_name, source_audit, pair_index = expected[analysis_id]
-        public_case_path = public_root / set_name / f"{analysis_id}.json"
+    for response_path in response_paths:
+        analysis_id = response_path.stem
+        variant, audit_case = expected[analysis_id]
+        public_case_path = public_root / variant / f"{analysis_id}.json"
         public_case = _load_json(public_case_path)
-        if public_case.get("analysis_id") != analysis_id:
-            raise ValueError(f"public case ID mismatch: {public_case_path}")
-        has_global_features = "global_feature_evidence" in public_case
-        expected_features = set_name == "set_2"
-        if has_global_features != expected_features:
-            raise ValueError(f"unexpected public evidence variant: {analysis_id}")
-        feature_evidence_nonempty = bool(response["feature_evidence"])
-        if not expected_features and feature_evidence_nonempty:
-            raise ValueError(
-                f"{analysis_id} supplied feature evidence without global features"
-            )
-
-        status = response["recommendation_status"]
+        response = validate_response(
+            _load_json(response_path),
+            case=public_case,
+        )
+        decision = str(response["decision"])
         recommended_label = response["recommended_label"]
-        true_label = source_audit["true_label"]
-        provisional_label = source_audit["prediction_label"]
+        iq_label = str(audit_case["iq_label"])
+        operational_label = _operational_label(
+            decision, recommended_label, iq_label
+        )
         records[analysis_id] = {
             "analysis_id": analysis_id,
-            "pair_index": pair_index,
-            "variant": VARIANTS[set_name],
-            "true_label": true_label,
-            "provisional_label": provisional_label,
-            "provisional_correct": provisional_label == true_label,
-            "recommendation_status": status,
+            "pair_index": int(audit_case["pair_index"]),
+            "signal_case_id": str(audit_case["signal_case_id"]),
+            "variant": VARIANTS[variant],
+            "selection_role": str(audit_case["selection_role"]),
+            "true_label": str(audit_case["true_label"]),
+            "iq_label": iq_label,
+            "feature_label": str(audit_case["feature_label"]),
+            "equal_fusion_label": str(audit_case["equal_fusion_label"]),
+            "decision": decision,
             "recommended_label": recommended_label,
-            "recommendation_correct": (
-                recommended_label == true_label if status == "recommend" else None
-            ),
-            "confidence_level": response["confidence_level"],
-            "contains_chinese_narrative": _uses_chinese(response),
-            "feature_evidence_nonempty": feature_evidence_nonempty,
-            "contract_violations": contract_violations,
+            "operational_label": operational_label,
+            "confidence_level": str(response["confidence_level"]),
         }
 
-    by_set: dict[str, list[dict[str, Any]]] = {name: [] for name in VARIANTS}
-    for analysis_id, (set_name, _, _) in expected.items():
-        by_set[set_name].append(records[analysis_id])
-    for values in by_set.values():
-        values.sort(key=lambda row: int(row["pair_index"]))
+    by_variant: dict[str, list[dict[str, Any]]] = {
+        variant: [] for variant in VARIANTS
+    }
+    for analysis_id, (variant, _) in expected.items():
+        by_variant[variant].append(records[analysis_id])
+    for variant_records in by_variant.values():
+        variant_records.sort(key=lambda row: int(row["pair_index"]))
 
-    pair_records = []
-    transition_counts: dict[str, int] = {}
-    for pair in pairs:
-        a = records[str(pair["set_1_analysis_id"])]
-        b = records[str(pair["set_2_analysis_id"])]
-        outcome = _paired_outcome(a, b)
-        transition_counts[outcome] = transition_counts.get(outcome, 0) + 1
-        pair_records.append(
+    variant_reports: dict[str, Any] = {}
+    for variant, variant_records in by_variant.items():
+        variant_reports[VARIANTS[variant]] = {
+            **_variant_metrics(variant_records),
+            "by_selection_role": {
+                role: _variant_metrics(
+                    [
+                        row
+                        for row in variant_records
+                        if row["selection_role"] == role
+                    ]
+                )
+                for role in SELECTION_ROLES
+            },
+            "candidate_population_projection": _candidate_projection(
+                variant_records, population
+            ),
+        }
+
+    paired_records: list[dict[str, Any]] = []
+    outcome_counts: Counter[str] = Counter()
+    decision_transition_counts: Counter[str] = Counter()
+    for audit_case in audit_cases:
+        a = records[str(audit_case["set_a_analysis_id"])]
+        b = records[str(audit_case["set_b_analysis_id"])]
+        outcome = f"a_{_paired_result_name(a)}__b_{_paired_result_name(b)}"
+        transition = f"a_{a['decision']}__b_{b['decision']}"
+        outcome_counts[outcome] += 1
+        decision_transition_counts[transition] += 1
+        paired_records.append(
             {
-                "pair_index": int(pair["pair_index"]),
-                "source_analysis_id": pair["source_analysis_id"],
-                "true_label": a["true_label"],
-                "provisional_label": a["provisional_label"],
-                "set_1": {
+                "pair_index": int(audit_case["pair_index"]),
+                "signal_case_id": str(audit_case["signal_case_id"]),
+                "selection_role": str(audit_case["selection_role"]),
+                "true_label": str(audit_case["true_label"]),
+                "iq_label": str(audit_case["iq_label"]),
+                "set_a": {
                     key: a[key]
                     for key in (
                         "analysis_id",
-                        "recommendation_status",
+                        "decision",
                         "recommended_label",
-                        "recommendation_correct",
+                        "operational_label",
                         "confidence_level",
-                        "contains_chinese_narrative",
                     )
                 },
-                "set_2": {
+                "set_b": {
                     key: b[key]
                     for key in (
                         "analysis_id",
-                        "recommendation_status",
+                        "decision",
                         "recommended_label",
-                        "recommendation_correct",
+                        "operational_label",
                         "confidence_level",
-                        "contains_chinese_narrative",
                     )
                 },
-                "paired_outcome": outcome,
+                "paired_operational_outcome": outcome,
+                "decision_transition": transition,
             }
         )
 
-    variant_metrics = {
-        VARIANTS[set_name]: _variant_metrics(values)
-        for set_name, values in by_set.items()
-    }
-    a_metrics = variant_metrics[VARIANTS["set_1"]]
-    b_metrics = variant_metrics[VARIANTS["set_2"]]
-    total_chinese = sum(
-        row["contains_chinese_narrative"] for row in records.values()
-    )
-    invalid_records = [
-        row for row in records.values() if row["contract_violations"]
+    a_name = VARIANTS["set_a"]
+    b_name = VARIANTS["set_b"]
+    a_metrics = variant_reports[a_name]
+    b_metrics = variant_reports[b_name]
+    a_operational = a_metrics["branch_accuracy"][
+        "llm_operational_with_abstain_fallback"
     ]
-    true_label_counts = Counter(
-        pair["private_source_audit"]["true_label"] for pair in pairs
-    )
-    baseline_error_sources = {
-        pair["private_source_audit"].get("source_id")
-        for pair in pairs
-        if pair["private_source_audit"]["prediction_label"]
-        != pair["private_source_audit"]["true_label"]
-    }
-    baseline_error_sources.discard(None)
+    b_operational = b_metrics["branch_accuracy"][
+        "llm_operational_with_abstain_fallback"
+    ]
     return {
-        "schema_version": 1,
-        "evaluation_type": "private_p6b_paired_llm_review_evaluation",
-        "pair_count": len(pairs),
+        "schema_version": 2,
+        "evaluation_type": "private_cross_location_llm_adjudication_evaluation",
+        "signal_case_count": len(audit_cases),
         "response_count": len(records),
-        "contract_validation": {
-            "strictly_valid_response_count": len(records) - len(invalid_records),
-            "recoverable_format_issue_count": len(invalid_records),
-            "evaluated_response_count": len(records),
-            "missing_response_count": 0,
-            "extra_response_count": 0,
-            "issues": [
-                {
-                    "analysis_id": row["analysis_id"],
-                    "violations": row["contract_violations"],
-                }
-                for row in sorted(
-                    invalid_records, key=lambda value: value["analysis_id"]
-                )
-            ],
-        },
+        "population_summary": dict(population),
         "selection_profile": {
-            "true_label_counts": {
-                label: int(true_label_counts.get(label, 0)) for label in LABELS
+            "role_counts": {
+                role: sum(
+                    case["selection_role"] == role for case in audit_cases
+                )
+                for role in SELECTION_ROLES
             },
-            "provisional_error_count": a_metrics["provisional_baseline"][
-                "error_count"
-            ],
-            "provisional_error_unique_source_count": len(baseline_error_sources),
+            "true_label_counts": {
+                label: sum(case["true_label"] == label for case in audit_cases)
+                for label in LABELS
+            },
+            "sample_is_case_control_not_natural_prevalence": True,
         },
-        "variants": variant_metrics,
+        "variants": variant_reports,
         "paired_comparison": {
-            "outcome_counts": dict(sorted(transition_counts.items())),
-            "set_2_minus_set_1": {
-                "recommendation_coverage_percentage_points": (
-                    b_metrics["recommendation"]["coverage_percent"]
-                    - a_metrics["recommendation"]["coverage_percent"]
+            "operational_outcome_counts": dict(sorted(outcome_counts.items())),
+            "decision_transition_counts": dict(
+                sorted(decision_transition_counts.items())
+            ),
+            "set_b_minus_set_a": {
+                "sample_accuracy_percentage_points": (
+                    b_operational["accuracy_percent"]
+                    - a_operational["accuracy_percent"]
                 ),
-                "corrected_provisional_error_count": (
-                    b_metrics["error_effect"]["corrected_provisional_error_count"]
-                    - a_metrics["error_effect"]["corrected_provisional_error_count"]
+                "corrected_iq_error_count": (
+                    b_metrics["effect_vs_iq"]["corrected_iq_error_count"]
+                    - a_metrics["effect_vs_iq"]["corrected_iq_error_count"]
                 ),
-                "introduced_error_count": (
-                    b_metrics["error_effect"]["introduced_error_count"]
-                    - a_metrics["error_effect"]["introduced_error_count"]
+                "harmed_iq_correct_count": (
+                    b_metrics["effect_vs_iq"]["harmed_iq_correct_count"]
+                    - a_metrics["effect_vs_iq"]["harmed_iq_correct_count"]
                 ),
                 "net_correction_count": (
-                    b_metrics["error_effect"]["net_correction_count"]
-                    - a_metrics["error_effect"]["net_correction_count"]
+                    b_metrics["effect_vs_iq"]["net_correction_count"]
+                    - a_metrics["effect_vs_iq"]["net_correction_count"]
+                ),
+                "candidate_projected_accuracy_percentage_points": (
+                    b_metrics["candidate_population_projection"][
+                        "projected_accuracy_percent"
+                    ]
+                    - a_metrics["candidate_population_projection"][
+                        "projected_accuracy_percent"
+                    ]
                 ),
             },
         },
-        "language": {
-            "expected_narrative_language": "Chinese",
-            "chinese_narrative_count": int(total_chinese),
-            "non_chinese_narrative_count": len(records) - int(total_chinese),
-            "chinese_narrative_percent": _percent(int(total_chinese), len(records)),
-            "non_chinese_analysis_ids": sorted(
-                analysis_id
-                for analysis_id, row in records.items()
-                if not row["contains_chinese_narrative"]
-            ),
-            "classification_metrics_include_all_valid_responses": True,
-        },
-        "interpretation": {
-            "baseline_error_count": a_metrics["provisional_baseline"]["error_count"],
-            "baseline_errors_corrected_by_set_1": a_metrics["error_effect"][
-                "corrected_provisional_error_count"
-            ],
-            "baseline_errors_corrected_by_set_2": b_metrics["error_effect"][
-                "corrected_provisional_error_count"
-            ],
-            "feature_branch_demonstrated_correction_value": False,
-            "feature_branch_demonstrated_safe_coverage_increase": (
-                b_metrics["recommendation"]["coverage_percent"]
-                > a_metrics["recommendation"]["coverage_percent"]
-                and b_metrics["recommendation"]["error_count"] == 0
-            ),
-            "conclusion": (
-                "The global-feature variant increased recommendation coverage "
-                "without an observed error, but neither variant corrected either "
-                "provisional error. This pilot does not establish LLM correction value."
-            ),
-        },
-        "private_pair_results": pair_records,
+        "private_pair_results": paired_records,
     }
 
 
@@ -404,139 +476,80 @@ def _write_json(path: Path, value: Mapping[str, Any]) -> None:
 def _write_csv(path: Path, report: Mapping[str, Any]) -> None:
     fields = (
         "variant",
+        "selection_role",
         "case_count",
-        "baseline_error_count",
-        "recommend_count",
+        "iq_accuracy_percent",
+        "feature_probe_accuracy_percent",
+        "equal_fusion_accuracy_percent",
+        "llm_operational_accuracy_percent",
+        "keep_count",
+        "change_count",
         "abstain_count",
-        "coverage_percent",
-        "recommendation_correct_count",
-        "recommendation_error_count",
-        "accuracy_when_recommended_percent",
-        "corrected_provisional_error_count",
-        "introduced_error_count",
+        "corrected_iq_error_count",
+        "harmed_iq_correct_count",
         "net_correction_count",
-        "chinese_narrative_count",
-        "non_chinese_narrative_count",
+        "change_precision_percent",
     )
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for variant, metrics in report["variants"].items():
-            writer.writerow(
-                {
-                    "variant": variant,
-                    "case_count": metrics["case_count"],
-                    "baseline_error_count": metrics["provisional_baseline"][
-                        "error_count"
-                    ],
-                    "recommend_count": metrics["recommendation"]["recommend_count"],
-                    "abstain_count": metrics["recommendation"]["abstain_count"],
-                    "coverage_percent": metrics["recommendation"]["coverage_percent"],
-                    "recommendation_correct_count": metrics["recommendation"][
-                        "correct_count"
-                    ],
-                    "recommendation_error_count": metrics["recommendation"][
-                        "error_count"
-                    ],
-                    "accuracy_when_recommended_percent": metrics[
-                        "recommendation"
-                    ]["accuracy_when_recommended_percent"],
-                    "corrected_provisional_error_count": metrics["error_effect"][
-                        "corrected_provisional_error_count"
-                    ],
-                    "introduced_error_count": metrics["error_effect"][
-                        "introduced_error_count"
-                    ],
-                    "net_correction_count": metrics["error_effect"][
-                        "net_correction_count"
-                    ],
-                    "chinese_narrative_count": metrics["language"][
-                        "chinese_narrative_count"
-                    ],
-                    "non_chinese_narrative_count": metrics["language"][
-                        "non_chinese_narrative_count"
-                    ],
-                }
-            )
-
-
-def _write_markdown(path: Path, report: Mapping[str, Any]) -> None:
-    a = report["variants"][VARIANTS["set_1"]]
-    b = report["variants"][VARIANTS["set_2"]]
-    language = report["language"]
-    selection = report["selection_profile"]
-    lines = [
-        "# P6-B.2 LLM 盲审 A/B 评估",
-        "",
-        "## 结果",
-        "",
-        "| 组别 | 证据 | 推荐/总数 | 推荐时正确率 | 纠正旧错误 | 引入新错误 |",
-        "| --- | --- | ---: | ---: | ---: | ---: |",
-        (
-            f"| A | IQ ensemble + 周期证据 | "
-            f"{a['recommendation']['recommend_count']}/{a['case_count']} | "
-            f"{a['recommendation']['accuracy_when_recommended_percent']:.2f}% | "
-            f"{a['error_effect']['corrected_provisional_error_count']} | "
-            f"{a['error_effect']['introduced_error_count']} |"
-        ),
-        (
-            f"| B | IQ ensemble + 周期证据 + 64维全局特征 | "
-            f"{b['recommendation']['recommend_count']}/{b['case_count']} | "
-            f"{b['recommendation']['accuracy_when_recommended_percent']:.2f}% | "
-            f"{b['error_effect']['corrected_provisional_error_count']} | "
-            f"{b['error_effect']['introduced_error_count']} |"
-        ),
-        "",
-        "- 两组面对的是同一批 19 个 review case；冻结 provisional 基线为 "
-        f"{a['provisional_baseline']['correct_count']}/{a['case_count']} 正确。",
-        "- 真值构成为 LTE "
-        f"{selection['true_label_counts']['LTE']}、WiFi "
-        f"{selection['true_label_counts']['WiFi']}、DVB-T "
-        f"{selection['true_label_counts']['DVB-T']}；两个 provisional 错误来自 "
-        f"{selection['provisional_error_unique_source_count']} 个原始来源。",
-        "- A 组与 B 组对两个 provisional 错误都选择弃权，没有完成纠错。",
-        "- B 组比 A 组多推荐 2 个案例，且这些新增推荐没有产生错误；这只说明本批样本上的安全覆盖率有所增加，不能证明 64 维特征具有纠错能力。",
-        "- 两组均没有把原本正确的 provisional 标签改错。",
-        "",
-        "## 语言与格式",
-        "",
-        "- 38 份响应全部可解析且可参与分类评估；其中 37 份严格满足字段契约。",
-        "- `review_0014` 缺少应为空数组的 `feature_evidence`，评估时按空数组归一化并记为可恢复的格式问题。",
-        f"- 中文叙述 {language['chinese_narrative_count']}/38；全英文叙述 "
-        f"{language['non_chinese_narrative_count']}/38："
-        f"{', '.join(language['non_chinese_analysis_ids'])}。",
-        "- 英文输出只计为语言遵循问题，未从分类指标中删除。",
-        "",
-        "## 结论",
-        "",
-        "当前 19 对样本不足以证明 LLM 或 64 维特征能够纠正 IQ/周期分支的错误。B 组表现出较高的推荐覆盖率，但真正的两个错误样本均未被纠正；下一步应扩充包含更多真实 provisional 错误的 review 集，而不是据此把 LLM 接入自动改判路径。",
-    ]
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            metric_rows = {"all": metrics, **metrics["by_selection_role"]}
+            for role, role_metrics in metric_rows.items():
+                branches = role_metrics["branch_accuracy"]
+                decisions = role_metrics["decisions"]
+                effect = role_metrics["effect_vs_iq"]
+                writer.writerow(
+                    {
+                        "variant": variant,
+                        "selection_role": role,
+                        "case_count": role_metrics["case_count"],
+                        "iq_accuracy_percent": branches["iq_baseline"][
+                            "accuracy_percent"
+                        ],
+                        "feature_probe_accuracy_percent": branches[
+                            "feature_probe"
+                        ]["accuracy_percent"],
+                        "equal_fusion_accuracy_percent": branches["equal_fusion"][
+                            "accuracy_percent"
+                        ],
+                        "llm_operational_accuracy_percent": branches[
+                            "llm_operational_with_abstain_fallback"
+                        ]["accuracy_percent"],
+                        "keep_count": decisions["keep_count"],
+                        "change_count": decisions["change_count"],
+                        "abstain_count": decisions["abstain_count"],
+                        "corrected_iq_error_count": effect[
+                            "corrected_iq_error_count"
+                        ],
+                        "harmed_iq_correct_count": effect[
+                            "harmed_iq_correct_count"
+                        ],
+                        "net_correction_count": effect["net_correction_count"],
+                        "change_precision_percent": role_metrics["change_quality"][
+                            "change_precision_percent"
+                        ],
+                    }
+                )
 
 
 def write_review_evaluation(
     report: Mapping[str, Any], output_dir: str | Path
 ) -> dict[str, str]:
-    """Write compact private JSON, CSV, and Markdown evaluation artifacts."""
+    """Write the private JSON report and compact CSV summary."""
 
     output_root = Path(output_dir)
     output_root.mkdir(parents=True, exist_ok=True)
-    json_path = output_root / "llm_review_evaluation_private.json"
-    csv_path = output_root / "llm_review_summary.csv"
-    markdown_path = output_root / "llm_review_evaluation.md"
+    json_path = output_root / "llm_adjudication_evaluation_private.json"
+    csv_path = output_root / "llm_adjudication_summary.csv"
     _write_json(json_path, report)
     _write_csv(csv_path, report)
-    _write_markdown(markdown_path, report)
-    return {
-        "json_path": str(json_path),
-        "csv_path": str(csv_path),
-        "markdown_path": str(markdown_path),
-    }
+    return {"json_path": str(json_path), "csv_path": str(csv_path)}
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Evaluate paired P6-B blind LLM review responses."
+        description="Evaluate paired blind IQ/feature adjudication responses."
     )
     parser.add_argument("--response-dir", required=True)
     parser.add_argument("--public-case-dir", required=True)
@@ -553,13 +566,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.private_audit_path,
     )
     paths = write_review_evaluation(report, args.output_dir)
-    summary = {
-        **paths,
-        "pair_count": report["pair_count"],
-        "response_count": report["response_count"],
-        "interpretation": report["interpretation"],
-    }
-    print(json.dumps(json_safe(summary), ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            json_safe(
+                {
+                    **paths,
+                    "signal_case_count": report["signal_case_count"],
+                    "response_count": report["response_count"],
+                }
+            ),
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 0
 
 

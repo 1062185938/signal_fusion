@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0041", "decision": "keep", "recommended_label": "WiFi", "confidence_level": "low", "summary": "IQ 分支以 0.882（top1-top2 margin 0.769、归一化熵 0.347）集中指向 WiFi，对 DVB-T 仅留 0.004；feature-probe 分支虽以 0.646 提名 LTE，但其内部并不果断（margin 0.296、归一化熵 0.609），且把 0.350 的实质概率给了 WiFi，即其第二选择恰与 IQ 的 top1 同向。两分支的分歧集中在 WiFi 与 LTE 这一对同族多载波体制之间，feature-probe 的相反提名强度有限、且部分证据仍支持 WiFi，不构成多项相干且具类别区分力的改判链；本案亦未提供任何 64 维原始特征可供独立物理核对。故维持 IQ 分支的 WiFi，但因 feature-probe 对 LTE 的提名并非并列而是有实质领先，残余不确定性偏高，置信度取 low。", "iq_evidence": ["IQ 分支 top1 为 WiFi，概率约 0.882，top1-top2 margin 约 0.769，集中度较高", "IQ 分支归一化熵约 0.347，未出现高度并列，主判决相对稳定", "IQ 分支把次高概率约 0.113 给 LTE，说明其在 WiFi/LTE 之间存在一定混淆空间，而非排他性确定", "IQ 分支对 DVB-T 仅约 0.004，可基本排除 DVB-T 方向"], "feature_probe_evidence": ["feature-probe top1 为 LTE，概率约 0.646", "feature-probe top1-top2 margin 约 0.296，归一化熵约 0.609，内部判决并不集中，属于 LTE/WiFi 两类的显著分裂", "feature-probe 对 WiFi 保留约 0.350 的实质概率，其第二选择与 IQ 分支的 top1 一致，形成对 IQ 标签的部分而非对抗性支持", "feature-probe 对 DVB-T 仅约 0.003，与 IQ 分支同样不支持 DVB-T"], "physical_feature_evidence": [], "conflicting_evidence": ["IQ 分支集中判为 WiFi，而 feature-probe 分支的 top1 为 LTE，两分支在 top1 上方向相反", "feature-probe 虽提名 LTE，但其自身 margin 偏小、熵偏高，且 0.350 概率流向 WiFi，使其相反提名不具备决定性", "IQ 分支对 LTE 保留约 0.113 的非零概率，与 feature-probe 的 LTE 提名方向部分呼应，构成 WiFi/LTE 混淆对，难以在无原始特征时彻底消解"], "limitations": ["本案未提供 64 维原始特征，physical_feature_evidence 为空，无法从包络起伏、活动帧比例、能量跃迁等物理量独立核对任一分支的提名是否具有可解释机制", "IQ 分支与 feature-probe 分支的置信度未校准，本判定未对两分支概率做数值比较、平均、加权或阈值化裁决，仅依据各自内部结构与方向关系", "观测仅为 1 MHz 视图、4.096 ms 单 region，且现有 64 维特征不检测 WiFi 前导、LTE 同步/参考信号或 DVB-T 导频，WiFi 与 LTE 同为多载波 OFDM 体制，短观测下的区分力天然受限", "region 可能完全落在单个 WiFi 包内部或处于 LTE 低业务负载时段，两类均可呈现相近的频谱占用形态，替代解释无法排除", "本判定未使用中心频率、地点、增益、文件路径等任何采集捷径信息"]}
+
+session_id: 20260924_153939_e7a81a

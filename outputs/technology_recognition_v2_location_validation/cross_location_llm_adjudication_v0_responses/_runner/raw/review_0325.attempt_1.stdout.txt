@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_153939_e7a81a (10 user messages, 48 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0325","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支与 64 维 feature-probe 分支各自高度集中且方向完全相反：IQ 模型几乎确定判为 LTE（0.99997，归一化熵 0.00028），而 feature-probe 几乎确定判为 DVB-T（0.99437，归一化熵 0.0350）。两者均未给对方的 Top1 留下任何实质概率（IQ 的 DVB-T 仅 1.87e-5；feature-probe 的 LTE 仅 0.00347），因此不存在可据以消解冲突的跨分支共识或分支自身动摇信号。本 case 未提供 64 维原始物理特征，缺少可仲裁的第三类材料；两分支置信度未校准，不得直接比较其数值大小，也不得平均或加权。在缺少相干且具类别区分力证据的情况下，无法判定应将标签保持或改判，故 abstain。","iq_evidence":["IQ 分支 Top1 为 LTE，概率 0.9999749660，Top1-Top2 margin 为 0.9999562569，归一化熵仅 0.0002771615，属高度集中输出。","其余两类概率均近于零：DVB-T 1.8709e-05、WiFi 6.3310e-06，IQ 分支未给出任何实质的竞争假设。","IQ 分支在 4.096 ms / 1 MS/s 的单一 region 上表现为单一稳定判决，未见自我矛盾或多峰分布。"],"feature_probe_evidence":["feature-probe（global_64_feature_linear_probe）Top1 为 DVB-T，概率 0.9943746640，margin 0.9909036045，归一化熵 0.0350396807，同样高度集中。","其余两类概率很低：LTE 0.0034710596、WiFi 0.0021542764，feature-probe 几乎完全否认 LTE 与 WiFi。","feature-probe 的 Top1 与 IQ 分支的 Top1 直接对立，且两者均为高集中度输出，不存在“一方接近平局”的弱化现象。"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支高度集中地支持 LTE，feature-probe 分支高度集中地支持 DVB-T，两者对同一 region 给出方向完全相反的强判决。","两分支均未向对方 Top1 让渡实质概率（IQ 的 DVB-T=1.87e-5；feature-probe 的 LTE=0.00347），因此不存在可作为仲裁锚点的跨分支共识。","本 case 未附 64 维原始物理特征，缺少可用于检验 LTE 持续占用与 DVB-T 广播持续占用倾向的时域/频域/时频材料，冲突无法从证据侧消解。"],"limitations":["IQ 分支与 feature-probe 分支的置信度未校准，不能直接比较二者概率数值的大小，也不得做平均、加权或使用固定阈值裁决。","64 维物理特征本是 feature-probe 的输入而非独立第三投票；本 case 未提供原始特征，故无法获得任何独立的物理层面佐证。","观测窗仅 1 MS/s、4096 点、4.096 ms，仅为约 1 MHz 的局部基带视图，无法恢复协议标准带宽或帧级结构。","现有 64 维特征不检测 LTE 同步/参考信号、WiFi 前导与包边界、DVB-T 导频/TPS/载波间隔/保护间隔，不能以这些结构的“存在或缺失”作为裁决依据。","三类共有的宽带、类噪声、高 PAPR 等表现只能说明与多载波相容，不能单独区分 LTE、WiFi 与 DVB-T，故不能作为改判依据。"]}
+
+session_id: 20260924_153939_e7a81a

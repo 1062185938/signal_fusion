@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0283","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以近乎饱和的置信度判定为 LTE（0.9999，Top1-Top2 间隔 0.9998，归一化熵 0.0010），而 64 维线性 probe 分支以同样极高的置信度判定为 DVB-T（0.9924，间隔 0.9860，熵 0.0438）。两支相互对立且都高度自信，当前 case 未提供 64 维原始物理特征，无法用具有类别区分力的物理解释消解冲突；两分支置信度未校准，不得比较数值大小或加权平均。证据冲突无法消解，故弃权。","iq_evidence":["IQ 分支 Top1 为 LTE，概率 0.9999，Top2 为 DVB-T（7.6e-05），WiFi 仅 2.4e-05","Top1-Top2 间隔 0.9998，归一化熵 0.0010，属近乎饱和的判定，指向 LTE"],"feature_probe_evidence":["64 维线性 probe Top1 为 DVB-T，概率 0.9924，Top2 为 LTE（0.0064），WiFi 0.0012","Top1-Top2 间隔 0.9860，归一化熵 0.0438，同样为高置信判定，指向 DVB-T","该 probe 的输入正是 64 维物理特征，属于同一证据源的下游分类，不构成对 IQ 分支的独立投票"],"physical_feature_evidence":[],"conflicting_evidence":["IQ 分支强指向 LTE，feature-probe 分支强指向 DVB-T，两支方向相反且各自置信度都极高","两支置信度未校准，无法通过数值大小、概率平均或固定阈值判断哪一支更可信","case 未提供原始 64 维物理特征，缺乏独立、成组且具类别区分力的物理解释来仲裁 LTE 与 DVB-T"],"limitations":["当前 case 不含 64 维原始特征，无法核查是否测量到 LTE 参考信号/时隙周期性或 DVB-T 导频/保护间隔等类别区分结构","4.096 ms / 1 MHz 的局部视图不足以恢复完整资源栅格、导频位置或帧级结构，两类共享的宽带、类噪声、高 PAPR 现象不能作为改判依据","两支置信度未校准，且 feature-probe 与 IQ 分支共享同一底层物理特征来源，独立性有限，冲突无法在本 case 内消解"]}
+
+session_id: 20260924_110925_ee7ed4

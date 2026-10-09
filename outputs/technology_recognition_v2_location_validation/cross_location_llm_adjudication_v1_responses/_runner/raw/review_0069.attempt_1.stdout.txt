@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id":"review_0069","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以中等置信倾向 WiFi（0.6389），但 DVB-T 是实质性次选（0.3564）；feature-probe 分支强倾向 DVB-T（0.9312）。两分支指向不同类别且置信度未校准，不能比数值、平均或加固定权重。唯一软性偏向 DVB-T 的 STFT 连续性证据被参考文档明确排除类别区分力（短区段可能完全落在单个 WiFi 包内），其余物理特征均为三类共享的宽带/类噪声/高 PAPR 现象。实质性冲突无法消解，判 abstain。","iq_evidence":["IQ 分支 Top1 为 WiFi，概率 0.6389；Top2 为 DVB-T，概率 0.3564；LTE 仅 0.0047 基本可排除。","Top1-Top2 间隔 0.2825，归一化熵 0.6181：属中等置信的 WiFi 倾向，且 DVB-T 为强次选，分支本身并未在 WiFi/DVB-T 间给出决定性判定。"],"feature_probe_evidence":["feature-probe 分支 Top1 为 DVB-T，概率 0.9312，间隔 0.8642，归一化熵 0.2353，方向性强地指向 DVB-T。","WiFi 概率仅 0.0017，与 IQ 分支的 WiFi 倾向直接相悖，构成两分支间的实质类别冲突。","该分支置信度未校准，其 0.9312 的数值大小不可直接用于压制 IQ 分支。"],"physical_feature_evidence":["STFT 连续性：active_frame_ratio=1.0、energy_transition_ratio=0.0、frame_energy_cv=0.102，整段 4.096 ms 能量连续稳定，软性偏向 DVB-T 的持续传输形态；但参考文档指出该短区段可能完全落在单个 WiFi 包内，故不具类别区分力。","频谱熵 0.9665、平坦度 0.745、归一化占用带宽 0.807、PAPR 9.70 dB、包络 CV 0.526、幅度熵 0.787，均为 LTE/WiFi/DVB-T 共享的宽带、类噪声、高 PAPR 现象，无类别区分力。","频谱峰因子 8.295 按参考文档不得据此推断 DVB-T 导频。","上述 64 维物理特征即 feature-probe 的输入，不作为独立第三票，不能重复计票。"],"conflicting_evidence":["IQ 分支倾向 WiFi（0.6389，DVB-T 0.3564 为次选），feature-probe 分支强倾向 DVB-T（0.9312），两者指向不同类别，构成实质性冲突。","两分支置信度未校准，不能比较数值大小、做平均、发明权重或用固定 if/else 阈值消解。","唯一软性偏向 DVB-T 的 STFT 连续性证据不具类别区分力（可能为单个 WiFi 包），其余物理特征为共享 OFDM 现象，无法消解该冲突。"],"limitations":["无协议结构、调制方式、帧定时、导频间隔等可测量的类别区分证据。","4.096 ms 短区段，时域稳定性不足以区分 DVB-T 持续传输与单个 WiFi 包。","两分支置信度未校准，数值不可直接比较。","共享 OFDM 特征（宽带、类噪声、高 PAPR、高谱熵/峰因子）不能单独支撑改判。"]}
+
+session_id: 20260924_110925_ee7ed4

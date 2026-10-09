@@ -1,0 +1,67 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0400",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支在 WiFi(0.5139) 与 DVB-T(0.4821) 之间近乎平局（top1-top2 间隔 0.0317，归一化熵 0.6517），仅以约 3 个百分点弱倾向 WiFi，并基本排除 LTE；64 维 probe 分支则高度自信于 DVB-T(0.9528，间隔 0.9072，熵 0.1797)。两分支 Top1 直接冲突（WiFi 对 DVB-T）。本 case 未提供 64 维原始物理特征，无法核查 probe 的 DVB-T 判读是否建立在类别区分性结构上；且依参考文档，64 维特征并不显式检测 DVB-T 的导频/TPS/载波间隔/保护间隔，宽带、高 PAPR、类噪声包络为三类共享现象，不能单独支撑改判。两分支置信度未校准，不能以 0.514 与 0.953 的数值大小裁决。唯一强 DVB-T 证据仅来自单一 probe，不足以构成多项相干且具有类别区分力的改判依据，冲突无法消解，故弃权。",
+      "iq_evidence": [
+        "IQ Top1 为 WiFi 0.5139，Top2 为 DVB-T 0.4821，top1-top2 间隔仅 0.0317，归一化熵 0.6517，属近乎平局、缺乏类别区分力的输出。",
+        "IQ 对 LTE 的置信约 0.0040，基本排除 LTE；分歧集中在 WiFi 与 DVB-T 之间。",
+        "IQ 对 WiFi 的偏好仅约 3 个百分点，不足以作为稳健保留 WiFi 标签的依据。"
+      ],
+      "feature_probe_evidence": [
+        "probe Top1 为 DVB-T 0.9528，Top2 为 LTE 0.0455，top1-top2 间隔 0.9072，归一化熵 0.1797，为高置信 DVB-T 读数。",
+        "probe 对 WiFi 的置信约 0.0017，基本排除 WiFi。",
+        "该高置信读数来自 64 维全局线性 probe，其输入正是 64 维物理特征本身（非独立第三投票），未见其依赖任何可核查的 DVB-T 专属结构。"
+      ],
+      "physical_feature_evidence": [],
+      "conflicting_evidence": [
+        "两分支 Top1 标签直接冲突：IQ 弱倾向 WiFi，probe 强倾向 DVB-T。",
+        "IQ 仅以约 3% 的微弱间隔偏向 WiFi，而 probe 对 WiFi 置信近零，二者对 WiFi 的支持方向与强度不一致。",
+        "LTE 在两支中均被排除，故真正不可消解的冲突是 WiFi 与 DVB-T 之间的判别，而非 LTE。"
+      ],
+      "limitations": [
+        "两分支置信度未经相互校准，不得直接比较 0.514 与 0.953 的数值大小，不得平均概率、发明权重或套用固定阈值裁决。",
+        "本 case 未提供 64 维原始物理特征，无法核查 probe 的 DVB-T 判读是否基于类别区分性特征，也无法独立复核共享 OFDM 现象之外是否存在 DVB-T 结构证据。",
+        "依参考文档，现有 64 维特征不显式检测 DVB-T 导频、TPS、载波间隔或保护间隔；宽带、高 PAPR、高谱熵、类噪声包络为三类共享，不构成 DVB-T 专属判据。",
+        "1 MS/s、4096 点、4.096 ms 的局部约 1 MHz 视图不足以恢复帧级结构或确认任何协议特有结构，不能据未测量结构强行定类。"
+      ]
+{
+  "analysis_id": "review_0400",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支在 WiFi(0.5139) 与 DVB-T(0.4821) 之间近乎平局（top1-top2 间隔 0.0317，归一化熵 0.6517），仅以约 3 个百分点弱倾向 WiFi，并基本排除 LTE；64 维 probe 分支则高度自信于 DVB-T(0.9528，间隔 0.9072，熵 0.1797)。两分支 Top1 直接冲突（WiFi 对 DVB-T）。本 case 未提供 64 维原始物理特征，无法核查 probe 的 DVB-T 判读是否建立在类别区分性结构上；且依参考文档，64 维特征并不显式检测 DVB-T 的导频/TPS/载波间隔/保护间隔，宽带、高 PAPR、类噪声包络为三类共享现象，不能单独支撑改判。两分支置信度未校准，不能以 0.514 与 0.953 的数值大小裁决。唯一强 DVB-T 证据仅来自单一 probe，不足以构成多项相干且具有类别区分力的改判依据，冲突无法消解，故弃权。",
+  "iq_evidence": [
+    "IQ Top1 为 WiFi 0.5139，Top2 为 DVB-T 0.4821，top1-top2 间隔仅 0.0317，归一化熵 0.6517，属近乎平局、缺乏类别区分力的输出。",
+    "IQ 对 LTE 的置信约 0.0040，基本排除 LTE；分歧集中在 WiFi 与 DVB-T 之间。",
+    "IQ 对 WiFi 的偏好仅约 3 个百分点，不足以作为稳健保留 WiFi 标签的依据。"
+  ],
+  "feature_probe_evidence": [
+    "probe Top1 为 DVB-T 0.9528，Top2 为 LTE 0.0455，top1-top2 间隔 0.9072，归一化熵 0.1797，为高置信 DVB-T 读数。",
+    "probe 对 WiFi 的置信约 0.0017，基本排除 WiFi。",
+    "该高置信读数来自 64 维全局线性 probe，其输入正是 64 维物理特征本身（非独立第三投票），未见其依赖任何可核查的 DVB-T 专属结构。"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 Top1 标签直接冲突：IQ 弱倾向 WiFi，probe 强倾向 DVB-T。",
+    "IQ 仅以约 3% 的微弱间隔偏向 WiFi，而 probe 对 WiFi 置信近零，二者对 WiFi 的支持方向与强度不一致。",
+    "LTE 在两支中均被排除，故真正不可消解的冲突是 WiFi 与 DVB-T 之间的判别，而非 LTE。"
+  ],
+  "limitations": [
+    "两分支置信度未经相互校准，不得直接比较 0.514 与 0.953 的数值大小，不得平均概率、发明权重或套用固定阈值裁决。",
+    "本 case 未提供 64 维原始物理特征，无法核查 probe 的 DVB-T 判读是否基于类别区分性特征，也无法独立复核共享 OFDM 现象之外是否存在 DVB-T 结构证据。",
+    "依参考文档，现有 64 维特征不显式检测 DVB-T 导频、TPS、载波间隔或保护间隔；宽带、高 PAPR、高谱熵、类噪声包络为三类共享，不构成 DVB-T 专属判据。",
+    "1 MS/s、4096 点、4.096 ms 的局部约 1 MHz 视图不足以恢复帧级结构或确认任何协议特有结构，不能据未测量结构强行定类。"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4

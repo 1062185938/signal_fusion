@@ -1,0 +1,35 @@
+{
+  "analysis_id": "review_0175",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "两分支给出方向相反且都较自信的判决：IQ 分支判 WiFi（0.924，margin 0.850，熵 0.253），feature-probe 分支判 DVB-T（0.943，margin 0.893，熵 0.220）。64 维物理特征只能描述 OFDM 三类共享的宽带、类噪声、高 PAPR、高谱熵/平坦度性质，以及本 region 内连续稳定的占用（活动帧比例 1.0、跃迁比例 0.0、帧能量 CV 0.078）。稳定性虽与 DVB-T 广播倾向相容，但参考文档明确说明单一 WiFi 包完全落在 region 内时可呈现同样的短时稳定性，且这组活动性特征是相互关联的单一来源，不构成多项相干的类别区分证据。两分支冲突无法由现有特征消解，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.9241，top1-top2 差距 0.8503，归一化熵 0.2528，属较自信的判决",
+    "次位为 DVB-T（0.0739）、LTE（0.0020），说明 IQ 分支内部对 WiFi 与 DVB-T 之间并非完全无歧义，但主判明显偏向 WiFi"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9428，top1-top2 差距 0.8932，归一化熵 0.2200，属较自信的判决",
+    "次位为 LTE（0.0495）、WiFi（0.0077），与 IQ 分支的 WiFi 主判直接对立",
+    "两分支置信度未校准，不得比较原始概率大小，也不得对两分支概率做平均或加权"
+  ],
+  "physical_feature_evidence": [
+    "占用模式：time_frequency_stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv=0.0775，呈现全程连续稳定占用；与 DVB-T 广播倾向相容，但单一 WiFi 包落在 region 内可呈现同样短时稳定，非类别区分证据",
+    "宽带类噪声 OFDM 共享性质：freq_normalized_occupied_bandwidth_90=0.798、freq_global_spectral_entropy=0.969、freq_global_spectral_flatness=0.768、time_papr_db=8.94、time_amplitude_entropy=0.816，均为 LTE/WiFi/DVB-T 共享性质，不能单独支持任何一类",
+    "幅度统计 time_amplitude_skewness=0.604、time_amplitude_kurtosis=3.26、time_envelope_cv=0.515 属多载波叠加的近似高斯/噪声状统计，非区分特征",
+    "自相关 time_autocorrelation_peak_magnitude=0.270、peak_lag_ratio=0.0232 仅为候选周期性，未确认循环前缀或符号周期；time_differential_phase_std=1.563 可由多载波/噪声/频偏造成，不等价于协议特征",
+    "高阶累积量 time_c40=0.078、time_c41=0.057 数值较小且无经验证的类别阈值；双相干 max_squared_bicoherence=0.321、mean=0.030 也无经验证阈值，均不能给出类别投票",
+    "STFT/FSST/WSST 脊线（slope 均接近 0、energy ratio 不集中：FSST 0.081、WSST 0.259）在多载波信号下只是各帧最强 bin，不能解释为某一协议脊线"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支主判 WiFi 与 feature-probe 分支主判 DVB-T 方向相反，且两者都各自较自信，构成实质性头部冲突",
+    "物理特征中唯一倾向性线索（连续稳定占用）指向 DVB-T，但参考文档明确短时稳定不足以排除 WiFi，且属单一关联特征组，无法作为独立的第二证据来消解冲突"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能比较概率数值大小、不能平均或加权，也不能用固定阈值裁决",
+    "64 维物理特征是 feature-probe 的输入，不构成第三个独立投票，强相关特征不得当作多次独立投票",
+    "现有 64 维特征不检测 DVB-T 导频/TPS/载波间隔/保护间隔，也不检测 WiFi 前导或包边界，无法直接验证任一分支所声称的协议结构",
+    "1 MHz/4.096 ms 局部视图与 region 级 RMS 归一化限制了占用带宽与功率的解读；短时稳定可能是截取落在单一包或单一活动片段的结果",
+    "中心频率、地点、增益、来源路径与真实标签均未提供，不得作为类别依据，也不得从案例编号推断类别"
+  ]
+}

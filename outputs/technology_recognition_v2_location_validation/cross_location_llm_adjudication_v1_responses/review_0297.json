@@ -1,0 +1,27 @@
+{
+  "analysis_id": "review_0297",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支高度确定判为 WiFi（0.9888），64 维 feature-probe 分支高度确定判为 DVB-T（0.9405），两分支 top1 直接对立且各自内部都非常确定，构成强对撞。本 case 未提供 64 维原始物理特征，缺少独立于两分支且能区分 WiFi 与 DVB-T 的物理证据；两分支置信度又均未校准，不能比较数值、做平均或套用固定阈值，冲突无法用现有证据消解，故 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 WiFi，概率 0.9888，top1-top2 差距 0.9786，归一化熵 0.0587，分支内部高度确定",
+    "次选 DVB-T 0.0102、LTE 0.00094，几乎不构成竞争"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 DVB-T，概率 0.9405，top1-top2 差距 0.8837，归一化熵 0.2148，分支内部高度确定",
+    "次选 LTE 0.0569、WiFi 0.0026，几乎不构成竞争"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "两分支 top1 标签直接对立：IQ 判 WiFi（0.9888）而 feature-probe 判 DVB-T（0.9405），且两者各自都高度确定，形成强对撞",
+    "两分支置信度未校准，不能比较数值大小、做概率平均或发明权重，也不能用固定 if/else 阈值裁决",
+    "本 case 不含 64 维原始物理特征，缺少能区分 WiFi 与 DVB-T 的独立物理证据来消解两分支冲突"
+  ],
+  "limitations": [
+    "未提供 64 维原始物理特征，无法用占用形态、包络、频谱或时频结构对 WiFi 与 DVB-T 做类别区分",
+    "参考文档指出 64 维特征不检测 DVB-T 导频、TPS、载波间隔、保护间隔，也不执行 WiFi 前导/包边界检测；4.096 ms region 可能完全落在单个 WiFi 包内部而不呈现边界，因此即便有特征也未必能区分二者",
+    "盲测不提供中心频率、地点、增益与真实标签，不得使用采集捷径或从匿名编号推断类别",
+    "两分支置信度未校准且方向相反，现有证据不足以消解冲突，只能保留不确定性"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "analysis_id": "review_0272",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支以 0.9974 的 LTE 概率、0.9958 的 top1-top2 间隔和 0.018 的归一化熵强烈指向 LTE；64 维 feature-probe 分支则以 0.9998 的 WiFi 概率、0.9996 的间隔和 0.0016 的熵强烈指向 WiFi。两分支各自内部都高度确定，但方向完全相反，构成无法消解的正面冲突。可用的 64 维物理特征主要是 OFDM 三类共享的宽带占用、类噪声包络、高 PAPR、高谱熵等共享现象，不足以在 LTE 与 WiFi 之间提供类别区分力；STFT 出现中等比例的突发帧（活动帧比 0.677、能量跳变比 0.40、帧能量 CV 0.883）虽略带突发特征，但 LTE 与 WiFi 均为基于包/子帧的突发系统，该模式不能明确归属 WiFi。两分支置信度未校准、不能比较数值大小或加权，物理特征又无决定性区分证据，故判为 abstain。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.997376，top1-top2 间隔 0.995827，归一化熵 0.018196，分支内部高度确定",
+    "WiFi 概率仅 0.001549，DVB-T 概率仅 0.001075，均被强烈压制",
+    "IQ 分支单独看高度支持 LTE 标签"
+  ],
+  "feature_probe_evidence": [
+    "feature-probe 分支 top1 为 WiFi，概率 0.999820，top1-top2 间隔 0.999639，归一化熵 0.001580，分支内部高度确定",
+    "LTE 概率仅 0.000180，DVB-T 概率约 5e-13，均被强烈压制",
+    "feature-probe 分支单独看高度支持 WiFi 标签",
+    "该分支的确定性建立在 64 维物理特征之上，而这些特征多为 OFDM 三类共享量，类别区分力有限"
+  ],
+  "physical_feature_evidence": [
+    "time_papr_db=12.92、time_envelope_cv=0.918、freq_global_spectral_entropy=0.9515、freq_normalized_occupied_bandwidth_90=0.837，属 LTE/WiFi/DVB-T 共享的宽带、类噪声、高 PAPR 现象，无类别区分力",
+    "time_frequency_stft_active_frame_ratio=0.677、stft_energy_transition_ratio=0.40、stft_frame_energy_cv=0.883，呈中等比例突发帧结构；LTE 与 WiFi 均为突发传输，该模式不能单独判定为 WiFi",
+    "freq_global_spectral_crest_factor=7.26 略有抬升，但按参考文档不能作为导频/TPS 检测证据",
+    "time_autocorrelation_peak_magnitude=0.453、峰滞后比 0.000244，自相关峰滞后过小，不足以作为 LTE 循环前缀的周期性判别依据"
+  ],
+  "conflicting_evidence": [
+    "IQ 分支强烈指向 LTE（0.9974），feature-probe 分支强烈指向 WiFi（0.9998），两分支方向完全相反且各自内部都高度确定，构成核心冲突",
+    "两分支置信度均未校准，不能比较概率数值大小、不能平均或加权，也没有固定阈值可裁决该冲突",
+    "物理特征以共享 OFDM 现象为主，突发帧结构在 LTE 与 WiFi 之间不具决定性区分力，无法消解上述分支冲突"
+  ],
+  "limitations": [
+    "两分支置信度未校准，不能对 LTE(0.9974) 与 WiFi(0.9998) 的数值大小直接比较或加权平均",
+    "64 维物理特征是 feature-probe 的输入，不构成第三个独立投票",
+    "宽带占用、高 PAPR、高谱熵、类噪声包络等共享 OFDM 现象不能单独作为改判依据",
+    "有效采样率 1MHz、4096 采样、4.096ms 为局部短窗，无法推断协议带宽或完整信道结构",
+    "在缺乏类别区分力证据消解分支正面冲突的情况下，只能 abstain，不推荐任何具体标签"
+  ]
+}

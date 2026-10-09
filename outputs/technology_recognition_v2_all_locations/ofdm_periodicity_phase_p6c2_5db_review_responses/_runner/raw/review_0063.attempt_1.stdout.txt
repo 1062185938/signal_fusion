@@ -1,0 +1,87 @@
+↻ Resumed session 20260923_103507_1b5d10 (6 user messages, 37 total messages)
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    I'll read the case file and its declared reference documents.
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    {
+      "analysis_id": "review_0063",
+      "recommendation_status": "recommend",
+      "recommended_label": "DVB-T",
+      "confidence_level": "low",
+      "summary": "三个 IQ 成员中，iq_member_1（0.9558）与 iq_member_2（0.9817）均以高置信度、且在各自两个窗口内完全一致地判 DVB-T；ensemble 以 DVB-T 0.8103 对 WiFi 0.1878、margin 0.6224 明显领先，归一化熵 0.4519 为本次所见最低，窗口层多数方向也是 DVB-T（窗口 0 三成员一致，窗口 1 两成员一致）。唯一异议成员 iq_member_3 自身前后窗口完全对立：窗口 0 判 DVB-T 0.9807、窗口 1 判 WiFi 0.9925，其 region 级 WiFi 0.5028 仅比 DVB-T 0.4934 高 0.0094，属两个相反窗口均值相抵后的临界残留。综合成员多数、ensemble 与窗口多数三方方向一致，倾向 DVB-T 建议；但周期门控因成员投票含 WiFi 而越界（eligible=false），本 case 缺少适用范围有效的物理交叉验证，且无法在仅两个窗口内排除 region 内存在第二段结构，故置信度只取 low，该建议为非操作性参考。",
+      "model_evidence": [
+        "三成员 region Top1 不一致：iq_member_1 为 DVB-T（0.9558），iq_member_2 为 DVB-T（0.9817），iq_member_3 为 WiFi（0.5028，对 DVB-T 0.4934），unique_top1_labels 为 WiFi 与 DVB-T，触发 member_region_top1_disagreement。",
+        "ensemble 平均概率为 DVB-T 0.8103、WiFi 0.1878、LTE 0.0019，Top1-Top2 margin 为 0.6224，归一化熵 0.4519，方向明确偏向 DVB-T 且不确定性低于本批其他观测。",
+        "iq_member_1 与 iq_member_2 各自成员级一致性 2/2：前者的两窗口预测为 DVB-T 0.9977 与 0.9138，后者为 DVB-T 0.9934 与 0.9699，构成相互独立且稳定的 DVB-T 多数方向。",
+        "唯一异议成员 iq_member_3 成员级一致性为 1/2：窗口 0 判 DVB-T（0.9807），窗口 1 判 WiFi（0.9925），两个窗口方向完全相反，其 region 级 WiFi 0.5028 仅高出 DVB-T 0.4934 约 0.0094，判读极不稳定。",
+        "窗口层多数方向与 ensemble 一致：窗口 0 三个成员全部判 DVB-T，窗口 1 有两个成员判 DVB-T（0.9138、0.9699），仅 iq_member_3 在该窗口判 WiFi。",
+        "LTE 在 ensemble 仅 0.0019（三成员分别为 0.0013、0.0006、0.0038），模型层完全没有 LTE 方向的证据。",
+        "WiFi 的支持几乎全部来自 iq_member_3 的第二个窗口：iq_member_1 与 iq_member_2 对 WiFi 仅给 0.0429 与 0.0178。"
+      ],
+      "periodicity_evidence": [
+        "66.67 μs（LTE 候选）归一化相关为 0.0521；224 μs 为 0.0163、896 μs 为 0.0152，dvbt_score 取 0.0163，prediction_label 为 LTE，margin = |0.0521 − 0.0163| = 0.0358，高于冻结 reliability_margin 0.0215，故 reliable=true。",
+        "但 eligible=false（三个成员 Top1 中含 WiFi），按冻结口径 resolved=false、changed=false：WiFi 保护规则禁止用周期证据消解含 WiFi 的成员冲突，因此即使 margin 达门限，该预测也不可应用于本 case。",
+        "周期预测方向为 LTE，与 ensemble Top1（DVB-T）以及唯一异议成员（WiFi）都不同，属第三种方向；因门控越界，既不能据此否定 DVB-T，也不能据此支持 WiFi 或 LTE。",
+        "三个候选相关幅值处于 0.015–0.052 的弱相关量级，且两个 DVB-T 候选几乎相等（0.0163 对 0.0152），提示该侧在本观测下几乎没有可测的周期性结构。"
+      ],
+      "feature_evidence": [],
+      "conflicting_evidence": [
+        "成员层存在 WiFi 与 DVB-T 的 Top1 对立：iq_member_3 在窗口 1 以 0.9925 的高置信度判 WiFi，与 iq_member_1、iq_member_2 在同一窗口的 DVB-T 判读（0.9138、0.9699）直接冲突。",
+        "iq_member_3 自身前后窗口方向完全相反（0.9807 DVB-T 对 0.9925 WiFi），提示 region 内可能存在性质不同的片段；但仅有 2 个非重叠窗口，无法判定该变化的性质与边界。",
+        "周期门控越界（eligible=false），本 case 缺少在适用范围内可用的物理交叉验证；唯一可比的周期预测方向为 LTE，与模型层两个候选标签均不一致。",
+        "本 case 不含 global_feature_evidence，无法从 64 维特征获得独立的物理背景或类别区分信息来消解上述冲突。",
+        "三个成员源自同一输入且高度相关，2/3 的成员多数不能当作三次独立校准投票来加成。"
+      ],
+      "limitations": [
+        "4.096 ms / 1 MHz 只提供局部短时视图，region 内仅 2 个非重叠窗口；参考文档指出 region 可能整体落在一个 WiFi 包内或跨越包边界，仅凭本 case 无法判定。",
+        "不得重选候选周期、修改门限或重算门控；也不得利用周期预测绕过 WiFi 保护规则。",
+        "归一化相关值是测量值而非概率或置信度；门控越界只表示该物理分支在本 case 不适用，不代表任何类别成立或不成立。",
+        "不得由归一化占用带宽反推协议标准带宽，也不得据当前证据推断 WiFi 版本、LTE 链路方向、调制阶数或 DVB-T 模式。",
+        "相关峰与模型判定均受噪声、干扰、信道、频偏和有限样本影响；仅两个窗口的稳定性不足以确认突发边界或长期占空比。",
+        "本输入已被确定性系统拒绝，且缺少适用范围有效的物理交叉验证；本建议为非操作性参考，置信度上限仅为 low 或 medium，本次取 low。"
+      ]
+{
+  "analysis_id": "review_0063",
+  "recommendation_status": "recommend",
+  "recommended_label": "DVB-T",
+  "confidence_level": "low",
+  "summary": "三个 IQ 成员中，iq_member_1（0.9558）与 iq_member_2（0.9817）均以高置信度、且在各自两个窗口内完全一致地判 DVB-T；ensemble 以 DVB-T 0.8103 对 WiFi 0.1878、margin 0.6224 明显领先，归一化熵 0.4519 为本次所见最低，窗口层多数方向也是 DVB-T（窗口 0 三成员一致，窗口 1 两成员一致）。唯一异议成员 iq_member_3 自身前后窗口完全对立：窗口 0 判 DVB-T 0.9807、窗口 1 判 WiFi 0.9925，其 region 级 WiFi 0.5028 仅比 DVB-T 0.4934 高 0.0094，属两个相反窗口均值相抵后的临界残留。综合成员多数、ensemble 与窗口多数三方方向一致，倾向 DVB-T 建议；但周期门控因成员投票含 WiFi 而越界（eligible=false），本 case 缺少适用范围有效的物理交叉验证，且无法在仅两个窗口内排除 region 内存在第二段结构，故置信度只取 low，该建议为非操作性参考。",
+  "model_evidence": [
+    "三成员 region Top1 不一致：iq_member_1 为 DVB-T（0.9558），iq_member_2 为 DVB-T（0.9817），iq_member_3 为 WiFi（0.5028，对 DVB-T 0.4934），unique_top1_labels 为 WiFi 与 DVB-T，触发 member_region_top1_disagreement。",
+    "ensemble 平均概率为 DVB-T 0.8103、WiFi 0.1878、LTE 0.0019，Top1-Top2 margin 为 0.6224，归一化熵 0.4519，方向明确偏向 DVB-T 且不确定性低于本批其他观测。",
+    "iq_member_1 与 iq_member_2 各自成员级一致性 2/2：前者的两窗口预测为 DVB-T 0.9977 与 0.9138，后者为 DVB-T 0.9934 与 0.9699，构成相互独立且稳定的 DVB-T 多数方向。",
+    "唯一异议成员 iq_member_3 成员级一致性为 1/2：窗口 0 判 DVB-T（0.9807），窗口 1 判 WiFi（0.9925），两个窗口方向完全相反，其 region 级 WiFi 0.5028 仅高出 DVB-T 0.4934 约 0.0094，判读极不稳定。",
+    "窗口层多数方向与 ensemble 一致：窗口 0 三个成员全部判 DVB-T，窗口 1 有两个成员判 DVB-T（0.9138、0.9699），仅 iq_member_3 在该窗口判 WiFi。",
+    "LTE 在 ensemble 仅 0.0019（三成员分别为 0.0013、0.0006、0.0038），模型层完全没有 LTE 方向的证据。",
+    "WiFi 的支持几乎全部来自 iq_member_3 的第二个窗口：iq_member_1 与 iq_member_2 对 WiFi 仅给 0.0429 与 0.0178。"
+  ],
+  "periodicity_evidence": [
+    "66.67 μs（LTE 候选）归一化相关为 0.0521；224 μs 为 0.0163、896 μs 为 0.0152，dvbt_score 取 0.0163，prediction_label 为 LTE，margin = |0.0521 − 0.0163| = 0.0358，高于冻结 reliability_margin 0.0215，故 reliable=true。",
+    "但 eligible=false（三个成员 Top1 中含 WiFi），按冻结口径 resolved=false、changed=false：WiFi 保护规则禁止用周期证据消解含 WiFi 的成员冲突，因此即使 margin 达门限，该预测也不可应用于本 case。",
+    "周期预测方向为 LTE，与 ensemble Top1（DVB-T）以及唯一异议成员（WiFi）都不同，属第三种方向；因门控越界，既不能据此否定 DVB-T，也不能据此支持 WiFi 或 LTE。",
+    "三个候选相关幅值处于 0.015–0.052 的弱相关量级，且两个 DVB-T 候选几乎相等（0.0163 对 0.0152），提示该侧在本观测下几乎没有可测的周期性结构。"
+  ],
+  "feature_evidence": [],
+  "conflicting_evidence": [
+    "成员层存在 WiFi 与 DVB-T 的 Top1 对立：iq_member_3 在窗口 1 以 0.9925 的高置信度判 WiFi，与 iq_member_1、iq_member_2 在同一窗口的 DVB-T 判读（0.9138、0.9699）直接冲突。",
+    "iq_member_3 自身前后窗口方向完全相反（0.9807 DVB-T 对 0.9925 WiFi），提示 region 内可能存在性质不同的片段；但仅有 2 个非重叠窗口，无法判定该变化的性质与边界。",
+    "周期门控越界（eligible=false），本 case 缺少在适用范围内可用的物理交叉验证；唯一可比的周期预测方向为 LTE，与模型层两个候选标签均不一致。",
+    "本 case 不含 global_feature_evidence，无法从 64 维特征获得独立的物理背景或类别区分信息来消解上述冲突。",
+    "三个成员源自同一输入且高度相关，2/3 的成员多数不能当作三次独立校准投票来加成。"
+  ],
+  "limitations": [
+    "4.096 ms / 1 MHz 只提供局部短时视图，region 内仅 2 个非重叠窗口；参考文档指出 region 可能整体落在一个 WiFi 包内或跨越包边界，仅凭本 case 无法判定。",
+    "不得重选候选周期、修改门限或重算门控；也不得利用周期预测绕过 WiFi 保护规则。",
+    "归一化相关值是测量值而非概率或置信度；门控越界只表示该物理分支在本 case 不适用，不代表任何类别成立或不成立。",
+    "不得由归一化占用带宽反推协议标准带宽，也不得据当前证据推断 WiFi 版本、LTE 链路方向、调制阶数或 DVB-T 模式。",
+    "相关峰与模型判定均受噪声、干扰、信道、频偏和有限样本影响；仅两个窗口的稳定性不足以确认突发边界或长期占空比。",
+    "本输入已被确定性系统拒绝，且缺少适用范围有效的物理交叉验证；本建议为非操作性参考，置信度上限仅为 low 或 medium，本次取 low。"
+  ]
+}
+
+session_id: 20260923_103507_1b5d10

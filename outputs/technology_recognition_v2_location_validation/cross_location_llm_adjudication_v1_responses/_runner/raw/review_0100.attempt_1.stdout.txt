@@ -1,0 +1,10 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0100", "decision": "abstain", "recommended_label": null, "confidence_level": "low", "summary": "两分支呈高置信直接对立：IQ 分支强投 WiFi（0.8977，margin 0.7979，熵 0.3116），feature-probe 分支强投 DVB-T（0.9380，margin 0.8805，熵 0.2262），且各自次位概率都极低。64 维物理特征仅呈现连续稳定占用与宽带、类噪声、高 PAPR、近高斯幅度等三类共享的 OFDM 现象，未测量到 DVB-T 导频/TPS/载波间隔/保护间隔或 WiFi 前导/包边界等具有类别区分力的协议结构。持续稳定占用与 DVB-T 广播型倾向相容，但参考文档明确指出 region 可能完全落在单个 WiFi 包内，不能据此排除 WiFi。冲突无法由现有证据消解，故弃权。", "iq_evidence": ["IQ 分支 top1 为 WiFi，概率 0.8977，top1-top2 margin 0.7979，归一化熵 0.3116，呈高置信、低熵。", "次位为 DVB-T（0.0997），LTE 极低（0.0026），分布集中且单一。"], "feature_probe_evidence": ["feature-probe 分支 top1 为 DVB-T，概率 0.9380，top1-top2 margin 0.8805，归一化熵 0.2262，呈高置信、低熵。", "次位为 LTE（0.0575），WiFi 极低（0.0045）。", "其 top1 与 IQ 分支的 top1（WiFi）完全相反，构成分支间直接对立。"], "physical_feature_evidence": ["STFT 活动帧比例 1.0、能量状态跃迁比例 0.0、帧能量 CV 0.101，显示 region 内连续且稳定的能量占用。", "90% 归一化占用带宽 0.8176、全局频谱熵 0.9686、频谱平坦度 0.7644、PAPR 9.77 dB、幅度熵 0.783、幅度峰度 3.22（近高斯），均为多载波/宽带/类噪声的共享现象，不具类别区分力。", "频谱峰值因子 10.83 不能据此宣称检测到导频；差分相位标准差 1.607 属多载波、噪声、频偏均可产生的非区分性现象。", "64 维特征未显式测量 DVB-T 导频/TPS/载波间隔/保护间隔，也未测量 WiFi 前导/包边界，故未获得指向任一类的判别性协议结构。"], "conflicting_evidence": ["两分支 top1 直接对立：IQ=WiFi（高置信）与 feature-probe=DVB-T（高置信），且各自次位都极低，无法用一方覆盖另一方。", "持续稳定占用与 DVB-T 的广播型倾向相容，但参考文档指出 region 可能落在单个 WiFi 包内，同样与 WiFi 相容，不能单独消解冲突。", "其余物理量均为三类共享的 OFDM 现象，不构成指向任一类的成组、区分性冲突证据。"], "limitations": ["IQ 与 feature-probe 两分支置信度未校准，本裁决不比较其原始概率数值大小，也不对其做平均、加权或固定 if/else 阈值判定。", "64 维物理特征是 feature-probe 的输入，不是第三个独立投票；宽带、类噪声、高 PAPR、高熵/高平坦度等共享现象不单独作为改判依据。", "4.096 ms / 1 MHz 局部视图不足以恢复帧级/协议级结构，当前 64 维特征未测量 DVB-T 或 WiFi 的判别性协议成分。", "分支间高置信冲突无法由现有物理证据消解，缺乏多项相干且具有类别区分力的证据，故选择弃权而非改判。"]}
+
+session_id: 20260924_110925_ee7ed4

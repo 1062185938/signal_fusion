@@ -1,0 +1,9 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+{"analysis_id": "review_0172","decision":"abstain","recommended_label":null,"confidence_level":"low","summary":"IQ 分支以接近满置信给出 LTE（0.9994），64 维 feature-probe 分支则以高置信给出 DVB-T（0.9859），两者为直接的 LTE 对 DVB-T 头对头冲突，且都高度自信。可用的 64 维物理特征仅呈现连续稳定占用与三类 OFDM 共享的宽带、类噪声、高 PAPR 等共同现象，缺乏能区分 LTE 与 DVB-T 的相干类别证据，冲突无法消解，故弃权。","iq_evidence":["IQ 分支 Top1 为 LTE，概率 0.9994，Top1-Top2 间隔 0.9989，归一化熵 0.005，几乎满置信。","DVB-T 与 WiFi 概率均低于 0.001，IQ 分支对 LTE 无实质性分歧。"],"feature_probe_evidence":["feature-probe 分支 Top1 为 DVB-T，概率 0.9859，Top1-Top2 间隔 0.9738，归一化熵 0.0729，同样高度自信。","该分支对 DVB-T 的强置信建立在共享 OFDM 物理特征之上，其数值本身未经校准，不能直接压制 IQ 分支的 LTE 判断。"],"physical_feature_evidence":["stft_active_frame_ratio=1.0、stft_energy_transition_ratio=0.0、stft_frame_energy_cv≈0.19，表现为连续、无突变的稳定占用，这与 DVB-T 连续广播相容，但也与 LTE 连续传输相容，非判别性。","freq_normalized_occupied_bandwidth_90≈0.86、spectral_entropy≈0.988、spectral_flatness≈0.897、time_papr_db≈9.97，属 LTE/WiFi/DVB-T 共享的宽带、类噪声、高 PAPR 现象，按规则不能单独作为改判依据。","freq_global_spectral_crest_factor≈3.32、time_autocorrelation_peak_magnitude≈0.082，未见明显导频峰或强周期性结构，无法据此确认某一协议。"],"conflicting_evidence":["IQ 分支（LTE，近满置信）与 feature-probe 分支（DVB-T，高置信）在标签上直接对立，且双方置信都高，构成无法用未校准置信度大小裁决的冲突。","物理特征中的稳定占用同时兼容 LTE 与 DVB-T，不能打破该冲突。"],"limitations":["两分支置信度未校准，禁止按数值大小、平均、加权或固定阈值裁决。","64 维物理特征即 probe 的输入，非第三独立投票，不可重复计数。","本窗为 1 MHz、4096 样本、4.096 ms 的局部片段，归一化占用带宽不能用于推断协议标准带宽。","当前证据既未给出支持 LTE 的相干判别特征，也未给出支持 DVB-T 的相干判别特征，冲突无法消解。"]}
+
+session_id: 20260924_110925_ee7ed4

@@ -1,0 +1,97 @@
+---
+name: signal-fusion-review-experiment
+description: Blindly adjudicate one LTE/WiFi/DVB-T case where an IQ classifier and a 64-feature probe disagree. Use for the cross-location A/B review experiment only, not for training, evidence generation, production inference, or audit evaluation.
+---
+
+# Signal Fusion Review Experiment
+
+Analyze exactly one disagreement case. Decide whether to keep the IQ branch,
+change to another supplied class, or abstain. This is an experimental decision,
+not a production rule.
+
+## Blind boundary
+
+Accept exactly one schema-version-2 JSON file with:
+
+- `bundle_type=signal_fusion_cross_location_review_input`;
+- `evidence_type=blind_iq_feature_disagreement_adjudication`;
+- an opaque `analysis_id` matching `review_<digits>` and the filename;
+- one `iq_branch` and one `feature_probe_branch` whose Top1 labels differ.
+
+Read only that case and the files listed in `reference_document_paths`. Do not
+inspect sibling cases, private audit files, datasets, outputs, provenance,
+command history, or previous answers. Reject input that exposes ground truth,
+correctness, selection cohort, source identity, location, fold, receiver gain,
+center frequency, hidden noise settings, or an existing fused decision.
+
+## Evidence variants
+
+Both variants contain:
+
+- IQ-branch Top3 probabilities and uncertainty summaries;
+- feature-probe Top3 probabilities and uncertainty summaries;
+- the LTE/WiFi/DVB-T technology reference.
+
+One variant additionally contains `physical_feature_evidence`: exactly 64 named
+features from one complete region, plus the three feature-definition documents.
+Treat these values as physical context for the feature probe, not as a third
+independent vote. Inspect the complete vector, but cite only material,
+document-supported observations. If the field is absent, return an empty
+`physical_feature_evidence` list and do not speculate about missing values.
+
+Do not infer which A/B set the case belongs to or compare it with another case.
+
+## Reasoning rules
+
+The two branch outputs are not calibrated against each other. Do not compare
+their raw confidence magnitudes as if they shared a common scale, average their
+probabilities, invent fusion weights, or create class-specific thresholds and
+if/else rules.
+
+Judge whether the available evidence gives a coherent reason to retain or
+overturn the IQ label:
+
+- `keep` when the IQ label remains better supported;
+- `change` only when multiple mutually consistent observations support a
+  different supplied class strongly enough to overturn the IQ label;
+- `abstain` when evidence is ambiguous, conflicting, or non-discriminative.
+
+Shared OFDM traits such as high PAPR, broad occupancy, high spectral entropy,
+or noise-like envelopes do not by themselves distinguish LTE, WiFi, and DVB-T.
+Do not claim protocol synchronization, standard channel bandwidth, or a
+protocol-specific structure unless it was actually measured. Never force a
+label merely to complete the experiment. Because every input is a branch
+conflict, confidence may be `medium` or `low`, never `high`.
+
+## Output contract
+
+Return exactly one JSON object in the user's language:
+
+```json
+{
+  "analysis_id": "review_0001",
+  "decision": "keep | change | abstain",
+  "recommended_label": "LTE | WiFi | DVB-T | null",
+  "confidence_level": "medium | low",
+  "summary": "concise blind adjudication or reason for abstention",
+  "iq_evidence": [],
+  "feature_probe_evidence": [],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [],
+  "limitations": []
+}
+```
+
+The relationships are strict:
+
+- `keep`: `recommended_label` equals `iq_branch.top1.label`;
+- `change`: `recommended_label` is a valid supplied class and differs from the
+  IQ Top1 label;
+- `abstain`: `recommended_label=null` and `confidence_level=low`.
+
+For a case without the raw 64-dimensional vector,
+`physical_feature_evidence` must be empty. Do not reveal reference paths.
+
+Once returned, the answer is frozen. Only the separate evaluator may join it
+with private truth and selection metadata. Never revise the blind response after
+hidden information becomes known.

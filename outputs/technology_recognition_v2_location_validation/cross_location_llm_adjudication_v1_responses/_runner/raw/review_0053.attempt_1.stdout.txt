@@ -1,0 +1,62 @@
+↻ Resumed session 20260924_110925_ee7ed4 (5 user messages, 24 total messages)
+  ┊ 📖 preparing read_file…
+  ⚠ context ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100% to compaction  64k threshold (50%) · compaction approaching
+  ⟳ compacting context…
+  ┊ 📖 preparing read_file…
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    两个分支都高度自信但指向相反标签（IQ→LTE 0.999，探针→DVB-T 0.986），且 case 未提供任何原始 64 维物理特征，缺少独立类别区分证据来消解这一强对立，冲突无法消解。
+    
+    {
+      "analysis_id": "review_0053",
+      "decision": "abstain",
+      "recommended_label": null,
+      "confidence_level": "low",
+      "summary": "IQ 分支与 64 维探针分支分别以极高置信度指向 LTE 与 DVB-T，两者高度自信但方向相反，构成强对立；case 未提供任何原始 64 维物理特征，缺少可独立区分类别的相干证据来消解冲突，故弃权。",
+      "iq_evidence": [
+        "IQ 分支 top1 为 LTE，概率 0.99937，top1-top2 间隔 0.99886，归一化熵 0.00504，对 LTE 极度自信",
+        "DVB-T 与 WiFi 概率均低于 0.001，IQ 分支基本不存在多类竞争"
+      ],
+      "feature_probe_evidence": [
+        "64 维探针分支 top1 为 DVB-T，概率 0.98588，top1-top2 间隔 0.97384，归一化熵 0.07292，对 DVB-T 高度自信",
+        "LTE 概率仅 0.01204，WiFi 0.00209，探针分支同样基本无多类竞争"
+      ],
+      "physical_feature_evidence": [],
+      "conflicting_evidence": [
+        "IQ 分支强烈支持 LTE，而探针分支强烈支持 DVB-T，两分支各自高置信却指向不同类别，属实质性头对头冲突",
+        "两分支置信度未经校准，禁止比较概率大小或加权，无法用数值消解冲突"
+      ],
+      "limitations": [
+        "case 未包含原始 64 维物理特征，无法用独立的类别区分特征裁决 IQ 与探针的对立",
+        "IQ 与探针置信度未校准，不能以概率高者为准，也不能对两分支概率做平均或固定阈值裁决",
+        "缺少 LTE 同步/参考信号、DVB-T 导频/TPS 等协议结构测量，无法在 LTE 与 DVB-T 之间提供决定性物理区分"
+      ]
+两个分支都高度自信但指向相反标签（IQ→LTE 0.999，探针→DVB-T 0.986），且 case 未提供任何原始 64 维物理特征，缺少独立类别区分证据来消解这一强对立，冲突无法消解。
+
+{
+  "analysis_id": "review_0053",
+  "decision": "abstain",
+  "recommended_label": null,
+  "confidence_level": "low",
+  "summary": "IQ 分支与 64 维探针分支分别以极高置信度指向 LTE 与 DVB-T，两者高度自信但方向相反，构成强对立；case 未提供任何原始 64 维物理特征，缺少可独立区分类别的相干证据来消解冲突，故弃权。",
+  "iq_evidence": [
+    "IQ 分支 top1 为 LTE，概率 0.99937，top1-top2 间隔 0.99886，归一化熵 0.00504，对 LTE 极度自信",
+    "DVB-T 与 WiFi 概率均低于 0.001，IQ 分支基本不存在多类竞争"
+  ],
+  "feature_probe_evidence": [
+    "64 维探针分支 top1 为 DVB-T，概率 0.98588，top1-top2 间隔 0.97384，归一化熵 0.07292，对 DVB-T 高度自信",
+    "LTE 概率仅 0.01204，WiFi 0.00209，探针分支同样基本无多类竞争"
+  ],
+  "physical_feature_evidence": [],
+  "conflicting_evidence": [
+    "IQ 分支强烈支持 LTE，而探针分支强烈支持 DVB-T，两分支各自高置信却指向不同类别，属实质性头对头冲突",
+    "两分支置信度未经校准，禁止比较概率大小或加权，无法用数值消解冲突"
+  ],
+  "limitations": [
+    "case 未包含原始 64 维物理特征，无法用独立的类别区分特征裁决 IQ 与探针的对立",
+    "IQ 与探针置信度未校准，不能以概率高者为准，也不能对两分支概率做平均或固定阈值裁决",
+    "缺少 LTE 同步/参考信号、DVB-T 导频/TPS 等协议结构测量，无法在 LTE 与 DVB-T 之间提供决定性物理区分"
+  ]
+}
+
+session_id: 20260924_110925_ee7ed4
